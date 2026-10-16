@@ -59,6 +59,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">We are Limen, a creative studio at the threshold of science, technology and art. Every discovery begins as noise. Limen is Latin for threshold: the point where a signal becomes detectable. We bring your science across that threshold. We come from different worlds: art, science, design and technology.</h1>
 <div style="position: sticky; top: 0; height: 100vh; overflow: hidden">
 <video ref="${v.refVid}" src="lens.mp4" muted="${true}" autoPlay="${true}" loop="${true}" playsInline="${true}" preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 2px; height: 2px; opacity: 0; pointer-events: none"></video>
+<video ref="${v.refVid2}" src="studio.mp4" muted="${true}" autoPlay="${true}" loop="${true}" playsInline="${true}" preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 2px; height: 2px; opacity: 0; pointer-events: none"></video>
 <canvas ref="${v.refStory}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: ${v.fadeGrad}"></div>
 <header ref="${v.refLogo}" style="transition: opacity .35s ease; position: relative; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
@@ -806,6 +807,17 @@ class Component extends DCLogic {
         ctx.fillStyle = rgba('#B23A3A', 0.9);
         if (lightTop > 2 && lightTop < h - 2) ctx.fillRect(0, lightTop - 1, w, 2);
         if (dTop > 2 && dTop < h - 2) ctx.fillRect(0, dTop - 1, w, 2);
+      }
+      // opening footage: the studio slide sits on film, which gives way as the noise arrives
+      var fa = 1 - sstep(0.25, 0.7, pg), bv = ix.bg;
+      if (fa > 0.01 && bv && bv.readyState >= 2 && bv.videoWidth) {
+        var vw = bv.videoWidth, vh2 = bv.videoHeight, vs = Math.max(w / vw, h / vh2), dw = vw * vs, dh = vh2 * vs, fx = mobile ? 0.62 : 0.5;
+        var vdx = Math.min(0, Math.max(w - dw, w / 2 - dw * fx));
+        ctx.save(); ctx.globalAlpha = fa; ctx.drawImage(bv, vdx, (h - dh) / 2, dw, dh);
+        ctx.fillStyle = 'rgba(15,13,14,0.42)'; ctx.fillRect(0, 0, w, h);
+        var vg = ctx.createLinearGradient(0, h * 0.35, 0, h); vg.addColorStop(0, 'rgba(15,13,14,0)'); vg.addColorStop(1, 'rgba(15,13,14,0.85)'); ctx.fillStyle = vg; ctx.fillRect(0, h * 0.35, w, h * 0.65);
+        if (!mobile) { var hg = ctx.createLinearGradient(0, 0, w * 0.7, 0); hg.addColorStop(0, 'rgba(15,13,14,0.55)'); hg.addColorStop(1, 'rgba(15,13,14,0)'); ctx.fillStyle = hg; ctx.fillRect(0, 0, w * 0.7, h); }
+        ctx.restore();
       }
       // measurement grid, in a mid tone that reads on both grounds
       var gs = mobile ? 48 : 80;
@@ -2057,7 +2069,7 @@ class Component extends DCLogic {
     this.cvs = {};
     const self = this;
     const mkRef = (k) => (el) => { self.cvs[k] = el; };
-    this._refs = { story: mkRef('story'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, logo: (el) => { self.logoEl = el; }, vid: (el) => { self.vid = el; if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
+    this._refs = { story: mkRef('story'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, logo: (el) => { self.logoEl = el; }, vid2: (el) => { self.vid2 = el; if (el) { el.muted = true; const pr2 = el.play && el.play(); if (pr2 && pr2.catch) pr2.catch(() => {}); } }, vid: (el) => { self.vid = el; if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
     return this._refs;
   }
 
@@ -2122,7 +2134,7 @@ class Component extends DCLogic {
           ix.mx = m && m.in ? m.x - r.left : -1; ix.my = m && m.in ? m.y - r.top : -1;
           const target = ix.mx >= 0 ? ix.mx : -1;
           ix.sigX = target < 0 ? (ix.sigX < 0 ? -1 : ix.sigX) : (ix.sigX < 0 ? target : ix.sigX + (target - ix.sigX) * 0.08);
-          ix.pings = (this.pings || []).filter((q) => now - q.t0 < 2); ix.noSig = noSig; ix.qClose = qClose;
+          ix.pings = (this.pings || []).filter((q) => now - q.t0 < 2); ix.noSig = noSig; ix.qClose = qClose; ix.bg = this.vid2;
           this.pings = ix.pings;
           A.story(ctx, r.width, r.height, still ? 4 : now, pgv, this.vid, ix);
           const th = A.storyTheme(pgv); const dark = !(th.lightTop < 0.75 && th.dTop > 0.75);
@@ -2220,7 +2232,7 @@ class Component extends DCLogic {
     return {
       refRevS: refs.revS, refRevG: refs.revG, refRevA: refs.revA, refRevC: refs.revC,
       revS: seen.S ? 'is-in' : '', revG: seen.G ? 'is-in' : '', revA: seen.A ? 'is-in' : '', revC: seen.C ? 'is-in' : '',
-      refLogo: refs.logo, refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
+      refLogo: refs.logo, refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refVid2: refs.vid2, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
       segs: segs,
       chLabel: c.label,
       chSub: c.sub,
