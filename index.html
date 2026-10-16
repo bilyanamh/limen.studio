@@ -652,6 +652,21 @@ class Component extends DCLogic {
           // ART: a fresco, drifting slowly, graded into the palette
           ctx.fillStyle = '#1A1512'; ctx.fillRect(x0, y0, qw, qh);
           if (ARTIMG && ARTIMG.complete && ARTIMG.naturalWidth) {
+            // slow camera: eased push-in while it travels down through the fresco, then back up
+            var iw = ARTIMG.naturalWidth, ih = ARTIMG.naturalHeight, base = Math.max(qw / iw, qh / ih);
+            var cyc = (t % 48) / 48, ez = 0.5 - 0.5 * Math.cos(cyc * 6.2832);
+            var sc = base * (1.06 + 0.1 * ez), dw = iw * sc, dh = ih * sc;
+            var fx = 0.5 + 0.06 * Math.sin(t * 0.021), fy = 0.18 + 0.64 * ez;
+            var dx9 = x0 + qw / 2 - dw * fx, dy9 = y0 + qh / 2 - dh * fy;
+            dx9 = Math.min(x0, Math.max(x0 + qw - dw, dx9)); dy9 = Math.min(y0, Math.max(y0 + qh - dh, dy9));
+            ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(ARTIMG, dx9, dy9, dw, dh);
+            // light moving through the clouds
+            var lx = x0 + qw * (0.5 + 0.42 * Math.sin(t * 0.06)), ly = y0 + qh * (0.35 + 0.2 * Math.cos(t * 0.045)), lr = Math.max(qw, qh) * 0.6;
+            var lg = ctx.createRadialGradient(lx, ly, 0, lx, ly, lr); lg.addColorStop(0, 'rgba(255,236,210,0.16)'); lg.addColorStop(1, 'rgba(255,236,210,0)');
+            ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = lg; ctx.fillRect(x0, y0, qw, qh); ctx.globalCompositeOperation = 'source-over';
+          }
+          if (false) {
             var iw = ARTIMG.naturalWidth, ih = ARTIMG.naturalHeight, sc = Math.max(qw / iw, qh / ih) * 1.12, dw = iw * sc, dh = ih * sc;
             var pan = 0.5 + 0.5 * Math.sin(t * 0.035), dx9 = x0 + (qw - dw) / 2 + Math.sin(t * 0.05) * qw * 0.02, dy9 = y0 - (dh - qh) * pan;
             ctx.drawImage(ARTIMG, dx9, dy9, dw, dh);
