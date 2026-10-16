@@ -62,7 +62,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <canvas ref="${v.refStory}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: ${v.fadeGrad}"></div>
 <header style="position: relative; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
-<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #B23A3A; --b: #FFFFFF">.</span></a>
+<a href="#top" ref="${v.refLogo}" style="transition: opacity .35s ease; display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #B23A3A; --b: #FFFFFF">.</span></a>
 <nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
 <a href="#services" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">Services</a>
 <a href="#about" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">About</a>
@@ -635,6 +635,7 @@ class Component extends DCLogic {
         return c;
       });
     }
+    var ARTIMG = (typeof Image !== 'undefined') ? (function () { var im = new Image(); im.src = 'art.jpg'; return im; })() : null;
     function quads(ctx, w, h, t, e) {
       var qw = Math.ceil(w / 2), qh = Math.ceil(h / 2), cx = w / 2, cy = h / 2;
       var cross = sstep(0, 0.3, e);
@@ -648,18 +649,15 @@ class Component extends DCLogic {
         var ow = qw * open, oh = qh * open, rx = Q[q][0] ? cx : cx - ow, ry = Q[q][1] ? cy : cy - oh;
         ctx.save(); ctx.beginPath(); ctx.rect(rx, ry, ow, oh); ctx.clip();
         if (q === 0) {
-          // ART: ink blooming on paper, words drifting
-          ctx.fillStyle = '#F1EFEA'; ctx.fillRect(x0, y0, qw, qh);
-          ctx.globalCompositeOperation = 'multiply';
-          var b1 = inkBlob('#1E2B4A'), b2 = inkBlob('#6B1E26');
-          var bs = qh * (0.7 + 0.08 * Math.sin(t * 0.4));
-          ctx.globalAlpha = 0.92; ctx.drawImage(b1, x0 + qw * (0.52 + 0.04 * Math.sin(t * 0.21)) - bs / 2, y0 + qh * 0.62 - bs / 2, bs, bs);
-          ctx.globalAlpha = 0.35; ctx.drawImage(b2, x0 + qw * (0.3 + 0.05 * Math.cos(t * 0.17)) - bs * 0.35, y0 + qh * 0.5 - bs * 0.35, bs * 0.7, bs * 0.7);
-          ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
-          ctx.font = sans; ctx.fillStyle = '#16151A';
-          var words = [['gesture', 0.7, 0.3], ['pigment', 0.3, 0.4], ['intuition', 0.06, 0.56], ['form', 0.66, 0.66], ['mark', 0.36, 0.84]];
-          for (var wi = 0; wi < words.length; wi++) { var wwid = ctx.measureText(words[wi][0]).width, wx9 = Math.min(x0 + qw * words[wi][1], x0 + qw - wwid - 14); ctx.fillText(words[wi][0], wx9 + Math.sin(t * 0.3 + wi) * 4, y0 + qh * words[wi][2] + Math.cos(t * 0.25 + wi) * 3); }
-          ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 0.8; ctx.beginPath(); ctx.moveTo(x0 + qw * 0.25, y0 + qh * 0.62); ctx.lineTo(x0 + qw, y0 + qh * 0.72); ctx.stroke();
+          // ART: a fresco, drifting slowly, graded into the palette
+          ctx.fillStyle = '#1A1512'; ctx.fillRect(x0, y0, qw, qh);
+          if (ARTIMG && ARTIMG.complete && ARTIMG.naturalWidth) {
+            var iw = ARTIMG.naturalWidth, ih = ARTIMG.naturalHeight, sc = Math.max(qw / iw, qh / ih) * 1.12, dw = iw * sc, dh = ih * sc;
+            var pan = 0.5 + 0.5 * Math.sin(t * 0.035), dx9 = x0 + (qw - dw) / 2 + Math.sin(t * 0.05) * qw * 0.02, dy9 = y0 - (dh - qh) * pan;
+            ctx.drawImage(ARTIMG, dx9, dy9, dw, dh);
+          }
+          ctx.fillStyle = 'rgba(15,13,14,0.22)'; ctx.fillRect(x0, y0, qw, qh);
+          var ag9 = ctx.createLinearGradient(x0, y0, x0, y0 + qh * 0.4); ag9.addColorStop(0, 'rgba(15,13,14,0.55)'); ag9.addColorStop(1, 'rgba(15,13,14,0)'); ctx.fillStyle = ag9; ctx.fillRect(x0, y0, qw, qh * 0.4);
         } else if (q === 1) {
           // SCIENCE: a culture plate, colonies spreading with feathery edges
           ctx.fillStyle = '#F2F0EC'; ctx.fillRect(x0, y0, qw, qh);
@@ -708,7 +706,7 @@ class Component extends DCLogic {
           // coloured-pencil hatched form, boiling on twos
           var hx0 = x0 + qw * 0.66, hy0 = y0 + qh * 0.36, hrx = qw * 0.13, hry = qh * 0.24, Rh = rng(300 + (Math.floor(t * 12) % 2));
           ctx.lineCap = 'round';
-          for (var hs = 0; hs < 620; hs++) {
+          for (var hs = 0; hs < 380; hs++) {
             var hv = Rh() * 2 - 1, side = Rh() < 0.5 ? -1 : 1, hw = hrx * Math.pow(Math.max(0, 1 - hv * hv), 0.6) * (0.92 + 0.08 * Math.sin(t * 0.8 + hv * 3));
             var st0 = hw * Rh() * 0.25, len = hw * (0.45 + Rh() * 0.6), an = -0.25 * hv + (Rh() - 0.5) * 0.25;
             var px6 = hx0 + side * (3 + st0), py6 = hy0 + hv * hry;
@@ -717,24 +715,13 @@ class Component extends DCLogic {
           }
           ctx.strokeStyle = 'rgba(244,240,234,0.9)'; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(hx0, hy0 - hry * 0.95); ctx.lineTo(hx0 + Math.sin(t) * 1.2, hy0 + hry * 0.95); ctx.stroke();
           // proportion: a large figure with a quiet caption
-          var nfs = Math.round(Math.min(qh * 0.24, qw * 0.24)), nx = x0 + 22, nyb = y0 + qh - Math.max(22, qh * 0.07);
-          ctx.fillStyle = '#F3EEE7'; ctx.font = "300 " + nfs + "px 'Outfit', system-ui, sans-serif"; ctx.fillText('1.618', nx, nyb);
-          var nwid = ctx.measureText('1.618').width, cfs = Math.max(11, Math.round(qh * 0.032)), cl = Math.max(14, Math.round(qh * 0.045));
-          ctx.font = cfs + "px 'Outfit', system-ui, sans-serif";
-          var cw = Math.max(ctx.measureText('Proportion').width, ctx.measureText('composed, not decorated').width), cx7 = x0 + qw - 40 - cw, cy7 = nyb - cl - 12;
-          if (cx7 < nx + nwid + 20) { cx7 = nx; cy7 = nyb - nfs * 0.85 - cl - 8; }
-          ctx.fillStyle = '#F3EEE7'; ctx.fillText('Proportion', cx7, cy7);
-          ctx.fillStyle = '#A79C97'; ctx.fillText('composed, not decorated', cx7, cy7 + cl);
-          // crop marks
-          ctx.strokeStyle = 'rgba(215,195,174,0.5)'; ctx.lineWidth = 1; ctx.beginPath();
-          var cm = 10; ctx.moveTo(x0 + qw - 18, y0 + qh - 18 - cm); ctx.lineTo(x0 + qw - 18, y0 + qh - 18); ctx.lineTo(x0 + qw - 18 - cm, y0 + qh - 18); ctx.stroke();
         } else {
           // TECHNOLOGY: a cascade of phosphor terminal windows, each a live contour map
           ctx.fillStyle = '#030403'; ctx.fillRect(x0, y0, qw, qh);
-          var ws = Math.min(qw, qh) * 0.52, nW = 11, orbit = Math.min(qw, qh) * 0.17, ocx = x0 + qw * 0.56, ocy = y0 + qh * 0.56, cell = Math.max(3, Math.round(ws / 34));
+          var ws = Math.min(qw, qh) * 0.52, nW = 6, orbit = Math.min(qw, qh) * 0.17, ocx = x0 + qw * 0.56, ocy = y0 + qh * 0.56, cell = Math.max(3, Math.round(ws / 34));
           var G1 = '#A8D8B9', G2 = '#6A9E80', G3 = '#33503F';
           for (var wn = 0; wn < nW; wn++) {
-            var aa = t * 0.35 + wn * 0.42, wx2 = ocx + Math.cos(aa) * orbit * 1.3 - ws / 2, wy2 = ocy + Math.sin(aa) * orbit - ws / 2;
+            var aa = t * 0.16 + wn * 0.6, wx2 = ocx + Math.cos(aa) * orbit * 1.3 - ws / 2, wy2 = ocy + Math.sin(aa) * orbit - ws / 2;
             ctx.fillStyle = '#030403'; ctx.fillRect(wx2, wy2, ws, ws);
             var tb = Math.max(8, ws * 0.07);
             for (var gy5 = 0; gy5 < ws - tb; gy5 += cell) for (var gx5 = 0; gx5 < ws; gx5 += cell) {
@@ -752,11 +739,13 @@ class Component extends DCLogic {
           }
         }
         // quadrant word, top left, lowercase
-        var names = ['art', 'science', 'design', 'technology'], light = q === 0 || q === 1;
+        var names = ['art', 'science', 'design', 'technology'], light = q === 1;
         ctx.font = "300 " + Math.max(18, Math.round(qh * 0.075)) + "px 'Outfit', system-ui, sans-serif"; ctx.fillStyle = light ? '#16151A' : '#F1EFEA';
         ctx.fillText(names[q], x0 + 22, y0 + Math.max(40, qh * 0.12) + (q > 1 ? 70 : 0) * (q > 1 && h > 0 ? 0 : 0));
         ctx.restore();
       }
+      // a quiet band behind the heading
+      var sg = ctx.createLinearGradient(0, h * 0.3, 0, h); sg.addColorStop(0, 'rgba(15,13,14,0)'); sg.addColorStop(0.45, 'rgba(15,13,14,' + (0.5 * cross).toFixed(3) + ')'); sg.addColorStop(1, 'rgba(15,13,14,' + (0.62 * cross).toFixed(3) + ')'); ctx.fillStyle = sg; ctx.fillRect(0, h * 0.3, w, h * 0.7);
       reset(ctx);
       // grain + scratches over the whole plate
       var G = qGrain()[Math.floor(t * 12) % 4];
@@ -2030,7 +2019,7 @@ class Component extends DCLogic {
     this.cvs = {};
     const self = this;
     const mkRef = (k) => (el) => { self.cvs[k] = el; };
-    this._refs = { story: mkRef('story'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, vid: (el) => { self.vid = el; if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
+    this._refs = { story: mkRef('story'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, logo: (el) => { self.logoEl = el; }, vid: (el) => { self.vid = el; if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
     return this._refs;
   }
 
@@ -2076,6 +2065,7 @@ class Component extends DCLogic {
         let prog = -sr.top / span; prog = prog < 0 ? 0 : prog > 1 ? 1 : prog;
         const pg = prog * 4;
         const pgv = pg < 1 ? pg : pg < 2 ? 1 + 2 * (pg - 1) : pg + 1;
+        if (this.logoEl) { const hid = pgv > 4.2 && sr.bottom > vh * 0.55; if (this.logoEl.__hid !== hid) { this.logoEl.__hid = hid; this.logoEl.style.opacity = hid ? '0' : ''; this.logoEl.style.pointerEvents = hid ? 'none' : ''; } }
         const r = sc.getBoundingClientRect();
         const dpr = Math.min(window.devicePixelRatio || 1, 1.5), W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
         const resized = sc.width !== W || sc.height !== H;
@@ -2182,7 +2172,7 @@ class Component extends DCLogic {
     return {
       refRevS: refs.revS, refRevG: refs.revG, refRevA: refs.revA, refRevC: refs.revC,
       revS: seen.S ? 'is-in' : '', revG: seen.G ? 'is-in' : '', revA: seen.A ? 'is-in' : '', revC: seen.C ? 'is-in' : '',
-      refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
+      refLogo: refs.logo, refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
       segs: segs,
       chLabel: c.label,
       chSub: c.sub,
