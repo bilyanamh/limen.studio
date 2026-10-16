@@ -198,7 +198,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <a href="#contact" style="color: #141210">LinkedIn</a>
 <span>© 2026 Limen Studio</span>
 </div>
-<p aria-label="New ways of seeing" style="margin: 8px 0 0; font-weight: 300; font-size: clamp(52px, 10.5vw, 188px); line-height: 0.92; letter-spacing: -0.055em; color: #141210; text-wrap: balance"><span aria-hidden="true">New ways of <span class="lm-accw lm-split" style="--a: #6B1E26; --b: #C2483C"><span class="lm-w"><span class="lm-ch" style="--i: 0">s</span><span class="lm-ch" style="--i: 1">e</span><span class="lm-ch" style="--i: 2">e</span><span class="lm-ch" style="--i: 3">i</span><span class="lm-ch" style="--i: 4">n</span><span class="lm-ch" style="--i: 5">g</span></span></span></span></p>
+<p aria-label="Limen — new ways of seeing" style="margin: 8px 0 0; font-weight: 300; font-size: clamp(40px, 7vw, 124px); line-height: 0.92; letter-spacing: -0.055em; color: #141210; text-wrap: balance"><span aria-hidden="true">Limen — new ways of <span class="lm-accw lm-split" style="--a: #6B1E26; --b: #C2483C"><span class="lm-w"><span class="lm-ch" style="--i: 0">s</span><span class="lm-ch" style="--i: 1">e</span><span class="lm-ch" style="--i: 2">e</span><span class="lm-ch" style="--i: 3">i</span><span class="lm-ch" style="--i: 4">n</span><span class="lm-ch" style="--i: 5">g</span></span></span></span></p>
 </div>
 </section>
 
@@ -769,6 +769,22 @@ class Component extends DCLogic {
       // the cross that opened it
       ctx.fillStyle = '#0F0D0E'; ctx.fillRect(cx - 1.5, cy - (h / 2) * cross, 3, h * cross); ctx.fillRect(cx - (w / 2) * cross, cy - 1.5, w * cross, 3);
     }
+    // Noise, option C: a few soft particles drifting without order
+    var NOISEC = null;
+    function drawNoiseC(ctx, w, h, t, k, mobile, isDark) {
+      if (!NOISEC) { var R = rng(707); NOISEC = []; for (var i = 0; i < 28; i++) NOISEC.push({ x: R(), y: R(), a: R() * 6.28, s: 0.05 + R() * 0.09, r: 0.6 + R() * 1.4, ox: R() < 0.14 }); }
+      var top = mobile ? 0.1 : 0.06, span = mobile ? 0.44 : 0.5, unit = Math.min(w, h) * (mobile ? 0.014 : 0.011);
+      for (var i = 0; i < NOISEC.length; i++) {
+        var p = NOISEC[i];
+        var x = (p.x + Math.sin(t * p.s + p.a) * 0.1 + Math.sin(t * p.s * 0.37 + i) * 0.05) * w;
+        var y = (top + (p.y + Math.cos(t * p.s * 0.8 + p.a * 2) * 0.07) * span) * h;
+        var r = unit * p.r * (1 + 0.15 * Math.sin(t * 0.9 + i)), dk = isDark(x, y);
+        var col = p.ox ? (dk ? '214,82,74' : '107,30,38') : (dk ? '215,195,174' : '20,18,16');
+        var g = ctx.createRadialGradient(x, y, 0, x, y, r * 2.2);
+        g.addColorStop(0, 'rgba(' + col + ',' + (0.6 * k).toFixed(3) + ')'); g.addColorStop(0.45, 'rgba(' + col + ',' + (0.32 * k).toFixed(3) + ')'); g.addColorStop(1, 'rgba(' + col + ',0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 2.2, 0, 6.2832); ctx.fill();
+      }
+    }
     function story(ctx, w, h, t, pg, vid, ix) {
       ix = ix || { mx: -1, my: -1, pings: [], sigX: -1 };
       reset(ctx);
@@ -779,6 +795,9 @@ class Component extends DCLogic {
       var lcx = mobile ? w * 0.5 : w * 0.62, lcy = mobile ? h * 0.3 : h * 0.45, lr = mobile ? Math.min(w * 0.36, h * 0.2) : Math.min(w * 0.2, h * 0.28);
       var mono = "11px 'IBM Plex Mono', ui-monospace, monospace";
       var th = storyTheme(pg), lightTop = th.lightTop * h, dTop = th.dTop * h;
+      var calm = sstep(0.35, 0.85, pg) * (1 - sstep(1.35, 1.85, pg));
+      // the fine dots stay away from Noise until they can arrive already gathered into the lens
+      var hush = sstep(0.35, 0.85, pg) * (1 - sstep(2.55, 2.95, pg));
       function isDark(x, y) { return !(y >= lightTop && y < dTop); }
       // grounds: dark, light rising from the threshold (the lamp comes on), dark irising back from the lens
       ctx.fillStyle = DARK; ctx.fillRect(0, 0, w, h);
@@ -790,6 +809,7 @@ class Component extends DCLogic {
       }
       // measurement grid, in a mid tone that reads on both grounds
       var gs = mobile ? 48 : 80;
+      ctx.globalAlpha = mobile ? 0 : 1 - 0.8 * hush;
       ctx.strokeStyle = 'rgba(138,127,120,0.16)'; ctx.lineWidth = 1; ctx.beginPath();
       for (var gx = gs; gx < w; gx += gs) { ctx.moveTo(Math.round(gx) + 0.5, 0); ctx.lineTo(Math.round(gx) + 0.5, h); }
       for (var gy = gs; gy < h; gy += gs) { ctx.moveTo(0, Math.round(gy) + 0.5); ctx.lineTo(w, Math.round(gy) + 0.5); }
@@ -799,9 +819,10 @@ class Component extends DCLogic {
       ctx.strokeStyle = 'rgba(138,127,120,0.7)';
       var m = 18, L = 14, cs = [[m, m + 70, 1, 1], [w - m, m + 70, -1, 1], [m, h - m, 1, -1], [w - m, h - m, -1, -1]];
       for (var c = 0; c < 4; c++) { var X = cs[c][0], Y = cs[c][1]; ctx.beginPath(); ctx.moveTo(X, Y + L * cs[c][3]); ctx.lineTo(X, Y); ctx.lineTo(X + L * cs[c][2], Y); ctx.stroke(); }
+      ctx.globalAlpha = 1;
       // noise streaks
       var boil = e1 * (1 - e3);
-      if (boil > 0.05) {
+      if (boil > 0.05 && hush < 0.02) {
         var Rg = rng(300 + (step % 6)), ng = Math.floor(30 * boil);
         for (var q = 0; q < ng; q++) { var sx0 = Rg() * w, sy0 = Rg() * h; ctx.globalAlpha = 0.2 + Rg() * 0.4 * boil; ctx.fillStyle = Rg() < 0.25 ? '#B23A3A' : (isDark(sx0, sy0) ? SAND : INK); ctx.fillRect(sx0, sy0, 20 + Rg() * 140, 1 + Math.floor(Rg() * 2)); }
         ctx.globalAlpha = 1;
@@ -867,7 +888,7 @@ class Component extends DCLogic {
         for (var pi = 0; pi < ix.pings.length; pi++) { var pgg = ix.pings[pi], age = t - pgg.t0; if (age < 0 || age > 1.8) continue; var rr0 = age * Math.max(w, h) * 0.55, qx = x - pgg.x, qy = y - pgg.y, qd = Math.sqrt(qx * qx + qy * qy) + 0.001, band = Math.max(0, 1 - Math.abs(qd - rr0) / 26) * (1 - age / 1.8); if (band > 0) { x += qx / qd * 14 * band; y += qy / qd * 14 * band; probe = Math.max(probe, band); } }
         var flick = boil > 0.05 && hash2(i + 3, step) < 0.12 * boil && probe < 0.3 ? 0.15 : 1;
         var near = Math.max(0, 1 - Math.abs(y - scanY) / 40) * (1 - e3);
-        var a = (0.38 + 0.35 * e1 + 0.4 * near + 0.6 * probe) * flick * (1 - 0.5 * s3 * (p.r3 >= 0.4 ? 1 : 0)) * (1 - s4);
+        var a = (0.38 + 0.35 * e1 + 0.4 * near + 0.6 * probe) * flick * (1 - 0.5 * s3 * (p.r3 >= 0.4 ? 1 : 0)) * (1 - s4) * (1 - hush);
         if (a < 0.01) continue;
         var dk = isDark(x, y);
         ctx.globalAlpha = Math.min(1, a);
@@ -876,10 +897,11 @@ class Component extends DCLogic {
         ctx.fillRect(x - sz / 2, y - sz / 2, sz, sz);
       }
       ctx.globalAlpha = 1;
-      var sa = 0.5 * (1 - e3);
+      var sa = 0.5 * (1 - e3) * (1 - hush);
       if (sa > 0.02) { var gb = ctx.createLinearGradient(0, scanY - 30, 0, scanY); gb.addColorStop(0, 'rgba(178,58,58,0)'); gb.addColorStop(1, rgba('#B23A3A', 0.1 * sa * 2)); ctx.fillStyle = gb; ctx.fillRect(0, scanY - 30, w, 30); ctx.fillStyle = rgba('#B23A3A', sa); ctx.fillRect(0, scanY, w, 1); }
       // instrument readouts (step aside for the five panels)
-      if (pg > 4.4) { ctx.globalAlpha = 1; return; }
+      if (calm > 0.01) drawNoiseC(ctx, w, h, t, calm, mobile, isDark);
+      if (pg > 4.4 || mobile) { ctx.globalAlpha = 1; return; }
       var snr = lerp(-18, 24, clamp(pg / 4, 0, 1)) + Math.sin(t * 3.1) * (2.5 * boil + 0.3);
       var rx = w - (mobile ? 150 : 230), ry = 92, rdk = isDark(rx, ry);
       ctx.font = mono; ctx.fillStyle = rdk ? 'rgba(215,195,174,0.65)' : 'rgba(42,36,39,0.7)';
