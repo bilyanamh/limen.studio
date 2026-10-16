@@ -198,7 +198,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <a href="#contact" style="color: #141210">LinkedIn</a>
 <span>© 2026 Limen Studio</span>
 </div>
-<p aria-label="Limen, new ways of seeing" style="margin: 8px 0 0; white-space: nowrap; font-weight: 300; font-size: clamp(24px, 6.6vw, 118px); line-height: 0.92; letter-spacing: -0.055em; color: #141210; text-wrap: balance"><span aria-hidden="true">Limen · new ways of <span class="lm-accw lm-split" style="--a: #6B1E26; --b: #C2483C"><span class="lm-w"><span class="lm-ch" style="--i: 0">s</span><span class="lm-ch" style="--i: 1">e</span><span class="lm-ch" style="--i: 2">e</span><span class="lm-ch" style="--i: 3">i</span><span class="lm-ch" style="--i: 4">n</span><span class="lm-ch" style="--i: 5">g</span></span></span></span></p>
+<p aria-label="Limen, new ways of seeing" style="margin: 8px 0 0; white-space: nowrap; font-weight: 300; font-size: clamp(24px, 6.6vw, 118px); line-height: 0.92; letter-spacing: -0.055em; color: #141210; text-wrap: balance"><span aria-hidden="true">Limen<span style="display: inline-block; width: 0.16em; height: 0.16em; margin: 0 0.2em 0 0.24em; border-radius: 50%; background: #6B1E26; vertical-align: 0.3em"></span>new ways of <span class="lm-accw lm-split" style="--a: #6B1E26; --b: #C2483C"><span class="lm-w"><span class="lm-ch" style="--i: 0">s</span><span class="lm-ch" style="--i: 1">e</span><span class="lm-ch" style="--i: 2">e</span><span class="lm-ch" style="--i: 3">i</span><span class="lm-ch" style="--i: 4">n</span><span class="lm-ch" style="--i: 5">g</span></span></span></span></p>
 </div>
 </section>
 
@@ -2194,10 +2194,13 @@ class Component extends DCLogic {
     if (typeof IntersectionObserver === 'undefined') { els.forEach((e) => e.classList.add('is-in')); return; }
     this.riseIO = new IntersectionObserver((en) => { en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add('is-in'); this.riseIO.unobserve(x.target); } }); }, { threshold: 0.4 });
     els.forEach((e) => this.riseIO.observe(e));
+    this.riseScroll = () => { els.forEach((e) => { if (!e.classList.contains('is-in') && e.getBoundingClientRect().top < (window.innerHeight || 800) * 0.98) e.classList.add('is-in'); }); };
+    window.addEventListener('scroll', this.riseScroll, { passive: true, capture: true });
+    setTimeout(this.riseScroll, 600);
   }
 
   componentWillUnmount() {
-    if (this.riseIO) this.riseIO.disconnect(); if (this.io) this.io.disconnect(); if (this.raf) window.cancelAnimationFrame(this.raf); window.removeEventListener('pointermove', this.onMove); window.removeEventListener('pointerdown', this.onDown); }
+    if (this.riseIO) this.riseIO.disconnect(); if (this.riseScroll) window.removeEventListener('scroll', this.riseScroll, { capture: true }); if (this.io) this.io.disconnect(); if (this.raf) window.cancelAnimationFrame(this.raf); window.removeEventListener('pointermove', this.onMove); window.removeEventListener('pointerdown', this.onDown); }
 
   renderVals() {
     const refs = this.ensureRefs();
