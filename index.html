@@ -61,8 +61,8 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <video ref="${v.refVid}" src="lens.mp4" muted="${true}" autoPlay="${true}" loop="${true}" playsInline="${true}" preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 2px; height: 2px; opacity: 0; pointer-events: none"></video>
 <canvas ref="${v.refStory}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: ${v.fadeGrad}"></div>
-<header style="position: relative; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
-<a href="#top" ref="${v.refLogo}" style="transition: opacity .35s ease; display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #B23A3A; --b: #FFFFFF">.</span></a>
+<header ref="${v.refLogo}" style="transition: opacity .35s ease; position: relative; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
+<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #B23A3A; --b: #FFFFFF">.</span></a>
 <nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
 <a href="#services" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">Services</a>
 <a href="#about" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">About</a>
@@ -2080,7 +2080,7 @@ class Component extends DCLogic {
         let prog = -sr.top / span; prog = prog < 0 ? 0 : prog > 1 ? 1 : prog;
         const pg = prog * 4;
         const pgv = pg < 1 ? pg : pg < 2 ? 1 + 2 * (pg - 1) : pg + 1;
-        if (this.logoEl) { const hid = pgv > 4.2 && sr.bottom > vh * 0.55; if (this.logoEl.__hid !== hid) { this.logoEl.__hid = hid; this.logoEl.style.opacity = hid ? '0' : ''; this.logoEl.style.pointerEvents = hid ? 'none' : ''; } }
+        if (this.logoEl) { const hid = pgv > 4.15 && sr.bottom > 1; if (this.logoEl.__hid !== hid) { this.logoEl.__hid = hid; this.logoEl.style.opacity = hid ? '0' : ''; this.logoEl.style.pointerEvents = hid ? 'none' : ''; } }
         const r = sc.getBoundingClientRect();
         const dpr = Math.min(window.devicePixelRatio || 1, 1.5), W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
         const resized = sc.width !== W || sc.height !== H;
