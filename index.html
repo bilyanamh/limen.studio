@@ -59,7 +59,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">We are Limen, a creative studio at the threshold of science, technology and art. Every discovery begins as noise. Limen is Latin for threshold: the point where a signal becomes detectable. We bring your science across that threshold. We come from different worlds: art, science, design and technology.</h1>
 <div style="position: sticky; top: 0; height: 100vh; overflow: hidden">
 <video ref="${v.refVid}" src="lens.mp4" muted="${true}" autoPlay="${true}" loop="${true}" playsInline="${true}" preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 2px; height: 2px; opacity: 0; pointer-events: none"></video>
-<video ref="${v.refVid2}" src="studio.mp4" muted="${true}" autoPlay="${true}" loop="${true}" playsInline="${true}" preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 2px; height: 2px; opacity: 0; pointer-events: none"></video>
+<video ref="${v.refVid2}" src="studio.mp4" muted="${true}" autoPlay="${true}" loop="${true}" playsInline="${true}" preload="auto" aria-hidden="true" poster="studio.jpg" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none"></video>
 <canvas ref="${v.refStory}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: ${v.fadeGrad}"></div>
 <header ref="${v.refLogo}" style="transition: opacity .35s ease; position: relative; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
@@ -636,6 +636,7 @@ class Component extends DCLogic {
         return c;
       });
     }
+    var BGPOSTER = (typeof Image !== 'undefined') ? (function () { var im = new Image(); im.src = 'studio.jpg'; return im; })() : null;
     var ARTIMG = (typeof Image !== 'undefined') ? (function () { var im = new Image(); im.src = 'art.jpg'; return im; })() : null;
     function quads(ctx, w, h, t, e, noBg) {
       var qw = Math.ceil(w / 2), qh = Math.ceil(h / 2), cx = w / 2, cy = h / 2;
@@ -809,11 +810,11 @@ class Component extends DCLogic {
         if (dTop > 2 && dTop < h - 2) ctx.fillRect(0, dTop - 1, w, 2);
       }
       // opening footage: the studio slide sits on film, which gives way as the noise arrives
-      var fa = 1 - sstep(0.25, 0.7, pg), bv = ix.bg;
-      if (fa > 0.01 && bv && bv.readyState >= 2 && bv.videoWidth) {
-        var vw = bv.videoWidth, vh2 = bv.videoHeight, vs = Math.max(w / vw, h / vh2), dw = vw * vs, dh = vh2 * vs, fx = mobile ? 0.62 : 0.5;
+      var fa = 1 - sstep(0.25, 0.7, pg), bv = ix.bg, live = bv && bv.readyState >= 2 && bv.videoWidth, src0 = live ? bv : (BGPOSTER && BGPOSTER.complete && BGPOSTER.naturalWidth ? BGPOSTER : null);
+      if (fa > 0.01 && src0) {
+        var vw = live ? bv.videoWidth : src0.naturalWidth, vh2 = live ? bv.videoHeight : src0.naturalHeight, vs = Math.max(w / vw, h / vh2), dw = vw * vs, dh = vh2 * vs, fx = mobile ? 0.62 : 0.5;
         var vdx = Math.min(0, Math.max(w - dw, w / 2 - dw * fx));
-        ctx.save(); ctx.globalAlpha = fa; ctx.drawImage(bv, vdx, (h - dh) / 2, dw, dh);
+        ctx.save(); ctx.globalAlpha = fa; ctx.drawImage(src0, vdx, (h - dh) / 2, dw, dh);
         ctx.fillStyle = 'rgba(15,13,14,0.42)'; ctx.fillRect(0, 0, w, h);
         var vg = ctx.createLinearGradient(0, h * 0.35, 0, h); vg.addColorStop(0, 'rgba(15,13,14,0)'); vg.addColorStop(1, 'rgba(15,13,14,0.85)'); ctx.fillStyle = vg; ctx.fillRect(0, h * 0.35, w, h * 0.65);
         if (!mobile) { var hg = ctx.createLinearGradient(0, 0, w * 0.7, 0); hg.addColorStop(0, 'rgba(15,13,14,0.55)'); hg.addColorStop(1, 'rgba(15,13,14,0)'); ctx.fillStyle = hg; ctx.fillRect(0, 0, w * 0.7, h); }
@@ -878,7 +879,7 @@ class Component extends DCLogic {
       var QH = h * (mobile ? 0.5 : 0.54); // the four squares keep to the top; the words get the clean dark below
       if (ix.qClose > 0.01) { quads(ctx, w, QH, t, ix.qClose, true); ctx.globalAlpha = 1; }
       // four worlds, one screen
-      var e5 = sstep(4.25, 4.9, pg);
+      var e5 = sstep(4.2, 4.62, pg);
       if (e5 > 0.01) { quads(ctx, w, QH, t, e5); ctx.globalAlpha = 1; return; }
       // the sensor array
       var P = particles(), N = P.length, cols = Math.max(10, Math.round(Math.sqrt(N * w / h))), rows = Math.ceil(N / cols);
@@ -2070,8 +2071,17 @@ class Component extends DCLogic {
     this.cvs = {};
     const self = this;
     const mkRef = (k) => (el) => { self.cvs[k] = el; };
-    this._refs = { story: mkRef('story'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, logo: (el) => { self.logoEl = el; }, vid2: (el) => { self.vid2 = el; if (el) { el.muted = true; const pr2 = el.play && el.play(); if (pr2 && pr2.catch) pr2.catch(() => {}); } }, vid: (el) => { self.vid = el; if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
+    this._refs = { story: mkRef('story'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, logo: (el) => { self.logoEl = el; }, vid2: (el) => { self.vid2 = el; if (el) self.wake(el); }, vid: (el) => { self.vid = el; if (el) self.wake(el); if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
     return this._refs;
+  }
+
+  wake(el) {
+    // muted inline autoplay, set as attributes too (iOS checks them), retried on the first touch or scroll
+    el.muted = true; el.defaultMuted = true; el.playsInline = true;
+    el.setAttribute('muted', ''); el.setAttribute('playsinline', ''); el.setAttribute('webkit-playsinline', ''); el.setAttribute('autoplay', '');
+    const go = () => { const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); };
+    go(); el.addEventListener('canplay', go, { once: true });
+    if (!this._woke) { this._woke = true; const again = () => { [this.vid, this.vid2].forEach((v) => { if (v && v.paused) { const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); } }); }; ['touchstart', 'pointerdown', 'scroll', 'visibilitychange'].forEach((ev) => window.addEventListener(ev, again, { passive: true, capture: true })); }
   }
 
   chapters() {
@@ -2079,8 +2089,8 @@ class Component extends DCLogic {
       { label: '00 · Studio', segs: [['We are Limen, a creative studio at the threshold of ', 0], ['science, technology and art', 1]], sub: 'For MedTech, biotech and the life sciences.' },
       { label: '01 · Noise', segs: [['Every discovery begins as ', 0], ['noise', 1]], sub: 'Brilliant, dense and complex. From outside the lab, almost impossible to read.' },
       { label: '02 · Threshold', segs: [['Limen', 1], [' is Latin for threshold: the point where a signal becomes ', 0], ['detectable', 1]], sub: 'Below it, nothing registers. Above it, people see, feel and understand.' },
-      { label: '03 · How we cross', segs: [['We come from ', 0], ['different worlds', 1]], sub: 'Art, science, design and technology. Limen brings together people who don’t usually share a room, because breakthrough science deserves more than one way of seeing.' },
-      { label: '04 · Signal', segs: [['We bring your science ', 0], ['across that threshold', 1]], sub: 'Turning complex work into stories, images and experiences people notice and remember.' }
+      { label: '03 · Signal', segs: [['We bring your science ', 0], ['across that threshold', 1]], sub: 'Turning complex work into stories, images and experiences people notice and remember.' },
+      { label: '04 · How we cross', segs: [['We come from ', 0], ['different worlds', 1]], sub: 'Art, science, design and technology. Limen brings together people who don’t usually share a room, because breakthrough science deserves more than one way of seeing.' }
     ];
   }
 
@@ -2116,13 +2126,10 @@ class Component extends DCLogic {
         let prog = -sr.top / span; prog = prog < 0 ? 0 : prog > 1 ? 1 : prog;
         const pg = prog * 4;
         // visuals: Studio, Noise, Threshold (lens), then the four worlds alone, then the signal
-        let pgv, qClose = 0, noSig = false;
-        if (pg < 1) pgv = pg;
-        else if (pg < 2) pgv = 1 + 2 * (pg - 1);
-        else if (pg < 2.3) { pgv = pg + 1; noSig = true; }
-        else if (pg < 3.3) { pgv = 4.25 + Math.min(1, (pg - 2.3) / 0.35) * 0.7; }
-        else { pgv = 3.25 + Math.min(1, (pg - 3.3) / 0.7) * 0.75; qClose = 1 - Math.min(1, (pg - 3.3) / 0.14); }
-        if (this.logoEl) { const hid = pg >= 2.3 && pg < 3.38 && sr.bottom > 1; if (this.logoEl.__hid !== hid) { this.logoEl.__hid = hid; this.logoEl.style.opacity = hid ? '0' : ''; this.logoEl.style.pointerEvents = hid ? 'none' : ''; } }
+        // visuals: Studio, Noise, Threshold (lens), Signal, then the four worlds
+        const qClose = 0, noSig = false;
+        const pgv = pg < 1 ? pg : pg < 2 ? 1 + 2 * (pg - 1) : pg + 1;
+        if (this.logoEl) { const hid = pg >= 3.2 && sr.bottom > 1; if (this.logoEl.__hid !== hid) { this.logoEl.__hid = hid; this.logoEl.style.opacity = hid ? '0' : ''; this.logoEl.style.pointerEvents = hid ? 'none' : ''; } }
         const r = sc.getBoundingClientRect();
         const dpr = Math.min(window.devicePixelRatio || 1, 1.5), W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
         const resized = sc.width !== W || sc.height !== H;
@@ -2143,9 +2150,9 @@ class Component extends DCLogic {
           sc.__last = now; this.lastPg = pg;
         }
         // typewriter: each chapter types itself out when it becomes active
-        let ch = pg >= 3.38 ? 4 : pg >= 2.3 ? 3 : Math.round(pg - 0.15); ch = ch < 0 ? 0 : ch > 4 ? 4 : ch;
+        let ch = pg >= 3.2 ? 4 : Math.round(pg - 0.15); ch = ch < 0 ? 0 : ch > 4 ? 4 : ch;
         if (ch !== this.ch) { this.ch = ch; this.typeStart = now; }
-        if (ch === 3 && pg < 2.66) this.typeStart = now; // let the four squares open on their own first
+        if (ch === 4 && pg < 3.66) this.typeStart = now; // let the four squares open on their own first
         const total = CH[ch].segs.reduce((s, g) => s + g[0].length, 0);
         let n = still ? total : Math.floor((now - this.typeStart - 0.15) / 0.032);
         n = n < 0 ? 0 : n > total ? total : n;
