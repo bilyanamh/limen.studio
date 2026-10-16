@@ -761,7 +761,7 @@ class Component extends DCLogic {
         ctx.restore();
       }
       // a quiet band behind the heading
-      if (!noBg) { var sg = ctx.createLinearGradient(0, h * 0.3, 0, h); sg.addColorStop(0, 'rgba(15,13,14,0)'); sg.addColorStop(0.45, 'rgba(15,13,14,' + (0.5 * cross).toFixed(3) + ')'); sg.addColorStop(1, 'rgba(15,13,14,' + (0.62 * cross).toFixed(3) + ')'); ctx.fillStyle = sg; ctx.fillRect(0, h * 0.3, w, h * 0.7); }
+      if (false) { var sg = ctx.createLinearGradient(0, h * 0.3, 0, h); sg.addColorStop(0, 'rgba(15,13,14,0)'); sg.addColorStop(0.45, 'rgba(15,13,14,' + (0.5 * cross).toFixed(3) + ')'); sg.addColorStop(1, 'rgba(15,13,14,' + (0.62 * cross).toFixed(3) + ')'); ctx.fillStyle = sg; ctx.fillRect(0, h * 0.3, w, h * 0.7); }
       reset(ctx);
       // grain + scratches over the whole plate
       var G = qGrain()[Math.floor(t * 12) % 4];
@@ -875,10 +875,11 @@ class Component extends DCLogic {
         }
         ctx.globalAlpha = 1;
       }
-      if (ix.qClose > 0.01) { quads(ctx, w, h, t, ix.qClose, true); ctx.globalAlpha = 1; }
+      var QH = h * (mobile ? 0.5 : 0.54); // the four squares keep to the top; the words get the clean dark below
+      if (ix.qClose > 0.01) { quads(ctx, w, QH, t, ix.qClose, true); ctx.globalAlpha = 1; }
       // four worlds, one screen
       var e5 = sstep(4.25, 4.9, pg);
-      if (e5 > 0.01) { quads(ctx, w, h, t, e5); ctx.globalAlpha = 1; return; }
+      if (e5 > 0.01) { quads(ctx, w, QH, t, e5); ctx.globalAlpha = 1; return; }
       // the sensor array
       var P = particles(), N = P.length, cols = Math.max(10, Math.round(Math.sqrt(N * w / h))), rows = Math.ceil(N / cols);
       var cw = w / cols, chh = h / rows;
