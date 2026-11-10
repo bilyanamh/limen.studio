@@ -142,7 +142,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </div>
 </section>
 
-<section id="top" ref="${v.refStorySec}" style="position: relative; z-index: 0; margin-top: -190vh; height: 470vh; background: ${v.bgCol}; color: ${v.fgCol}">
+<section id="top" ref="${v.refStorySec}" style="position: relative; z-index: 0; margin-top: -190vh; height: 370vh; background: ${v.bgCol}; color: ${v.fgCol}">
 <div id="studio" aria-hidden="true" style="position: absolute; top: 90vh; height: 1px"></div>
 <p style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">We are Limen, a creative studio at the threshold of science, technology and art. Every discovery begins as noise. Limen is Latin for threshold: the point where a signal becomes detectable. We bring your science across that threshold. We come from different worlds: art, science, design and technology.</p>
 <div style="position: sticky; top: 0; height: 100vh; overflow: hidden">
@@ -2218,8 +2218,7 @@ class Component extends DCLogic {
   chapters() {
     return [
       { label: '00 · Studio', segs: [['Limen is the point where ', 0], ['science becomes clear', 1]], sub: 'A creative studio at the threshold of science, technology and art for MedTech, biotech and life sciences companies' },
-      { label: '01 · How we cross', segs: [['It takes ', 0], ['different worlds', 1], [' to untangle one idea', 0]], sub: 'Art, science, design and technology. Limen brings together people who don’t usually share a room, because breakthrough science deserves more than one way of seeing' },
-      { label: '02 · Signal', segs: [['Every discovery starts as noise, ', 0], ['we find the signal', 1]], sub: 'The one clear line that makes the right people lean in' }
+      { label: '01 · How we cross', segs: [['It takes ', 0], ['different worlds', 1], [' to untangle one idea', 0]], sub: 'Art, science, design and technology. Limen brings together people who don’t usually share a room, because breakthrough science deserves more than one way of seeing' }
     ];
   }
 
@@ -2723,9 +2722,9 @@ class Component extends DCLogic {
         const lead = 0.9 * vh, span = Math.max(1, sr.height - 2 * vh - lead);
         let prog = (-sr.top - lead) / span; prog = prog < 0 ? 0 : prog > 1 ? 1 : prog;
         // three chapters: Studio (footage), Signal, How we cross
-        const pg = prog * 3, seg = Math.min(2, Math.floor(pg)), u = pg - seg;
+        const pg = prog * 2, seg = Math.min(1, Math.floor(pg)), u = pg - seg;
         const qClose = 0, noSig = seg === 0;
-        const pgv = seg === 0 ? 0 : seg === 1 ? 4.2 + Math.min(1, u / 0.4) * 0.42 : 3.32 + Math.min(1, u / 0.65) * 0.68;
+        const pgv = seg === 0 ? 0 : 4.4 + Math.min(1, u / 0.3) * 0.22;
         const footA = seg === 0 ? 1 - Math.min(1, Math.max(0, (u - 0.55) / 0.4)) : 0;
         if (this.logoEl) { const hid = seg === 1 && sr.bottom > 1; if (this.logoEl.__hid !== hid) { this.logoEl.__hid = hid; this.logoEl.style.opacity = hid ? '0' : ''; this.logoEl.style.pointerEvents = hid ? 'none' : ''; } }
         const r = sc.getBoundingClientRect();
@@ -2750,7 +2749,7 @@ class Component extends DCLogic {
         // typewriter: each chapter types itself out when it becomes active
         const ch = seg;
         if (ch !== this.ch) { this.ch = ch; this.typeStart = now; }
-        if (ch === 1 && u < 0.42) this.typeStart = now; // let the four squares open on their own first
+        if (ch === 1 && u < 0.25) this.typeStart = now; // let the four squares open on their own first
         if (ch === 0 && -sr.top < lead * 0.3) this.typeStart = now; // type as the dot opens
         const total = CH[ch].segs.reduce((s, g) => s + g[0].length, 0);
         let n = still ? total : Math.floor((now - this.typeStart - 0.15) / 0.032);
@@ -2848,9 +2847,9 @@ class Component extends DCLogic {
       chLabel: c.label,
       chSub: c.sub,
       subOpacity: (this.n == null || this.n >= total) ? '1' : '0',
-      chCount: '0' + (ch + 1) + ' / 03',
+      chCount: '0' + (ch + 1) + ' / 02',
       barWidth: String(this.bar || 0),
-      scrollHint: ch < 2 ? 'Scroll ↓' : 'Continue ↓',
+      scrollHint: ch < 1 ? 'Scroll ↓' : 'Continue ↓',
       cursorCol: dk ? pal[2] : pal[1],
       bgCol: dk ? '#0F0D0E' : '#F3F3F1',
       fgCol: dk ? '#F2F2F0' : '#141210',
