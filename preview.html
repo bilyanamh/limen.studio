@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Limen · Story, image and code for MedTech, biotech and the life sciences</title>
-<meta name="description" content="Limen is a creative studio at the threshold of science, technology and art, for MedTech, biotech and the life sciences.">
+<title>Limen · Story, image and code for MedTech, Biotech and the Life Sciences</title>
+<meta name="description" content="Limen is a creative studio at the threshold of science, technology and art, for MedTech, Biotech and the Life Sciences.">
 <style>
 @font-face{font-family:'Outfit';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/outfit-latin-wght-normal.woff2) format('woff2-variations'),url(fonts/outfit-latin-wght-normal.woff2) format('woff2')}
 @font-face{font-family:'Outfit';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/outfit-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -114,7 +114,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </style>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Limen, a creative studio at the threshold of science, technology and art">
-<meta property="og:description" content="For MedTech, biotech and the life sciences.">
+<meta property="og:description" content="For MedTech, Biotech and the Life Sciences.">
 <meta property="og:image" content="og.png">
 <meta name="twitter:card" content="summary_large_image">
 <script src="runtime.js"></script>
@@ -237,7 +237,8 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div class="lm-aud lm-sv" style="--d: .1s"><canvas class="lm-face" data-face="sci" aria-hidden="true"></canvas><h3>Scientists</h3><p>trust the accuracy</p></div>
 <div class="lm-aud lm-sv" style="--d: .35s"><canvas class="lm-face" data-face="inv" aria-hidden="true"></canvas><h3>Investors</h3><p>get it in thirty seconds</p></div>
 <div class="lm-aud lm-sv" style="--d: .6s"><canvas class="lm-face" data-face="cli" aria-hidden="true"></canvas><h3>Clinicians</h3><p>remember it</p></div>
-<div class="lm-aud lm-sv" style="--d: .85s; border-bottom: 1px solid #D3DBD9"><canvas class="lm-face" data-face="brd" aria-hidden="true"></canvas><h3>Boards</h3><p>sign it off</p></div>
+<div class="lm-aud lm-sv" style="--d: .85s"><canvas class="lm-face" data-face="brd" aria-hidden="true"></canvas><h3>Boards</h3><p>sign it off</p></div>
+<div class="lm-aud lm-sv" style="--d: 1.1s; border-bottom: 1px solid #D3DBD9"><canvas class="lm-face" data-face="pat" aria-hidden="true"></canvas><h3>Patients</h3><p>get it sooner</p></div>
 </div>
 </section>
 
@@ -2244,7 +2245,7 @@ class Component extends DCLogic {
 
   chapters() {
     return [
-      { label: '00 · Studio', segs: [['Limen is the point where ', 0], ['science becomes clear', 1]], sub: 'A creative studio at the threshold of science, technology and art for MedTech, biotech and life sciences companies' },
+      { label: '00 · Studio', segs: [['Limen is the point where ', 0], ['science becomes clear', 1]], sub: 'A creative studio at the threshold of science, technology and art for MedTech, Biotech and Life Sciences companies' },
       { label: '01 · How we cross', segs: [['It takes ', 0], ['different worlds', 1], [' to untangle one idea', 0]], sub: 'Limen brings together people who don’t usually share a room, because breakthrough science deserves more than one way of seeing' }
     ];
   }
@@ -2738,6 +2739,7 @@ class Component extends DCLogic {
       invL: face([{ pts: spline([[100, 152], [91, 160], [100, 169], [109, 160], [100, 152]], 6), w: 4 }, { pts: spline([[100, 169], [89, 192], [100, 202], [111, 192], [100, 169]], 6), w: 4 }, { pts: S([[150, 76], [132, 42], [92, 34], [50, 58]], 5, 22), w: 4.6 }], [[70, 90], [100, 88]], [82, 116], 25),
       cli: face([{ pts: circ(100, 28, 15, 31, 1.15), w: 4.4 }, { pts: S([[66, 152], [72, 178], [100, 188], [128, 178], [134, 152]], 3, 32), w: 4.2 }, { pts: S([[128, 178], [138, 188], [146, 190]], 2, 33), w: 4 }, { pts: circ(152, 190, 8, 34, 1.1), w: 4 }], null, null, 30),
       brd: face([{ pts: S([[48, 98], [44, 78], [54, 62]], 3, 41), w: 4.4 }, { pts: S([[152, 98], [156, 78], [146, 62]], 3, 42), w: 4.4 }, { pts: seg2([132, 202], [166, 146], 45), w: 4.6 }, { pts: spline([[148, 132], [182, 120], [190, 142], [156, 154], [148, 132]], 6), w: 4.6 }], [[82, 88], [118, 88]], [100, 120], 40),
+      pat: face([{ pts: S([[74, 152], [88, 166], [100, 180], [112, 166], [126, 152]], 3, 81), w: 4.2 }, { pts: S([[82, 40], [94, 30], [108, 36], [116, 30]], 3, 82), w: 4.2 }, { pts: spline([[134, 196], [123, 185], [124, 176], [134, 180], [144, 176], [145, 185], [134, 196]], 6), w: 3.8, col: C.ox }], null, null, 80),
       founder: { w: 244, h: 300, eyes: [[118, 72], [146, 72]], mouth: [132, 96], fills: [0, 1],
         strokes: [
           { pts: S([[62, 252], [58, 190], [70, 140], [100, 124], [134, 126], [158, 142], [168, 192], [164, 252], [62, 252]], 6, 51) },
