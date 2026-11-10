@@ -91,8 +91,8 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="font-family: 'Outfit', system-ui, sans-serif; font-weight: 400; color: #141210; min-height: 100vh; position: relative">
 <a href="#services" class="lm-skip">Skip to content</a>
 
-<section id="start" ref="${v.refDSec}" style="position: relative; z-index: 1; height: 190vh; background: #F6F6F4; color: #141210">
-<div style="position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden">
+<section id="start" ref="${v.refDSec}" style="position: relative; z-index: 3; height: 190vh; color: #141210">
+<div ref="${v.refDStage}" style="position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: #F6F6F4">
 <header style="position: relative; width: 100%; box-sizing: border-box; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
 <a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: #141210; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #B23A3A; --b: #6B1E26">.</span></a>
 <nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
@@ -107,14 +107,15 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. An oxblood line, the limen, pulls the scribble straight into one clear sentence: a patch that spots trouble before you feel it. The investor comes back and says tell me more." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 </div>
 <div style="position: relative; display: flex; justify-content: center; gap: 4px; padding: 0 0 10px">
-<a href="#top" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B635D; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; background: none; border: 0; cursor: pointer">Scroll ↓</a>
+<a href="#studio" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B635D; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; background: none; border: 0; cursor: pointer">Scroll ↓</a>
 <button type="button" onClick="${v.replay}" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B635D; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; background: none; border: 0; cursor: pointer">Replay ↺</button>
 </div>
-<div ref="${v.refIris}" aria-hidden="true" style="position: absolute; inset: 0; z-index: 5; background: #6B1E26; clip-path: circle(0px at 50% 50%); pointer-events: none"></div>
+<div ref="${v.refIris}" aria-hidden="true" style="position: absolute; inset: 0; z-index: 5; pointer-events: none"></div>
 </div>
 </section>
 
-<section id="top" ref="${v.refStorySec}" style="position: relative; height: 380vh; background: ${v.bgCol}; color: ${v.fgCol}">
+<section id="top" ref="${v.refStorySec}" style="position: relative; z-index: 0; margin-top: -190vh; height: 470vh; background: ${v.bgCol}; color: ${v.fgCol}">
+<div id="studio" aria-hidden="true" style="position: absolute; top: 90vh; height: 1px"></div>
 <p style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">We are Limen, a creative studio at the threshold of science, technology and art. Every discovery begins as noise. Limen is Latin for threshold: the point where a signal becomes detectable. We bring your science across that threshold. We come from different worlds: art, science, design and technology.</p>
 <div style="position: sticky; top: 0; height: 100vh; overflow: hidden">
 <video ref="${v.refVid}" src="lens.mp4" muted="${true}" autoPlay="${true}" loop="${true}" playsInline="${true}" preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 2px; height: 2px; opacity: 0; pointer-events: none"></video>
@@ -131,7 +132,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </header>
 <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 0 24px 9vh">
 <div style="max-width: 1360px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; display: inline-flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: clamp(14px, 1.2vw, 17px); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: ${v.fgCol}"><span aria-hidden="true" style="width: 28px; height: 2px; background: #B23A3A"></span>${v.chLabel}</p>
+<p style="margin: 0; display: inline-flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: clamp(14px, 1.2vw, 17px); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: ${v.fgCol}"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #B23A3A"></span><svg aria-hidden="true" viewBox="0 0 120 14" style="width: 64px; height: 14px; overflow: visible"><path d="M2 8 C 18 3, 30 11, 46 7 S 78 3, 94 8 S 112 9, 118 6" fill="none" stroke="#B23A3A" stroke-width="2" stroke-linecap="round"></path></svg>${v.chLabel}</p>
 <p aria-hidden="true" style="margin: 0; max-width: 1080px; font-weight: 400; font-size: clamp(36px, 5.6vw, 88px); line-height: 1.02; letter-spacing: -0.045em; transition: color 0.4s ease">${(v.segs || []).map((s, $index) => html`${(s.plain) ? html`<span>${s.text}</span>` : null}${(s.acc) ? html`<span class="lm-accw" style="${s.style}">${(s.words || []).map((wd, $index) => html`<span class="lm-w">${(wd.ch || []).map((l, $index) => html`<span class="lm-ch" style="--i: ${l.i}">${l.c}</span>`)}</span>${wd.sp}`)}</span>` : null}`)}<span style="display: inline-block; width: 0.06em; height: 0.8em; margin-left: 0.06em; background: ${v.cursorCol}; vertical-align: -0.05em; animation: limenBlink 1s steps(1) infinite"></span></p>
 <div style="display: flex; flex-wrap: wrap; gap: 20px 48px; align-items: flex-end; justify-content: space-between">
 <p aria-hidden="true" style="margin: 0; max-width: 760px; min-height: 2.9em; font-weight: 300; font-size: clamp(20px, 2.1vw, 30px); line-height: 1.4; color: ${v.subCol}; opacity: ${v.subOpacity}; transition: opacity 0.6s ease">${v.chSub}</p>
@@ -2146,7 +2147,7 @@ class Component extends DCLogic {
     this.cvs = {};
     const self = this;
     const mkRef = (k) => (el) => { self.cvs[k] = el; };
-    this._refs = { story: mkRef('story'), doodle: mkRef('doodle'), iris: mkRef('iris'), dsec: mkRef('dsec'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, logo: (el) => { self.logoEl = el; }, vid2: (el) => { self.vid2 = el; if (el) self.wake(el); }, vid: (el) => { self.vid = el; if (el) self.wake(el); if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
+    this._refs = { story: mkRef('story'), doodle: mkRef('doodle'), dstage: mkRef('dstage'), iris: mkRef('iris'), dsec: mkRef('dsec'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, logo: (el) => { self.logoEl = el; }, vid2: (el) => { self.vid2 = el; if (el) self.wake(el); }, vid: (el) => { self.vid = el; if (el) self.wake(el); if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
     return this._refs;
   }
 
@@ -2508,7 +2509,7 @@ class Component extends DCLogic {
       if (mn > 0) { x.save(); x.font = Ly.mono + 'px ' + MONO; x.fillStyle = C.stone; var mw = x.measureText(mt).width; x.fillText(mt.slice(0, mn), (Ly.DW - mw) / 2, E.yb + es * 1.15); x.restore(); }
     }
   }
-  function dotPos(cw, ch) { var Fz = fit(cw, ch), d = Fz.Ly.END.dot; return [Fz.ox + d[0] * Fz.s, Fz.oy + d[1] * Fz.s]; }
+  function dotPos(cw, ch) { var Fz = fit(cw, ch), d = Fz.Ly.END.dot; return [Fz.ox + d[0] * Fz.s, Fz.oy + d[1] * Fz.s, Fz.Ly.esize * 0.115 * Fz.s]; }
   return { draw: draw, dot: dotPos, DUR: DUR, STILL: STILL };
 }
 
@@ -2551,18 +2552,24 @@ class Component extends DCLogic {
           if (resized) { dc.width = W; dc.height = H; }
           DK.draw(dc.getContext('2d'), r.width, r.height, dpr, dt); this.dLast = now;
         }
-        const iris = this.cvs.iris;
-        if (iris) {
+        const iris = this.cvs.iris, stg = this.cvs.dstage;
+        if (iris && stg) {
           let q = -sr0.top / Math.max(1, sr0.height - vh); q = q < 0 ? 0 : q > 1 ? 1 : q;
-          const key = Math.round(q * 400) + ':' + Math.round(r.width) + ':' + Math.round(r.height);
+          const key = Math.round(q * 600) + ':' + Math.round(r.width) + ':' + Math.round(r.height);
           if (key !== this.irisKey) {
             this.irisKey = key;
-            const d = DK.dot(r.width, r.height);
-            const ip = iris.getBoundingClientRect(), px = r.left - ip.left + d[0], py = r.top - ip.top + d[1];
-            const R = Math.pow(q, 1.5) * Math.hypot(ip.width, ip.height) * 1.08 + (q > 0 ? 6 : 0);
-            const k = Math.min(1, Math.max(0, (q - 0.3) / 0.6)), mix = (a, b) => Math.round(a + (b - a) * k * k * (3 - 2 * k));
-            iris.style.clipPath = 'circle(' + R.toFixed(1) + 'px at ' + px.toFixed(1) + 'px ' + py.toFixed(1) + 'px)';
-            iris.style.background = 'rgb(' + mix(0x6B, 0x0F) + ',' + mix(0x1E, 0x0D) + ',' + mix(0x26, 0x0E) + ')';
+            const d = DK.dot(r.width, r.height), ip = stg.getBoundingClientRect(), px = r.left - ip.left + d[0], py = r.top - ip.top + d[1];
+            const diag = Math.hypot(Math.max(px, ip.width - px), Math.max(py, ip.height - py));
+            const R = d[2] + Math.pow(q, 1.35) * diag * 1.04;
+            if (q <= 0) { stg.style.webkitMaskImage = stg.style.maskImage = 'none'; stg.style.visibility = ''; iris.style.background = 'none'; }
+            else if (q >= 1) { stg.style.visibility = 'hidden'; }
+            else {
+              const at = 'circle at ' + px.toFixed(1) + 'px ' + py.toFixed(1) + 'px, ';
+              const g = 'radial-gradient(' + at + 'transparent ' + R.toFixed(1) + 'px, #000 ' + (R + 1).toFixed(1) + 'px)';
+              stg.style.webkitMaskImage = g; stg.style.maskImage = g; stg.style.visibility = '';
+              const ra = (1 - Math.max(0, (q - 0.7) / 0.3)).toFixed(3), c = 'rgba(107,30,38,' + ra + ')';
+              iris.style.background = 'radial-gradient(' + at + 'transparent ' + (R + 0.5).toFixed(1) + 'px, ' + c + ' ' + (R + 1).toFixed(1) + 'px, ' + c + ' ' + (R + 5).toFixed(1) + 'px, transparent ' + (R + 5.8).toFixed(1) + 'px)';
+            }
           }
         }
       }
@@ -2570,8 +2577,8 @@ class Component extends DCLogic {
       const sec = this.storySec, sc = this.cvs.story;
       if (sec && sc) {
         const sr = sec.getBoundingClientRect();
-        const span = Math.max(1, sr.height - 2 * vh);
-        let prog = -sr.top / span; prog = prog < 0 ? 0 : prog > 1 ? 1 : prog;
+        const lead = 0.9 * vh, span = Math.max(1, sr.height - 2 * vh - lead);
+        let prog = (-sr.top - lead) / span; prog = prog < 0 ? 0 : prog > 1 ? 1 : prog;
         // three chapters: Studio (footage), Signal, How we cross
         const pg = prog * 3, seg = Math.min(2, Math.floor(pg)), u = pg - seg;
         const qClose = 0, noSig = seg === 0;
@@ -2601,6 +2608,7 @@ class Component extends DCLogic {
         const ch = seg;
         if (ch !== this.ch) { this.ch = ch; this.typeStart = now; }
         if (ch === 2 && u < 0.42) this.typeStart = now; // let the four squares open on their own first
+        if (ch === 0 && -sr.top < lead * 0.3) this.typeStart = now; // type as the dot opens
         const total = CH[ch].segs.reduce((s, g) => s + g[0].length, 0);
         let n = still ? total : Math.floor((now - this.typeStart - 0.15) / 0.032);
         n = n < 0 ? 0 : n > total ? total : n;
@@ -2691,7 +2699,7 @@ class Component extends DCLogic {
     return {
       refRevS: refs.revS, refRevG: refs.revG, refRevA: refs.revA, refRevC: refs.revC,
       revS: seen.S ? 'is-in' : '', revG: seen.G ? 'is-in' : '', revA: seen.A ? 'is-in' : '', revC: seen.C ? 'is-in' : '',
-      refLogo: refs.logo, refDoodle: refs.doodle, refIris: refs.iris, refDSec: refs.dsec, replay: this.replayH || (this.replayH = () => { this.dT0 = this.now || 0; this.dLast = -1; }), refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refVid2: refs.vid2, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
+      refLogo: refs.logo, refDoodle: refs.doodle, refDStage: refs.dstage, refIris: refs.iris, refDSec: refs.dsec, replay: this.replayH || (this.replayH = () => { this.dT0 = this.now || 0; this.dLast = -1; }), refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refVid2: refs.vid2, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
       segs: segs,
       chLabel: c.label,
       chSub: c.sub,
