@@ -2219,7 +2219,11 @@ class Component extends DCLogic {
   doodleKit() {
   var C = { paper: '#F3F6F5', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#6B1E26' };
   var SANS = "'Outfit', system-ui, sans-serif", MONO = "'IBM Plex Mono', monospace";
-  var DUR = 29, STILL = 19.3;
+  // the second half eases down to two-thirds speed: real seconds -> story seconds
+  var SLOW0 = 15.5, SLOW1 = 17, RATE = 0.65, S1 = SLOW1 - (1 - RATE) * (SLOW1 - SLOW0) / 2;
+  function storyTime(t) { if (t < SLOW0) return t; if (t < SLOW1) { var d = t - SLOW0; return SLOW0 + d - (1 - RATE) * d * d / (2 * (SLOW1 - SLOW0)); } return S1 + RATE * (t - SLOW1); }
+  function realTime(st) { return st <= SLOW0 ? st : SLOW1 + (st - S1) / RATE; }
+  var DUR = Math.ceil(realTime(29)), STILL = realTime(19.3);
   function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   function clamp(v, a, b) { a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return v < a ? a : v > b ? b : v; }
   function sstep(a, b, v) { var q = clamp((v - a) / (b - a)); return q * q * (3 - 2 * q); }
@@ -2474,9 +2478,10 @@ class Component extends DCLogic {
   function fit(cw, ch) { var portrait = cw / ch < 1.15, Ly = layout(portrait), s = Math.min(cw / Ly.DW, ch / Ly.DH); return { Ly: Ly, s: s, ox: (cw - Ly.DW * s) / 2, oy: (ch - Ly.DH * s) / 2 }; }
 
   function draw(ctx, cw, ch, dpr, t) {
+    var treal = t; t = storyTime(t);
     x = ctx; if (!ctxM) ctxM = document.createElement('canvas').getContext('2d');
     var Fz = fit(cw, ch), Ly = Fz.Ly, sc = Ly.sc, i;
-    BOIL = Math.floor(t * 10);
+    BOIL = Math.floor(treal * 10);
     x.setTransform(dpr, 0, 0, dpr, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
     x.fillStyle = C.paper; x.fillRect(0, 0, cw, ch);
     if (!paperTile) paperTile = makePaper(); x.fillStyle = x.createPattern(paperTile, 'repeat'); x.fillRect(0, 0, cw, ch);
