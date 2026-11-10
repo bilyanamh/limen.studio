@@ -75,8 +75,33 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="font-family: 'Outfit', system-ui, sans-serif; font-weight: 400; color: #141210; min-height: 100vh; position: relative">
 <a href="#services" class="lm-skip">Skip to content</a>
 
+<section id="start" style="position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; background: #FFFFFF; color: #141210">
+<header style="position: relative; width: 100%; box-sizing: border-box; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
+<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: #141210; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #B23A3A; --b: #6B1E26">.</span></a>
+<nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
+<a href="#services" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #141210; font-size: 16px">Services</a>
+<a href="#about" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #141210; font-size: 16px">About</a>
+<a href="#contact" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #141210; font-size: 16px; border: 1px solid #CFCAC2">Contact</a>
+</nav>
+</header>
+<div style="max-width: 1360px; margin: 0 auto; padding: 56px 24px 96px; flex: 1; width: 100%; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 64px 96px; align-items: center">
+<div style="flex: 1 1 460px; min-width: 0">
+<h1 style="margin: 0 0 28px; font-weight: 300; font-size: clamp(42px, 5.4vw, 86px); line-height: 1; letter-spacing: -0.05em; text-wrap: balance">Your science is brilliant, but <span class="lm-accw lm-split" style="--a: #6B1E26; --b: #C2483C"><span class="lm-w"><span class="lm-ch" style="--i: 0">n</span><span class="lm-ch" style="--i: 1">o</span><span class="lm-ch" style="--i: 2">b</span><span class="lm-ch" style="--i: 3">o</span><span class="lm-ch" style="--i: 4">d</span><span class="lm-ch" style="--i: 5">y</span></span> <span class="lm-w"><span class="lm-ch" style="--i: 6">c</span><span class="lm-ch" style="--i: 7">a</span><span class="lm-ch" style="--i: 8">n</span></span> <span class="lm-w"><span class="lm-ch" style="--i: 9">t</span><span class="lm-ch" style="--i: 10">e</span><span class="lm-ch" style="--i: 11">l</span><span class="lm-ch" style="--i: 12">l</span></span></span></h1>
+<p style="margin: 0; max-width: 520px; font-weight: 300; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.5; color: #5A534E">Most breakthroughs don’t stall in the lab. They stall in the room, with an investor, a clinician or a partner who needed to get it in thirty seconds.</p>
+</div>
+<div class="lm-chat lm-split" style="flex: 1 1 420px" role="img" aria-label="A chat: the founder explains a dual-modal biosensor, the investor asks what it actually does, the founder has no answer, and the investor says let’s circle back next quarter.">
+<div class="row lm-sv" style="--d: .1s"><p class="who">Investor</p><div class="msg them">So, in a sentence, what are you building?</div></div>
+<div class="row r lm-sv" style="--d: .9s"><p class="who">Founder</p><div class="msg me">A dual-modal biosensor using closed-loop impedance spectroscopy with adaptive signal deconvolution…</div></div>
+<div class="row lm-sv" style="--d: 2.1s"><div class="msg them">Sounds great. What does it actually do?</div></div>
+<div class="row r lm-sv" style="--d: 3.1s"><div class="msg me"><span class="lm-dots" aria-hidden="true"><i></i><i></i><i></i></span></div></div>
+<div class="row lm-sv" style="--d: 4.4s"><div class="msg them">Let’s circle back next quarter.</div><p class="meta">Seen</p></div>
+</div>
+</div>
+<a href="#top" class="lm-sv is-in" style="align-self: center; margin: 0 0 28px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B635D; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Scroll ↓</a>
+</section>
+
 <section id="top" ref="${v.refStorySec}" style="position: relative; height: 380vh; background: ${v.bgCol}; color: ${v.fgCol}">
-<h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">We are Limen, a creative studio at the threshold of science, technology and art. Every discovery begins as noise. Limen is Latin for threshold: the point where a signal becomes detectable. We bring your science across that threshold. We come from different worlds: art, science, design and technology.</h1>
+<p style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">We are Limen, a creative studio at the threshold of science, technology and art. Every discovery begins as noise. Limen is Latin for threshold: the point where a signal becomes detectable. We bring your science across that threshold. We come from different worlds: art, science, design and technology.</p>
 <div style="position: sticky; top: 0; height: 100vh; overflow: hidden">
 <video ref="${v.refVid}" src="lens.mp4" muted="${true}" autoPlay="${true}" loop="${true}" playsInline="${true}" preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 2px; height: 2px; opacity: 0; pointer-events: none"></video>
 <video ref="${v.refVid2}" src="studio.mp4" muted="${true}" autoPlay="${true}" loop="${true}" playsInline="${true}" preload="auto" aria-hidden="true" poster="studio.jpg" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none"></video>
@@ -112,24 +137,11 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: #6B635D">
 <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #6B1E26"></span>
 <span style="flex: 1; height: 1px; background: #D6CEC4"></span>
-<span>03 · The problem</span>
+<span>03 · Enter Limen</span>
 </div>
 </div>
-<div style="max-width: 1360px; margin: 0 auto; padding: 110px 24px 120px; display: flex; flex-wrap: wrap; gap: 64px 96px; align-items: center">
-<div style="flex: 1 1 460px; min-width: 0">
-<h2 style="margin: 0 0 28px; font-weight: 300; font-size: clamp(42px, 5.4vw, 86px); line-height: 1; letter-spacing: -0.05em; text-wrap: balance">Your science is brilliant, but <span class="lm-accw lm-split" style="--a: #6B1E26; --b: #C2483C"><span class="lm-w"><span class="lm-ch" style="--i: 0">n</span><span class="lm-ch" style="--i: 1">o</span><span class="lm-ch" style="--i: 2">b</span><span class="lm-ch" style="--i: 3">o</span><span class="lm-ch" style="--i: 4">d</span><span class="lm-ch" style="--i: 5">y</span></span> <span class="lm-w"><span class="lm-ch" style="--i: 6">c</span><span class="lm-ch" style="--i: 7">a</span><span class="lm-ch" style="--i: 8">n</span></span> <span class="lm-w"><span class="lm-ch" style="--i: 9">t</span><span class="lm-ch" style="--i: 10">e</span><span class="lm-ch" style="--i: 11">l</span><span class="lm-ch" style="--i: 12">l</span></span></span></h2>
-<p style="margin: 0; max-width: 520px; font-weight: 300; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.5; color: #5A534E">Most breakthroughs don’t stall in the lab. They stall in the room, with an investor, a clinician or a partner who needed to get it in thirty seconds.</p>
-</div>
-<div class="lm-chat lm-split" style="flex: 1 1 420px" role="img" aria-label="A chat: the founder explains a dual-modal biosensor, the investor asks what it actually does, the founder has no answer, and the investor says let’s circle back next quarter.">
-<div class="row lm-sv" style="--d: .1s"><p class="who">Investor</p><div class="msg them">So, in a sentence, what are you building?</div></div>
-<div class="row r lm-sv" style="--d: .9s"><p class="who">Founder</p><div class="msg me">A dual-modal biosensor using closed-loop impedance spectroscopy with adaptive signal deconvolution…</div></div>
-<div class="row lm-sv" style="--d: 2.1s"><div class="msg them">Sounds great. What does it actually do?</div></div>
-<div class="row r lm-sv" style="--d: 3.1s"><div class="msg me"><span class="lm-dots" aria-hidden="true"><i></i><i></i><i></i></span></div></div>
-<div class="row lm-sv" style="--d: 4.4s"><div class="msg them">Let’s circle back next quarter.</div><p class="meta">Seen</p></div>
-</div>
-</div>
-<div style="max-width: 1360px; margin: 0 auto; padding: 0 24px 150px">
-<div style="border-top: 1px solid #D9D9D6; padding-top: 72px; display: flex; flex-wrap: wrap; gap: 32px 96px; align-items: flex-end; justify-content: space-between">
+<div style="max-width: 1360px; margin: 0 auto; padding: 110px 24px 150px">
+<div style="padding-top: 0; display: flex; flex-wrap: wrap; gap: 32px 96px; align-items: flex-end; justify-content: space-between">
 <h2 style="margin: 0; flex: 1 1 560px; font-weight: 300; font-size: clamp(48px, 7.4vw, 128px); line-height: 0.95; letter-spacing: -0.055em">That’s where <span class="lm-accw lm-split" style="--a: #6B1E26; --b: #C2483C"><span class="lm-w"><span class="lm-ch" style="--i: 0">L</span><span class="lm-ch" style="--i: 1">i</span><span class="lm-ch" style="--i: 2">m</span><span class="lm-ch" style="--i: 3">e</span><span class="lm-ch" style="--i: 4">n</span></span></span> comes in</h2>
 <p style="margin: 0; flex: 1 1 360px; max-width: 480px; font-weight: 300; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.5; color: #5A534E">We turn complex science into stories, images and experiences people understand in seconds and remember for years. So you can spend less time explaining, and more time discovering.</p>
 </div>
