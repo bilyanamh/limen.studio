@@ -2580,9 +2580,6 @@ class Component extends DCLogic {
         var sp = eo((t - 26.2) / 0.35), xE = CL.X + CL.w;
         if (sp > 0) for (var k2 = 0; k2 < 3; k2++) { var an = -1.2 + k2 * 0.45, r0 = es * 0.95, r1 = r0 + es * 0.5 * sp, ax = xE + es * 0.28, ay = cys - es * 0.35; ink([[ax + Math.cos(an) * r0 * 0.5, ay + Math.sin(an) * r0 * 0.5], [ax + Math.cos(an) * r1 * 0.5, ay + Math.sin(an) * r1 * 0.5]], { w: es * 0.045, col: C.ox, seed: 510 + k2, amp: 0.4 }); }
       }
-      // the second line: new ways of seeing
-      var l1 = 'New ways of ', l2 = 'seeing', ln = typed(t, 26.5, 27.6, l1.length + l2.length);
-      if (ln > 0) { x.save(); x.font = '300 ' + Math.round(es * (Ly.DW === 1080 ? 0.52 : 0.42)) + 'px ' + SANS; var w1 = x.measureText(l1).width, lx = (Ly.DW - w1 - x.measureText(l2).width) / 2, ly = E.lastY + es * 1.1; x.fillStyle = C.stone; x.fillText(l1.slice(0, ln), lx, ly); if (ln > l1.length) { x.fillStyle = C.ox; x.fillText(l2.slice(0, ln - l1.length), lx + w1, ly); } x.restore(); }
     }
   }
 
