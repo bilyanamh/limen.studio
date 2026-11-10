@@ -2217,7 +2217,7 @@ class Component extends DCLogic {
 
   chapters() {
     return [
-      { label: '00 · Studio', segs: [['We are Limen, a creative studio at the threshold of ', 0], ['science, technology and art', 1]], sub: 'Story, image and code for MedTech, biotech and the life sciences.' },
+      { label: '00 · Studio', segs: [['Limen is the point where ', 0], ['science becomes clear', 1]], sub: 'A creative studio at the threshold of science, technology and art, making story, image and code for MedTech, biotech and the life sciences.' },
       { label: '01 · Signal', segs: [['Every discovery starts as noise. ', 0], ['We find the signal', 1]], sub: 'The one clear line that makes the right people lean in.' },
       { label: '02 · How we cross', segs: [['It takes ', 0], ['different worlds', 1], [' to untangle one idea', 0]], sub: 'Art, science, design and technology. Limen brings together people who don’t usually share a room, because breakthrough science deserves more than one way of seeing.' }
     ];
@@ -2227,10 +2227,10 @@ class Component extends DCLogic {
   var C = { paper: '#F3F6F5', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#0B7A57' };
   var SANS = "'Outfit', system-ui, sans-serif", MONO = "'IBM Plex Mono', monospace";
   // the second half eases down to two-thirds speed: real seconds -> story seconds
-  var SLOW0 = 15.5, SLOW1 = 17, RATE = 0.65, S1 = SLOW1 - (1 - RATE) * (SLOW1 - SLOW0) / 2;
+  var SLOW0 = 15.5, SLOW1 = 17, RATE = 0.75, S1 = SLOW1 - (1 - RATE) * (SLOW1 - SLOW0) / 2;
   function storyTime(t) { if (t < SLOW0) return t; if (t < SLOW1) { var d = t - SLOW0; return SLOW0 + d - (1 - RATE) * d * d / (2 * (SLOW1 - SLOW0)); } return S1 + RATE * (t - SLOW1); }
   function realTime(st) { return st <= SLOW0 ? st : SLOW1 + (st - S1) / RATE; }
-  var DUR = Math.ceil(realTime(29)), STILL = realTime(19.3);
+  var DUR = realTime(23.1), STILL = realTime(19.3);
   function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   function clamp(v, a, b) { a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return v < a ? a : v > b ? b : v; }
   function sstep(a, b, v) { var q = clamp((v - a) / (b - a)); return q * q * (3 - 2 * q); }
@@ -2435,7 +2435,6 @@ class Component extends DCLogic {
     });
     var es = Ly.esize, ef = '300 ' + es + 'px ' + SANS, gap = es * 0.38, spW = meas(ef, ' ');
     var toks = [{ t: 'Limen', w: meas(ef, 'Limen') }, { dot: true, w: gap * 2 }];
-    ['the', 'point', 'where', 'science', 'becomes', 'clear'].forEach(function (wd) { toks.push({ t: wd, w: meas(ef, wd) }); });
     var maxW = Ly.DW - (portrait ? 90 : 160), lines = [[]], lw = [0];
     toks.forEach(function (o, i) { var L = lines.length - 1, prev = lines[L][lines[L].length - 1], add = (prev && !prev.dot && !o.dot ? spW : 0) + o.w; var lastPair = i === toks.length - 1; if ((lw[L] + add > maxW || (lastPair && false)) && lines[L].length) { lines.push([]); lw.push(0); L++; add = o.w; } o.line = L; o.x = lw[L] + add - o.w; lw[L] += add; lines[L].push(o); });
     if (lines.length > 1 && lines[lines.length - 1].length === 1) { var mv = lines[lines.length - 2].pop(); lines[lines.length - 1].unshift(mv); }
@@ -2544,17 +2543,16 @@ class Component extends DCLogic {
 
     Ly.B.forEach(function (b) { drawBubble(Ly, b, t); });
     var nA = t < 12.6 ? typed(t, 0.6, 1.5, TA[0].t.length) : TA[0].t.length + typed(t, 12.6, 13.35, TA[1].t.length);
-    drawFlow(Ly.TA, nA, Ly.tx, Ly.ty, 1 - sstep(13.6, 13.9, t));
-    drawFlow(Ly.TB, typed(t, 14.3, 15.0, Ly.TB.len), Ly.tx, Ly.ty, 1 - sstep(16.3, 16.6, t));
-    if (t > 16.6) {
+    if (t < 15.6) drawFlow(Ly.TA, nA, Ly.tx, Ly.ty, 1);
+    if (t >= 15.6) {
       var Fa = Ly.TA, k0 = -1; for (var ti = 0; ti < Fa.tk.length; ti++) if (Fa.tk[ti].t.charAt(0) === ',') { k0 = ti; break; }
-      var ra = sstep(16.6, 16.95, t) * keep, ga = ra * (1 - sstep(18.75, 19.15, t));
+      var ra = keep, ga = ra * (1 - sstep(16.7, 17.1, t));
       x.save(); x.font = Fa.font; x.fillStyle = C.ink;
       for (ti = 0; ti < Fa.tk.length; ti++) { var tk = Fa.tk[ti]; x.globalAlpha = ti < k0 ? ra : ga; x.fillText(tk.t, Ly.tx + tk.x, Ly.ty + tk.line * Fa.lh); }
       x.restore();
-      if (ga > 0 && t > 18.0) {
+      if (ga > 0 && t > 15.75) {
         var segs = {}; for (ti = k0; ti < Fa.tk.length; ti++) { var o2 = Fa.tk[ti], sg = segs[o2.line] || (segs[o2.line] = [1e9, -1e9]); sg[0] = Math.min(sg[0], o2.x); sg[1] = Math.max(sg[1], o2.x + o2.w); }
-        var sp2 = eio((t - 18.0) / 0.6), keys = Object.keys(segs), tot2 = 0; keys.forEach(function (kk) { tot2 += segs[kk][1] - segs[kk][0]; }); var done = 0;
+        var sp2 = eio((t - 15.75) / 0.6), keys = Object.keys(segs), tot2 = 0; keys.forEach(function (kk) { tot2 += segs[kk][1] - segs[kk][0]; }); var done = 0;
         x.save(); x.globalAlpha = ga;
         keys.forEach(function (kk, si) {
           var a2 = segs[kk], len2 = a2[1] - a2[0], pp = clamp((sp2 * tot2 - done) / len2); done += len2; if (pp <= 0) return;
@@ -2577,21 +2575,7 @@ class Component extends DCLogic {
       else if (t >= 22.5 && t < 22.8) { hp = hopTo(22.5, 22.8, LM.X + LM.w, D[0], es * 0.5); px = hp[0]; py = hp[1]; }
       revL = t < 21.4 ? 0 : t < 22.5 ? px - LM.X : LM.w + 10;
       if (revL > 0) { x.save(); x.beginPath(); x.rect(LM.X - 6, top, revL + 6, hgt); x.clip(); x.font = E.font; x.fillStyle = C.ink; x.fillText('Limen', LM.X, LM.Y); x.restore(); }
-      // then a small pen writes the rest, word by word; "clear" in colour
-      var body = TK.slice(2, -1), CL = TK[TK.length - 1], nb = 0; body.forEach(function (o) { nb += o.t.length + 1; });
-      var n = typed(t, 23.0, 24.8, nb), nC = typed(t, 25.0, 25.5, CL.t.length), pen = null;
-      x.font = E.font;
-      for (var bi = 0; bi < body.length && n > 0; bi++) { var o = body[bi], sub = o.t.slice(0, n); x.fillStyle = C.ink; x.fillText(sub, o.X, o.Y); if (n <= o.t.length) pen = [o.X + x.measureText(sub).width, o.Y - es * 0.32]; n -= o.t.length + 1; }
-      if (pen && t < 24.8) dot(pen[0] + 4, pen[1] + Math.sin(t * 30) * es * 0.04, es * 0.05, C.ink);
-      if (nC > 0) { var cs = CL.t.slice(0, nC); x.fillStyle = C.ox; x.fillText(cs, CL.X, CL.Y); if (t < 25.5) dot(CL.X + x.measureText(cs).width + 4, CL.Y - es * 0.32, es * 0.06, C.ox); }
       x.save(); x.translate(px, py); x.scale(1 / sq, sq); dot(0, 0, dr, C.ox); x.restore();
-      // a hand-drawn loop around "clear", and three little sparks
-      if (t > 25.55) {
-        var cxs = CL.X + CL.w / 2 + es * 0.04, cys = CL.Y - es * 0.3, LOOP = Ly.LOOP || (Ly.LOOP = (function () { var R = rng(77), pts = [], nn = 120; for (var i = 0; i <= nn; i++) { var a = -2.6 + 2.28 * Math.PI * i / nn, rr = 1 + 0.06 * Math.sin(a * 3 + 1) - 0.08 * i / nn; pts.push([cxs + Math.cos(a) * (CL.w / 2 + es * 0.24) * rr, cys + Math.sin(a) * es * 0.62 * rr + (R() - 0.5) * 2]); } return resample(pts, 4); })());
-        ink(LOOP, { p: eio((t - 25.55) / 0.75), w: es * 0.05, col: C.ox, seed: 500, amp: 1.4, nib: true, nibR: es * 0.05 });
-        var sp = eo((t - 26.2) / 0.35), xE = CL.X + CL.w;
-        if (sp > 0) for (var k2 = 0; k2 < 3; k2++) { var an = -1.2 + k2 * 0.45, r0 = es * 0.95, r1 = r0 + es * 0.5 * sp, ax = xE + es * 0.28, ay = cys - es * 0.35; ink([[ax + Math.cos(an) * r0 * 0.5, ay + Math.sin(an) * r0 * 0.5], [ax + Math.cos(an) * r1 * 0.5, ay + Math.sin(an) * r1 * 0.5]], { w: es * 0.045, col: C.ox, seed: 510 + k2, amp: 0.4 }); }
-      }
     }
   }
 
@@ -2668,6 +2652,8 @@ class Component extends DCLogic {
     };
     const CH = this.chapters();
     const DK = this.doodleKit();
+    this.onUser = () => { this.userMoved = true; };
+    ['wheel', 'touchstart', 'keydown'].forEach((ev) => window.addEventListener(ev, this.onUser, { passive: true }));
     this.faces = Array.from(document.querySelectorAll('canvas[data-face]'));
     const t0 = performance.now();
     this.planted = this.planted || [];
@@ -2709,6 +2695,17 @@ class Component extends DCLogic {
               iris.style.background = 'radial-gradient(' + at + 'transparent ' + (R + 0.5).toFixed(1) + 'px, ' + c + ' ' + (R + 1).toFixed(1) + 'px, ' + c + ' ' + (R + 5).toFixed(1) + 'px, transparent ' + (R + 5.8).toFixed(1) + 'px)';
             }
           }
+        }
+      }
+      if (dsec && dc && !still) {
+        const sy = window.scrollY || 0;
+        if (!this.azDone && !this.userMoved && this.dT0 != null && now - this.dT0 >= DK.DUR + 0.2 && sy < 8) {
+          this.azDone = true; const tg = document.getElementById('studio');
+          this.az = { t0: now, y0: sy, y1: tg ? tg.getBoundingClientRect().top + sy : vh * 0.9 };
+        }
+        if (this.az) {
+          if (this.userMoved) this.az = null;
+          else { const k = Math.min(1, (now - this.az.t0) / 2.2), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; window.scrollTo({ top: this.az.y0 + (this.az.y1 - this.az.y0) * e, behavior: 'instant' }); if (k >= 1) this.az = null; }
         }
       }
       // the cast returns: faces in the audience rows, the founder and investor at contact
@@ -2825,6 +2822,7 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    if (this.onUser) ['wheel', 'touchstart', 'keydown'].forEach((ev) => window.removeEventListener(ev, this.onUser));
     if (this.riseIO) this.riseIO.disconnect(); if (this.mkIO) this.mkIO.disconnect(); if (this.riseScroll) window.removeEventListener('scroll', this.riseScroll, { capture: true }); if (this.io) this.io.disconnect(); if (this.raf) window.cancelAnimationFrame(this.raf); window.removeEventListener('pointermove', this.onMove); window.removeEventListener('pointerdown', this.onDown); }
 
   renderVals() {
@@ -2845,7 +2843,7 @@ class Component extends DCLogic {
     return {
       refRevS: refs.revS, refRevG: refs.revG, refRevA: refs.revA, refRevC: refs.revC,
       revS: seen.S ? 'is-in' : '', revG: seen.G ? 'is-in' : '', revA: seen.A ? 'is-in' : '', revC: seen.C ? 'is-in' : '',
-      refLogo: refs.logo, refDoodle: refs.doodle, refDStage: refs.dstage, refIris: refs.iris, refDSec: refs.dsec, replay: this.replayH || (this.replayH = () => { this.dT0 = this.now || 0; this.dLast = -1; }), refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refVid2: refs.vid2, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
+      refLogo: refs.logo, refDoodle: refs.doodle, refDStage: refs.dstage, refIris: refs.iris, refDSec: refs.dsec, replay: this.replayH || (this.replayH = () => { this.dT0 = this.now || 0; this.dLast = -1; this.userMoved = false; this.azDone = false; }), refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refVid2: refs.vid2, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
       segs: segs,
       chLabel: c.label,
       chSub: c.sub,
