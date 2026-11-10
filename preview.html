@@ -2188,7 +2188,7 @@ class Component extends DCLogic {
     // ---- principles: one live glyph per principle ----
     function principle(ctx, w, h, t, k) {
       reset(ctx);
-      ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, w, h);
+      ctx.clearRect(0, 0, w, h);
       var cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.4, INK = '#141210', OX = '#0B7A57', TE = '#1C6E72';
       ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(20,18,16,0.18)';
       ctx.beginPath(); ctx.moveTo(cx - R * 1.15, cy); ctx.lineTo(cx + R * 1.15, cy); ctx.moveTo(cx, cy - R * 1.15); ctx.lineTo(cx, cy + R * 1.15); ctx.stroke();
@@ -2208,7 +2208,7 @@ class Component extends DCLogic {
           var a2 = j / 6 * 6.2832 + t * 0.25, rr = R * (0.62 + 0.28 * Math.sin(t * 0.7 + j * 1.7)), px = cx + Math.cos(a2) * rr, py = cy + Math.sin(a2) * rr;
           var join = sstep(0.75, 0.62, rr / R);
           if (join > 0.02) { ctx.globalAlpha = join; ctx.strokeStyle = TE; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke(); ctx.globalAlpha = 1; }
-          ctx.fillStyle = join > 0.5 ? TE : '#FFFFFF'; ctx.strokeStyle = join > 0.5 ? TE : INK; ctx.lineWidth = 1.2;
+          ctx.fillStyle = join > 0.5 ? TE : '#F3F6F5'; ctx.strokeStyle = join > 0.5 ? TE : INK; ctx.lineWidth = 1.2;
           ctx.beginPath(); ctx.arc(px, py, R * 0.075, 0, 6.29); ctx.fill(); ctx.stroke();
         }
       } else {
@@ -2247,6 +2247,91 @@ class Component extends DCLogic {
       { label: '00 · Studio', segs: [['Limen is the point where ', 0], ['science becomes clear', 1]], sub: 'A creative studio at the threshold of science, technology and art for MedTech, biotech and life sciences companies' },
       { label: '01 · How we cross', segs: [['It takes ', 0], ['different worlds', 1], [' to untangle one idea', 0]], sub: 'Limen brings together people who don’t usually share a room, because breakthrough science deserves more than one way of seeing' }
     ];
+  }
+
+  cardArt(kind, ctx, w, h) {
+    const d = ctx.__dpr || 1; ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    let sd = kind.length * 977 + 13; const R = () => { sd = (sd * 16807) % 2147483647; return sd / 2147483647; };
+    const G = '#39E58C', CR = '#E9E5DA', SA = '#D7C3AE', TE = '#2C8C8A', CO = '#D6524A', BG = '#0D1012';
+    const fs = Math.max(9, Math.round(w * 0.028));
+    const mono = (sz) => sz + "px 'IBM Plex Mono', ui-monospace, monospace";
+    const label = (t, x, y, col, al) => { ctx.font = mono(fs); ctx.textAlign = al || 'left'; ctx.fillStyle = col || 'rgba(233,229,218,0.62)'; ctx.fillText(t, x, y); ctx.textAlign = 'left'; };
+    const handle = (x, y) => { ctx.fillStyle = BG; ctx.strokeStyle = CR; ctx.lineWidth = 1; ctx.fillRect(x - 3.5, y - 3.5, 7, 7); ctx.strokeRect(x - 3.5, y - 3.5, 7, 7); };
+    ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = 'rgba(233,229,218,0.05)'; ctx.lineWidth = 1; const gs = Math.max(16, w / 14);
+    ctx.beginPath(); for (let x = gs / 2; x < w; x += gs) { ctx.moveTo(x, 0); ctx.lineTo(x, h); } for (let y = gs / 2; y < h; y += gs) { ctx.moveTo(0, y); ctx.lineTo(w, y); } ctx.stroke();
+
+    if (kind === 'story') {
+      // noise on the left unspools into one clean signal on the right
+      const cx = w * 0.25, cy = h * 0.48, r = Math.min(h * 0.26, w * 0.17);
+      let px = cx + r * 0.6, py = cy, ang = 0.4, spin = 1; const pts = [[px, py]];
+      for (let i = 0; i < 700; i++) {
+        if (i % 70 === 0) spin = R() < 0.5 ? -1 : 1;
+        ang += spin * 0.17 + (R() - 0.5) * 0.5;
+        const dx = cx - px, dy = cy - py, dd = Math.hypot(dx, dy);
+        if (dd > r * 0.7) { let df = Math.atan2(dy, dx) - ang; while (df > Math.PI) df -= 2 * Math.PI; while (df < -Math.PI) df += 2 * Math.PI; ang += df * 0.22 * (dd / r); }
+        px += Math.cos(ang) * r * 0.035; py += Math.sin(ang) * r * 0.035; pts.push([px, py]);
+      }
+      ctx.strokeStyle = 'rgba(233,229,218,0.8)'; ctx.lineWidth = 1.1; ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke();
+      const x0 = w * 0.44, x1 = w * 0.93, bl = w * 0.7;
+      ctx.strokeStyle = 'rgba(233,229,218,0.55)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(px, py); ctx.bezierCurveTo(px + r * 0.6, py + r * 0.5, x0 - r * 0.5, cy, x0, cy); ctx.stroke();
+      ctx.strokeStyle = G; ctx.lineWidth = 2; ctx.beginPath();
+      for (let x = x0; x <= x1; x += 1) { const k = (x - bl) / (w * 0.05); let y = cy; if (k > -0.4 && k < 0.2) y -= Math.sin((k + 0.4) / 0.6 * Math.PI) * h * 0.22; else if (k >= 0.2 && k < 0.9) y += Math.sin((k - 0.2) / 0.7 * Math.PI) * h * 0.08; x === x0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }
+      ctx.stroke();
+      const glow = ctx.createRadialGradient(bl - w * 0.01, cy - h * 0.2, 0, bl - w * 0.01, cy - h * 0.2, h * 0.16); glow.addColorStop(0, 'rgba(57,229,140,0.28)'); glow.addColorStop(1, 'rgba(57,229,140,0)'); ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
+      [[x0 + (bl - x0) * 0.35, '01'], [bl - w * 0.01, '02'], [x1 - w * 0.05, '03']].forEach(([x, t]) => { ctx.strokeStyle = 'rgba(233,229,218,0.35)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, cy + h * 0.13); ctx.lineTo(x, cy + h * 0.18); ctx.stroke(); label(t, x, cy + h * 0.25, 'rgba(233,229,218,0.55)', 'center'); });
+      handle(x0, cy); handle(x1, cy);
+      label('noise', cx, cy + r + h * 0.12, 'rgba(233,229,218,0.55)', 'center');
+      label('signal', x1, cy - h * 0.1, G, 'right');
+      label('STORY · ARC', w * 0.05, h * 0.1);
+    } else if (kind === 'identity') {
+      // a mark built on its construction lines, with type and palette
+      const cx = w * 0.32, cy = h * 0.47, Rr = Math.min(h * 0.28, w * 0.2);
+      ctx.strokeStyle = 'rgba(233,229,218,0.18)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(cx - Rr * 1.5, cy); ctx.lineTo(cx + Rr * 1.5, cy); ctx.moveTo(cx, cy - Rr * 1.5); ctx.lineTo(cx, cy + Rr * 1.5); ctx.moveTo(cx - Rr * 1.15, cy - Rr * 1.15); ctx.lineTo(cx + Rr * 1.15, cy + Rr * 1.15); ctx.stroke();
+      ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.arc(cx, cy, Rr * 1.22, 0, 6.29); ctx.stroke(); ctx.beginPath(); ctx.arc(cx, cy, Rr * 0.62, 0, 6.29); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx + Rr * 0.38, cy - Rr * 0.38, Rr * 0.26, 0, 6.29); ctx.stroke(); ctx.setLineDash([]);
+      ctx.strokeStyle = CR; ctx.lineWidth = Rr * 0.2; ctx.lineCap = 'butt'; ctx.beginPath(); ctx.arc(cx, cy, Rr * 0.9, -0.25, Math.PI * 2 - 1.05); ctx.stroke(); ctx.lineCap = 'round';
+      ctx.fillStyle = G; ctx.beginPath(); ctx.arc(cx + Rr * 0.38, cy - Rr * 0.38, Rr * 0.22, 0, 6.29); ctx.fill();
+      const bx = cx - Rr * 1.05, by = cy - Rr * 1.05, bw = Rr * 2.1;
+      ctx.strokeStyle = 'rgba(57,229,140,0.7)'; ctx.lineWidth = 1; ctx.strokeRect(bx, by, bw, bw);
+      [[bx, by], [bx + bw, by], [bx, by + bw], [bx + bw, by + bw], [bx + bw / 2, by], [bx + bw / 2, by + bw]].forEach(([x, y]) => handle(x, y));
+      const tx = w * 0.63; ctx.fillStyle = CR; ctx.font = "300 " + Math.round(h * 0.3) + "px 'Outfit', system-ui, sans-serif"; ctx.fillText('Aa', tx, h * 0.52);
+      label('OUTFIT · 300', tx, h * 0.62);
+      const sw = Math.min(w * 0.065, h * 0.1), sy = h * 0.72;
+      [G, TE, SA, CO].forEach((c, i) => { ctx.fillStyle = c; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(tx + i * (sw + 6), sy, sw, sw, 4); else ctx.rect(tx + i * (sw + 6), sy, sw, sw); ctx.fill(); });
+      label('MARK · V3', w * 0.05, h * 0.1);
+    } else {
+      // mechanism of action: a compound docks into a receptor in the membrane
+      const my = h * 0.7, amp = h * 0.03;
+      const yAt = (x) => my + Math.sin(x / w * Math.PI * 2.2) * amp;
+      for (let x = -6; x < w + 6; x += 9) {
+        const y = yAt(x);
+        ctx.strokeStyle = 'rgba(233,229,218,0.18)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x - 1, y - h * 0.035); ctx.lineTo(x - 1, y - h * 0.005); ctx.moveTo(x + 1, y + h * 0.005); ctx.lineTo(x + 1, y + h * 0.035); ctx.stroke();
+        ctx.fillStyle = 'rgba(233,229,218,0.55)'; ctx.beginPath(); ctx.arc(x, y - h * 0.04, 2.6, 0, 6.29); ctx.fill(); ctx.beginPath(); ctx.arc(x, y + h * 0.04, 2.6, 0, 6.29); ctx.fill();
+      }
+      const rx = w * 0.46, ry = yAt(rx);
+      const capsule = (x, y0, y1, wd) => { const g = ctx.createLinearGradient(x - wd, 0, x + wd, 0); g.addColorStop(0, '#1C5E60'); g.addColorStop(0.45, '#4FB3A8'); g.addColorStop(1, '#174C4E'); ctx.strokeStyle = g; ctx.lineWidth = wd * 2; ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x, y1); ctx.stroke(); };
+      const wd = Math.max(5, w * 0.022);
+      capsule(rx - wd * 1.3, ry + h * 0.12, ry - h * 0.1, wd); capsule(rx + wd * 1.3, ry + h * 0.12, ry - h * 0.1, wd);
+      ctx.strokeStyle = '#3E9C93'; ctx.lineWidth = wd * 1.6; ctx.beginPath(); ctx.moveTo(rx - wd * 1.3, ry - h * 0.1); ctx.lineTo(rx - wd * 3.2, ry - h * 0.24); ctx.moveTo(rx + wd * 1.3, ry - h * 0.1); ctx.lineTo(rx + wd * 3.2, ry - h * 0.24); ctx.stroke();
+      const sx = rx, sy2 = ry - h * 0.2;
+      const gl = ctx.createRadialGradient(sx, sy2, 0, sx, sy2, h * 0.14); gl.addColorStop(0, 'rgba(57,229,140,0.55)'); gl.addColorStop(1, 'rgba(57,229,140,0)'); ctx.fillStyle = gl; ctx.fillRect(0, 0, w, h);
+      const mx = w * 0.74, myy = h * 0.24, hr = Math.max(7, w * 0.03);
+      const hex = (x, y) => { ctx.beginPath(); for (let k = 0; k <= 6; k++) { const a = Math.PI / 6 + k * Math.PI / 3; k ? ctx.lineTo(x + Math.cos(a) * hr, y + Math.sin(a) * hr) : ctx.moveTo(x + Math.cos(a) * hr, y + Math.sin(a) * hr); } ctx.stroke(); };
+      const cg = ctx.createRadialGradient(mx, myy, 0, mx, myy, hr * 3.2); cg.addColorStop(0, 'rgba(214,82,74,0.35)'); cg.addColorStop(1, 'rgba(214,82,74,0)'); ctx.fillStyle = cg; ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = CO; ctx.lineWidth = 1.8; hex(mx, myy); hex(mx + hr * 1.73, myy); hex(mx + hr * 0.87, myy + hr * 1.5);
+      [[mx - hr * 0.9, myy - hr * 0.6], [mx + hr * 2.6, myy + hr * 0.5]].forEach(([x, y]) => { const sg = ctx.createRadialGradient(x - 1.5, y - 1.5, 0, x, y, 4.5); sg.addColorStop(0, '#FFE1D8'); sg.addColorStop(1, CO); ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(x, y, 4.5, 0, 6.29); ctx.fill(); });
+      ctx.setLineDash([4, 5]); ctx.strokeStyle = 'rgba(233,229,218,0.55)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(mx - hr * 1.2, myy + hr * 0.8); ctx.quadraticCurveTo(w * 0.6, h * 0.16, sx + wd * 1.5, sy2 - h * 0.04); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(233,229,218,0.7)'; ctx.beginPath(); ctx.moveTo(sx + wd * 1.5, sy2 - h * 0.04); ctx.lineTo(sx + wd * 1.5 + 8, sy2 - h * 0.04 - 3); ctx.lineTo(sx + wd * 1.5 + 4, sy2 - h * 0.04 - 9); ctx.fill();
+      for (let i = 0; i < 9; i++) { const x = R() * w, y = R() * h * 0.55, rr = 1.5 + R() * 3; const pg = ctx.createRadialGradient(x - rr * 0.3, y - rr * 0.3, 0, x, y, rr); pg.addColorStop(0, 'rgba(233,229,218,0.7)'); pg.addColorStop(1, 'rgba(233,229,218,0.08)'); ctx.fillStyle = pg; ctx.beginPath(); ctx.arc(x, y, rr, 0, 6.29); ctx.fill(); }
+      const call = (x0, y0, x1, y1, t, al) => { ctx.strokeStyle = 'rgba(233,229,218,0.45)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); ctx.fillStyle = CR; ctx.beginPath(); ctx.arc(x0, y0, 2, 0, 6.29); ctx.fill(); label(t, x1 + (al === 'right' ? -4 : 4), y1 + 4, 'rgba(233,229,218,0.7)', al); };
+      call(sx - wd * 0.5, sy2, w * 0.34, h * 0.3, 'binding site', 'right');
+      call(rx + wd * 2.2, ry + h * 0.06, w * 0.66, h * 0.52, 'receptor');
+      call(mx - hr * 0.6, myy - hr * 1.1, w * 0.5, h * 0.1, 'compound');
+      call(w * 0.12, yAt(w * 0.12) + h * 0.04, w * 0.06, h * 0.92, 'membrane');
+      label('MOA · 01', w * 0.05, h * 0.1);
+    }
   }
 
   doodleKit() {
@@ -2667,9 +2752,9 @@ class Component extends DCLogic {
     const A = this.buildAnims();
     const reduceMQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
     const SPEC = {
-      cStory: { fixed: true, fps: 24, dpr: 1.5, still: 6, draw: A.contours },
-      inv: { fixed: true, fps: 24, dpr: 1.5, still: 4.5, draw: A.gel },
-      vis: { fixed: true, fps: 24, dpr: 1.5, still: 8.4, draw: A.petri },
+      cStory: { fixed: true, fps: 24, dpr: 2, still: 6, draw: (c, w, h) => this.cardArt('story', c, w, h) },
+      inv: { fixed: true, fps: 24, dpr: 2, still: 4.5, draw: (c, w, h) => this.cardArt('identity', c, w, h) },
+      vis: { fixed: true, fps: 24, dpr: 2, still: 8.4, draw: (c, w, h) => this.cardArt('image', c, w, h) },
       p1: { fixed: true, fps: 30, dpr: 2, still: 4.2, draw: (c, w, h, t) => A.principle(c, w, h, t, 0) },
       p2: { fixed: true, fps: 30, dpr: 2, still: 2, draw: (c, w, h, t) => A.principle(c, w, h, t, 1) },
       p3: { fixed: true, fps: 30, dpr: 2, still: 1.3, draw: (c, w, h, t) => A.principle(c, w, h, t, 2) },
