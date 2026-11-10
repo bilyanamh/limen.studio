@@ -31,7 +31,7 @@
 .lm-aud p{margin:0;font-weight:300;font-size:clamp(26px,3.2vw,48px);line-height:1.08;letter-spacing:-.035em}
 @media (max-width:760px){.lm-aud{grid-template-columns:64px minmax(0,1fr);gap:2px 18px}.lm-aud .lm-face{grid-row:span 2;width:64px;height:64px}}
 @media (prefers-reduced-motion: reduce){.lm-sv{opacity:1;transform:none;transition:none}.lm-dots i{animation:none}}
-.lm-ct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center}.lm-figbox{position:relative;border-radius:22px;overflow:hidden;height:min(68vh,640px);min-height:440px;background:#E4ECE8}.lm-fig figcaption{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#54605E}@media (max-width:860px){.lm-ct{grid-template-columns:1fr;gap:40px}.lm-figbox{height:auto;min-height:0;aspect-ratio:4/5}}
+.lm-ct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center}.lm-figbox{position:relative;border-radius:22px;overflow:hidden;height:min(68vh,640px);min-height:440px;background:#E3E3E0}.lm-fig figcaption{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#54605E}@media (max-width:860px){.lm-ct{grid-template-columns:1fr;gap:40px}.lm-figbox{height:auto;min-height:0;aspect-ratio:4/5}}
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}.lm-split .lm-ch{animation-play-state:paused}.lm-split.is-in .lm-ch{animation-play-state:running}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
 @keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#05090B}
@@ -610,10 +610,10 @@ class Component extends DCLogic {
       ctx.fillStyle = C.panel; ctx.fillRect(0, 0, w, h);
       var cx = w / 2, cy = h / 2, r = Math.min(w, h) * 0.42, P = 12, ph = (t % P) / P;
       var grow = sstep(0.02, 0.7, ph), fade = 1 - sstep(0.9, 1, ph);
-      ctx.fillStyle = 'rgba(244,233,227,0.05)'; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 6.29); ctx.fill();
-      ctx.strokeStyle = 'rgba(207,230,242,0.45)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 6.29); ctx.stroke();
-      ctx.strokeStyle = 'rgba(207,230,242,0.15)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, r * 0.96, 0, 6.29); ctx.stroke();
-      var R = rng(19), pal = ['#B23A3A', '#E2A23A', '#C2573F', '#CFE6F2', '#3F8E8C', '#EADFD2'];
+      ctx.fillStyle = 'rgba(191,227,216,0.05)'; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 6.29); ctx.fill();
+      ctx.strokeStyle = 'rgba(141,207,192,0.45)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 6.29); ctx.stroke();
+      ctx.strokeStyle = 'rgba(141,207,192,0.15)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, r * 0.96, 0, 6.29); ctx.stroke();
+      var R = rng(19), pal = ['#D9A193', '#6FBFAF', '#C98F7E', '#8DCFC0', '#2B7F72', '#BFE3D8'];
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r * 0.95, 0, 6.29); ctx.clip();
       for (var c = 0; c < 16; c++) {
         var a = R() * 6.28, d = Math.sqrt(R()) * r * 0.78, px = cx + Math.cos(a) * d, py = cy + Math.sin(a) * d;
@@ -1575,7 +1575,7 @@ class Component extends DCLogic {
     // ---- footer: a culture dish growing in time-lapse (mixed colonies, brand palette) ----
     function dishColonies(cx, cy, DR, seed, t0) {
       var R = rng(seed), marks = [], cols = [];
-      var OCH = ['#3E9C8C', '#6FBFAF', '#2B7F72', '#8DCFC0'], INK = '#123B36', OX = '#C98F7E', SIG = '#D9A193', SAND = '#BFE3D8', STONE = '#4F6E68';
+      var OCH = ['#C98A1F', '#E0A73A', '#B8741A', '#D99A2B'], INK = '#171414', OX = '#6B1E26', SIG = '#B23A3A', SAND = '#D7C3AE', STONE = '#5A534E';
       function add(T, k, x, y, s, c, a, wd) { marks.push({ T: T, k: k, x: x, y: y, s: s, c: c, a: a || 0, w: wd || 1 }); }
       function inDish(x, y, m) { var dx = x - cx, dy = y - cy; return dx * dx + dy * dy < (DR - m) * (DR - m); }
       var kinds = ['leopard', 'bloom', 'bloom', 'bloom', 'bloom', 'dendrite', 'dendrite', 'dendrite', 'core', 'core', 'grey', 'grey', 'grey', 'bloom', 'core', 'dot', 'dot', 'dot', 'dot', 'dot', 'dot', 'dot', 'dot', 'dot'];
@@ -1609,7 +1609,7 @@ class Component extends DCLogic {
               for (var st = 0; st < 10; st++) {
                 sa += (R() - 0.5) * 0.9; var step = r * 0.07; sx += Math.cos(sa) * step; sy += Math.sin(sa) * step; dist += step;
                 if (dist > r || !inDish(sx, sy, 5)) break;
-                var bs0 = r * (0.04 + R() * 0.05) * (1 - 0.5 * dist / r); for (var cb = 0; cb < 3; cb++) add(T0 + D * (dist / r), 'dot', sx + (R() - 0.5) * bs0 * 2.4, sy + (R() - 0.5) * bs0 * 2.4, bs0 * (0.5 + R() * 0.6), R() < 0.85 ? INK : '#1E4A44');
+                var bs0 = r * (0.04 + R() * 0.05) * (1 - 0.5 * dist / r); for (var cb = 0; cb < 3; cb++) add(T0 + D * (dist / r), 'dot', sx + (R() - 0.5) * bs0 * 2.4, sy + (R() - 0.5) * bs0 * 2.4, bs0 * (0.5 + R() * 0.6), R() < 0.85 ? INK : '#3A2E26');
                 if (R() < 0.18 && stack.length < 40) stack.push([sx, sy, sa + (R() < 0.5 ? 0.8 : -0.8), dist]);
               }
             }
@@ -1617,11 +1617,11 @@ class Component extends DCLogic {
         } else if (k === 'leopard') {
           add(T0, 'wash', x, y, r, SAND, 0, 0.35);
           n = Math.round(r * 2.4);
-          for (j = 0; j < n; j++) { var la = R() * 6.2832, lr = r * Math.sqrt(R()) * (0.85 + 0.15 * Math.sin(la * 3)), lx = x + Math.cos(la) * lr * 1.15, ly = y + Math.sin(la) * lr * 0.85; if (!inDish(lx, ly, 4)) continue; add(T0 + D * (lr / r), 'blot', lx, ly, 1.4 + R() * 2.8, R() < 0.8 ? INK : '#5A9488', R() * 3.14, 1); }
+          for (j = 0; j < n; j++) { var la = R() * 6.2832, lr = r * Math.sqrt(R()) * (0.85 + 0.15 * Math.sin(la * 3)), lx = x + Math.cos(la) * lr * 1.15, ly = y + Math.sin(la) * lr * 0.85; if (!inDish(lx, ly, 4)) continue; add(T0 + D * (lr / r), 'blot', lx, ly, 1.4 + R() * 2.8, R() < 0.8 ? INK : '#8A6A3A', R() * 3.14, 1); }
         } else if (k === 'core') {
           add(T0, 'wash', x, y, r * 1.2, SAND, 0, 0.55);
           n = Math.round(r * 10);
-          for (j = 0; j < n; j++) { var ca = R() * 6.2832, cr = r * (0.35 + 0.65 * Math.pow(R(), 0.6)), qx = x + Math.cos(ca) * cr, qy = y + Math.sin(ca) * cr; if (!inDish(qx, qy, 4)) continue; add(T0 + D * (cr / r), 'dot', qx, qy, 0.8 + R() * 1.6, R() < 0.7 ? '#A9D6CC' : OX); }
+          for (j = 0; j < n; j++) { var ca = R() * 6.2832, cr = r * (0.35 + 0.65 * Math.pow(R(), 0.6)), qx = x + Math.cos(ca) * cr, qy = y + Math.sin(ca) * cr; if (!inDish(qx, qy, 4)) continue; add(T0 + D * (cr / r), 'dot', qx, qy, 0.8 + R() * 1.6, R() < 0.7 ? '#C9A988' : OX); }
           add(T0 + D * 0.2, 'dot', x, y, r * 0.3, SIG); add(T0 + D * 0.35, 'dot', x, y, r * 0.16, OX);
         } else if (k === 'grey') {
           for (j = 0; j < 6; j++) add(T0 + D * j / 6, 'wash', x + (R() - 0.5) * r * 0.9, y + (R() - 0.5) * r * 0.9, r * (0.45 + R() * 0.55), STONE, 0, 0.2);
@@ -1633,7 +1633,7 @@ class Component extends DCLogic {
         return 1;
       }
       // fine background flecks across the agar
-      for (var f = 0; f < 600; f++) { var fa = R() * 6.2832, fd = Math.sqrt(R()) * (DR - 6); add(t0 + R() * 26, 'dot', cx + Math.cos(fa) * fd, cy + Math.sin(fa) * fd, 0.5 + R() * 0.9, R() < 0.6 ? 'rgba(18,59,54,0.6)' : 'rgba(62,156,140,0.7)'); }
+      for (var f = 0; f < 600; f++) { var fa = R() * 6.2832, fd = Math.sqrt(R()) * (DR - 6); add(t0 + R() * 26, 'dot', cx + Math.cos(fa) * fd, cy + Math.sin(fa) * fd, 0.5 + R() * 0.9, R() < 0.6 ? 'rgba(90,83,78,0.6)' : 'rgba(201,138,31,0.7)'); }
       marks.sort(function (a, b) { return a.T - b.T; });
       return marks;
     }
@@ -1664,16 +1664,16 @@ class Component extends DCLogic {
       S.lx.setTransform(SC, 0, 0, SC, 0, 0);
       while (S.i < S.marks.length && S.marks[S.i].T <= lt) { drawMark(S.lx, S.marks[S.i], 1); S.i++; }
       // panel ground: cool grey, like a specimen poster
-      ctx.fillStyle = '#E4ECE8'; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#E3E3E0'; ctx.fillRect(0, 0, w, h);
       // a soft, undefined field: agar fades into the grey, no glass rim
-      var ag = ctx.createRadialGradient(cx, cy, DR * 0.55, cx, cy, DR * 1.12); ag.addColorStop(0, 'rgba(244,248,246,1)'); ag.addColorStop(0.7, 'rgba(240,246,243,0.8)'); ag.addColorStop(1, 'rgba(240,246,243,0)'); ctx.fillStyle = ag; ctx.fillRect(0, 0, w, h);
+      var ag = ctx.createRadialGradient(cx, cy, DR * 0.55, cx, cy, DR * 1.12); ag.addColorStop(0, 'rgba(242,239,232,1)'); ag.addColorStop(0.7, 'rgba(242,239,232,0.75)'); ag.addColorStop(1, 'rgba(242,239,232,0)'); ctx.fillStyle = ag; ctx.fillRect(0, 0, w, h);
       var fade = 1 - sstep(PER - 4, PER - 0.5, lt);
       if (!S.tmp) { S.tmp = mk(S.layer.width, S.layer.height); S.tx = S.tmp.getContext('2d'); }
       var tx2 = S.tx; tx2.setTransform(1, 0, 0, 1, 0, 0); tx2.globalCompositeOperation = 'source-over'; tx2.clearRect(0, 0, S.tmp.width, S.tmp.height); tx2.drawImage(S.layer, 0, 0);
       tx2.globalCompositeOperation = 'destination-in'; var mg = tx2.createRadialGradient(cx * SC, cy * SC, DR * 0.8 * SC, cx * SC, cy * SC, DR * 1.04 * SC); mg.addColorStop(0, 'rgba(0,0,0,1)'); mg.addColorStop(1, 'rgba(0,0,0,0)'); tx2.fillStyle = mg; tx2.fillRect(0, 0, S.tmp.width, S.tmp.height); tx2.globalCompositeOperation = 'source-over';
       ctx.globalAlpha = fade; ctx.drawImage(S.tmp, 0, 0, w, h); ctx.globalAlpha = 1;
       // hover: a soft loupe ring follows the cursor over the dish
-      if (ix.mx >= 0) { var hx = ix.mx - cx, hy = ix.my - cy; if (hx * hx + hy * hy < DR * DR) { ctx.strokeStyle = '#2B7F72'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(ix.mx, ix.my, 22, 0, 6.2832); ctx.stroke(); } }
+      if (ix.mx >= 0) { var hx = ix.mx - cx, hy = ix.my - cy; if (hx * hx + hy * hy < DR * DR) { ctx.strokeStyle = '#6B1E26'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(ix.mx, ix.my, 22, 0, 6.2832); ctx.stroke(); } }
     }
     // ---- footer: ink on water. Marbled cells packed on a smoky ground, drifting and blooming ----
     function marbleLayout(w, h) {
