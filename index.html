@@ -120,7 +120,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Your science is brilliant, but nobody can tell</h1>
 <p style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Most breakthroughs don’t stall in the lab. They stall in the room, with an investor, a clinician or a partner who needed to get it in thirty seconds. That’s where Limen comes in.</p>
 <div style="position: relative; flex: 1; min-height: 0">
-<canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. A line, the limen, pulls the scribble straight into one clean signal. The investor comes back, leans in and says tell me more, and the line “but nobody can tell” is crossed out." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+<canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. A dashed line appears: the limen, the threshold of detection. The scribble straightens, and one clean signal rises above the threshold. The line “but nobody can tell” is crossed out and becomes “and now everyone can tell”. The investor comes back, leans in and says tell me more." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 </div>
 <div style="position: relative; display: flex; justify-content: center; gap: 4px; padding: 0 0 10px">
 <a href="#studio" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #5C6765; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; background: none; border: 0; cursor: pointer">Scroll ↓</a>
@@ -2277,7 +2277,7 @@ class Component extends DCLogic {
   var SLOW0 = 15.5, SLOW1 = 17, RATE = 0.75, S1 = SLOW1 - (1 - RATE) * (SLOW1 - SLOW0) / 2;
   function storyTime(t) { if (t < SLOW0) return t; if (t < SLOW1) { var d = t - SLOW0; return SLOW0 + d - (1 - RATE) * d * d / (2 * (SLOW1 - SLOW0)); } return S1 + RATE * (t - SLOW1); }
   function realTime(st) { return st <= SLOW0 ? st : SLOW1 + (st - S1) / RATE; }
-  var DUR = realTime(23.1), STILL = realTime(19.3);
+  var DUR = realTime(21.2), STILL = realTime(19.3);
   function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   function clamp(v, a, b) { a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return v < a ? a : v > b ? b : v; }
   function sstep(a, b, v) { var q = clamp((v - a) / (b - a)); return q * q * (3 - 2 * q); }
@@ -2432,10 +2432,15 @@ class Component extends DCLogic {
     return [px, 560 + y + Math.sin(u * 40) * 1.5];
   });
 
+  // the threshold: a detection limit the noise sits under and the signal clears
+  var THR_Y = 500, THR_X0 = 580, THR_X1 = 1290;
+  var PK = (function () { var b = 0; for (var i = 1; i < QLINE.length; i++) if (QLINE[i][1] < QLINE[b][1]) b = i; return b; })();
+
   // ---------- copy ----------
   var TA = [{ t: 'Your science is brilliant', c: C.ink }, { t: ', but nobody can tell', c: C.ink }];
   var TB = [{ t: 'That’s where ', c: C.ink }, { t: 'Limen', c: C.ox }, { t: ' comes in', c: C.ink }];
   var TCc = [{ t: 'Same science, now ', c: C.ink }, { t: 'everyone can tell', c: C.ox }];
+  var TD = [{ t: 'Your science is brilliant', c: C.ink }, { t: ', and now ', c: C.ink }, { t: 'everyone can tell', c: C.ox }];
   var BUB = [
     { side: 'r', text: 'So, in a sentence, what are you building?', t0: 2.0, ty: [2.25, 3.3], out: 4.3, rot: 0.012 },
     { side: 'l', text: 'A dual-modal biosensor using closed-loop impedance spectroscopy with adaptive signal deconvolution and multiplexed electrochemical transduction…', t0: 4.4, ty: [4.6, 7.6], out: 8.3, rot: -0.01 },
@@ -2468,7 +2473,7 @@ class Component extends DCLogic {
     var sc = Ly.sc, S = function (p) { return [sc.dx + p[0] * sc.s, sc.dy + p[1] * sc.s]; };
     Ly.S = S;
     var tf = '300 ' + Ly.tsize + 'px ' + SANS;
-    Ly.TA = flow(TA, tf, Ly.tmax, Ly.tlh); Ly.TB = flow(TB, tf, Ly.tmax, Ly.tlh); Ly.TC = flow(TCc, tf, Ly.tmax, Ly.tlh);
+    Ly.TA = flow(TA, tf, Ly.tmax, Ly.tlh); Ly.TB = flow(TB, tf, Ly.tmax, Ly.tlh); Ly.TC = flow(TCc, tf, Ly.tmax, Ly.tlh); Ly.TD = flow(TD, tf, Ly.tmax, Ly.tlh);
     var bf = '300 ' + Ly.bsize + 'px ' + SANS, tipI = S([1404, 440]), tipF = S([536, 440]);
     Ly.B = BUB.map(function (b, i) {
       var F = flow([{ t: b.text, c: b.col || C.ink }], bf, b.side === 'l' ? Ly.bmax : Math.min(Ly.bmax, 700), Ly.blh);
@@ -2489,7 +2494,7 @@ class Component extends DCLogic {
     lines.forEach(function (ln, L) { var cx = 0, wsum = 0; ln.forEach(function (o, k) { var pv = ln[k - 1]; o.x = cx + (pv && !pv.dot && !o.dot ? spW : 0); cx = o.x + o.w; o.line = L; }); wsum = cx; var ox = (Ly.DW - wsum) / 2; ln.forEach(function (o) { o.X = ox + o.x; o.Y = y0 + L * lh; }); });
     var dk = toks[1];
     Ly.END = { font: ef, es: es, toks: toks, gap: gap, dot: [dk.X + gap, dk.Y - es * 0.32], lastY: y0 + (lines.length - 1) * lh };
-    Ly.TANG = TANGLE.map(S); Ly.QL = QLINE.map(S);
+    Ly.TANG = TANGLE.map(S); Ly.QL = QLINE.map(S); Ly.THR = [S([THR_X0, THR_Y]), S([THR_X1, THR_Y])];
     Ly.LIMEN = seg(Ly.limen[0], Ly.limen[1], 2, 400);
     LAY[key] = Ly; return Ly;
   }
@@ -2521,7 +2526,7 @@ class Component extends DCLogic {
     if (t < 16.9) return 1 - eio((t - 12.7) / 0.8);
     return eio((t - 16.9) / 0.7) * (1 - eio((t - 19.6) / 0.6));
   }
-  var paperTile = null;
+  var paperTile = null, this_cross = null;
   function makePaper() {
     var c = document.createElement('canvas'); c.width = c.height = 512; var g = c.getContext('2d'), R = rng(11); g.lineCap = 'round';
     for (var i = 0; i < 260; i++) { var px = R() * 512, py = R() * 512, a = R() * 6.28, l = 4 + R() * 18; g.strokeStyle = 'rgba(80,105,100,' + (0.03 + R() * 0.05).toFixed(3) + ')'; g.lineWidth = 0.6 + R() * 0.6; g.beginPath(); g.moveTo(px, py); g.quadraticCurveTo(px + Math.cos(a + 0.4) * l * 0.5, py + Math.sin(a + 0.4) * l * 0.5, px + Math.cos(a) * l, py + Math.sin(a) * l); g.stroke(); }
@@ -2574,19 +2579,47 @@ class Component extends DCLogic {
     var lw = sc.wm * sc.s;
     if (t < 15.2) { WM = lw; ink(Ly.TANG, { p: eio((t - 4.6) / 4.0), w: 4.4, seed: 300, nib: t < 8.6, nibCol: C.ink, nibR: 5, amp: 1.6 }); WM = 1; }
     else {
-      var M = clamp((t - 15.2) / 1.9), sg = 0.7, P = new Array(NT), kk = NT;
-      for (i = 0; i < NT; i++) { var u = i / (NT - 1), m = eio(clamp(M * (1 + sg) - sg * (1 - u))); P[i] = [lerp(Ly.TANG[i][0], Ly.QL[i][0], m), lerp(Ly.TANG[i][1], Ly.QL[i][1], m)]; if (m > 0.55 && kk === NT) kk = i; }
+      var M = clamp((t - 15.2) / 1.9), sg = 0.7, P = new Array(NT), Mi = new Array(NT);
+      for (i = 0; i < NT; i++) { var u = i / (NT - 1), m = eio(clamp(M * (1 + sg) - sg * (1 - u))); P[i] = [lerp(Ly.TANG[i][0], Ly.QL[i][0], m), lerp(Ly.TANG[i][1], Ly.QL[i][1], m)]; Mi[i] = m; }
       if (t >= 19.7) { var Cc = clamp((t - 19.7) / 0.7); for (i = 0; i < NT; i++) { var d = Math.abs(i / (NT - 1) - 0.5) * 2, mm = eio(clamp(Cc * 1.6 - 0.6 * (1 - d))); P[i] = [lerp(P[i][0], Ly.END.dot[0], mm), lerp(P[i][1], Ly.END.dot[1], mm)]; } }
-      var fw = t >= 19.7 ? 1 - 0.6 * sstep(19.9, 20.4, t) : 1;
+      var fw = t >= 19.7 ? 1 - 0.6 * sstep(19.9, 20.4, t) : 1, thrY = Ly.THR[0][1];
+      var cls = function (j) { if (t >= 19.7) return 1; if (Mi[j] <= 0.55) return 0; return P[j][1] < thrY - 2 ? 1 : 2; };
+      var STY = [{ w: 4.4, col: C.ink, amp: 1.6 }, { w: 5.8, col: C.ox, amp: 1.2 }, { w: 4.0, col: C.stone, amp: 1.0 }];
       WM = lw;
-      if (kk > 1) ink(P.slice(0, kk + 1), { w: 4.4 * fw, seed: 300, noTaperEnd: true, amp: 1.6 });
-      if (kk < NT - 1) ink(P.slice(kk), { w: 5.8 * fw, col: C.ox, seed: 301, noTaperStart: true, amp: 1.2 });
+      for (var s0 = 0, j = 1; j <= NT; j++) {
+        if (j < NT && cls(j) === cls(s0)) continue;
+        var c0 = cls(s0), st0 = STY[c0];
+        ink(P.slice(s0, Math.min(NT, j + 1)), { w: st0.w * fw, col: st0.col, seed: 300 + c0, amp: st0.amp, noTaperStart: s0 > 0, noTaperEnd: j < NT });
+        s0 = j;
+      }
       if (t < 17.6) { x.save(); x.globalAlpha = 1 - sstep(17.2, 17.6, t); dot(P[NT - 1][0], P[NT - 1][1], 11 * lw, C.ox); x.restore(); }
+      // the moment the peak clears the threshold: a ping, and a label
+      var pk = P[PK];
+      if (t < 19.7 && pk[1] < thrY - 2) {
+        if (this_cross == null || t < this_cross) this_cross = t;
+        var pq = clamp((t - this_cross) / 0.7);
+        if (pq < 1) { x.save(); x.globalAlpha = 1 - pq; x.strokeStyle = C.ox; x.lineWidth = 3 * lw; x.beginPath(); x.arc(pk[0], pk[1], (12 + 70 * eo(pq)) * lw, 0, 7); x.stroke(); x.restore(); }
+        x.save(); x.globalAlpha = sstep(this_cross + 0.15, this_cross + 0.45, t) * (1 - sstep(19.3, 19.7, t)); x.font = '400 ' + Ly.mono + 'px ' + MONO; x.fillStyle = C.ox; x.textAlign = 'left'; x.fillText('SIGNAL', pk[0] + 22 * lw, pk[1] + 6 * lw); x.restore();
+      } else if (t < 15.2 || t >= 19.7) this_cross = null;
       WM = 1;
     }
     if (t >= 15.0 && t < 15.2) dot(Ly.TANG[NT - 1][0], Ly.TANG[NT - 1][1], 11 * lw * back((t - 15.0) / 0.2), C.ox);
-    var la = 1 - sstep(15.4, 16.0, t);
-    if (t > 13.8 && la > 0) { x.save(); x.globalAlpha = la; ink(Ly.LIMEN, { p: eio((t - 13.8) / 0.5), w: 4.2, col: C.ox, seed: 400, nib: true, nibR: 8, amp: 1.2 }); x.restore(); }
+    // the limen: a dashed detection threshold, drawn by the pen, labelled, later folded into the full stop
+    if (t > 13.8) {
+      var T0 = Ly.THR[0], T1 = Ly.THR[1], tlen = T1[0] - T0[0], tpg = eio((t - 13.8) / 0.6), Cq = t >= 19.7 ? eio(clamp((t - 19.7) / 0.6)) : 0, ED = Ly.END.dot;
+      if (Cq < 1) {
+        var dl = 22 * lw, gp = 13 * lw, hd = tlen * tpg; WM = lw;
+        for (var ddx = 0, dn = 0; ddx < hd; ddx += dl + gp, dn++) {
+          var xa = T0[0] + ddx, xb = T0[0] + Math.min(ddx + dl, hd);
+          var A1 = [lerp(xa, ED[0], Cq), lerp(T0[1], ED[1], Cq)], B1 = [lerp(xb, ED[0], Cq), lerp(T1[1], ED[1], Cq)];
+          if (Math.hypot(B1[0] - A1[0], B1[1] - A1[1]) > 1) ink([A1, B1], { w: 3.6 * (1 - 0.5 * Cq), col: C.ox, seed: 410 + dn, amp: 0.4 });
+        }
+        WM = 1;
+        if (tpg < 1) dot(T0[0] + hd, T0[1], 8 * lw, C.ox);
+        var lba = sstep(14.15, 14.55, t) * (1 - sstep(19.3, 19.7, t));
+        if (lba > 0) { x.save(); x.globalAlpha = lba; var LBL = 'LIMEN \u00B7 THRESHOLD OF DETECTION', room = Ly.S([870, 0])[0] - T0[0]; try { x.letterSpacing = '1px'; } catch (e) {} x.font = '400 ' + Ly.mono + 'px ' + MONO; var fz = Math.min(Ly.mono, Ly.mono * room / Math.max(1, x.measureText(LBL).width)); x.font = '400 ' + fz.toFixed(1) + 'px ' + MONO; x.fillStyle = C.ox; x.textAlign = 'left'; x.fillText(LBL, T0[0], T0[1] + fz * 1.5); x.restore(); }
+      }
+    }
 
     Ly.B.forEach(function (b) { drawBubble(Ly, b, t); });
     var nA = t < 12.6 ? typed(t, 0.6, 1.5, TA[0].t.length) : TA[0].t.length + typed(t, 12.6, 13.35, TA[1].t.length);
@@ -2608,21 +2641,23 @@ class Component extends DCLogic {
         });
         x.restore();
       }
+      if (t >= 17.0) {
+        var Fd = Ly.TD, kd = -1; for (ti = 0; ti < Fd.tk.length; ti++) if (Fd.tk[ti].t.charAt(0) === ',') { kd = ti; break; }
+        var rem = 0; for (ti = kd; ti < Fd.tk.length; ti++) rem += Fd.tk[ti].t.length + (ti > kd && Fd.tk[ti].spB ? 1 : 0);
+        var nd = typed(t, 17.0, 17.7, rem);
+        x.save(); x.globalAlpha = keep; x.font = Fd.font;
+        for (ti = kd; ti < Fd.tk.length && nd > 0; ti++) { var od = Fd.tk[ti]; if (ti > kd && od.spB) nd -= 1; if (nd <= 0) break; x.fillStyle = od.c; x.fillText(od.t.slice(0, nd), Ly.tx + od.x, Ly.ty + od.line * Fd.lh); nd -= od.t.length; }
+        x.restore();
+      }
     }
 
     if (t > 19.9) {
       var E = Ly.END, D = E.dot, es = E.es, TK = E.toks, LM = TK[0], top = LM.Y - es * 1.05, hgt = es * 1.45;
-      // the dot lands, bounces, then becomes the pen that writes "Limen"
-      var px = D[0], py = D[1], sq = 1, dr = es * 0.115 * eo((t - 19.95) / 0.35);
-      if (t > 20.4 && t < 21.1) { var bq = (t - 20.4) / 0.7, hop = Math.abs(Math.sin(bq * Math.PI * 3)) * (1 - bq); py -= es * 0.9 * hop; sq = 1 + 0.25 * (1 - hop) * (1 - bq) * (Math.sin(bq * Math.PI * 3) < 0.15 ? 1 : 0); }
-      function hopTo(t0, t1, ax, bx, h) { var q = eio((t - t0) / (t1 - t0)); return [lerp(ax, bx, q), D[1] - Math.sin(q * Math.PI) * h]; }
-      var revL = 0, hp;
-      if (t >= 21.1 && t < 21.4) { hp = hopTo(21.1, 21.4, D[0], LM.X, es * 0.8); px = hp[0]; py = hp[1]; }
-      else if (t >= 21.4 && t < 22.5) { var q1 = clamp((t - 21.4) / 1.1); px = lerp(LM.X, LM.X + LM.w, q1 * 0.85 + 0.15 * eio(q1)); py = D[1] + Math.sin(q1 * 26) * es * 0.05; }
-      else if (t >= 22.5 && t < 22.8) { hp = hopTo(22.5, 22.8, LM.X + LM.w, D[0], es * 0.5); px = hp[0]; py = hp[1]; }
-      revL = t < 21.4 ? 0 : t < 22.5 ? px - LM.X : LM.w + 10;
-      if (revL > 0) { x.save(); x.beginPath(); x.rect(LM.X - 6, top, revL + 6, hgt); x.clip(); x.font = E.font; x.fillStyle = C.ink; x.fillText('Limen', LM.X, LM.Y); x.restore(); }
-      x.save(); x.translate(px, py); x.scale(1 / sq, sq); dot(0, 0, dr, C.ox); x.restore();
+      // the threshold and the signal fold into one dot; the name draws out of it, right to left
+      var dr = es * 0.115 * eo((t - 19.95) / 0.35), sq = 1 + 0.2 * Math.sin(clamp((t - 20.3) / 0.28) * Math.PI);
+      var revL = eio((t - 20.3) / 0.55) * (LM.w + 14);
+      if (revL > 0) { x.save(); x.beginPath(); x.rect(LM.X + LM.w + 8 - revL, top, revL + 8, hgt); x.clip(); x.font = E.font; x.fillStyle = C.ink; x.fillText('Limen', LM.X, LM.Y); x.restore(); }
+      x.save(); x.translate(D[0], D[1]); x.scale(sq, 1 / sq); dot(0, 0, dr, C.ox); x.restore();
     }
   }
 
