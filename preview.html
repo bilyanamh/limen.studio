@@ -2434,7 +2434,7 @@ class Component extends DCLogic {
   function layout(portrait) {
     var key = portrait ? 'p' : 'l'; if (LAY[key]) return LAY[key];
     var Ly = portrait
-      ? { DW: 1080, DH: 1560, sc: { s: 0.84, dx: 540 - 960 * 0.84, dy: 1330 - TABLE * 0.84, wm: 1.2 }, tx: 70, ty: 150, tsize: 72, tlh: 80, tmax: 940, bsize: 44, blh: 56, bpad: 38, bmax: 880, bl: 60, br: 1020, bbot: 1180, limen: [[540, 330], [540, 1540]], esize: 82, ey: 760, mono: 22 }
+      ? { DW: 920, DH: 1500, sc: { s: 0.78, dx: 460 - 960 * 0.78, dy: 1290 - TABLE * 0.78, wm: 1.2 }, tx: 48, ty: 130, tsize: 66, tlh: 74, tmax: 830, bsize: 42, blh: 54, bpad: 34, bmax: 790, bl: 40, br: 880, bbot: 1140, limen: [[460, 300], [460, 1480]], esize: 80, ey: 720, mono: 20 }
       : { DW: 1920, DH: 1080, sc: { s: 1, dx: 0, dy: 0, wm: 1 }, tx: 120, ty: 118, tsize: 68, tlh: 76, tmax: 1700, bsize: 36, blh: 46, bpad: 34, bmax: 860, bl: 80, br: 1840, bbot: 380, limen: [[960, 172], [960, 1062]], esize: 80, ey: 560, mono: 20 };
     var sc = Ly.sc, S = function (p) { return [sc.dx + p[0] * sc.s, sc.dy + p[1] * sc.s]; };
     Ly.S = S;
