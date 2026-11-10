@@ -59,6 +59,16 @@ a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a:hover{co
 
 @media (max-width:900px){.lm-founder{left:-8px;bottom:40px;width:112px;height:138px}}
 @media (max-width:640px){.lm-bub{left:52%;top:-66px;width:140px;height:60px;font-size:16px;padding-top:11px}}
+.lm-ba .bf{margin:0 0 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#5C6765}
+.lm-ba .jar{margin:0;max-width:1040px;font-weight:300;font-size:clamp(22px,2.5vw,38px);line-height:1.4;letter-spacing:-.015em;color:#3E4846}
+.lm-ba .jar .w{position:relative;transition:color .5s ease;transition-delay:calc(var(--i) * 70ms + .3s)}
+.lm-ba .jar .w::after{content:"";position:absolute;left:-3px;right:-3px;top:56%;height:2px;border-radius:2px;background:#0B7A57;transform:scaleX(0);transform-origin:left;transition:transform .32s cubic-bezier(.6,.05,.3,1);transition-delay:calc(var(--i) * 70ms + .3s)}
+.lm-ba.is-in .jar .w{color:#AAB5B2}
+.lm-ba.is-in .jar .w::after{transform:scaleX(1)}
+.lm-ba .aft{margin:0;max-width:1180px;font-weight:200;font-size:clamp(40px,6.4vw,112px);line-height:1;letter-spacing:-.05em}
+.lm-ba .aft .a{display:inline-block;opacity:0;transform:translateY(.3em);transition:opacity .6s ease,transform .9s cubic-bezier(.2,.7,.1,1);transition-delay:calc(var(--d) + var(--i) * 120ms)}
+.lm-ba.is-in .aft .a{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.lm-ba .jar .w{color:#AAB5B2;transition:none}.lm-ba .jar .w::after{transform:scaleX(1);transition:none}.lm-ba .aft .a{opacity:1;transform:none;transition:none}}
 .lm-skip{position:absolute;left:16px;top:-80px;z-index:50;padding:12px 18px;border-radius:30px;background:#EEF3F1;color:#05090B;text-decoration:none;font-size:16px;transition:top .2s ease}
 .lm-skip:focus{top:16px}
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #5BEA9A;outline-offset:3px;border-radius:30px}
@@ -153,12 +163,29 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </div>
 </section>
 
-<section id="services" style="position: relative; z-index: 3; margin-top: -100vh; box-shadow: 0 -24px 60px rgba(0,0,0,0.45); border-radius: 30px 30px 0 0; background: #F3F6F5; color: #0D1413">
+<section id="before-after" class="lm-ba" style="position: relative; z-index: 3; margin-top: -100vh; box-shadow: 0 -24px 60px rgba(0,0,0,0.45); border-radius: 30px 30px 0 0; background: #FFFFFF; color: #0D1413">
+<div style="max-width: 1360px; margin: 0 auto; padding: 0 24px">
+<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
+<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #0B7A57"></span>
+<span aria-hidden="true" style="flex: 1"></span>
+<span>03 · Before and after</span>
+</div>
+</div>
+<div style="max-width: 1360px; margin: 0 auto; padding: 110px 24px 150px">
+<p class="bf">Before · what the investor heard</p>
+<p class="jar"><span class="w" style="--i: 0">A</span> <span class="w" style="--i: 1">dual-modal</span> <span class="w" style="--i: 2">biosensor</span> <span class="w" style="--i: 3">using</span> <span class="w" style="--i: 4">closed-loop</span> <span class="w" style="--i: 5">impedance</span> <span class="w" style="--i: 6">spectroscopy</span> <span class="w" style="--i: 7">with</span> <span class="w" style="--i: 8">adaptive</span> <span class="w" style="--i: 9">signal</span> <span class="w" style="--i: 10">deconvolution</span> <span class="w" style="--i: 11">and</span> <span class="w" style="--i: 12">multiplexed</span> <span class="w" style="--i: 13">electrochemical</span> <span class="w" style="--i: 14">transduction</span> <span class="w" style="--i: 15">for</span> <span class="w" style="--i: 16">continuous</span> <span class="w" style="--i: 17">biomarker</span> <span class="w" style="--i: 18">quantification</span></p>
+<p class="bf" style="margin-top: 72px">After · what they remember</p>
+<p class="aft" style="--d: 2230ms"><span class="a" style="--i: 0">A</span> <span class="a" style="--i: 1">skin</span> <span class="a" style="--i: 2">patch</span> <span class="a" style="--i: 3">that</span> <span class="a" style="--i: 4">warns</span> <span class="a" style="--i: 5">you</span> <span class="a" style="--i: 6">an</span> <span class="a" style="--i: 7">infection</span> <span class="a" style="--i: 8">is</span> <span class="a" style="--i: 9">coming,</span> <span class="a" style="--i: 10; color: #0B7A57">days</span> <span class="a" style="--i: 11; color: #0B7A57">before</span> <span class="a" style="--i: 12; color: #0B7A57">you</span> <span class="a" style="--i: 13; color: #0B7A57">feel</span> <span class="a" style="--i: 14; color: #0B7A57">ill</span></p>
+<p style="margin: 56px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #7F8A88">Illustrative example, from the founder in our opening story</p>
+</div>
+</section>
+
+<section id="services" style="position: relative; z-index: 3; margin-top: -30px; border-radius: 30px 30px 0 0; background: #F3F6F5; color: #0D1413">
 <div style="max-width: 1360px; margin: 0 auto; padding: 0 24px">
 <div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
 <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #0B7A57"></span>
 <svg class="lm-thread" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0.0 5.0 L10.0 5.1 L20.0 5.8 L30.0 7.0 L40.0 7.7 L50.0 8.2 L60.0 8.2 L70.0 8.5 L80.0 8.4 L90.0 8.1 L100.0 7.6 L110.0 7.6 L120.0 7.5 L130.0 7.9 L140.0 8.5 L150.0 9.1 L160.0 9.4 L170.0 9.9 L180.0 10.2 L190.0 10.2 L200.0 10.1 L210.0 10.0 L220.0 9.4 L230.0 8.8 L240.0 8.6 L250.0 7.9 L260.0 7.7 L270.0 7.5 L280.0 7.6 L290.0 8.0 L300.0 8.2 L310.0 8.5 L320.0 8.8 L330.0 8.3 L340.0 7.5 L350.0 7.2 L360.0 6.4 L370.0 5.6 L380.0 5.2 L390.0 4.7 L400.0 4.6 L410.0 4.5 L420.0 5.1 L430.0 5.5 L440.0 5.3 L450.0 5.9 L460.0 5.9 L470.0 5.5 L480.0 5.2 L490.0 4.7 L500.0 4.5 L510.0 3.9 L520.0 4.0 L530.0 3.8 L540.0 4.5 L550.0 5.1 L560.0 5.6 L570.0 6.4 L580.0 7.2 L590.0 7.4 L600.0 7.5 L610.0 7.3 L620.0 7.1 L630.0 7.1 L640.0 6.6 L650.0 7.0 L660.0 6.8 L670.0 7.5 L680.0 7.8 L690.0 8.8 L700.0 9.4 L710.0 9.8 L720.0 10.2 L730.0 10.4 L740.0 10.2 L750.0 9.7 L760.0 9.1 L770.0 8.8 L780.0 8.7 L790.0 8.3 L800.0 7.9 L810.0 8.6 L820.0 8.8 L830.0 9.3 L840.0 9.1 L850.0 9.6 L860.0 9.0 L870.0 9.0 L880.0 8.2 L890.0 7.4 L900.0 7.0 L910.0 5.9 L920.0 5.6 L930.0 5.5 L940.0 5.1 L950.0 5.3 L960.0 5.9 L970.0 6.0 L980.0 6.3 L990.0 5.9 L1000.0 5.9"></path></svg>
-<span>03 · Practice</span>
+<span>04 · Practice</span>
 </div>
 </div>
 <div style="max-width: 1360px; margin: 0 auto; padding: 120px 24px 160px; display: flex; flex-direction: column; gap: 72px">
@@ -208,7 +235,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
 <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #0B7A57"></span>
 <svg class="lm-thread" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0.0 9.7 L10.0 9.1 L20.0 8.8 L30.0 8.4 L40.0 7.9 L50.0 7.9 L60.0 8.7 L70.0 8.6 L80.0 9.0 L90.0 9.7 L100.0 9.4 L110.0 9.4 L120.0 8.8 L130.0 8.2 L140.0 7.2 L150.0 6.7 L160.0 6.2 L170.0 5.6 L180.0 5.5 L190.0 5.4 L200.0 5.3 L210.0 6.0 L220.0 6.1 L230.0 6.1 L240.0 5.9 L250.0 6.1 L260.0 5.4 L270.0 5.0 L280.0 4.5 L290.0 4.0 L300.0 3.8 L310.0 3.5 L320.0 3.9 L330.0 4.2 L340.0 5.1 L350.0 5.7 L360.0 5.8 L370.0 6.2 L380.0 6.4 L390.0 6.8 L400.0 6.3 L410.0 6.1 L420.0 5.7 L430.0 5.7 L440.0 5.8 L450.0 6.1 L460.0 6.9 L470.0 7.6 L480.0 8.5 L490.0 9.1 L500.0 9.7 L510.0 9.9 L520.0 10.0 L530.0 9.6 L540.0 9.0 L550.0 9.0 L560.0 8.7 L570.0 8.5 L580.0 8.4 L590.0 8.7 L600.0 8.8 L610.0 9.6 L620.0 9.9 L630.0 9.9 L640.0 9.8 L650.0 10.0 L660.0 9.6 L670.0 8.4 L680.0 8.1 L690.0 7.2 L700.0 6.5 L710.0 6.2 L720.0 6.4 L730.0 6.6 L740.0 6.3 L750.0 6.9 L760.0 6.7 L770.0 7.1 L780.0 6.6 L790.0 6.5 L800.0 6.0 L810.0 5.0 L820.0 4.7 L830.0 3.8 L840.0 3.4 L850.0 3.7 L860.0 3.6 L870.0 4.2 L880.0 4.8 L890.0 5.4 L900.0 5.5 L910.0 5.7 L920.0 6.1 L930.0 5.6 L940.0 5.7 L950.0 5.3 L960.0 4.8 L970.0 4.8 L980.0 5.1 L990.0 5.6 L1000.0 6.3"></path></svg>
-<span>04 · How it lands</span>
+<span>05 · How it lands</span>
 </div>
 </div>
 <div class="lm-split" style="max-width: 1360px; margin: 0 auto; padding: 110px 24px 150px">
@@ -226,7 +253,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
 <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #0B7A57"></span>
 <svg class="lm-thread" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0.0 9.5 L10.0 9.2 L20.0 8.5 L30.0 8.1 L40.0 8.1 L50.0 8.5 L60.0 8.6 L70.0 8.9 L80.0 9.0 L90.0 9.4 L100.0 9.3 L110.0 9.1 L120.0 8.6 L130.0 8.0 L140.0 7.7 L150.0 6.9 L160.0 6.2 L170.0 5.8 L180.0 5.2 L190.0 5.2 L200.0 5.6 L210.0 6.0 L220.0 6.3 L230.0 6.5 L240.0 5.9 L250.0 6.0 L260.0 5.6 L270.0 4.9 L280.0 4.2 L290.0 3.8 L300.0 3.3 L310.0 3.8 L320.0 4.0 L330.0 4.2 L340.0 4.7 L350.0 5.7 L360.0 6.0 L370.0 6.6 L380.0 6.7 L390.0 6.5 L400.0 6.3 L410.0 6.1 L420.0 5.8 L430.0 5.5 L440.0 5.7 L450.0 6.4 L460.0 6.5 L470.0 7.2 L480.0 8.3 L490.0 8.8 L500.0 9.5 L510.0 9.7 L520.0 9.6 L530.0 9.8 L540.0 9.0 L550.0 8.7 L560.0 8.3 L570.0 8.4 L580.0 8.2 L590.0 8.5 L600.0 9.1 L610.0 9.3 L620.0 9.8 L630.0 10.3 L640.0 9.8 L650.0 9.6 L660.0 9.2 L670.0 8.8 L680.0 8.0 L690.0 7.1 L700.0 6.6 L710.0 6.2 L720.0 6.2 L730.0 6.1 L740.0 6.7 L750.0 7.1 L760.0 7.3 L770.0 7.1 L780.0 7.1 L790.0 6.0 L800.0 5.6 L810.0 5.3 L820.0 4.6 L830.0 3.9 L840.0 3.9 L850.0 3.7 L860.0 4.1 L870.0 4.2 L880.0 4.7 L890.0 5.3 L900.0 5.5 L910.0 5.8 L920.0 6.2 L930.0 5.6 L940.0 5.1 L950.0 4.8 L960.0 4.7 L970.0 5.0 L980.0 5.0 L990.0 5.4 L1000.0 5.9"></path></svg>
-<span>05 · Approach</span>
+<span>06 · Approach</span>
 </div>
 </div>
 <div id="about" ref="${v.refRevA}" class="lm-stagger ${v.revA}" style="max-width: 1360px; margin: 0 auto; padding: 120px 24px 160px; display: flex; flex-direction: column">
@@ -240,17 +267,9 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </div>
 </div>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; padding: 40px 0; border-top: 1px solid #C9D4D1">
-<canvas ref="${v.refP2}" aria-hidden="true" style="width: 150px; height: 150px; display: block; flex: 0 0 150px"></canvas>
-<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 48px">
-<p style="margin: 0; flex: 0 0 auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">02</p>
-<h3 style="margin: 0; flex: 1 1 340px; font-weight: 300; font-size: clamp(44px, 5.4vw, 84px); line-height: 1; letter-spacing: -0.045em">Lean by design</h3>
-<p style="margin: 0; flex: 1 1 300px; max-width: 440px; font-weight: 300; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: #4D5856">A small senior core, with specialist partners brought in per project. No agency overhead.</p>
-</div>
-</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; padding: 40px 0; border-top: 1px solid #C9D4D1">
 <canvas ref="${v.refP3}" aria-hidden="true" style="width: 150px; height: 150px; display: block; flex: 0 0 150px"></canvas>
 <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 48px">
-<p style="margin: 0; flex: 0 0 auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">03</p>
+<p style="margin: 0; flex: 0 0 auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">02</p>
 <h3 style="margin: 0; flex: 1 1 340px; font-weight: 300; font-size: clamp(44px, 5.4vw, 84px); line-height: 1; letter-spacing: -0.045em">Built to be used</h3>
 <p style="margin: 0; flex: 1 1 300px; max-width: 440px; font-weight: 300; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: #4D5856">Everything we make is meant to be experienced: on a screen, at a congress, in a gallery, at a launch.</p>
 </div>
@@ -263,7 +282,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: #54605E">
 <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #0B7A57"></span>
 <svg class="lm-thread" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0.0 6.8 L10.0 6.7 L20.0 6.4 L30.0 5.8 L40.0 5.3 L50.0 4.1 L60.0 3.9 L70.0 3.8 L80.0 3.6 L90.0 4.0 L100.0 4.0 L110.0 4.7 L120.0 5.2 L130.0 5.8 L140.0 6.1 L150.0 5.9 L160.0 5.9 L170.0 5.6 L180.0 5.7 L190.0 5.4 L200.0 5.0 L210.0 5.5 L220.0 5.5 L230.0 6.4 L240.0 6.9 L250.0 7.6 L260.0 8.8 L270.0 8.9 L280.0 9.1 L290.0 9.6 L300.0 9.3 L310.0 8.6 L320.0 8.7 L330.0 8.2 L340.0 8.2 L350.0 8.1 L360.0 8.9 L370.0 9.2 L380.0 9.9 L390.0 10.3 L400.0 10.2 L410.0 10.2 L420.0 9.9 L430.0 9.4 L440.0 8.7 L450.0 8.1 L460.0 7.7 L470.0 6.8 L480.0 7.0 L490.0 6.7 L500.0 6.9 L510.0 7.4 L520.0 7.4 L530.0 7.5 L540.0 7.5 L550.0 7.3 L560.0 6.4 L570.0 6.3 L580.0 5.0 L590.0 4.8 L600.0 4.3 L610.0 3.6 L620.0 4.0 L630.0 4.0 L640.0 4.5 L650.0 4.7 L660.0 5.1 L670.0 5.5 L680.0 6.0 L690.0 5.4 L700.0 5.5 L710.0 5.2 L720.0 4.9 L730.0 4.3 L740.0 4.3 L750.0 4.7 L760.0 5.3 L770.0 5.6 L780.0 6.7 L790.0 7.5 L800.0 8.1 L810.0 8.0 L820.0 8.7 L830.0 8.1 L840.0 8.0 L850.0 7.9 L860.0 7.9 L870.0 7.5 L880.0 8.0 L890.0 8.1 L900.0 8.5 L910.0 9.1 L920.0 9.6 L930.0 10.0 L940.0 10.3 L950.0 10.6 L960.0 10.5 L970.0 9.5 L980.0 8.8 L990.0 8.8 L1000.0 8.0"></path></svg>
-<span>06 · Contact</span>
+<span>07 · Contact</span>
 </div>
 </div>
 <div style="position: relative; flex: 1; max-width: 1360px; width: 100%; margin: 0 auto; padding: 72px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 64px">
@@ -2744,6 +2763,8 @@ class Component extends DCLogic {
   }
 
   setupRise() {
+    if (typeof IntersectionObserver === 'undefined') document.querySelectorAll('.lm-ba').forEach((e) => e.classList.add('is-in'));
+    else { this.baIO = new IntersectionObserver((en) => { en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add('is-in'); this.baIO.unobserve(x.target); } }); }, { threshold: 0.3 }); document.querySelectorAll('.lm-ba').forEach((e) => this.baIO.observe(e)); }
     const mks = document.querySelectorAll('.lm-mark,.lm-thread');
     if (typeof IntersectionObserver === 'undefined') mks.forEach((e) => e.classList.add('is-in'));
     else { this.mkIO = new IntersectionObserver((en) => { en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add('is-in'); this.mkIO.unobserve(x.target); } }); }, { threshold: 0.7 }); mks.forEach((e) => this.mkIO.observe(e)); }
@@ -2758,7 +2779,7 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     if (this.onUser) ['wheel', 'touchstart', 'keydown'].forEach((ev) => window.removeEventListener(ev, this.onUser));
-    if (this.riseIO) this.riseIO.disconnect(); if (this.mkIO) this.mkIO.disconnect(); if (this.riseScroll) window.removeEventListener('scroll', this.riseScroll, { capture: true }); if (this.io) this.io.disconnect(); if (this.raf) window.cancelAnimationFrame(this.raf); window.removeEventListener('pointermove', this.onMove); window.removeEventListener('pointerdown', this.onDown); }
+    if (this.riseIO) this.riseIO.disconnect(); if (this.baIO) this.baIO.disconnect(); if (this.mkIO) this.mkIO.disconnect(); if (this.riseScroll) window.removeEventListener('scroll', this.riseScroll, { capture: true }); if (this.io) this.io.disconnect(); if (this.raf) window.cancelAnimationFrame(this.raf); window.removeEventListener('pointermove', this.onMove); window.removeEventListener('pointerdown', this.onDown); }
 
   renderVals() {
     const refs = this.ensureRefs();
