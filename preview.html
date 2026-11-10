@@ -132,7 +132,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <section id="start" ref="${v.refDSec}" style="position: relative; z-index: 3; height: 190vh; color: #0D1413">
 <div ref="${v.refDStage}" style="position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: #F3F6F5">
 <header style="position: relative; width: 100%; box-sizing: border-box; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
-<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: #0D1413; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #39E58C; --b: #0B7A57">.</span></a>
+<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: #0D1413; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #0B7A57; --b: #0B7A57">.</span></a>
 <nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
 <a href="#services" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #0D1413; font-size: 16px">Services</a>
 <a href="#about" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #0D1413; font-size: 16px">About</a>
@@ -161,7 +161,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <canvas ref="${v.refStory}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: ${v.fadeGrad}"></div>
 <header ref="${v.refLogo}" style="transition: opacity .35s ease; position: relative; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
-<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #39E58C; --b: #FFFFFF">.</span></a>
+<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #39E58C; --b: #39E58C">.</span></a>
 <nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
 <a href="#services" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">Services</a>
 <a href="#about" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">About</a>
@@ -315,6 +315,14 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <p style="margin: 0; flex: 0 0 auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">02</p>
 <h3 style="margin: 0; flex: 1 1 340px; font-weight: 300; font-size: clamp(44px, 5.4vw, 84px); line-height: 1; letter-spacing: -0.045em">Built to be used</h3>
 <p style="margin: 0; flex: 1 1 300px; max-width: 440px; font-weight: 300; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: #4D5856">Everything we make is meant to be experienced: on a screen, at a congress, in a gallery, at a launch.</p>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; padding: 40px 0; border-top: 1px solid #C9D4D1">
+<canvas ref="${v.refP2}" aria-hidden="true" style="width: 150px; height: 150px; display: block; flex: 0 0 150px"></canvas>
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 48px">
+<p style="margin: 0; flex: 0 0 auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">03</p>
+<h3 style="margin: 0; flex: 1 1 340px; font-weight: 300; font-size: clamp(44px, 5.4vw, 84px); line-height: 1; letter-spacing: -0.045em">Fixed scope, no surprises</h3>
+<p style="margin: 0; flex: 1 1 300px; max-width: 440px; font-weight: 300; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: #4D5856">Project-based and priced by scope, not hours. You know what you’ll get and what it costs before we start.</p>
 </div>
 </div>
 </div>
@@ -2181,7 +2189,7 @@ class Component extends DCLogic {
     function principle(ctx, w, h, t, k) {
       reset(ctx);
       ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, w, h);
-      var cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.4, INK = '#141210', OX = '#8E2A2F', TE = '#1C6E72';
+      var cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.4, INK = '#141210', OX = '#0B7A57', TE = '#1C6E72';
       ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(20,18,16,0.18)';
       ctx.beginPath(); ctx.moveTo(cx - R * 1.15, cy); ctx.lineTo(cx + R * 1.15, cy); ctx.moveTo(cx, cy - R * 1.15); ctx.lineTo(cx, cy + R * 1.15); ctx.stroke();
       if (k === 0) {
@@ -2909,7 +2917,7 @@ class Component extends DCLogic {
       chCount: '0' + (ch + 1) + ' / 02',
       barWidth: String(this.bar || 0),
       scrollHint: ch < 1 ? 'Scroll ↓' : 'Continue ↓',
-      cursorCol: dk ? pal[2] : pal[1],
+      cursorCol: dk ? '#39E58C' : '#0B7A57',
       bgCol: dk ? '#0F0D0E' : '#F3F3F1',
       fgCol: dk ? '#F2F2F0' : '#141210',
       mutedCol: dk ? '#A79C97' : '#6B635D',
