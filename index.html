@@ -75,7 +75,8 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="font-family: 'Outfit', system-ui, sans-serif; font-weight: 400; color: #141210; min-height: 100vh; position: relative">
 <a href="#services" class="lm-skip">Skip to content</a>
 
-<section id="start" style="position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; background: #FFFFFF; color: #141210">
+<section id="start" ref="${v.refDSec}" style="position: relative; z-index: 1; height: 190vh; background: #F6F6F4; color: #141210">
+<div style="position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden">
 <header style="position: relative; width: 100%; box-sizing: border-box; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
 <a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: #141210; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #B23A3A; --b: #6B1E26">.</span></a>
 <nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
@@ -84,20 +85,17 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <a href="#contact" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #141210; font-size: 16px; border: 1px solid #CFCAC2">Contact</a>
 </nav>
 </header>
-<div style="max-width: 1360px; margin: 0 auto; padding: 56px 24px 96px; flex: 1; width: 100%; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 64px 96px; align-items: center">
-<div style="flex: 1 1 460px; min-width: 0">
-<h1 style="margin: 0 0 28px; font-weight: 300; font-size: clamp(42px, 5.4vw, 86px); line-height: 1; letter-spacing: -0.05em; text-wrap: balance">Your science is brilliant, but <span class="lm-accw lm-split" style="--a: #6B1E26; --b: #C2483C"><span class="lm-w"><span class="lm-ch" style="--i: 0">n</span><span class="lm-ch" style="--i: 1">o</span><span class="lm-ch" style="--i: 2">b</span><span class="lm-ch" style="--i: 3">o</span><span class="lm-ch" style="--i: 4">d</span><span class="lm-ch" style="--i: 5">y</span></span> <span class="lm-w"><span class="lm-ch" style="--i: 6">c</span><span class="lm-ch" style="--i: 7">a</span><span class="lm-ch" style="--i: 8">n</span></span> <span class="lm-w"><span class="lm-ch" style="--i: 9">t</span><span class="lm-ch" style="--i: 10">e</span><span class="lm-ch" style="--i: 11">l</span><span class="lm-ch" style="--i: 12">l</span></span></span></h1>
-<p style="margin: 0; max-width: 520px; font-weight: 300; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.5; color: #5A534E">Most breakthroughs don’t stall in the lab. They stall in the room, with an investor, a clinician or a partner who needed to get it in thirty seconds.</p>
+<h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Your science is brilliant, but nobody can tell</h1>
+<p style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Most breakthroughs don’t stall in the lab. They stall in the room, with an investor, a clinician or a partner who needed to get it in thirty seconds. That’s where Limen comes in.</p>
+<div style="position: relative; flex: 1; min-height: 0">
+<canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. An oxblood line, the limen, pulls the scribble straight into one clear sentence: a patch that spots trouble before you feel it. The investor comes back and says tell me more." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 </div>
-<div class="lm-chat lm-split" style="flex: 1 1 420px" role="img" aria-label="A chat: the founder explains a dual-modal biosensor, the investor asks what it actually does, the founder has no answer, and the investor says let’s circle back next quarter.">
-<div class="row lm-sv" style="--d: .1s"><p class="who">Investor</p><div class="msg them">So, in a sentence, what are you building?</div></div>
-<div class="row r lm-sv" style="--d: .9s"><p class="who">Founder</p><div class="msg me">A dual-modal biosensor using closed-loop impedance spectroscopy with adaptive signal deconvolution…</div></div>
-<div class="row lm-sv" style="--d: 2.1s"><div class="msg them">Sounds great. What does it actually do?</div></div>
-<div class="row r lm-sv" style="--d: 3.1s"><div class="msg me"><span class="lm-dots" aria-hidden="true"><i></i><i></i><i></i></span></div></div>
-<div class="row lm-sv" style="--d: 4.4s"><div class="msg them">Let’s circle back next quarter.</div><p class="meta">Seen</p></div>
+<div style="position: relative; display: flex; justify-content: center; gap: 4px; padding: 0 0 10px">
+<a href="#top" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B635D; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; background: none; border: 0; cursor: pointer">Scroll ↓</a>
+<button type="button" onClick="${v.replay}" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B635D; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; background: none; border: 0; cursor: pointer">Replay ↺</button>
 </div>
+<div ref="${v.refIris}" aria-hidden="true" style="position: absolute; inset: 0; z-index: 5; background: #6B1E26; clip-path: circle(0px at 50% 50%); pointer-events: none"></div>
 </div>
-<a href="#top" class="lm-sv is-in" style="align-self: center; margin: 0 0 28px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B635D; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Scroll ↓</a>
 </section>
 
 <section id="top" ref="${v.refStorySec}" style="position: relative; height: 380vh; background: ${v.bgCol}; color: ${v.fgCol}">
@@ -2132,7 +2130,7 @@ class Component extends DCLogic {
     this.cvs = {};
     const self = this;
     const mkRef = (k) => (el) => { self.cvs[k] = el; };
-    this._refs = { story: mkRef('story'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, logo: (el) => { self.logoEl = el; }, vid2: (el) => { self.vid2 = el; if (el) self.wake(el); }, vid: (el) => { self.vid = el; if (el) self.wake(el); if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
+    this._refs = { story: mkRef('story'), doodle: mkRef('doodle'), iris: mkRef('iris'), dsec: mkRef('dsec'), cStory: mkRef('cStory'), inv: mkRef('inv'), vis: mkRef('vis'), code: mkRef('code'), culture: mkRef('culture'), p1: mkRef('p1'), p2: mkRef('p2'), p3: mkRef('p3'), sec: (el) => { self.storySec = el; }, revS: (el) => { self.revEls = self.revEls || {}; self.revEls.S = el; }, revG: (el) => { self.revEls = self.revEls || {}; self.revEls.G = el; }, revA: (el) => { self.revEls = self.revEls || {}; self.revEls.A = el; }, revC: (el) => { self.revEls = self.revEls || {}; self.revEls.C = el; }, logo: (el) => { self.logoEl = el; }, vid2: (el) => { self.vid2 = el; if (el) self.wake(el); }, vid: (el) => { self.vid = el; if (el) self.wake(el); if (el) { el.muted = true; const pr = el.play && el.play(); if (pr && pr.catch) pr.catch(() => {}); } } };
     return this._refs;
   }
 
@@ -2153,6 +2151,328 @@ class Component extends DCLogic {
     ];
   }
 
+  doodleKit() {
+  var C = { paper: '#F6F6F4', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#6B1E26' };
+  var SANS = "'Outfit', system-ui, sans-serif", MONO = "'IBM Plex Mono', monospace";
+  var DUR = 22, STILL = 19.3;
+  function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function clamp(v, a, b) { a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return v < a ? a : v > b ? b : v; }
+  function sstep(a, b, v) { var q = clamp((v - a) / (b - a)); return q * q * (3 - 2 * q); }
+  function eo(q) { return 1 - Math.pow(1 - clamp(q), 3); }
+  function eio(q) { q = clamp(q); return q < 0.5 ? 4 * q * q * q : 1 - Math.pow(-2 * q + 2, 3) / 2; }
+  function back(q) { q = clamp(q); var c1 = 2.2, c3 = c1 + 1; return 1 + c3 * Math.pow(q - 1, 3) + c1 * Math.pow(q - 1, 2); }
+  function lerp(a, b, k) { return a + (b - a) * k; }
+
+  // ---------- geometry (hand-jittered, felt-tip naive) ----------
+  function resample(pts, step) {
+    var out = [pts[0].slice()], carry = 0;
+    for (var i = 1; i < pts.length; i++) {
+      var ax = pts[i - 1][0], ay = pts[i - 1][1], bx = pts[i][0], by = pts[i][1], d = Math.hypot(bx - ax, by - ay); if (d === 0) continue;
+      var s = step - carry;
+      while (s <= d) { out.push([ax + (bx - ax) * s / d, ay + (by - ay) * s / d]); s += step; }
+      carry = d - (s - step);
+    }
+    out.push(pts[pts.length - 1].slice()); return out;
+  }
+  function spline(cps, n) {
+    n = n || 14; var out = [];
+    for (var i = 0; i < cps.length - 1; i++) {
+      var p0 = cps[i - 1] || cps[i], p1 = cps[i], p2 = cps[i + 1], p3 = cps[i + 2] || cps[i + 1];
+      for (var k = 0; k < n; k++) {
+        var t = k / n, t2 = t * t, t3 = t2 * t, o = [];
+        for (var a = 0; a < 2; a++) o.push(0.5 * (2 * p1[a] + (-p0[a] + p2[a]) * t + (2 * p0[a] - 5 * p1[a] + 4 * p2[a] - p3[a]) * t2 + (-p0[a] + 3 * p1[a] - 3 * p2[a] + p3[a]) * t3));
+        out.push(o);
+      }
+    }
+    out.push(cps[cps.length - 1].slice()); return resample(out, 4);
+  }
+  function jit(cps, amt, seed) { var R = rng(seed); return cps.map(function (p, i) { return i === 0 || i === cps.length - 1 ? p : [p[0] + (R() - 0.5) * amt, p[1] + (R() - 0.5) * amt]; }); }
+  function circ(cx, cy, r, seed, turns, a0) {
+    turns = turns || 1.16; a0 = a0 === undefined ? -2.3 : a0;
+    var R = rng(seed), k1 = R() * 6, k2 = R() * 6, n = Math.max(24, Math.ceil(2 * Math.PI * r * turns / 4)), pts = [];
+    for (var i = 0; i <= n; i++) { var a = a0 + turns * 2 * Math.PI * i / n, rr = r * (1 + 0.08 * Math.sin(a * 2 + k1) + 0.05 * Math.sin(a * 3 + k2)) * (1 - 0.07 * i / n); pts.push([cx + Math.cos(a) * rr * 1.04, cy + Math.sin(a) * rr]); }
+    return pts;
+  }
+  function seg(a, b, bow, seed) { var mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2, dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1, R = rng(seed || 1), j = (R() - 0.5) * 6; return spline([a, [mx - dy / L * (bow + j), my + dx / L * (bow + j)], b], 10); }
+  function off(pts, dx, dy, sx) { sx = sx || 1; return pts.map(function (p) { return [dx + p[0] * sx, dy + p[1]]; }); }
+  function lengths(pts) { var L = [0]; for (var i = 1; i < pts.length; i++) L.push(L[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])); return L; }
+
+  var BOIL = 0, WM = 1, x = null;
+  function ink(pts, o) {
+    o = o || {};
+    var w = (o.w || 5.6) * WM, col = o.col || C.ink, p = o.p === undefined ? 1 : o.p, from = o.from || 0, seed = o.seed || 1;
+    if (p <= 0 || pts.length < 2) return null;
+    var L = o.L || lengths(pts), tot = L[L.length - 1], e = p * tot, s0 = from * tot; if (e - s0 < 0.5) return null;
+    var R = rng(seed * 131 + BOIL * 7919), ph1 = R() * 6.283, ph2 = R() * 6.283, amp = (o.amp === undefined ? 2.3 : o.amp) * Math.sqrt(WM);
+    var P = [], S = [], i;
+    for (i = 0; i < pts.length; i++) {
+      if (L[i] < s0) continue;
+      if (L[i] > e) { var k = (e - L[i - 1]) / ((L[i] - L[i - 1]) || 1); P.push([lerp(pts[i - 1][0], pts[i][0], k), lerp(pts[i - 1][1], pts[i][1], k)]); S.push(e); break; }
+      P.push(pts[i]); S.push(L[i]);
+    }
+    if (P.length < 2) return null;
+    var left = [], right = [], first = null, last = null;
+    for (i = 0; i < P.length; i++) {
+      var a = P[Math.max(0, i - 1)], c = P[Math.min(P.length - 1, i + 1)], nx = -(c[1] - a[1]), ny = c[0] - a[0], nl = Math.hypot(nx, ny) || 1; nx /= nl; ny /= nl;
+      var s = S[i], wb = amp * (Math.sin(s * 0.017 + ph1) + 0.55 * Math.sin(s * 0.051 + ph2));
+      var tf = 0.62 + 0.38 * clamp(Math.min(o.noTaperStart ? 1e9 : (s - s0) / 14, o.noTaperEnd ? 1e9 : (e - s) / 14));
+      var hw = 0.5 * w * tf * (0.88 + 0.12 * Math.sin(s * 0.011 + ph2 * 1.7));
+      var px = P[i][0] + nx * wb, py = P[i][1] + ny * wb;
+      left.push([px + nx * hw, py + ny * hw]); right.push([px - nx * hw, py - ny * hw]);
+      if (i === 0) first = [px, py, hw]; last = [px, py, hw];
+    }
+    x.fillStyle = col; x.beginPath(); x.moveTo(left[0][0], left[0][1]);
+    for (i = 1; i < left.length; i++) x.lineTo(left[i][0], left[i][1]);
+    for (i = right.length - 1; i >= 0; i--) x.lineTo(right[i][0], right[i][1]);
+    x.closePath(); x.fill();
+    if (!o.noTaperStart) { x.beginPath(); x.arc(first[0], first[1], first[2], 0, 7); x.fill(); }
+    if (!o.noTaperEnd) { x.beginPath(); x.arc(last[0], last[1], last[2], 0, 7); x.fill(); }
+    if (o.nib && p < 0.999) { x.fillStyle = o.nibCol || C.ox; x.beginPath(); x.arc(last[0], last[1], (o.nibR || 9) * WM, 0, 7); x.fill(); }
+    return last;
+  }
+  function fillPoly(pts, col, a) { if (a <= 0) return; x.save(); x.globalAlpha *= a; x.fillStyle = col; x.beginPath(); x.moveTo(pts[0][0], pts[0][1]); for (var i = 1; i < pts.length; i++) x.lineTo(pts[i][0], pts[i][1]); x.closePath(); x.fill(); x.restore(); }
+  function dot(px, py, r, col) { x.fillStyle = col || C.ink; x.beginPath(); x.arc(px, py, r, 0, 7); x.fill(); }
+
+  // ---------- the set (scene coords: 1920 x 1080, table at y 820) ----------
+  var TABLE = 820, FX = 470, IX = 1450;
+  function figure(kind) {
+    var sd = kind === 'f' ? 0 : 40, S = [];
+    var torso = spline(jit([[-66, 0], [-72, -110], [-62, -200], [-32, -252], [2, -262], [36, -250], [64, -198], [74, -108], [66, 0]], 10, 3 + sd));
+    S.push({ pts: torso, fill: true, seed: 3 + sd });
+    S.push({ pts: spline(jit([[40, -214], [80, -156], [110, -84], [146, -24], [180, -14]], 12, 4 + sd)), seed: 4 + sd });
+    S.push({ pts: circ(4, -342, 70, 21 + sd), fill: true, head: true, seed: 5 + sd });
+    if (kind === 'f') {
+      S.push({ pts: seg([-26, -250], [-6, -176], 4, 6), w: 4.4, seed: 6 }, { pts: seg([30, -250], [10, -176], -4, 7), w: 4.4, seed: 7 });
+      S.push({ pts: circ(18, -354, 17, 31, 1.08), w: 4.2, head: true, seed: 8 }, { pts: circ(56, -356, 16, 32, 1.08), w: 4.2, head: true, seed: 9 });
+      S.push({ pts: seg([0, -356], [-46, -362], 3, 10), w: 4, head: true, seed: 10 });
+      S.push({ pts: spline(jit([[-30, -404], [-10, -420], [12, -412], [30, -426], [46, -410]], 6, 15)), w: 4.4, head: true, seed: 15 });
+    } else {
+      S.push({ pts: spline([[0, -258], [-11, -240], [0, -228], [11, -240], [0, -258]], 8), w: 4, seed: 11 });
+      S.push({ pts: spline([[0, -228], [-14, -160], [0, -132], [14, -160], [2, -228]], 10), w: 4, seed: 12 });
+      S.push({ pts: spline(jit([[-58, -370], [-30, -404], [10, -414], [52, -394]], 6, 14), 10), w: 4.6, head: true, seed: 14 });
+    }
+    S.forEach(function (s) { s.L = lengths(s.pts); });
+    return S;
+  }
+  var FIG = { f: figure('f'), i: figure('i') };
+  var EYES = { f: [[18, -354], [56, -356]], i: [[22, -352], [52, -354]] };
+  function drawFigure(kind, gx, mirror, p, head, mood) {
+    if (p <= 0) return;
+    var S = FIG[kind], tot = 0, acc = 0, i; for (i = 0; i < S.length; i++) tot += S[i].L[S[i].L.length - 1];
+    x.save(); x.translate(gx, TABLE); if (mirror) x.scale(-1, 1);
+    for (i = 0; i < S.length; i++) {
+      var s = S[i], len = s.L[s.L.length - 1], sp = clamp((p * tot - acc) / len); acc += len;
+      if (sp <= 0) continue;
+      x.save(); if (s.head) x.translate(head[0], head[1]);
+      if (s.fill) fillPoly(s.pts, C.card, clamp(sp * 1.4));
+      ink(s.pts, { p: sp, w: s.w, seed: s.seed + (mirror ? 50 : 0), L: s.L });
+      x.restore();
+    }
+    var fa = clamp((p - 0.82) / 0.12);
+    if (fa > 0) {
+      x.save(); x.translate(head[0], head[1]); x.globalAlpha *= fa;
+      EYES[kind].forEach(function (e) { dot(e[0], e[1], 6.5 * Math.sqrt(WM)); });
+      var mx = kind === 'f' ? 34 : 38, my = -312;
+      ink(spline([[mx - 15, my - mood * 2], [mx, my + mood * 8], [mx + 15, my - mood * 2]], 6), { w: 4.2, seed: 60 + (mirror ? 1 : 0), amp: 0.6 });
+      x.restore();
+    }
+    x.restore();
+  }
+  var CHAIR = spline(jit([[-112, 0], [-118, -150], [-106, -262], [-44, -298], [44, -296], [104, -262], [118, -150], [110, 0]], 10, 90));
+  var FLASK = spline([[-16, -100], [-15, -60], [-48, -8], [-40, 0], [40, 0], [48, -8], [15, -60], [16, -100]], 8);
+  var FLASK_LIQ = seg([-32, -28], [32, -26], 3, 5);
+  var CUP = spline([[-26, -62], [-22, -6], [-12, 0], [12, 0], [22, -6], [26, -62]], 8);
+  var CUP_H = spline([[26, -50], [44, -48], [44, -24], [24, -18]], 8);
+  var TABLE_TOP = spline(jit([[130, TABLE + 4], [560, TABLE - 3], [1000, TABLE + 3], [1420, TABLE - 2], [1790, TABLE + 5]], 4, 71));
+  var TABLE_LIP = seg([150, TABLE + 30], [1770, TABLE + 26], 2, 72);
+  var LEGS = [seg([256, TABLE + 32], [246, 1036], 4, 73), seg([1664, TABLE + 32], [1678, 1036], -4, 74)];
+  var FLOOR = seg([40, 1040], [1880, 1036], 3, 75);
+  var HATCH = (function () { var R = rng(91), a = []; for (var i = 0; i < 22; i++) { var hx = 70 + R() * 1780; a.push(seg([hx, 1050], [hx - 16 - R() * 10, 1068], 0, 80 + i)); } return a; })();
+  var BALL = { cx: 960, cy: 575, r: 150 };
+  var TANGLE = (function () {
+    var R = rng(404), pts = spline([[560, 470], [650, 446], [740, 500], [815, 560]], 12);
+    var px = 815, py = 560, ang = 0.3, spin = 1;
+    for (var i = 0; i < 1150; i++) {
+      if (i % 90 === 0) spin = R() < 0.5 ? -1 : 1;
+      ang += spin * 0.16 + (R() - 0.5) * 0.5;
+      var dx = BALL.cx - px, dy = BALL.cy - py, d = Math.hypot(dx, dy);
+      if (d > BALL.r * 0.66) { var df = Math.atan2(dy, dx) - ang; while (df > Math.PI) df -= 2 * Math.PI; while (df < -Math.PI) df += 2 * Math.PI; ang += df * 0.2 * (d / BALL.r); }
+      px += Math.cos(ang) * 5; py += Math.sin(ang) * 5; pts.push([px, py]);
+    }
+    return resample(pts.concat(spline([[px, py], [lerp(px, 960, 0.5), 700], [950, 745], [960, 775]], 12).slice(1)), 4);
+  })();
+  var NT = TANGLE.length;
+  var ECG = [[0, 0], [0.1, 16], [0.2, -140], [0.42, 76], [0.6, 0], [1, 0]];
+  var QLINE = TANGLE.map(function (_, i) {
+    var u = i / (NT - 1), px = lerp(620, 1300, u), k = (px - 900) / 120, y = 0;
+    if (k > 0 && k < 1) for (var j = 1; j < ECG.length; j++) if (k <= ECG[j][0]) { var a = ECG[j - 1], b = ECG[j]; y = lerp(a[1], b[1], (k - a[0]) / (b[0] - a[0])); break; }
+    return [px, 560 + y + Math.sin(u * 40) * 1.5];
+  });
+
+  // ---------- copy ----------
+  var TA = [{ t: 'Your science is brilliant', c: C.ink }, { t: ', but nobody can tell', c: C.ink }];
+  var TB = [{ t: 'That’s where ', c: C.ink }, { t: 'Limen', c: C.ox }, { t: ' comes in', c: C.ink }];
+  var TCc = [{ t: 'A patch that spots trouble ', c: C.ink }, { t: 'before you feel it', c: C.ox }];
+  var BUB = [
+    { side: 'r', text: 'So, in a sentence, what are you building?', t0: 2.0, ty: [2.25, 3.3], out: 4.3, rot: 0.012 },
+    { side: 'l', text: 'A dual-modal biosensor using closed-loop impedance spectroscopy with adaptive signal deconvolution and multiplexed electrochemical transduction…', t0: 4.4, ty: [4.6, 7.6], out: 8.3, rot: -0.01 },
+    { side: 'r', text: 'Sounds great. What does it actually do?', t0: 8.5, ty: [8.7, 9.7], out: 10.5, rot: -0.014 },
+    { side: 'r', text: 'Let’s circle back next quarter.', t0: 10.8, dots: [11.0, 11.8], ty: [11.8, 12.4], out: 13.3, seen: 12.55, rot: 0.01 },
+    { side: 'r', text: 'Tell me more', col: C.ox, t0: 18.4, ty: [18.6, 19.0], out: 19.6, rot: -0.016, narrow: true },
+  ];
+  var QM = [{ t: 5.4, x: 1392, y: 392, s: 70, r: -0.24 }, { t: 6.2, x: 1504, y: 344, s: 90, r: 0.18 }, { t: 7.0, x: 1430, y: 280, s: 116, r: -0.07 }];
+
+  // ---------- layouts ----------
+  var ctxM = null;
+  function meas(font, s) { ctxM.font = font; return ctxM.measureText(s).width; }
+  function tokens(rs) { var out = []; rs.forEach(function (r) { r.t.split(/(\s+)/).forEach(function (pc) { if (pc === '') return; if (/^\s+$/.test(pc)) { out.push({ sp: true }); return; } out.push({ t: pc, c: r.c }); }); }); var res = [], sp = false; out.forEach(function (o) { if (o.sp) { sp = true; return; } o.spB = sp; sp = false; res.push(o); }); return res; }
+  function flow(rs, font, maxW, lh) {
+    var tk = tokens(rs), spW = meas(font, ' '), lines = [[]], lw = 0, maxL = 0;
+    tk.forEach(function (o) { o.w = meas(font, o.t); var add = (lines[lines.length - 1].length && o.spB ? spW : 0) + o.w; if (lw + add > maxW && lines[lines.length - 1].length && o.spB) { lines.push([]); lw = 0; add = o.w; } o.x = lw + (add - o.w); o.line = lines.length - 1; lw += add; maxL = Math.max(maxL, lw); lines[lines.length - 1].push(o); });
+    return { tk: tk, n: lines.length, w: maxL, lh: lh, font: font, len: tk.reduce(function (a, o) { return a + o.t.length + (o.spB ? 1 : 0); }, 0) };
+  }
+  function drawFlow(F, n, x0, y0, a, col) {
+    if (a <= 0 || n <= 0) return; x.save(); x.globalAlpha *= a; x.font = F.font; x.textBaseline = 'alphabetic';
+    for (var i = 0; i < F.tk.length && n > 0; i++) { var o = F.tk[i]; if (o.spB) n -= 1; if (n <= 0) break; x.fillStyle = col || o.c; x.fillText(o.t.slice(0, n), x0 + o.x, y0 + o.line * F.lh); n -= o.t.length; }
+    x.restore();
+  }
+  var LAY = {};
+  function layout(portrait) {
+    var key = portrait ? 'p' : 'l'; if (LAY[key]) return LAY[key];
+    var Ly = portrait
+      ? { DW: 1080, DH: 1560, sc: { s: 0.84, dx: 540 - 960 * 0.84, dy: 1330 - TABLE * 0.84, wm: 1.2 }, tx: 70, ty: 150, tsize: 72, tlh: 80, tmax: 940, bsize: 44, blh: 56, bpad: 38, bmax: 880, bl: 60, br: 1020, bbot: 1180, limen: [[540, 330], [540, 1540]], esize: 78, ey: 760, mono: 22 }
+      : { DW: 1920, DH: 1080, sc: { s: 1, dx: 0, dy: 0, wm: 1 }, tx: 120, ty: 118, tsize: 68, tlh: 76, tmax: 1700, bsize: 36, blh: 46, bpad: 34, bmax: 860, bl: 80, br: 1840, bbot: 380, limen: [[960, 172], [960, 1062]], esize: 96, ey: 590, mono: 20 };
+    var sc = Ly.sc, S = function (p) { return [sc.dx + p[0] * sc.s, sc.dy + p[1] * sc.s]; };
+    Ly.S = S;
+    var tf = '300 ' + Ly.tsize + 'px ' + SANS;
+    Ly.TA = flow(TA, tf, Ly.tmax, Ly.tlh); Ly.TB = flow(TB, tf, Ly.tmax, Ly.tlh); Ly.TC = flow(TCc, tf, Ly.tmax, Ly.tlh);
+    var bf = '300 ' + Ly.bsize + 'px ' + SANS, tipI = S([1404, 440]), tipF = S([536, 440]);
+    Ly.B = BUB.map(function (b, i) {
+      var F = flow([{ t: b.text, c: b.col || C.ink }], bf, b.side === 'l' ? Ly.bmax : Math.min(Ly.bmax, 700), Ly.blh);
+      var bw = F.w + Ly.bpad * 2, bh = F.n * Ly.blh + Ly.bpad * 2 - 8, tip = b.side === 'l' ? tipF : tipI;
+      var bx = b.side === 'l' ? Ly.bl : Ly.br - bw;
+      if (b.side === 'r' && bx > tip[0] - 90) bx = Math.max(Ly.bl, tip[0] - 90 - (b.narrow ? 0 : 0));
+      if (b.side === 'r' && bx + bw < tip[0] + 90) bw = tip[0] + 90 - bx;
+      var by = (portrait ? tip[1] - 120 : Ly.bbot) - bh;
+      var shape = bubbleShape(bx, by, bw, bh, tip, i + 1);
+      return Object.assign({}, b, { F: F, bx: bx, by: by, bw: bw, bh: bh, shape: shape, L: lengths(shape), cx: bx + bw / 2, cy: by + bh / 2 });
+    });
+    var ef = '300 ' + Ly.esize + 'px ' + SANS, wl = meas(ef, 'Limen'), wn = meas(ef, 'new ways of '), ws = meas(ef, 'seeing'), gap = Ly.esize * 0.38, tot = wl + gap * 2 + wn + ws, ex0 = (Ly.DW - tot) / 2;
+    Ly.END = { font: ef, x0: ex0, yb: Ly.ey, wl: wl, wn: wn, gap: gap, dot: [ex0 + wl + gap, Ly.ey - Ly.esize * 0.32] };
+    Ly.TANG = TANGLE.map(S); Ly.QL = QLINE.map(S);
+    Ly.LIMEN = seg(Ly.limen[0], Ly.limen[1], 2, 400);
+    LAY[key] = Ly; return Ly;
+  }
+  function bubbleShape(bx, by, bw, bh, tip, seed) {
+    var r = 30, R = rng(seed), j = function () { return (R() - 0.5) * 6; }, tb = clamp(tip[0], bx + 70, bx + bw - 70), pts = [];
+    pts.push([tb - 18, by + bh]); pts.push([tip[0], tip[1]]); pts.push([tb + 22, by + bh + j()]);
+    function arc(cx, cy, a0, a1) { for (var k = 0; k <= 8; k++) { var a = a0 + (a1 - a0) * k / 8; pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); } }
+    pts.push([bx + bw - r, by + bh + j()]); arc(bx + bw - r, by + bh - r, Math.PI / 2, 0);
+    pts.push([bx + bw + j(), by + r]); arc(bx + bw - r, by + r, 0, -Math.PI / 2);
+    pts.push([bx + r, by + j()]); arc(bx + r, by + r, -Math.PI / 2, -Math.PI);
+    pts.push([bx + j(), by + bh - r]); arc(bx + r, by + bh - r, Math.PI, Math.PI / 2);
+    pts.push([tb - 4, by + bh + 3]);
+    return spline(pts, 4);
+  }
+  function typed(t, t0, t1, len) { return Math.floor(clamp((t - t0) / (t1 - t0)) * len + 0.0001); }
+  function drawBubble(Ly, b, t) {
+    if (t < b.t0) return; var a = 1 - sstep(b.out, b.out + 0.3, t); if (a <= 0) return;
+    var dp = eo((t - b.t0) / 0.32), sc = 0.92 + 0.08 * back((t - b.t0) / 0.35);
+    x.save(); x.globalAlpha *= a; x.translate(b.cx, b.cy); x.rotate(b.rot); x.scale(sc, sc); x.translate(-b.cx, -b.cy);
+    fillPoly(b.shape, C.card, clamp(dp * 1.3));
+    ink(b.shape, { p: dp, w: 4.6, seed: 200 + b.t0 * 10, L: b.L, nib: true, nibCol: C.ink, nibR: 4 });
+    if (b.dots && t >= b.dots[0] && t < b.dots[1]) for (var k = 0; k < 3; k++) { var bob = Math.max(0, Math.sin((t - b.dots[0]) * 9 - k * 0.9)) * 10; dot(b.bx + Ly.bpad + 12 + k * 30, b.by + Ly.bpad + 18 - bob, 7.5, C.stone); }
+    drawFlow(b.F, typed(t, b.ty[0], b.ty[1], b.F.len), b.bx + Ly.bpad, b.by + Ly.bpad + Ly.bsize * 0.8, 1);
+    if (b.seen && t > b.seen) { x.globalAlpha = a * sstep(b.seen, b.seen + 0.25, t); x.font = (Ly.bsize * 0.5) + 'px ' + MONO; x.fillStyle = C.ash; x.textAlign = 'right'; x.fillText('Seen', b.bx + b.bw - 8, b.by + b.bh + Ly.bsize * 1.1); x.textAlign = 'left'; }
+    x.restore();
+  }
+  function invProg(t) {
+    if (t < 12.7) return eio((t - 0.95) / 0.9);
+    if (t < 17.6) return 1 - eio((t - 12.7) / 0.8);
+    return eio((t - 17.6) / 0.8) * (1 - eio((t - 19.6) / 0.6));
+  }
+  var paperTile = null;
+  function makePaper() {
+    var c = document.createElement('canvas'); c.width = c.height = 512; var g = c.getContext('2d'), R = rng(11); g.lineCap = 'round';
+    for (var i = 0; i < 260; i++) { var px = R() * 512, py = R() * 512, a = R() * 6.28, l = 4 + R() * 18; g.strokeStyle = 'rgba(110,95,80,' + (0.03 + R() * 0.05).toFixed(3) + ')'; g.lineWidth = 0.6 + R() * 0.6; g.beginPath(); g.moveTo(px, py); g.quadraticCurveTo(px + Math.cos(a + 0.4) * l * 0.5, py + Math.sin(a + 0.4) * l * 0.5, px + Math.cos(a) * l, py + Math.sin(a) * l); g.stroke(); }
+    for (i = 0; i < 160; i++) { g.fillStyle = 'rgba(60,50,40,' + (0.04 + R() * 0.08).toFixed(3) + ')'; g.beginPath(); g.arc(R() * 512, R() * 512, 0.4 + R() * 1, 0, 7); g.fill(); }
+    return c;
+  }
+  function fit(cw, ch) { var portrait = cw / ch < 1.15, Ly = layout(portrait), s = Math.min(cw / Ly.DW, ch / Ly.DH); return { Ly: Ly, s: s, ox: (cw - Ly.DW * s) / 2, oy: (ch - Ly.DH * s) / 2 }; }
+
+  function draw(ctx, cw, ch, dpr, t) {
+    x = ctx; if (!ctxM) ctxM = document.createElement('canvas').getContext('2d');
+    var Fz = fit(cw, ch), Ly = Fz.Ly, sc = Ly.sc, i;
+    BOIL = Math.floor(t * 10);
+    x.setTransform(dpr, 0, 0, dpr, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
+    x.fillStyle = C.paper; x.fillRect(0, 0, cw, ch);
+    if (!paperTile) paperTile = makePaper(); x.fillStyle = x.createPattern(paperTile, 'repeat'); x.fillRect(0, 0, cw, ch);
+    x.setTransform(dpr * Fz.s, 0, 0, dpr * Fz.s, dpr * Fz.ox, dpr * Fz.oy);
+    var keep = 1 - sstep(19.6, 20.2, t), tp = eio(t / 0.6);
+
+    // scene (scene coords)
+    x.save(); x.translate(sc.dx, sc.dy); x.scale(sc.s, sc.s); WM = sc.wm;
+    x.save(); x.globalAlpha = keep;
+    ink(FLOOR, { p: tp, w: 3.4, col: C.ash, seed: 70 });
+    HATCH.forEach(function (h, k) { ink(h, { p: clamp(tp * 3 - 1 - k * 0.05), w: 2.6, col: C.ash, seed: 80 + k, amp: 0.8 }); });
+    ink(CHAIR.map(function (p) { return [FX + p[0], TABLE + p[1]]; }), { p: eio((t - 0.25) / 0.35), w: 4.2, col: C.ash, seed: 90 });
+    ink(CHAIR.map(function (p) { return [IX - p[0], TABLE + p[1]]; }), { p: eio((t - 0.75) / 0.35), w: 4.2, col: C.ash, seed: 91 });
+    x.restore();
+    var droop = sstep(12.4, 13.2, t) - sstep(15.6, 16.4, t);
+    var fMood = -sstep(12.4, 13.0, t) + 2 * sstep(16.8, 17.4, t) - sstep(4.8, 5.6, t) * 0.3 * (1 - sstep(8.4, 9, t));
+    var iMood = -0.5 * sstep(9.0, 9.6, t) + 1.5 * sstep(18.4, 18.9, t);
+    drawFigure('f', FX, false, eio((t - 0.45) / 0.9) * (1 - eio((t - 19.6) / 0.6)), [10 * droop, 26 * droop], clamp(fMood, -1, 1));
+    drawFigure('i', IX, true, invProg(t), [0, 0], clamp(iMood, -1, 1));
+    x.save(); x.globalAlpha = keep;
+    ink(TABLE_TOP, { p: tp, w: 6.4, seed: 71, nib: true });
+    ink(TABLE_LIP, { p: eio((t - 0.15) / 0.5), w: 4, col: C.stone, seed: 72 });
+    LEGS.forEach(function (l, k) { ink(l, { p: eio((t - 0.35 - k * 0.1) / 0.3), w: 5, seed: 73 + k }); });
+    ink(off(FLASK, 720, TABLE), { p: eio((t - 1.2) / 0.45), w: 4.6, seed: 75 }); ink(off(FLASK_LIQ, 720, TABLE), { p: eio((t - 1.55) / 0.2), w: 3.6, col: C.stone, seed: 76 });
+    if (t > 1.7) for (var k = 0; k < 3; k++) { var bt = (t * 0.7 + k / 3) % 1; x.save(); x.globalAlpha *= (1 - bt) * 0.8; x.strokeStyle = C.stone; x.lineWidth = 2.6 * WM; x.beginPath(); x.arc(720 + Math.sin(bt * 9 + k) * 7, TABLE - 36 - bt * 54, 4 + k, 0, 7); x.stroke(); x.restore(); }
+    ink(off(CUP, 1196, TABLE), { p: eio((t - 1.5) / 0.4), w: 4.6, seed: 77 }); ink(off(CUP_H, 1196, TABLE), { p: eio((t - 1.8) / 0.2), w: 4, seed: 78 });
+    if (t > 1.9) for (k = 0; k < 2; k++) { var st = [], ph = BOIL * 0.5; for (var j = 0; j <= 12; j++) st.push([1190 + k * 16 + Math.sin(j * 0.7 + ph + k) * 7, TABLE - 74 - j * 5]); ink(st, { w: 3, col: C.ash, seed: 79 + k, amp: 0.6 }); }
+    x.restore();
+    var qa = 1 - sstep(8.2, 8.5, t);
+    QM.forEach(function (q) { if (t < q.t || qa <= 0) return; var s = back((t - q.t) / 0.3), wb = Math.sin(BOIL * 1.7 + q.x) * 0.06; x.save(); x.globalAlpha = qa; x.translate(q.x, q.y); x.rotate(q.r + wb); x.scale(s * Math.sqrt(WM), s * Math.sqrt(WM)); x.font = '400 ' + q.s + 'px ' + SANS; x.fillStyle = C.ink; x.textAlign = 'center'; x.fillText('?', 0, 0); x.restore(); });
+    x.restore(); WM = 1;
+
+    // the line (stage coords): tangle, threshold, unspool, collapse
+    var lw = sc.wm * sc.s;
+    if (t < 15.2) { WM = lw; ink(Ly.TANG, { p: eio((t - 4.6) / 4.0), w: 4.4, seed: 300, nib: t < 8.6, nibCol: C.ink, nibR: 5, amp: 1.6 }); WM = 1; }
+    else {
+      var M = clamp((t - 15.2) / 1.9), sg = 0.7, P = new Array(NT), kk = NT;
+      for (i = 0; i < NT; i++) { var u = i / (NT - 1), m = eio(clamp(M * (1 + sg) - sg * (1 - u))); P[i] = [lerp(Ly.TANG[i][0], Ly.QL[i][0], m), lerp(Ly.TANG[i][1], Ly.QL[i][1], m)]; if (m > 0.55 && kk === NT) kk = i; }
+      if (t >= 19.7) { var Cc = clamp((t - 19.7) / 0.7); for (i = 0; i < NT; i++) { var d = Math.abs(i / (NT - 1) - 0.5) * 2, mm = eio(clamp(Cc * 1.6 - 0.6 * (1 - d))); P[i] = [lerp(P[i][0], Ly.END.dot[0], mm), lerp(P[i][1], Ly.END.dot[1], mm)]; } }
+      var fw = t >= 19.7 ? 1 - 0.6 * sstep(19.9, 20.4, t) : 1;
+      WM = lw;
+      if (kk > 1) ink(P.slice(0, kk + 1), { w: 4.4 * fw, seed: 300, noTaperEnd: true, amp: 1.6 });
+      if (kk < NT - 1) ink(P.slice(kk), { w: 5.8 * fw, col: C.ox, seed: 301, noTaperStart: true, amp: 1.2 });
+      if (t < 17.6) { x.save(); x.globalAlpha = 1 - sstep(17.2, 17.6, t); dot(P[NT - 1][0], P[NT - 1][1], 11 * lw, C.ox); x.restore(); }
+      WM = 1;
+    }
+    if (t >= 15.0 && t < 15.2) dot(Ly.TANG[NT - 1][0], Ly.TANG[NT - 1][1], 11 * lw * back((t - 15.0) / 0.2), C.ox);
+    var la = 1 - sstep(15.4, 16.0, t);
+    if (t > 13.8 && la > 0) { x.save(); x.globalAlpha = la; ink(Ly.LIMEN, { p: eio((t - 13.8) / 0.5), w: 4.2, col: C.ox, seed: 400, nib: true, nibR: 8, amp: 1.2 }); x.restore(); }
+
+    Ly.B.forEach(function (b) { drawBubble(Ly, b, t); });
+    var nA = t < 12.6 ? typed(t, 0.6, 1.5, TA[0].t.length) : TA[0].t.length + typed(t, 12.6, 13.35, TA[1].t.length);
+    drawFlow(Ly.TA, nA, Ly.tx, Ly.ty, 1 - sstep(13.6, 13.9, t));
+    drawFlow(Ly.TB, typed(t, 14.3, 15.0, Ly.TB.len), Ly.tx, Ly.ty, 1 - sstep(16.3, 16.6, t));
+    drawFlow(Ly.TC, typed(t, 16.7, 17.6, Ly.TC.len), Ly.tx, Ly.ty, keep);
+
+    if (t > 19.9) {
+      var E = Ly.END, dd = E.dot; dot(dd[0], dd[1], Ly.esize * 0.115 * eo((t - 19.95) / 0.35), C.ox);
+      var ta = sstep(20.25, 20.75, t), sl = (1 - eo((t - 20.25) / 0.6)) * 24;
+      x.save(); x.globalAlpha = ta; x.font = E.font; x.fillStyle = C.ink; x.fillText('Limen', E.x0 + sl, E.yb);
+      var nx = dd[0] + E.gap - sl; x.fillText('new ways of ', nx, E.yb); x.fillStyle = C.ox; x.fillText('seeing', nx + E.wn, E.yb);
+      x.globalAlpha = sstep(20.8, 21.2, t); x.font = Ly.mono + 'px ' + MONO; x.fillStyle = C.stone; x.textAlign = 'center';
+      x.fillText('A CREATIVE STUDIO AT THE THRESHOLD OF SCIENCE, TECHNOLOGY AND ART', Ly.DW / 2, E.yb + Ly.esize); x.restore();
+    }
+  }
+  function dotPos(cw, ch) { var Fz = fit(cw, ch), d = Fz.Ly.END.dot; return [Fz.ox + d[0] * Fz.s, Fz.oy + d[1] * Fz.s]; }
+  return { draw: draw, dot: dotPos, DUR: DUR, STILL: STILL };
+}
+
   componentDidMount() {
     this.ensureRefs();
     setTimeout(() => this.setupRise(), 300);
@@ -2170,6 +2490,7 @@ class Component extends DCLogic {
       culture: { fps: 20, dpr: 1.25, still: 9, draw: (c, w, h, t) => { const r = c.canvas.getBoundingClientRect(), m = this.mouse; const inside = m && !m.touch && m.y >= r.top && m.y <= r.bottom && m.x >= r.left && m.x <= r.right; this.mClicks = (this.mClicks || []).filter((q) => t - q.t0 < 8); A.dish(c, w, h, t, { mx: inside ? m.x - r.left : -1, my: inside ? m.y - r.top : -1, clicks: this.mClicks }); } }
     };
     const CH = this.chapters();
+    const DK = this.doodleKit();
     const t0 = performance.now();
     this.planted = this.planted || [];
     this.ch = 0; this.typeStart = 0; this.n = 0;
@@ -2177,6 +2498,35 @@ class Component extends DCLogic {
       const still = !(this.props.motion ?? true) || (reduceMQ && reduceMQ.matches);
       const now = (performance.now() - t0) / 1000, vh = window.innerHeight || 800;
       this.now = now;
+      // the opening doodle, then an iris from its dot into the dark story
+      const dsec = this.cvs.dsec, dc = this.cvs.doodle;
+      if (dsec && dc) {
+        const sr0 = dsec.getBoundingClientRect(), r = dc.getBoundingClientRect();
+        const vis = sr0.bottom > 0 && sr0.top < vh;
+        if (this.dT0 == null && vis) this.dT0 = now;
+        const dt = still ? DK.STILL : Math.min(DK.DUR, now - (this.dT0 ?? now));
+        const dpr = Math.min(window.devicePixelRatio || 1, 2), W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
+        const resized = dc.width !== W || dc.height !== H;
+        const due = dt < DK.DUR ? now - (this.dLast ?? -1) > 1 / 30 : now - (this.dLast ?? -1) > 0.1;
+        if (W > 2 && H > 2 && vis && (resized || (!still && due) || this.dLast == null || this.dLast < 0)) {
+          if (resized) { dc.width = W; dc.height = H; }
+          DK.draw(dc.getContext('2d'), r.width, r.height, dpr, dt); this.dLast = now;
+        }
+        const iris = this.cvs.iris;
+        if (iris) {
+          let q = -sr0.top / Math.max(1, sr0.height - vh); q = q < 0 ? 0 : q > 1 ? 1 : q;
+          const key = Math.round(q * 400) + ':' + Math.round(r.width) + ':' + Math.round(r.height);
+          if (key !== this.irisKey) {
+            this.irisKey = key;
+            const d = DK.dot(r.width, r.height);
+            const ip = iris.getBoundingClientRect(), px = r.left - ip.left + d[0], py = r.top - ip.top + d[1];
+            const R = Math.pow(q, 1.5) * Math.hypot(ip.width, ip.height) * 1.08 + (q > 0 ? 6 : 0);
+            const k = Math.min(1, Math.max(0, (q - 0.3) / 0.6)), mix = (a, b) => Math.round(a + (b - a) * k * k * (3 - 2 * k));
+            iris.style.clipPath = 'circle(' + R.toFixed(1) + 'px at ' + px.toFixed(1) + 'px ' + py.toFixed(1) + 'px)';
+            iris.style.background = 'rgb(' + mix(0x6B, 0x0F) + ',' + mix(0x1E, 0x0D) + ',' + mix(0x26, 0x0E) + ')';
+          }
+        }
+      }
       // the pinned opening story
       const sec = this.storySec, sc = this.cvs.story;
       if (sec && sc) {
@@ -2299,7 +2649,7 @@ class Component extends DCLogic {
     return {
       refRevS: refs.revS, refRevG: refs.revG, refRevA: refs.revA, refRevC: refs.revC,
       revS: seen.S ? 'is-in' : '', revG: seen.G ? 'is-in' : '', revA: seen.A ? 'is-in' : '', revC: seen.C ? 'is-in' : '',
-      refLogo: refs.logo, refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refVid2: refs.vid2, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
+      refLogo: refs.logo, refDoodle: refs.doodle, refIris: refs.iris, refDSec: refs.dsec, replay: this.replayH || (this.replayH = () => { this.dT0 = this.now || 0; this.dLast = -1; }), refStory: refs.story, refStorySec: refs.sec, refVid: refs.vid, refVid2: refs.vid2, refCStory: refs.cStory, refInv: refs.inv, refVis: refs.vis, refCode: refs.code, refCulture: refs.culture, refP1: refs.p1, refP2: refs.p2, refP3: refs.p3, plant: this.plantHandler(),
       segs: segs,
       chLabel: c.label,
       chSub: c.sub,
