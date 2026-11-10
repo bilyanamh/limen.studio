@@ -12,9 +12,15 @@
 </style>
 <style>
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
-@keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#F6F6F4}
-a{color:inherit}a:hover{color:#B23A3A}
+a{color:inherit}a:hover{color:#6B1E26}
+.wk-row{display:grid;grid-template-columns:80px minmax(0,1.3fr) minmax(0,1fr) auto;gap:32px;align-items:baseline;padding:40px 0;border-top:1px solid #D9D9D5}
+.wk-row:last-child{border-bottom:1px solid #D9D9D5}
+.wk-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:30px;border:1px solid #141210;text-decoration:none;white-space:nowrap}
+.wk-link:hover{background:#141210;color:#F6F6F4}
+.wk-link:focus-visible{outline:2px solid #6B1E26;outline-offset:3px}
+.wk-ph{color:#8B847F}
+@media (max-width: 860px){.wk-row{grid-template-columns:1fr;gap:12px;padding:32px 0}.wk-link{justify-self:start}}
 </style>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Limen, a creative studio at the threshold of science, technology and art">
@@ -34,27 +40,54 @@ a{color:inherit}a:hover{color:#B23A3A}
 
 <section style="background: #0F0D0E; color: #F2F2F0">
 <header style="max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
-<a href="index.html" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: #F2F2F0; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #B23A3A; --b: #FFFFFF">.</span></a>
+<a href="index.html" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: #F2F2F0; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span style="color: #B23A3A">.</span></a>
 <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
 <a href="index.html#services" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #F2F2F0; font-size: 16px">Services</a>
-<a href="work.html" aria-current="page" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #F2F2F0; font-size: 16px; background: rgba(244,239,233,0.1)">Work</a>
+<a href="work.html" aria-current="page" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #F2F2F0; font-size: 16px; background: rgba(242,242,240,0.1)">Work</a>
 <a href="index.html#about" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #F2F2F0; font-size: 16px">About</a>
-<a href="index.html#contact" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #F2F2F0; font-size: 16px; border: 1px solid rgba(244,239,233,0.35)">Contact</a>
+<a href="index.html#contact" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #F2F2F0; font-size: 16px; border: 1px solid rgba(242,242,240,0.35)">Contact</a>
 </nav>
 </header>
 </section>
 
 <section id="work" style="background: #F6F6F4; flex: 1">
-<div style="max-width: 1360px; margin: 0 auto; padding: 0 24px">
-<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: #6B635D">
-<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #6B1E26"></span>
-<span style="flex: 1; height: 1px; background: #D6CEC4"></span>
-<span>Work</span>
+<div style="max-width: 1360px; margin: 0 auto; padding: 96px 24px 140px; box-sizing: border-box; display: flex; flex-direction: column; gap: 72px">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<h1 style="margin: 0; font-weight: 300; font-size: clamp(52px, 8vw, 128px); line-height: 0.96; letter-spacing: -0.05em">Selected <span class="lm-accw lm-split" style="--a: #6B1E26"><span class="lm-w"><span class="lm-ch" style="--i: 0">w</span><span class="lm-ch" style="--i: 1">o</span><span class="lm-ch" style="--i: 2">r</span><span class="lm-ch" style="--i: 3">k</span></span></span></h1>
+<p style="margin: 0; max-width: 620px; font-weight: 300; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.5; color: #4E4A47">Work by Limen and the specialists we bring in per project.</p>
 </div>
+
+<div>
+<article class="wk-row">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.1em; color: #6B1E26">01</span>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-weight: 300; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.05; letter-spacing: -0.035em">Every neuron, every connection</h2>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6B635D">Partner work · Federico <span class="wk-ph">[surname]</span>, <span class="wk-ph">[role]</span></p>
 </div>
-<div style="max-width: 1360px; min-height: 70vh; margin: 0 auto; padding: 120px 24px 160px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 32px">
-<h1 style="margin: 0; max-width: 1200px; font-weight: 300; font-size: clamp(52px, 9vw, 140px); line-height: 0.96; letter-spacing: -0.05em">Selected work, <span class="lm-accw lm-split" style="--a: #6B1E26; --b: #C2483C"><span class="lm-w"><span class="lm-ch" style="--i: 0">c</span><span class="lm-ch" style="--i: 1">o</span><span class="lm-ch" style="--i: 2">m</span><span class="lm-ch" style="--i: 3">i</span><span class="lm-ch" style="--i: 4">n</span><span class="lm-ch" style="--i: 5">g</span></span> <span class="lm-w"><span class="lm-ch" style="--i: 6">s</span><span class="lm-ch" style="--i: 7">o</span><span class="lm-ch" style="--i: 8">o</span><span class="lm-ch" style="--i: 9">n</span></span></span></h1>
-<p style="margin: 0; max-width: 560px; font-weight: 300; font-size: clamp(19px, 1.8vw, 24px); line-height: 1.5; color: #5A534E">Our first projects are taking shape in the studio. Case studies will appear here shortly.</p>
+<p style="margin: 0; font-weight: 300; font-size: 18px; line-height: 1.55; color: #4E4A47">An interactive story about the first complete wiring diagram of a male fruit fly's nervous system: 166,000 neurons and 125 million synapses, mapped with the help of AI from Google Research.</p>
+<a class="wk-link" href="https://everyneuron.com/" target="_blank" rel="noopener">View project <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="wk-row">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.1em; color: #6B1E26">02</span>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 class="wk-ph" style="margin: 0; font-weight: 300; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.05; letter-spacing: -0.035em">[Project title]</h2>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6B635D">[Client] · [Your role]</p>
+</div>
+<p class="wk-ph" style="margin: 0; font-weight: 300; font-size: 18px; line-height: 1.55">[One or two sentences: what it was and what you did.]</p>
+<a class="wk-link" href="#work">View project <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="wk-row">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.1em; color: #6B1E26">03</span>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 class="wk-ph" style="margin: 0; font-weight: 300; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.05; letter-spacing: -0.035em">[Project title]</h2>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6B635D">[Client] · [Your role]</p>
+</div>
+<p class="wk-ph" style="margin: 0; font-weight: 300; font-size: 18px; line-height: 1.55">[One or two sentences: what it was and what you did.]</p>
+<a class="wk-link" href="#work">View project <span aria-hidden="true">↗</span></a>
+</article>
+</div>
 </div>
 </section>
 
