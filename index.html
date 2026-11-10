@@ -2174,7 +2174,7 @@ class Component extends DCLogic {
   }
 
   doodleKit() {
-  var C = { paper: '#F3F6F5', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#6B1E26' };
+  var C = { paper: '#F3F6F5', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#0B7A57' };
   var SANS = "'Outfit', system-ui, sans-serif", MONO = "'IBM Plex Mono', monospace";
   // the second half eases down to two-thirds speed: real seconds -> story seconds
   var SLOW0 = 15.5, SLOW1 = 17, RATE = 0.65, S1 = SLOW1 - (1 - RATE) * (SLOW1 - SLOW0) / 2;
@@ -2655,7 +2655,7 @@ class Component extends DCLogic {
               const at = 'circle at ' + px.toFixed(1) + 'px ' + py.toFixed(1) + 'px, ';
               const g = 'radial-gradient(' + at + 'transparent ' + R.toFixed(1) + 'px, #000 ' + (R + 1).toFixed(1) + 'px)';
               stg.style.webkitMaskImage = g; stg.style.maskImage = g; stg.style.visibility = '';
-              const ra = (1 - Math.max(0, (q - 0.7) / 0.3)).toFixed(3), c = 'rgba(107,30,38,' + ra + ')';
+              const ra = (1 - Math.max(0, (q - 0.7) / 0.3)).toFixed(3), c = 'rgba(11,122,87,' + ra + ')';
               iris.style.background = 'radial-gradient(' + at + 'transparent ' + (R + 0.5).toFixed(1) + 'px, ' + c + ' ' + (R + 1).toFixed(1) + 'px, ' + c + ' ' + (R + 5).toFixed(1) + 'px, transparent ' + (R + 5.8).toFixed(1) + 'px)';
             }
           }
