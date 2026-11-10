@@ -2752,9 +2752,9 @@ class Component extends DCLogic {
     const A = this.buildAnims();
     const reduceMQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
     const SPEC = {
-      cStory: { fixed: true, fps: 24, dpr: 2, still: 6, draw: (c, w, h) => this.cardArt('story', c, w, h) },
-      inv: { fixed: true, fps: 24, dpr: 2, still: 4.5, draw: (c, w, h) => this.cardArt('identity', c, w, h) },
-      vis: { fixed: true, fps: 24, dpr: 2, still: 8.4, draw: (c, w, h) => this.cardArt('image', c, w, h) },
+      cStory: { fixed: true, fps: 24, dpr: 1.5, still: 6, draw: A.contours },
+      inv: { fixed: true, fps: 24, dpr: 1.5, still: 4.5, draw: A.gel },
+      vis: { fixed: true, fps: 24, dpr: 1.5, still: 8.4, draw: A.petri },
       p1: { fixed: true, fps: 30, dpr: 2, still: 4.2, draw: (c, w, h, t) => A.principle(c, w, h, t, 0) },
       p2: { fixed: true, fps: 30, dpr: 2, still: 2, draw: (c, w, h, t) => A.principle(c, w, h, t, 1) },
       p3: { fixed: true, fps: 30, dpr: 2, still: 1.3, draw: (c, w, h, t) => A.principle(c, w, h, t, 2) },
