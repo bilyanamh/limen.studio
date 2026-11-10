@@ -153,8 +153,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="display: flex; flex-wrap: wrap; gap: 20px 48px; align-items: flex-end; justify-content: space-between">
 <p aria-hidden="true" style="margin: 0; max-width: 760px; min-height: 2.9em; font-weight: 300; font-size: clamp(20px, 2.1vw, 30px); line-height: 1.4; color: ${v.subCol}; opacity: ${v.subOpacity}; transition: opacity 0.6s ease">${v.chSub}</p>
 <div style="display: flex; align-items: center; gap: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: ${v.mutedCol}">
-<span>${v.chCount}</span>
-<span aria-hidden="true" style="position: relative; width: 120px; height: 1px; background: ${v.trackCol}"><span style="position: absolute; left: 0; top: -1px; height: 3px; width: ${v.barWidth}%; background: #39E58C"></span></span>
 <span>${v.scrollHint}</span>
 </div>
 </div>
@@ -193,7 +191,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <article class="lm-card" style="border-radius: 30px; background: #0B1418; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refCStory}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">01 · Story</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">Story</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Narrative & Scientific Storytelling</h3>
 <p style="margin: 0; font-weight: 300; font-size: 18px; line-height: 1.55; color: #BCC7C4">The story inside the science, found and told: concepts, scripts and narratives that make complex work feel human.</p>
 </div>
@@ -201,7 +199,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <article class="lm-card" style="border-radius: 30px; background: #0B1418; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refInv}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">02 · Identity</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">Identity</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Brand & Visual Identity</h3>
 <p style="margin: 0; font-weight: 300; font-size: 18px; line-height: 1.55; color: #BCC7C4">Identities, visual languages and design systems drawn from the science itself, so the brand looks like the work it stands for.</p>
 </div>
@@ -209,7 +207,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <article class="lm-card" style="border-radius: 30px; background: #0B1418; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refVis}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">03 · Image</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">Image</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Scientific Visualization</h3>
 <p style="margin: 0; font-weight: 300; font-size: 18px; line-height: 1.55; color: #BCC7C4">Mechanism-of-action stories, product visuals and 2D/3D explainers, accurate enough for scientists and clear enough for everyone else.</p>
 </div>
@@ -217,7 +215,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <article class="lm-card" style="border-radius: 30px; background: #060608; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refCode}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">04 · Code</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">Code</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Creative Coding & Interactive</h3>
 <p style="margin: 0; font-weight: 300; font-size: 18px; line-height: 1.55; color: #BCC7C4">Generative visuals, data-driven pieces and interactive experiences, built in code for launches, congresses and digital channels.</p>
 </div>
@@ -253,7 +251,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; padding: 40px 0; border-top: 1px solid #C9D4D1">
 <canvas ref="${v.refP1}" aria-hidden="true" style="width: 150px; height: 150px; display: block; flex: 0 0 150px"></canvas>
 <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 48px">
-<p style="margin: 0; flex: 0 0 auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">01</p>
 <h3 style="margin: 0; flex: 1 1 340px; font-weight: 300; font-size: clamp(44px, 5.4vw, 84px); line-height: 1; letter-spacing: -0.045em">Science first</h3>
 <p style="margin: 0; flex: 1 1 300px; max-width: 440px; font-weight: 300; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: #4D5856">Every story starts with understanding the work as deeply as the people who built it.</p>
 </div>
@@ -261,7 +258,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; padding: 40px 0; border-top: 1px solid #C9D4D1">
 <canvas ref="${v.refP3}" aria-hidden="true" style="width: 150px; height: 150px; display: block; flex: 0 0 150px"></canvas>
 <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 48px">
-<p style="margin: 0; flex: 0 0 auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">02</p>
 <h3 style="margin: 0; flex: 1 1 340px; font-weight: 300; font-size: clamp(44px, 5.4vw, 84px); line-height: 1; letter-spacing: -0.045em">Built to be used</h3>
 <p style="margin: 0; flex: 1 1 300px; max-width: 440px; font-weight: 300; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: #4D5856">Everything we make is meant to be experienced: on a screen, at a congress, in a gallery, at a launch.</p>
 </div>
@@ -269,7 +265,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; padding: 40px 0; border-top: 1px solid #C9D4D1">
 <canvas ref="${v.refP2}" aria-hidden="true" style="width: 150px; height: 150px; display: block; flex: 0 0 150px"></canvas>
 <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 48px">
-<p style="margin: 0; flex: 0 0 auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">03</p>
 <h3 style="margin: 0; flex: 1 1 340px; font-weight: 300; font-size: clamp(44px, 5.4vw, 84px); line-height: 1; letter-spacing: -0.045em">Fixed scope, no surprises</h3>
 <p style="margin: 0; flex: 1 1 300px; max-width: 440px; font-weight: 300; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; color: #4D5856">Project-based and priced by scope, not hours. You know what you’ll get and what it costs before we start.</p>
 </div>
@@ -292,7 +287,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </div>
 <figure class="lm-fig" style="margin: 0; position: relative">
 <div class="lm-figbox"><canvas ref="${v.refCulture}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair"></canvas></div>
-<figcaption><span>Fig. 03 · A culture, growing</span><span>Click the dish to seed a colony</span></figcaption>
+<figcaption><span>A culture, growing</span><span>Click the dish to seed a colony</span></figcaption>
 </figure>
 </div>
 <div style="margin-top: auto; padding-top: 24px; border-top: 1px solid #C4CFCC; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; font-size: 16px; color: #3E4846">
