@@ -127,7 +127,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Your science is brilliant, but nobody can tell</h1>
 <p style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Most breakthroughs don’t stall in the lab. They stall in the room, with an investor, a clinician or a partner who needed to get it in thirty seconds. That’s where Limen comes in.</p>
 <div style="position: relative; flex: 1; min-height: 0">
-<canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. An oxblood line, the limen, pulls the scribble straight into one clear sentence: a patch that spots trouble before you feel it. The investor comes back and says tell me more." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+<canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. A line, the limen, pulls the scribble straight into one clean signal. The investor comes back, leans in and says tell me more, and the line “but nobody can tell” is crossed out." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 </div>
 <div style="position: relative; display: flex; justify-content: center; gap: 4px; padding: 0 0 10px">
 <a href="#studio" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #5C6765; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; background: none; border: 0; cursor: pointer">Scroll ↓</a>
@@ -2378,13 +2378,13 @@ class Component extends DCLogic {
   // ---------- copy ----------
   var TA = [{ t: 'Your science is brilliant', c: C.ink }, { t: ', but nobody can tell', c: C.ink }];
   var TB = [{ t: 'That’s where ', c: C.ink }, { t: 'Limen', c: C.ox }, { t: ' comes in', c: C.ink }];
-  var TCc = [{ t: 'A patch that spots trouble ', c: C.ink }, { t: 'before you feel it', c: C.ox }];
+  var TCc = [{ t: 'Same science, now ', c: C.ink }, { t: 'everyone can tell', c: C.ox }];
   var BUB = [
     { side: 'r', text: 'So, in a sentence, what are you building?', t0: 2.0, ty: [2.25, 3.3], out: 4.3, rot: 0.012 },
     { side: 'l', text: 'A dual-modal biosensor using closed-loop impedance spectroscopy with adaptive signal deconvolution and multiplexed electrochemical transduction…', t0: 4.4, ty: [4.6, 7.6], out: 8.3, rot: -0.01 },
     { side: 'r', text: 'Sounds great. What does it actually do?', t0: 8.5, ty: [8.7, 9.7], out: 10.5, rot: -0.014 },
     { side: 'r', text: 'Let’s circle back next quarter.', t0: 10.8, dots: [11.0, 11.8], ty: [11.8, 12.4], out: 13.3, seen: 12.55, rot: 0.01 },
-    { side: 'r', text: 'Tell me more', col: C.ox, t0: 18.4, ty: [18.6, 19.0], out: 19.6, rot: -0.016, narrow: true },
+    { side: 'r', text: 'Tell me more', col: C.ox, t0: 18.55, ty: [18.7, 19.05], out: 19.6, rot: -0.016, narrow: true },
   ];
   var QM = [{ t: 5.4, x: 1392, y: 392, s: 70, r: -0.24 }, { t: 6.2, x: 1504, y: 344, s: 90, r: 0.18 }, { t: 7.0, x: 1430, y: 280, s: 116, r: -0.07 }];
 
@@ -2462,8 +2462,8 @@ class Component extends DCLogic {
   }
   function invProg(t) {
     if (t < 12.7) return eio((t - 0.95) / 0.9);
-    if (t < 17.6) return 1 - eio((t - 12.7) / 0.8);
-    return eio((t - 17.6) / 0.8) * (1 - eio((t - 19.6) / 0.6));
+    if (t < 16.9) return 1 - eio((t - 12.7) / 0.8);
+    return eio((t - 16.9) / 0.7) * (1 - eio((t - 19.6) / 0.6));
   }
   var paperTile = null;
   function makePaper() {
@@ -2490,13 +2490,15 @@ class Component extends DCLogic {
     ink(FLOOR, { p: tp, w: 3.4, col: C.ash, seed: 70 });
     HATCH.forEach(function (h, k) { ink(h, { p: clamp(tp * 3 - 1 - k * 0.05), w: 2.6, col: C.ash, seed: 80 + k, amp: 0.8 }); });
     ink(CHAIR.map(function (p) { return [FX + p[0], TABLE + p[1]]; }), { p: eio((t - 0.25) / 0.35), w: 4.2, col: C.ash, seed: 90 });
-    ink(CHAIR.map(function (p) { return [IX - p[0], TABLE + p[1]]; }), { p: eio((t - 0.75) / 0.35), w: 4.2, col: C.ash, seed: 91 });
+    var lean = -46 * eo((t - 17.65) / 0.28);
+    ink(CHAIR.map(function (p) { return [IX + lean - p[0], TABLE + p[1]]; }), { p: eio((t - 0.75) / 0.35), w: 4.2, col: C.ash, seed: 91 });
     x.restore();
     var droop = sstep(12.4, 13.2, t) - sstep(15.6, 16.4, t);
     var fMood = -sstep(12.4, 13.0, t) + 2 * sstep(16.8, 17.4, t) - sstep(4.8, 5.6, t) * 0.3 * (1 - sstep(8.4, 9, t));
-    var iMood = -0.5 * sstep(9.0, 9.6, t) + 1.5 * sstep(18.4, 18.9, t);
+    var iMood = -0.5 * sstep(9.0, 9.6, t) + 1.5 * sstep(17.7, 18.0, t);
     drawFigure('f', FX, false, eio((t - 0.45) / 0.9) * (1 - eio((t - 19.6) / 0.6)), [10 * droop, 26 * droop], clamp(fMood, -1, 1));
-    drawFigure('i', IX, true, invProg(t), [0, 0], clamp(iMood, -1, 1));
+    drawFigure('i', IX + lean, true, invProg(t), [0, 0], clamp(iMood, -1, 1));
+    if (t > 17.65 && t < 18.45) { x.save(); x.globalAlpha = 1 - sstep(18.1, 18.45, t); for (var ml = 0; ml < 3; ml++) { var my0 = TABLE - 300 + ml * 70, mx0 = IX + lean + 132 + ml * 10; ink([[mx0, my0], [mx0 + 56 - ml * 10, my0 + 2]], { w: 4, seed: 600 + ml, amp: 0.6 }); } x.restore(); }
     x.save(); x.globalAlpha = keep;
     ink(TABLE_TOP, { p: tp, w: 6.4, seed: 71, nib: true });
     ink(TABLE_LIP, { p: eio((t - 0.15) / 0.5), w: 4, col: C.stone, seed: 72 });
@@ -2507,6 +2509,7 @@ class Component extends DCLogic {
     if (t > 1.9) for (k = 0; k < 2; k++) { var st = [], ph = BOIL * 0.5; for (var j = 0; j <= 12; j++) st.push([1190 + k * 16 + Math.sin(j * 0.7 + ph + k) * 7, TABLE - 74 - j * 5]); ink(st, { w: 3, col: C.ash, seed: 79 + k, amp: 0.6 }); }
     x.restore();
     var qa = 1 - sstep(8.2, 8.5, t);
+    if (t > 17.75 && t < 18.6) { var ea = 1 - sstep(18.35, 18.55, t), es0 = back((t - 17.75) / 0.32), ewb = Math.sin(BOIL * 1.3) * 0.05; x.save(); x.globalAlpha = ea; x.translate(IX + lean - 30, 330); x.rotate(-0.08 + ewb); x.scale(es0 * Math.sqrt(WM), es0 * Math.sqrt(WM)); x.font = '400 128px ' + SANS; x.fillStyle = C.ox; x.textAlign = 'center'; x.fillText('!', 0, 0); x.restore(); }
     QM.forEach(function (q) { if (t < q.t || qa <= 0) return; var s = back((t - q.t) / 0.3), wb = Math.sin(BOIL * 1.7 + q.x) * 0.06; x.save(); x.globalAlpha = qa; x.translate(q.x, q.y); x.rotate(q.r + wb); x.scale(s * Math.sqrt(WM), s * Math.sqrt(WM)); x.font = '400 ' + q.s + 'px ' + SANS; x.fillStyle = C.ink; x.textAlign = 'center'; x.fillText('?', 0, 0); x.restore(); });
     x.restore(); WM = 1;
 
@@ -2532,7 +2535,24 @@ class Component extends DCLogic {
     var nA = t < 12.6 ? typed(t, 0.6, 1.5, TA[0].t.length) : TA[0].t.length + typed(t, 12.6, 13.35, TA[1].t.length);
     drawFlow(Ly.TA, nA, Ly.tx, Ly.ty, 1 - sstep(13.6, 13.9, t));
     drawFlow(Ly.TB, typed(t, 14.3, 15.0, Ly.TB.len), Ly.tx, Ly.ty, 1 - sstep(16.3, 16.6, t));
-    drawFlow(Ly.TC, typed(t, 16.7, 17.6, Ly.TC.len), Ly.tx, Ly.ty, keep);
+    if (t > 16.6) {
+      var Fa = Ly.TA, k0 = -1; for (var ti = 0; ti < Fa.tk.length; ti++) if (Fa.tk[ti].t.charAt(0) === ',') { k0 = ti; break; }
+      var ra = sstep(16.6, 16.95, t) * keep, ga = ra * (1 - sstep(18.75, 19.15, t));
+      x.save(); x.font = Fa.font; x.fillStyle = C.ink;
+      for (ti = 0; ti < Fa.tk.length; ti++) { var tk = Fa.tk[ti]; x.globalAlpha = ti < k0 ? ra : ga; x.fillText(tk.t, Ly.tx + tk.x, Ly.ty + tk.line * Fa.lh); }
+      x.restore();
+      if (ga > 0 && t > 18.0) {
+        var segs = {}; for (ti = k0; ti < Fa.tk.length; ti++) { var o2 = Fa.tk[ti], sg = segs[o2.line] || (segs[o2.line] = [1e9, -1e9]); sg[0] = Math.min(sg[0], o2.x); sg[1] = Math.max(sg[1], o2.x + o2.w); }
+        var sp2 = eio((t - 18.0) / 0.6), keys = Object.keys(segs), tot2 = 0; keys.forEach(function (kk) { tot2 += segs[kk][1] - segs[kk][0]; }); var done = 0;
+        x.save(); x.globalAlpha = ga;
+        keys.forEach(function (kk, si) {
+          var a2 = segs[kk], len2 = a2[1] - a2[0], pp = clamp((sp2 * tot2 - done) / len2); done += len2; if (pp <= 0) return;
+          var yy = Ly.ty + (+kk) * Fa.lh - Ly.tsize * 0.3, xs = Ly.tx + a2[0] - 8, xe = Ly.tx + a2[1] + 10;
+          ink(spline([[xs, yy + 4], [lerp(xs, xe, 0.35), yy - 3], [lerp(xs, xe, 0.7), yy + 3], [xe, yy - 5]], 10), { p: pp, w: 6, col: C.ox, seed: 620 + si, amp: 1.2, nib: true, nibR: 5 });
+        });
+        x.restore();
+      }
+    }
 
     if (t > 19.9) {
       var E = Ly.END, D = E.dot, es = E.es, TK = E.toks, LM = TK[0], top = LM.Y - es * 1.05, hgt = es * 1.45;
