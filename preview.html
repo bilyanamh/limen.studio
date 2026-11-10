@@ -2761,6 +2761,44 @@ class Component extends DCLogic {
           ix.pings = (this.pings || []).filter((q) => now - q.t0 < 2); ix.noSig = noSig; ix.qClose = qClose; ix.bg = this.vid2; ix.fa = footA;
           this.pings = ix.pings;
           A.story(ctx, r.width, r.height, still ? 4 : now, pgv, this.vid, ix);
+          // the four worlds slide together and fuse into one dot, then one clean line
+          if (seg === 1 && !still) {
+            const mm = Math.min(1, Math.max(0, (u - 0.42) / 0.5));
+            if (mm > 0) {
+              const ez = (q) => (q < 0.5 ? 4 * q * q * q : 1 - Math.pow(-2 * q + 2, 3) / 2), cl = (v) => Math.min(1, Math.max(0, v));
+              const w = r.width, h = r.height;
+              const buf = this.mbuf || (this.mbuf = document.createElement('canvas'));
+              if (buf.width !== sc.width || buf.height !== sc.height) { buf.width = sc.width; buf.height = sc.height; }
+              const bx = buf.getContext('2d'); bx.setTransform(1, 0, 0, 1, 0, 0); bx.clearRect(0, 0, buf.width, buf.height); bx.drawImage(sc, 0, 0);
+              const p1 = ez(cl(mm / 0.66)), p2 = ez(cl((mm - 0.6) / 0.2)), p3 = ez(cl((mm - 0.78) / 0.22));
+              const nar = w < 700, tx = w * (0.5 + (nar ? 0 : 0.24) * p1), ty = h * (0.5 - (nar ? 0.2 : 0.16) * p1), side = Math.min(w, h) * (nar ? 0.42 : 0.3);
+              const W2 = w + (side - w) * p1, H2 = h + (side - h) * p1, g = Math.sin(p1 * Math.PI) * 26;
+              ctx.save(); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+              ctx.fillStyle = '#0F0D0E'; ctx.fillRect(0, 0, w, h);
+              if (p2 < 1) {
+                ctx.globalAlpha = 1 - p2;
+                const rad = (Math.min(W2, H2) / 2 + g) * ez(cl((p1 - 0.55) / 0.45));
+                ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(tx - W2 / 2 - g / 2, ty - H2 / 2 - g / 2, W2 + g, H2 + g, rad); else ctx.rect(tx - W2 / 2 - g / 2, ty - H2 / 2 - g / 2, W2 + g, H2 + g); ctx.clip();
+                for (let q = 0; q < 4; q++) {
+                  const i = q % 2, j = q > 1 ? 1 : 0, dw = W2 / 2, dh = H2 / 2;
+                  const dx = tx - dw + i * dw + (i ? g / 2 : -g / 2), dy = ty - dh + j * dh + (j ? g / 2 : -g / 2);
+                  const qr = 14 * Math.sin(p1 * Math.PI);
+                  ctx.save(); ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(dx, dy, dw, dh, qr); else ctx.rect(dx, dy, dw, dh); ctx.clip();
+                  ctx.drawImage(buf, i * buf.width / 2, j * buf.height / 2, buf.width / 2, buf.height / 2, dx, dy, dw, dh); ctx.restore();
+                }
+                ctx.strokeStyle = 'rgba(57,229,140,' + (0.85 * ez(cl((p1 - 0.35) / 0.4))).toFixed(3) + ')'; ctx.lineWidth = 3; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(tx - W2 / 2 - g / 2, ty - H2 / 2 - g / 2, W2 + g, H2 + g, rad); else ctx.rect(tx - W2 / 2 - g / 2, ty - H2 / 2 - g / 2, W2 + g, H2 + g); ctx.stroke();
+              }
+              ctx.globalAlpha = 1;
+              if (p2 > 0) { const dr = Math.max(7, (Math.min(W2, H2) / 2) * (1 - p2) + 7 * p2); ctx.globalAlpha = p2; ctx.fillStyle = '#39E58C'; ctx.beginPath(); ctx.arc(tx, ty, dr, 0, 7); ctx.fill(); ctx.globalAlpha = 1; }
+              if (p3 > 0) {
+                const L = Math.min(w * 0.22, 320) * p3, bl = tx + Math.min(w * 0.22, 320) * 0.45;
+                ctx.strokeStyle = '#39E58C'; ctx.lineWidth = 2.2; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.beginPath();
+                for (let k = 0; k <= 160; k++) { const xx = tx - L + (2 * L) * k / 160; let yy = ty; const d = (xx - bl) / 28; if (d > -1 && d < 1.6) yy += d < 0.25 ? -Math.sin((d + 1) / 1.25 * Math.PI) * 30 * (d < -0.2 ? 0.2 : 1) : Math.sin((d - 0.25) / 1.35 * Math.PI) * 14; if (k === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy); }
+                ctx.stroke();
+              }
+              ctx.restore();
+            }
+          }
           const th = A.storyTheme(pgv); const dark = !(th.lightTop < 0.75 && th.dTop > 0.75);
           if (dark !== this.dark) { this.dark = dark; this.forceUpdate(); }
           sc.__last = now; this.lastPg = pg;
