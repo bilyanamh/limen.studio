@@ -142,7 +142,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Your science is brilliant, but nobody can tell</h1>
 <p style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Most breakthroughs don’t stall in the lab. They stall in the room, with an investor, a clinician or a partner who needed to get it in thirty seconds. That’s where Limen comes in.</p>
 <div style="position: relative; flex: 1; min-height: 0">
-<canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. A dashed line appears: the limen, the threshold of detection. The scribble straightens, and one clean signal rises above the threshold. The line “but nobody can tell” is crossed out and becomes “and now everyone can tell”. The investor comes back, leans in and says tell me more." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+<canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. A dashed line appears: the limen, the threshold of detection. The scribble straightens, and one clean signal rises above the threshold. The line “but nobody can tell” is crossed out and becomes “and now the room can tell”. The investor comes back, leans in and says tell me more." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 </div>
 <div style="position: relative; display: flex; justify-content: center; gap: 4px; padding: 0 0 10px">
 <a href="#studio" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #5C6765; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; background: none; border: 0; cursor: pointer">Scroll ↓</a>
@@ -2505,7 +2505,7 @@ class Component extends DCLogic {
   var TA = [{ t: 'Your science is brilliant', c: C.ink }, { t: ', but nobody can tell', c: C.ink }];
   var TB = [{ t: 'That’s where ', c: C.ink }, { t: 'Limen', c: C.ox }, { t: ' comes in', c: C.ink }];
   var TCc = [{ t: 'Same science, now ', c: C.ink }, { t: 'everyone can tell', c: C.ox }];
-  var TD = [{ t: 'Your science is brilliant', c: C.ink }, { t: ', and now ', c: C.ink }, { t: 'everyone can tell', c: C.ox }];
+  var TD = [{ t: 'Your science is brilliant', c: C.ink }, { t: ', and now ', c: C.ink }, { t: 'the room can tell', c: C.ox }];
   var BUB = [
     { side: 'r', text: 'So, in a sentence, what are you building?', t0: 2.0, ty: [2.25, 3.3], out: 4.3, rot: 0.012 },
     { side: 'l', text: 'A dual-modal biosensor using closed-loop impedance spectroscopy with adaptive signal deconvolution and multiplexed electrochemical transduction…', t0: 4.4, ty: [4.6, 7.6], out: 8.3, rot: -0.01 },
