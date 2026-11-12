@@ -35,7 +35,7 @@
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}.lm-split .lm-ch{animation-play-state:paused}.lm-split.is-in .lm-ch{animation-play-state:running}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
 @keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#05090B}
-a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-ba .bf{display:flex;align-items:center;gap:12px}.lm-ba .bf::before{content:"";flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box}.lm-ba .bf.af::before{background:#0B7A57;border-color:#0B7A57}.lm-disc{display:none}.lm-chc{top:49vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center;gap:18px!important}.lm-chc>div>p:first-child{font-size:13px!important;letter-spacing:.16em!important;color:#A8B3B0!important}.lm-chc>div>p:nth-child(2){max-width:900px;font-size:clamp(34px,4.6vw,72px)!important;font-weight:300!important;text-wrap:balance}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important;gap:26px!important}.lm-chc>div>div>p:first-child{max-width:600px!important;min-height:0!important;font-size:clamp(18px,1.6vw,23px)!important;line-height:1.55!important}.lm-chc .lm-disc{display:none;flex-wrap:wrap;justify-content:center;gap:10px 0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#EEF3F1}.lm-chc .lm-disc span{display:inline-flex;align-items:center}.lm-chc .lm-disc span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:#0B7A57;margin:0 16px}@media (max-width:700px){.lm-chc{top:47vh}.lm-chc .lm-disc{font-size:11px}.lm-chc .lm-disc span+span::before{margin:0 10px}}a:hover{color:#0B7A57}
+a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-ba .bf{display:flex;align-items:center;gap:12px}.lm-ba .bf::before{content:"";flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box}.lm-ba .bf.af::before{background:#0B7A57;border-color:#0B7A57}.lm-disc{display:none}.lm-chc{top:43vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center;gap:18px!important}.lm-chc>div>p:first-child{font-size:13px!important;letter-spacing:.16em!important;color:#A8B3B0!important}.lm-chc>div>p:nth-child(2){max-width:900px;font-size:clamp(34px,4.6vw,72px)!important;font-weight:300!important;text-wrap:balance}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important;gap:26px!important}.lm-chc>div>div>p:first-child{max-width:600px!important;min-height:0!important;font-size:clamp(18px,1.6vw,23px)!important;line-height:1.55!important}.lm-chc .lm-disc{display:none;flex-wrap:wrap;justify-content:center;gap:10px 0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#EEF3F1}.lm-chc .lm-disc span{display:inline-flex;align-items:center}.lm-chc .lm-disc span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:#0B7A57;margin:0 16px}@media (max-width:700px){.lm-chc{top:45vh}.lm-chc .lm-disc{font-size:11px}.lm-chc .lm-disc span+span::before{margin:0 10px}}a:hover{color:#0B7A57}
 @keyframes limenBlink{0%{opacity:1}50%{opacity:0}}
 .lm-thread{flex:1;height:14px;overflow:visible;min-width:40px}
 .lm-thread path,.lm-mk path,.lm-bub path{fill:none;stroke:#0B7A57;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
@@ -964,30 +964,46 @@ class Component extends DCLogic {
         // How we cross: four worlds travel along the threshold and become the dot of the i
         var m = ix.c2 || 0, em = m * m * (3 - 2 * m), a5 = e5;
         ctx.globalAlpha = 1; ctx.fillStyle = DARK; ctx.fillRect(0, 0, w, h);
-        // the four worlds sit in a row above; each travels down its own line into the dot of the i
-        var cx = w / 2, ly = h * (mobile ? 0.3 : 0.3), L = mobile ? w * 0.36 : Math.min(w * 0.3, 430);
-        var names = ['SCIENCE', 'DESIGN', 'ART', 'TECHNOLOGY'], at = [-1, -0.36, 0.36, 1];
-        var dr = mobile ? 8 : 11, S = mobile ? 1.2 : 2, px = cx + (31.38 - 115.63) * S, ny = ly - (mobile ? 118 : 165);
-        ctx.font = (mobile ? "11px" : "13px") + " 'IBM Plex Mono', ui-monospace, monospace"; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-        try { ctx.letterSpacing = mobile ? '1px' : '2px'; } catch (e0) {}
-        for (var q = 0; q < 4; q++) {
-          var nx = cx + L * at[q], sy = ny + dr + 4, ey = ly - 7 * S - 6;
-          var c1x = nx, c1y = sy + (ey - sy) * 0.55, c2x = px, c2y = ey - (ey - sy) * 0.45;
-          var bz = function (u) { var v = 1 - u; return [v * v * v * nx + 3 * v * v * u * c1x + 3 * v * u * u * c2x + u * u * u * px, v * v * v * sy + 3 * v * v * u * c1y + 3 * v * u * u * c2y + u * u * u * ey]; };
-          // the path, drawn once, stays as a hairline
-          var drawn = sstep(0, 0.25, m) * a5;
-          ctx.strokeStyle = 'rgba(238,243,241,' + (0.22 * a5).toFixed(3) + ')'; ctx.lineWidth = 1;
-          ctx.beginPath(); for (var k5 = 0; k5 <= 40 * drawn; k5++) { var pp = bz(k5 / 40); if (k5 === 0) ctx.moveTo(pp[0], pp[1]); else ctx.lineTo(pp[0], pp[1]); } ctx.stroke();
-          // the name stays where it came from
-          ctx.fillStyle = 'rgba(238,243,241,' + (0.92 * a5).toFixed(3) + ')'; ctx.fillText(names[q], nx, ny - dr - 10);
-          // the world itself travels into the dot
-          var pos = bz(em), ra = a5 * (1 - sstep(0.7, 0.9, m)), cy0 = em < 0.001 ? ny : pos[1], cx0 = em < 0.001 ? nx : pos[0];
-          if (em < 0.001) { cx0 = nx; cy0 = ny; } else { cx0 = pos[0]; cy0 = pos[1]; }
-          ctx.strokeStyle = 'rgba(238,243,241,' + ra.toFixed(3) + ')'; ctx.lineWidth = 1.6;
-          ctx.beginPath(); ctx.arc(cx0, cy0, dr, 0, 6.29); ctx.stroke();
-          ctx.fillStyle = 'rgba(11,122,87,' + ra.toFixed(3) + ')'; ctx.beginPath(); ctx.arc(cx0, cy0, dr * 0.32, 0, 6.29); ctx.fill();
+        // each world has its own small mark inside its ring: a cell, a grid, a brushstroke, a circuit
+        function worldMark(q, x, y, r, a, tt) {
+          if (a <= 0.01) return;
+          var W1 = 'rgba(238,243,241,' + a.toFixed(3) + ')', W2 = 'rgba(238,243,241,' + (a * 0.55).toFixed(3) + ')', G1 = 'rgba(11,122,87,' + a.toFixed(3) + ')';
+          ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+          ctx.strokeStyle = W1; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.29); ctx.stroke();
+          ctx.beginPath(); ctx.arc(x, y, r - 1, 0, 6.29); ctx.clip(); ctx.fillStyle = DARK; ctx.fillRect(x - r, y - r, 2 * r, 2 * r);
+          if (q === 0) { // science: a cell with its nucleus, slowly breathing
+            var br = 1 + 0.06 * Math.sin(tt * 2.2);
+            ctx.strokeStyle = W2; ctx.lineWidth = 1; ctx.beginPath(); ctx.ellipse(x, y, r * 0.62 * br, r * 0.48 * br, 0.5, 0, 6.29); ctx.stroke();
+            ctx.fillStyle = G1; ctx.beginPath(); ctx.arc(x + r * 0.12, y - r * 0.06, r * 0.22, 0, 6.29); ctx.fill();
+          } else if (q === 1) { // design: a construction grid with a golden diagonal
+            ctx.strokeStyle = W2; ctx.lineWidth = 0.9;
+            for (var gi = -1; gi <= 1; gi++) { ctx.beginPath(); ctx.moveTo(x + gi * r * 0.42, y - r); ctx.lineTo(x + gi * r * 0.42, y + r); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x - r, y + gi * r * 0.42); ctx.lineTo(x + r, y + gi * r * 0.42); ctx.stroke(); }
+            ctx.strokeStyle = G1; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - r * 0.7, y + r * 0.7); ctx.lineTo(x + r * 0.7, y - r * 0.7); ctx.stroke();
+          } else if (q === 2) { // art: a single loose brushstroke
+            var sw = Math.sin(tt * 1.6) * r * 0.08;
+            ctx.strokeStyle = W1; ctx.lineWidth = r * 0.22; ctx.beginPath(); ctx.moveTo(x - r * 0.6, y + r * 0.25); ctx.bezierCurveTo(x - r * 0.25, y - r * 0.55 + sw, x + r * 0.1, y + r * 0.55 - sw, x + r * 0.6, y - r * 0.2); ctx.stroke();
+            ctx.fillStyle = G1; ctx.beginPath(); ctx.arc(x + r * 0.6, y - r * 0.2, r * 0.16, 0, 6.29); ctx.fill();
+          } else { // technology: a circuit trace with a travelling pulse
+            ctx.strokeStyle = W2; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x - r, y + r * 0.2); ctx.lineTo(x - r * 0.2, y + r * 0.2); ctx.lineTo(x + r * 0.15, y - r * 0.25); ctx.lineTo(x + r, y - r * 0.25); ctx.stroke();
+            ctx.fillStyle = W1; ctx.beginPath(); ctx.arc(x - r * 0.2, y + r * 0.2, 1.4, 0, 6.29); ctx.fill(); ctx.beginPath(); ctx.arc(x + r * 0.15, y - r * 0.25, 1.4, 0, 6.29); ctx.fill();
+            var ph = (tt * 0.6) % 1, pxp = ph < 0.4 ? x - r + (r * 0.8) * (ph / 0.4) : ph < 0.6 ? x - r * 0.2 + r * 0.35 * ((ph - 0.4) / 0.2) : x + r * 0.15 + r * 0.85 * ((ph - 0.6) / 0.4), pyp = ph < 0.4 ? y + r * 0.2 : ph < 0.6 ? y + r * 0.2 - r * 0.45 * ((ph - 0.4) / 0.2) : y - r * 0.25;
+            ctx.fillStyle = G1; ctx.beginPath(); ctx.arc(pxp, pyp, r * 0.16, 0, 6.29); ctx.fill();
+          }
+          ctx.restore();
         }
-        try { ctx.letterSpacing = '0px'; } catch (e1) {}
+        var cx = w / 2, ly = h * (mobile ? 0.3 : 0.24), L = Math.min(w * (mobile ? 0.4 : 0.34), 520);
+        var lineA = a5 * (1 - sstep(0.7, 1, m));
+        ctx.strokeStyle = 'rgba(238,243,241,' + (0.32 * lineA).toFixed(3) + ')'; ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(cx - L * 1.12, ly); ctx.lineTo(cx + L * 1.12, ly); ctx.stroke();
+        var names = ['SCIENCE', 'DESIGN', 'ART', 'TECHNOLOGY'], at = [-1, -0.36, 0.36, 1];
+        ctx.font = (mobile ? "11px" : "14px") + " 'IBM Plex Mono', ui-monospace, monospace"; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        var dr = mobile ? 14 : 20, S = mobile ? 1.2 : 2, px = cx + (31.38 - 115.63) * S;
+        for (var q = 0; q < 4; q++) {
+          var x = px + (cx + L * at[q] - px) * (1 - em), ra = a5 * (1 - sstep(0.68, 0.9, m));
+          worldMark(q, x, ly, dr, ra, t);
+          var la = a5 * (1 - sstep(0.4, 0.66, m));
+          if (la > 0.01) { ctx.fillStyle = 'rgba(238,243,241,' + (0.85 * la).toFixed(3) + ')'; ctx.fillText(names[q], x, ly + dr + 14); }
+        }
         // they become the dot of the i, and the name appears around it
         var g = sstep(0.62, 0.84, m), stemP = sstep(0.7, 0.88, m), word = sstep(0.84, 1, m), R5 = 7 * S * g;
         if (word > 0.01) {
