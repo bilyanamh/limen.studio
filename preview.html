@@ -95,7 +95,7 @@ a.lm-card:hover .lm-cimg img{transform:scale(1.045)}
 .lm-skip:focus{top:16px}
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #5BEA9A;outline-offset:3px;border-radius:30px}
 .lm-btn{transition:transform .35s cubic-bezier(.2,.7,.1,1),box-shadow .35s ease,background-color .35s ease}
-.lm-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(57,229,140,.28)}
+.lm-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(11,122,87,.28)}
 .lm-btn:active{transform:translateY(0) scale(.98)}
 .lm-btn .lm-arrow{display:inline-block;transition:transform .35s cubic-bezier(.2,.7,.1,1)}
 .lm-btn:hover .lm-arrow{transform:translateX(5px)}
@@ -161,7 +161,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <canvas ref="${v.refStory}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: ${v.fadeGrad}"></div>
 <header ref="${v.refLogo}" style="transition: opacity .35s ease; position: relative; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
-<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #39E58C; --b: #39E58C">.</span></a>
+<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #0B7A57; --b: #0B7A57">.</span></a>
 <nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
 <a href="#services" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">Services</a>
 <a href="#about" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">About</a>
@@ -170,13 +170,13 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </header>
 <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 0 24px 9vh">
 <div style="max-width: 1360px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; display: inline-flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: clamp(14px, 1.2vw, 17px); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: ${v.fgCol}"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #39E58C"></span><svg aria-hidden="true" viewBox="0 0 120 14" style="width: 64px; height: 14px; overflow: visible"><path d="M2 8 C 18 3, 30 11, 46 7 S 78 3, 94 8 S 112 9, 118 6" fill="none" stroke="#39E58C" stroke-width="2" stroke-linecap="round"></path></svg>${v.chLabel}</p>
+<p style="margin: 0; display: inline-flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: clamp(14px, 1.2vw, 17px); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: ${v.fgCol}"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #0B7A57"></span><svg aria-hidden="true" viewBox="0 0 120 14" style="width: 64px; height: 14px; overflow: visible"><path d="M2 8 C 18 3, 30 11, 46 7 S 78 3, 94 8 S 112 9, 118 6" fill="none" stroke="#0B7A57" stroke-width="2" stroke-linecap="round"></path></svg>${v.chLabel}</p>
 <p aria-hidden="true" style="margin: 0; max-width: 1080px; font-weight: 400; font-size: clamp(36px, 5.6vw, 88px); line-height: 1.02; letter-spacing: -0.045em; transition: color 0.4s ease">${(v.segs || []).map((s, $index) => html`${(s.plain) ? html`<span>${s.text}</span>` : null}${(s.acc) ? html`<span class="lm-accw" style="${s.style}">${(s.words || []).map((wd, $index) => html`<span class="lm-w">${(wd.ch || []).map((l, $index) => html`<span class="lm-ch" style="--i: ${l.i}">${l.c}</span>`)}</span>${wd.sp}`)}</span>` : null}`)}<span style="display: inline-block; width: 0.06em; height: 0.8em; margin-left: 0.06em; background: ${v.cursorCol}; vertical-align: -0.05em; animation: limenBlink 1s steps(1) infinite"></span></p>
 <div style="display: flex; flex-wrap: wrap; gap: 20px 48px; align-items: flex-end; justify-content: space-between">
 <p aria-hidden="true" style="margin: 0; max-width: 760px; min-height: 2.9em; font-weight: 300; font-size: clamp(20px, 2.1vw, 30px); line-height: 1.4; color: ${v.subCol}; opacity: ${v.subOpacity}; transition: opacity 0.6s ease">${v.chSub}</p>
 <div style="display: flex; align-items: center; gap: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: ${v.mutedCol}">
 <span>${v.chCount}</span>
-<span aria-hidden="true" style="position: relative; width: 120px; height: 1px; background: ${v.trackCol}"><span style="position: absolute; left: 0; top: -1px; height: 3px; width: ${v.barWidth}%; background: #39E58C"></span></span>
+<span aria-hidden="true" style="position: relative; width: 120px; height: 1px; background: ${v.trackCol}"><span style="position: absolute; left: 0; top: -1px; height: 3px; width: ${v.barWidth}%; background: #0B7A57"></span></span>
 <span>${v.scrollHint}</span>
 </div>
 </div>
@@ -2537,7 +2537,7 @@ class Component extends DCLogic {
   function layout(portrait) {
     var key = portrait ? 'p' : 'l'; if (LAY[key]) return LAY[key];
     var Ly = portrait
-      ? { DW: 920, DH: 1500, sc: { s: 0.78, dx: 460 - 960 * 0.78, dy: 1290 - TABLE * 0.78, wm: 1.2 }, tx: 48, ty: 130, tsize: 64, tlh: 74, tmax: 860, bsize: 50, blh: 62, bpad: 36, bmax: 760, bl: 40, br: 880, bbot: 1140, limen: [[460, 300], [460, 1480]], esize: 80, ey: 720, mono: 20 }
+      ? { DW: 920, DH: 1500, sc: { s: 0.78, dx: 460 - 960 * 0.78, dy: 1290 - TABLE * 0.78, wm: 1.2 }, tx: 48, ty: 310, tsize: 64, tlh: 74, tmax: 860, bsize: 50, blh: 62, bpad: 36, bmax: 760, bl: 40, br: 880, bbot: 1140, limen: [[460, 300], [460, 1480]], esize: 80, ey: 720, mono: 20 }
       : { DW: 1920, DH: 1080, sc: { s: 1, dx: 0, dy: 0, wm: 1 }, tx: 120, ty: 118, tsize: 78, tlh: 88, tmax: 1700, bsize: 44, blh: 56, bpad: 34, bmax: 900, bl: 80, br: 1840, bbot: 380, limen: [[960, 172], [960, 1062]], esize: 80, ey: 560, mono: 20 };
     var sc = Ly.sc, S = function (p) { return [sc.dx + p[0] * sc.s, sc.dy + p[1] * sc.s]; };
     Ly.S = S;
@@ -3005,7 +3005,7 @@ class Component extends DCLogic {
       chCount: '0' + (ch + 1) + ' / 02',
       barWidth: String(this.bar || 0),
       scrollHint: ch < 1 ? 'Scroll ↓' : 'Continue ↓',
-      cursorCol: dk ? '#39E58C' : '#0B7A57',
+      cursorCol: dk ? '#0B7A57' : '#0B7A57',
       bgCol: dk ? '#0F0D0E' : '#F3F3F1',
       fgCol: dk ? '#F2F2F0' : '#141210',
       mutedCol: dk ? '#A79C97' : '#6B635D',
