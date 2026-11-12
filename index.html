@@ -35,7 +35,7 @@
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}.lm-split .lm-ch{animation-play-state:paused}.lm-split.is-in .lm-ch{animation-play-state:running}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
 @keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#05090B}
-a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-ba .bf{display:flex;align-items:center;gap:12px}.lm-ba .bf::before{content:"";flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box}.lm-ba .bf.af::before{background:#0B7A57;border-color:#0B7A57}.lm-disc{display:none}.lm-chc{top:43vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center;gap:18px!important}.lm-chc>div>p:first-child{font-size:13px!important;letter-spacing:.16em!important;color:#A8B3B0!important}.lm-chc>div>p:nth-child(2){max-width:900px;font-size:clamp(34px,4.6vw,72px)!important;font-weight:300!important;text-wrap:balance}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important;gap:26px!important}.lm-chc>div>div>p:first-child{max-width:600px!important;min-height:0!important;font-size:clamp(18px,1.6vw,23px)!important;line-height:1.55!important}.lm-chc .lm-disc{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#EEF3F1}.lm-chc .lm-disc span{display:inline-flex;align-items:center}.lm-chc .lm-disc span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:#0B7A57;margin:0 16px}@media (max-width:700px){.lm-chc{top:45vh}.lm-chc .lm-disc{font-size:11px}.lm-chc .lm-disc span+span::before{margin:0 10px}}a:hover{color:#0B7A57}
+a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-ba .bf{display:flex;align-items:center;gap:12px}.lm-ba .bf::before{content:"";flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box}.lm-ba .bf.af::before{background:#0B7A57;border-color:#0B7A57}.lm-disc{display:none}.lm-chc{top:49vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center;gap:18px!important}.lm-chc>div>p:first-child{font-size:13px!important;letter-spacing:.16em!important;color:#A8B3B0!important}.lm-chc>div>p:nth-child(2){max-width:900px;font-size:clamp(34px,4.6vw,72px)!important;font-weight:300!important;text-wrap:balance}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important;gap:26px!important}.lm-chc>div>div>p:first-child{max-width:600px!important;min-height:0!important;font-size:clamp(18px,1.6vw,23px)!important;line-height:1.55!important}.lm-chc .lm-disc{display:none;flex-wrap:wrap;justify-content:center;gap:10px 0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#EEF3F1}.lm-chc .lm-disc span{display:inline-flex;align-items:center}.lm-chc .lm-disc span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:#0B7A57;margin:0 16px}@media (max-width:700px){.lm-chc{top:47vh}.lm-chc .lm-disc{font-size:11px}.lm-chc .lm-disc span+span::before{margin:0 10px}}a:hover{color:#0B7A57}
 @keyframes limenBlink{0%{opacity:1}50%{opacity:0}}
 .lm-thread{flex:1;height:14px;overflow:visible;min-width:40px}
 .lm-thread path,.lm-mk path,.lm-bub path{fill:none;stroke:#0B7A57;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
@@ -964,23 +964,32 @@ class Component extends DCLogic {
         // How we cross: four worlds travel along the threshold and become the dot of the i
         var m = ix.c2 || 0, em = m * m * (3 - 2 * m), a5 = e5;
         ctx.globalAlpha = 1; ctx.fillStyle = DARK; ctx.fillRect(0, 0, w, h);
-        var cx = w / 2, ly = h * (mobile ? 0.3 : 0.24), L = Math.min(w * (mobile ? 0.4 : 0.34), 520);
-        var lineA = a5 * (1 - sstep(0.7, 1, m));
-        ctx.strokeStyle = 'rgba(238,243,241,' + (0.32 * lineA).toFixed(3) + ')'; ctx.lineWidth = 1.2;
-        ctx.beginPath(); ctx.moveTo(cx - L * 1.12, ly); ctx.lineTo(cx + L * 1.12, ly); ctx.stroke();
+        // the four worlds sit in a row above; each travels down its own line into the dot of the i
+        var cx = w / 2, ly = h * (mobile ? 0.3 : 0.3), L = mobile ? w * 0.36 : Math.min(w * 0.3, 430);
         var names = ['SCIENCE', 'DESIGN', 'ART', 'TECHNOLOGY'], at = [-1, -0.36, 0.36, 1];
-        ctx.font = (mobile ? "11px" : "14px") + " 'IBM Plex Mono', ui-monospace, monospace"; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-        var dr = mobile ? 9 : 13, S = mobile ? 1.2 : 2, px = cx + (31.38 - 115.63) * S;
+        var dr = mobile ? 8 : 11, S = mobile ? 1.2 : 2, px = cx + (31.38 - 115.63) * S, ny = ly - (mobile ? 118 : 165);
+        ctx.font = (mobile ? "11px" : "13px") + " 'IBM Plex Mono', ui-monospace, monospace"; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+        try { ctx.letterSpacing = mobile ? '1px' : '2px'; } catch (e0) {}
         for (var q = 0; q < 4; q++) {
-          var x = px + (cx + L * at[q] - px) * (1 - em), ra = a5 * (1 - sstep(0.68, 0.9, m));
-          ctx.strokeStyle = 'rgba(238,243,241,' + ra.toFixed(3) + ')'; ctx.lineWidth = 1.8;
-          ctx.beginPath(); ctx.arc(x, ly, dr, 0, 6.29); ctx.stroke();
-          ctx.fillStyle = 'rgba(11,122,87,' + (ra * 0.9).toFixed(3) + ')'; ctx.beginPath(); ctx.arc(x, ly, 2.6, 0, 6.29); ctx.fill();
-          var la = a5 * (1 - sstep(0.4, 0.66, m));
-          if (la > 0.01) { ctx.fillStyle = 'rgba(238,243,241,' + (0.85 * la).toFixed(3) + ')'; ctx.fillText(names[q], x, ly + dr + 14); }
+          var nx = cx + L * at[q], sy = ny + dr + 4, ey = ly - 7 * S - 6;
+          var c1x = nx, c1y = sy + (ey - sy) * 0.55, c2x = px, c2y = ey - (ey - sy) * 0.45;
+          var bz = function (u) { var v = 1 - u; return [v * v * v * nx + 3 * v * v * u * c1x + 3 * v * u * u * c2x + u * u * u * px, v * v * v * sy + 3 * v * v * u * c1y + 3 * v * u * u * c2y + u * u * u * ey]; };
+          // the path, drawn once, stays as a hairline
+          var drawn = sstep(0, 0.25, m) * a5;
+          ctx.strokeStyle = 'rgba(238,243,241,' + (0.22 * a5).toFixed(3) + ')'; ctx.lineWidth = 1;
+          ctx.beginPath(); for (var k5 = 0; k5 <= 40 * drawn; k5++) { var pp = bz(k5 / 40); if (k5 === 0) ctx.moveTo(pp[0], pp[1]); else ctx.lineTo(pp[0], pp[1]); } ctx.stroke();
+          // the name stays where it came from
+          ctx.fillStyle = 'rgba(238,243,241,' + (0.92 * a5).toFixed(3) + ')'; ctx.fillText(names[q], nx, ny - dr - 10);
+          // the world itself travels into the dot
+          var pos = bz(em), ra = a5 * (1 - sstep(0.7, 0.9, m)), cy0 = em < 0.001 ? ny : pos[1], cx0 = em < 0.001 ? nx : pos[0];
+          if (em < 0.001) { cx0 = nx; cy0 = ny; } else { cx0 = pos[0]; cy0 = pos[1]; }
+          ctx.strokeStyle = 'rgba(238,243,241,' + ra.toFixed(3) + ')'; ctx.lineWidth = 1.6;
+          ctx.beginPath(); ctx.arc(cx0, cy0, dr, 0, 6.29); ctx.stroke();
+          ctx.fillStyle = 'rgba(11,122,87,' + ra.toFixed(3) + ')'; ctx.beginPath(); ctx.arc(cx0, cy0, dr * 0.32, 0, 6.29); ctx.fill();
         }
+        try { ctx.letterSpacing = '0px'; } catch (e1) {}
         // they become the dot of the i, and the name appears around it
-        var g = sstep(0.62, 0.84, m), stemP = sstep(0.7, 0.88, m), word = sstep(0.86, 1, m) * 0.5, R5 = 7 * S * g;
+        var g = sstep(0.62, 0.84, m), stemP = sstep(0.7, 0.88, m), word = sstep(0.84, 1, m), R5 = 7 * S * g;
         if (word > 0.01) {
           var LP = cached('limenWord', function () { return new Path2D('M6.57 0.0V-71.4H15.60V0.0Z M26.77 0.0V-47.5H35.82V0.0Z M46.97 0.0V-47.5H56.00V0.0ZM79.10 0.0V-28.70Q79.10 -34.0 75.85 -37.03Q72.60 -40.07 67.72 -40.07Q64.42 -40.07 61.78 -38.7Q59.15 -37.32 57.57 -34.8Q56.00 -32.27 56.00 -28.75L52.25 -30.57Q52.25 -36.02 54.63 -40.02Q57.02 -44.02 61.11 -46.26Q65.2 -48.5 70.27 -48.5Q75.32 -48.5 79.36 -46.3Q83.4 -44.1 85.76 -40.1Q88.12 -36.1 88.12 -30.55V0.0ZM111.22 0.0V-28.70Q111.22 -34.0 107.97 -37.03Q104.72 -40.07 99.85 -40.07Q96.62 -40.07 93.95 -38.7Q91.27 -37.32 89.7 -34.8Q88.12 -32.27 88.12 -28.75L82.95 -30.57Q83.32 -36.05 85.95 -40.03Q88.57 -44.02 92.77 -46.26Q96.97 -48.5 102.02 -48.5Q107.15 -48.5 111.26 -46.3Q115.37 -44.1 117.81 -40.08Q120.25 -36.07 120.25 -30.52V0.0Z M152.47 1.0Q145.35 1.0 139.67 -2.22Q134.0 -5.45 130.7 -11.08Q127.4 -16.72 127.4 -23.77Q127.4 -30.8 130.63 -36.38Q133.87 -41.97 139.45 -45.23Q145.02 -48.5 151.87 -48.5Q158.45 -48.5 163.5 -45.48Q168.55 -42.47 171.43 -37.2Q174.32 -31.92 174.32 -25.15Q174.32 -24.15 174.20 -23.0Q174.07 -21.85 173.8 -20.40H133.72V-27.87H169.02L165.72 -25.0Q165.67 -29.77 164.0 -33.15Q162.32 -36.52 159.22 -38.36Q156.12 -40.2 151.70 -40.2Q147.05 -40.2 143.58 -38.18Q140.12 -36.17 138.21 -32.57Q136.3 -28.97 136.3 -24.05Q136.3 -19.07 138.31 -15.32Q140.32 -11.57 144.0 -9.51Q147.67 -7.45 152.5 -7.45Q156.47 -7.45 159.85 -8.87Q163.22 -10.3 165.57 -13.07L171.35 -7.22Q167.95 -3.22 163.01 -1.11Q158.07 1.0 152.47 1.0Z M215.65 0.0V-27.65Q215.65 -33.12 212.28 -36.6Q208.92 -40.07 203.54 -40.07Q199.88 -40.07 197.07 -38.48Q194.27 -36.9 192.68 -34.1Q191.1 -31.3 191.1 -27.67L187.35 -29.77Q187.35 -35.2 189.78 -39.41Q192.22 -43.62 196.49 -46.06Q200.75 -48.5 206.15 -48.5Q211.55 -48.5 215.73 -45.81Q219.92 -43.12 222.3 -38.76Q224.67 -34.4 224.67 -29.45V0.0ZM182.07 0.0V-47.5H191.1V0.0Z'); });
           ctx.save(); ctx.translate(cx - 115.63 * S, ly + 62 * S); ctx.scale(S, S);
