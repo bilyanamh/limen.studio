@@ -18,7 +18,7 @@
 .lm-chat .who{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5C6765;margin:0 6px 6px}
 .lm-chat .msg{max-width:84%;padding:14px 18px;border-radius:20px;font-size:clamp(16px,1.35vw,19px);line-height:1.45;font-weight:300}
 .lm-chat .them{align-self:flex-start;background:#E6ECEA;color:#0D1413;border-bottom-left-radius:6px}
-.lm-chat .me{align-self:flex-end;background:#0B7A57;color:#F3F6F5;border-bottom-right-radius:6px}
+.lm-chat .me{align-self:flex-end;background:#0B7A57;color:#EEF3F1;border-bottom-right-radius:6px}
 .lm-chat .row{display:flex;flex-direction:column}
 .lm-chat .row.r{align-items:flex-end}
 .lm-chat .meta{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#A8A29D;margin:6px 8px 0}
@@ -122,7 +122,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 <a href="#services" class="lm-skip">Skip to content</a>
 
 <section id="start" ref="${v.refDSec}" style="position: relative; z-index: 3; height: 190vh; color: #0D1413">
-<div ref="${v.refDStage}" style="position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: #F3F6F5">
+<div ref="${v.refDStage}" style="position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: #EEF3F1">
 <header class="lm-hd" style="position: relative; width: 100%; box-sizing: border-box; max-width: 1360px; margin: 0 auto; padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; color: #0D1413">
 <a href="#top" class="lm-logo" aria-label="Limen Studio, home"><svg class="lm-lg" aria-hidden="true" viewBox="4.58 -71.00 222.10 73.00"><path fill="currentColor" d="M6.575 0.0V-71.4H15.600000000000001V0.0Z M26.775000000000002 0.0V-47.5H35.825V0.0Z M46.97500000000001 0.0V-47.5H56.00000000000001V0.0ZM79.10000000000001 0.0V-28.700000000000003Q79.10000000000001 -34.0 75.85000000000001 -37.0375Q72.60000000000001 -40.075 67.72500000000001 -40.075Q64.42500000000001 -40.075 61.78750000000001 -38.7Q59.150000000000006 -37.325 57.575 -34.8Q56.00000000000001 -32.275 56.00000000000001 -28.75L52.25000000000001 -30.575000000000003Q52.25000000000001 -36.025 54.6375 -40.025000000000006Q57.025000000000006 -44.025000000000006 61.112500000000004 -46.2625Q65.2 -48.5 70.275 -48.5Q75.32500000000002 -48.5 79.36250000000001 -46.3Q83.4 -44.1 85.7625 -40.1Q88.125 -36.1 88.125 -30.55V0.0ZM111.22500000000001 0.0V-28.700000000000003Q111.22500000000001 -34.0 107.97500000000001 -37.0375Q104.72500000000001 -40.075 99.85000000000001 -40.075Q96.625 -40.075 93.95 -38.7Q91.275 -37.325 89.7 -34.8Q88.125 -32.275 88.125 -28.75L82.95000000000002 -30.575000000000003Q83.32500000000002 -36.050000000000004 85.95000000000002 -40.03750000000001Q88.57500000000002 -44.025000000000006 92.775 -46.2625Q96.97500000000001 -48.5 102.025 -48.5Q107.15 -48.5 111.26250000000002 -46.3Q115.37500000000001 -44.1 117.81250000000001 -40.087500000000006Q120.25000000000001 -36.075 120.25000000000001 -30.525000000000002V0.0Z M152.47500000000002 1.0Q145.35000000000002 1.0 139.675 -2.225Q134.0 -5.45 130.7 -11.0875Q127.4 -16.725 127.4 -23.775000000000002Q127.4 -30.8 130.6375 -36.3875Q133.875 -41.975 139.45 -45.2375Q145.025 -48.5 151.875 -48.5Q158.45000000000002 -48.5 163.5 -45.4875Q168.55 -42.475 171.4375 -37.2Q174.32500000000002 -31.925 174.32500000000002 -25.150000000000002Q174.32500000000002 -24.150000000000002 174.20000000000002 -23.0Q174.07500000000002 -21.85 173.8 -20.400000000000002H133.725V-27.875H169.025L165.72500000000002 -25.0Q165.675 -29.775000000000002 164.0 -33.15Q162.32500000000002 -36.525 159.22500000000002 -38.3625Q156.125 -40.2 151.70000000000002 -40.2Q147.05 -40.2 143.5875 -38.1875Q140.125 -36.175000000000004 138.2125 -32.575Q136.3 -28.975 136.3 -24.05Q136.3 -19.075 138.3125 -15.325Q140.32500000000002 -11.575000000000001 144.0 -9.512500000000001Q147.675 -7.45 152.5 -7.45Q156.47500000000002 -7.45 159.85000000000002 -8.875Q163.22500000000002 -10.3 165.57500000000002 -13.075000000000001L171.35000000000002 -7.2250000000000005Q167.95000000000002 -3.225 163.01250000000002 -1.1125Q158.07500000000002 1.0 152.47500000000002 1.0Z M215.65 0.0V-27.650000000000002Q215.65 -33.125 212.28750000000002 -36.6Q208.925 -40.075 203.5433673469388 -40.075Q199.88086734693877 -40.075 197.07793367346937 -38.4875Q194.275 -36.9 192.6875 -34.1Q191.1 -31.3 191.1 -27.675L187.35 -29.775000000000002Q187.35 -35.2 189.7875 -39.4125Q192.225 -43.625 196.49219543147208 -46.0625Q200.75939086294417 -48.5 206.15469543147208 -48.5Q211.55 -48.5 215.7375 -45.8125Q219.925 -43.125 222.3 -38.7625Q224.675 -34.4 224.675 -29.450000000000003V0.0ZM182.075 0.0V-47.5H191.1V0.0Z"></path><circle cx="31.38" cy="-62" r="7" fill="#0B7A57"></circle></svg></a>
 <span class="lm-tag" aria-hidden="false">Creative studio for MedTech, Biotech and Life Sciences</span>
@@ -277,7 +277,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 </div>
 </section>
 
-<section id="contact" onClick="${v.plant}" style="position: relative; z-index: 6; margin-top: -30px; border-radius: 30px 30px 0 0; background: #EDF2F0; color: #0D1413; overflow: hidden; min-height: 92vh; display: flex; flex-direction: column">
+<section id="contact" onClick="${v.plant}" style="position: relative; z-index: 6; margin-top: -30px; border-radius: 30px 30px 0 0; background: #EEF3F1; color: #0D1413; overflow: hidden; min-height: 92vh; display: flex; flex-direction: column">
 <div style="position: relative; max-width: 1360px; width: 100%; margin: 0 auto; padding: 0 24px; box-sizing: border-box">
 <div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
 <span>Contact</span>
@@ -339,7 +339,7 @@ class Component extends DCLogic {
       return cur;
     }
     function reset(ctx) { var d = ctx.__dpr || 1; ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; }
-    var C = { ink: '#0F0D0E', panel: '#17131A', paper: '#FFFFFF', warm: '#F6F6F4', ox: '#6B1E26', eosin: '#B23A3A', riso: '#9E3036', violet: '#5A3A75', teal: '#3F8E8C', ice: '#CFE6F2', amber: '#E2A23A', field: '#E4E0D2' };
+    var C = { ink: '#0F0D0E', panel: '#17131A', paper: '#FFFFFF', warm: '#EEF3F1', ox: '#6B1E26', eosin: '#B23A3A', riso: '#9E3036', violet: '#5A3A75', teal: '#3F8E8C', ice: '#CFE6F2', amber: '#E2A23A', field: '#E4E0D2' };
 
     function tissue(S) {
       return cached('tissue' + S, function () {
@@ -666,7 +666,7 @@ class Component extends DCLogic {
       return cached('parts', function () { var R = rng(2026), P = []; for (var i = 0; i < 1500; i++) P.push({ x: R(), y: R(), ph: R() * 6.28, sp: 0.2 + R() * 0.5, sz: 0.7 + R() * 1.3, r1: R(), r2: R(), r3: R() }); return P; });
     }
     function hash2(i, j) { var n = Math.sin(i * 12.9898 + j * 78.233) * 43758.5453; return n - Math.floor(n); }
-    var LIGHT = '#F3F3F1', DARK = '#0F0D0E', INK = '#2A2427', SAND = '#D7C3AE';
+    var LIGHT = '#EEF3F1', DARK = '#0F0D0E', INK = '#2A2427', SAND = '#D7C3AE';
     function storyTheme(pg) {
       var lightTop = 1 - sstep(0.3, 0.8, pg);
       var dTop = pg < 1.8 ? lerp(1.001, 0.5, sstep(1.45, 1.8, pg)) : lerp(0.5, -0.001, sstep(1.8, 2.2, pg));
@@ -749,7 +749,7 @@ class Component extends DCLogic {
         ctx.save(); ctx.beginPath(); ctx.rect(rx, ry, ow, oh); ctx.clip();
         if (q === 0) {
           // ART: two inks meeting on white paper, slowly
-          ctx.fillStyle = '#F6F6F4'; ctx.fillRect(x0, y0, qw, qh);
+          ctx.fillStyle = '#EEF3F1'; ctx.fillRect(x0, y0, qw, qh);
           ctx.globalCompositeOperation = 'multiply';
           var b1 = inkBlob('#141210'), b2 = inkBlob('#6B1E26'), bs = qh * (0.78 + 0.06 * Math.sin(t * 0.3));
           ctx.globalAlpha = 0.85; ctx.drawImage(b1, x0 + qw * (0.58 + 0.03 * Math.sin(t * 0.17)) - bs / 2, y0 + qh * 0.58 - bs / 2, bs, bs);
@@ -2313,7 +2313,7 @@ class Component extends DCLogic {
   }
 
   doodleKit() {
-  var C = { paper: '#F3F6F5', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#0B7A57' };
+  var C = { paper: '#EEF3F1', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#0B7A57' };
   var SANS = "'Outfit', system-ui, sans-serif", MONO = "'IBM Plex Mono', monospace";
   // the second half eases down to two-thirds speed: real seconds -> story seconds
   var SLOW0 = 15.5, SLOW1 = 17, RATE = 0.75, S1 = SLOW1 - (1 - RATE) * (SLOW1 - SLOW0) / 2;
@@ -2984,13 +2984,13 @@ class Component extends DCLogic {
       barWidth: String(this.bar || 0),
       scrollHint: ch < 1 ? 'Scroll ↓' : 'Continue ↓',
       cursorCol: dk ? '#0B7A57' : '#0B7A57',
-      bgCol: dk ? '#0F0D0E' : '#F3F3F1',
+      bgCol: dk ? '#0F0D0E' : '#EEF3F1',
       fgCol: dk ? '#EEF3F1' : '#0D1413',
       mutedCol: dk ? '#A8B3B0' : '#5C6765',
       subCol: dk ? '#A8B3B0' : '#5C6765',
       trackCol: dk ? 'rgba(244,239,233,0.25)' : 'rgba(20,18,16,0.2)',
       borderCol: dk ? 'rgba(244,239,233,0.35)' : 'rgba(20,18,16,0.3)',
-      fadeGrad: dk ? 'linear-gradient(to top, rgba(15,13,14,0.85), rgba(15,13,14,0))' : 'linear-gradient(to top, rgba(241,236,229,0.92), rgba(241,236,229,0))'
+      fadeGrad: dk ? 'linear-gradient(to top, rgba(15,13,14,0.85), rgba(15,13,14,0))' : 'linear-gradient(to top, rgba(238,243,241,0.92), rgba(238,243,241,0))'
     };
   }
 }
