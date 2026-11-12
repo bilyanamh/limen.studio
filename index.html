@@ -15,7 +15,7 @@
 .is-in .lm-sv,.lm-sv.is-in{opacity:1;transform:none}
 .lm-chat{max-width:620px;display:flex;flex-direction:column;gap:14px;white-space:normal!important}
 .lm-aud{white-space:normal}
-.lm-chat .who{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7F8A88;margin:0 6px 6px}
+.lm-chat .who{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5C6765;margin:0 6px 6px}
 .lm-chat .msg{max-width:84%;padding:14px 18px;border-radius:20px;font-size:clamp(16px,1.35vw,19px);line-height:1.45;font-weight:300}
 .lm-chat .them{align-self:flex-start;background:#E6ECEA;color:#0D1413;border-bottom-left-radius:6px}
 .lm-chat .me{align-self:flex-end;background:#0B7A57;color:#F3F6F5;border-bottom-right-radius:6px}
@@ -31,11 +31,11 @@
 .lm-aud p{margin:0;font-weight:300;font-size:clamp(26px,3.2vw,48px);line-height:1.08;letter-spacing:-.035em}
 @media (max-width:760px){.lm-aud{grid-template-columns:64px minmax(0,1fr);gap:2px 18px}.lm-aud .lm-face{grid-row:span 2;width:64px;height:64px}}
 @media (prefers-reduced-motion: reduce){.lm-sv{opacity:1;transform:none;transition:none}.lm-dots i{animation:none}}
-.lm-ct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center}.lm-figbox{position:relative;border-radius:22px;overflow:hidden;height:min(68vh,640px);min-height:440px;background:#E3E3E0}.lm-fig figcaption{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#54605E}@media (max-width:860px){.lm-ct{grid-template-columns:1fr;gap:40px}.lm-figbox{height:auto;min-height:0;aspect-ratio:4/5}}
+.lm-ct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center}.lm-figbox{position:relative;border-radius:22px;overflow:hidden;height:min(68vh,640px);min-height:440px;background:#E3E3E0}.lm-fig figcaption{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5C6765}@media (max-width:860px){.lm-ct{grid-template-columns:1fr;gap:40px}.lm-figbox{height:auto;min-height:0;aspect-ratio:4/5}}
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}.lm-split .lm-ch{animation-play-state:paused}.lm-split.is-in .lm-ch{animation-play-state:running}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
 @keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#05090B}
-a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a:hover{color:#7DB8FF}
+a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a:hover{color:#39E58C}
 @keyframes limenBlink{0%{opacity:1}50%{opacity:0}}
 .lm-thread{flex:1;height:14px;overflow:visible;min-width:40px}
 .lm-thread path,.lm-mk path,.lm-bub path{fill:none;stroke:#0B7A57;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
@@ -60,17 +60,17 @@ a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a:hover{co
 @media (max-width:900px){.lm-founder{left:-8px;bottom:40px;width:112px;height:138px}}
 @media (max-width:640px){.lm-bub{left:52%;top:-66px;width:140px;height:60px;font-size:16px;padding-top:11px}}
 .lm-ba .bf{margin:0 0 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#5C6765}
-.lm-ba .jar{margin:0;max-width:1040px;font-weight:300;font-size:clamp(22px,2.5vw,38px);line-height:1.4;letter-spacing:-.015em;color:#3E4846}
+.lm-ba .jar{margin:0;max-width:1040px;font-weight:300;font-size:clamp(22px,2.5vw,38px);line-height:1.4;letter-spacing:-.015em;color:#5C6765}
 .lm-ba .jar .w{position:relative;transition:color .5s ease;transition-delay:calc(var(--i) * 70ms + .3s)}
 .lm-ba .jar .w::after{content:"";position:absolute;left:-3px;right:-3px;top:56%;height:2px;border-radius:2px;background:#0B7A57;transform:scaleX(0);transform-origin:left;transition:transform .32s cubic-bezier(.6,.05,.3,1);transition-delay:calc(var(--i) * 70ms + .3s)}
-.lm-ba.is-in .jar .w{color:#AAB5B2}
+.lm-ba.is-in .jar .w{color:#5C6765}
 .lm-ba.is-in .jar .w::after{transform:scaleX(1)}
 .lm-ba .aft{margin:0;max-width:1180px;font-weight:200;font-size:clamp(40px,6.4vw,112px);line-height:1;letter-spacing:-.05em}
 .lm-ba .aft .a{display:inline-block;opacity:0;transform:translateY(.3em);transition:opacity .6s ease,transform .9s cubic-bezier(.2,.7,.1,1);transition-delay:calc(var(--d) + var(--i) * 120ms)}
 .lm-ba.is-in .aft .a{opacity:1;transform:none}
-@media (prefers-reduced-motion: reduce){.lm-ba .jar .w{color:#AAB5B2;transition:none}.lm-ba .jar .w::after{transform:scaleX(1);transition:none}.lm-ba .aft .a{opacity:1;transform:none;transition:none}}
+@media (prefers-reduced-motion: reduce){.lm-ba .jar .w{color:#5C6765;transition:none}.lm-ba .jar .w::after{transform:scaleX(1);transition:none}.lm-ba .aft .a{opacity:1;transform:none;transition:none}}
 .lm-dk .lm-accw{color:#39E58C!important}.lm-dk .lm-mk path{stroke:#39E58C}.lm-dk h2,.lm-dk h3{color:#EEF3F1}
-.lm-logo,.lm-boxes{display:flex;align-items:stretch;text-decoration:none;color:inherit}
+h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;text-decoration:none;color:inherit}.lm-logo{align-items:center;height:42px;padding:0 2px;border-radius:6px}.lm-lg{height:30px;width:auto;display:block}@media (max-width:700px){.lm-logo{height:38px}.lm-lg{height:26px}}
 .lm-box{display:inline-flex;align-items:center;justify-content:center;height:42px;box-sizing:border-box;padding:0 16px;border:1px solid currentColor;border-radius:9px;color:inherit;text-decoration:none;transition:background-color .25s ease,color .25s ease,border-color .25s ease}
 .lm-box+.lm-box{margin-left:-1px}.lm-boxes .lm-box{font-weight:400!important}
 .lm-ico{width:42px;padding:0}
@@ -78,12 +78,12 @@ a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a:hover{co
 .lm-m{min-width:118px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
 .lm-boxes .lm-box:hover,.lm-boxes .lm-box:focus-visible{background:#0B7A57;border-color:#0B7A57;color:#FFFFFF;position:relative;z-index:1}
 .lm-logo:hover .lm-ico{background:#0B7A57;border-color:#0B7A57;color:#FFFFFF}
-.lm-logo:focus-visible,.lm-box:focus-visible{outline:2px solid #39E58C;outline-offset:3px}
+.lm-logo:focus-visible,.lm-box:focus-visible{outline:2px solid #0B7A57;outline-offset:3px}.lm-hd:has(circle[fill="#39E58C"]) .lm-logo:focus-visible,.lm-hd:has(circle[fill="#39E58C"]) .lm-box:focus-visible{outline-color:#39E58C}
 @media (max-width:900px){.lm-m{min-width:0}}
 @media (max-width:700px){.lm-boxes .lm-box:not(.lm-cta){display:none}.lm-sub{display:none}.lm-box{height:38px}.lm-ico{width:38px}.lm-word{font-size:19px}}
 .lm-tag{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
 @media (max-width:1100px){.lm-tag{display:none}}
-.lm-skip{position:absolute;left:16px;top:-80px;z-index:50;padding:12px 18px;border-radius:30px;background:#EEF3F1;color:#05090B;text-decoration:none;font-size:16px;transition:top .2s ease}
+.lm-skip{position:absolute;left:16px;top:-80px;z-index:50;padding:12px 18px;border-radius:30px;background:#EEF3F1;color:#0D1413;text-decoration:none;font-size:16px;transition:top .2s ease}
 .lm-skip:focus{top:16px}
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #5BEA9A;outline-offset:3px;border-radius:30px}
 .lm-btn{transition:transform .35s cubic-bezier(.2,.7,.1,1),box-shadow .35s ease,background-color .35s ease}
@@ -124,7 +124,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <section id="start" ref="${v.refDSec}" style="position: relative; z-index: 3; height: 190vh; color: #0D1413">
 <div ref="${v.refDStage}" style="position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: #F3F6F5">
 <header class="lm-hd" style="position: relative; width: 100%; box-sizing: border-box; max-width: 1360px; margin: 0 auto; padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; color: #0D1413">
-<a href="#top" class="lm-logo" aria-label="Limen Studio, home"><span class="lm-box lm-ico"><svg aria-hidden="true" viewBox="0 0 16 16" style="width: 16px; height: 16px; display: block"><line x1="8" y1="1.5" x2="8" y2="14.5" stroke="currentColor" stroke-width="1.3"></line><circle cx="8" cy="8" r="3" fill="#0B7A57"></circle></svg></span><span class="lm-box lm-word">Limen</span><span class="lm-box lm-word lm-sub">Studio</span></a>
+<a href="#top" class="lm-logo" aria-label="Limen Studio, home"><svg class="lm-lg" aria-hidden="true" viewBox="4.58 -71.00 222.10 73.00"><path fill="currentColor" d="M6.575 0.0V-71.4H15.600000000000001V0.0Z M26.775000000000002 0.0V-47.5H35.825V0.0Z M46.97500000000001 0.0V-47.5H56.00000000000001V0.0ZM79.10000000000001 0.0V-28.700000000000003Q79.10000000000001 -34.0 75.85000000000001 -37.0375Q72.60000000000001 -40.075 67.72500000000001 -40.075Q64.42500000000001 -40.075 61.78750000000001 -38.7Q59.150000000000006 -37.325 57.575 -34.8Q56.00000000000001 -32.275 56.00000000000001 -28.75L52.25000000000001 -30.575000000000003Q52.25000000000001 -36.025 54.6375 -40.025000000000006Q57.025000000000006 -44.025000000000006 61.112500000000004 -46.2625Q65.2 -48.5 70.275 -48.5Q75.32500000000002 -48.5 79.36250000000001 -46.3Q83.4 -44.1 85.7625 -40.1Q88.125 -36.1 88.125 -30.55V0.0ZM111.22500000000001 0.0V-28.700000000000003Q111.22500000000001 -34.0 107.97500000000001 -37.0375Q104.72500000000001 -40.075 99.85000000000001 -40.075Q96.625 -40.075 93.95 -38.7Q91.275 -37.325 89.7 -34.8Q88.125 -32.275 88.125 -28.75L82.95000000000002 -30.575000000000003Q83.32500000000002 -36.050000000000004 85.95000000000002 -40.03750000000001Q88.57500000000002 -44.025000000000006 92.775 -46.2625Q96.97500000000001 -48.5 102.025 -48.5Q107.15 -48.5 111.26250000000002 -46.3Q115.37500000000001 -44.1 117.81250000000001 -40.087500000000006Q120.25000000000001 -36.075 120.25000000000001 -30.525000000000002V0.0Z M152.47500000000002 1.0Q145.35000000000002 1.0 139.675 -2.225Q134.0 -5.45 130.7 -11.0875Q127.4 -16.725 127.4 -23.775000000000002Q127.4 -30.8 130.6375 -36.3875Q133.875 -41.975 139.45 -45.2375Q145.025 -48.5 151.875 -48.5Q158.45000000000002 -48.5 163.5 -45.4875Q168.55 -42.475 171.4375 -37.2Q174.32500000000002 -31.925 174.32500000000002 -25.150000000000002Q174.32500000000002 -24.150000000000002 174.20000000000002 -23.0Q174.07500000000002 -21.85 173.8 -20.400000000000002H133.725V-27.875H169.025L165.72500000000002 -25.0Q165.675 -29.775000000000002 164.0 -33.15Q162.32500000000002 -36.525 159.22500000000002 -38.3625Q156.125 -40.2 151.70000000000002 -40.2Q147.05 -40.2 143.5875 -38.1875Q140.125 -36.175000000000004 138.2125 -32.575Q136.3 -28.975 136.3 -24.05Q136.3 -19.075 138.3125 -15.325Q140.32500000000002 -11.575000000000001 144.0 -9.512500000000001Q147.675 -7.45 152.5 -7.45Q156.47500000000002 -7.45 159.85000000000002 -8.875Q163.22500000000002 -10.3 165.57500000000002 -13.075000000000001L171.35000000000002 -7.2250000000000005Q167.95000000000002 -3.225 163.01250000000002 -1.1125Q158.07500000000002 1.0 152.47500000000002 1.0Z M215.65 0.0V-27.650000000000002Q215.65 -33.125 212.28750000000002 -36.6Q208.925 -40.075 203.5433673469388 -40.075Q199.88086734693877 -40.075 197.07793367346937 -38.4875Q194.275 -36.9 192.6875 -34.1Q191.1 -31.3 191.1 -27.675L187.35 -29.775000000000002Q187.35 -35.2 189.7875 -39.4125Q192.225 -43.625 196.49219543147208 -46.0625Q200.75939086294417 -48.5 206.15469543147208 -48.5Q211.55 -48.5 215.7375 -45.8125Q219.925 -43.125 222.3 -38.7625Q224.675 -34.4 224.675 -29.450000000000003V0.0ZM182.075 0.0V-47.5H191.1V0.0Z"></path><circle cx="31.38" cy="-62" r="7" fill="#0B7A57"></circle></svg></a>
 <span class="lm-tag" aria-hidden="false">Creative studio for MedTech, Biotech and Life Sciences</span>
 <nav aria-label="Main" class="lm-nav lm-boxes"><a href="#services" class="lm-box lm-m">Services</a><a href="#about" class="lm-box lm-m">Approach</a><a href="work.html" class="lm-box lm-m">Work</a><a href="#contact" class="lm-box lm-m lm-cta">Contact</a></nav>
 </header>
@@ -150,7 +150,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <canvas ref="${v.refStory}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: ${v.fadeGrad}"></div>
 <header ref="${v.refLogo}" class="lm-hd" style="transition: opacity .35s ease; position: relative; max-width: 1360px; margin: 0 auto; padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; color: ${v.fgCol}">
-<a href="#top" class="lm-logo" aria-label="Limen Studio, home"><span class="lm-box lm-ico"><svg aria-hidden="true" viewBox="0 0 16 16" style="width: 16px; height: 16px; display: block"><line x1="8" y1="1.5" x2="8" y2="14.5" stroke="currentColor" stroke-width="1.3"></line><circle cx="8" cy="8" r="3" fill="#39E58C"></circle></svg></span><span class="lm-box lm-word">Limen</span><span class="lm-box lm-word lm-sub">Studio</span></a>
+<a href="#top" class="lm-logo" aria-label="Limen Studio, home"><svg class="lm-lg" aria-hidden="true" viewBox="4.58 -71.00 222.10 73.00"><path fill="currentColor" d="M6.575 0.0V-71.4H15.600000000000001V0.0Z M26.775000000000002 0.0V-47.5H35.825V0.0Z M46.97500000000001 0.0V-47.5H56.00000000000001V0.0ZM79.10000000000001 0.0V-28.700000000000003Q79.10000000000001 -34.0 75.85000000000001 -37.0375Q72.60000000000001 -40.075 67.72500000000001 -40.075Q64.42500000000001 -40.075 61.78750000000001 -38.7Q59.150000000000006 -37.325 57.575 -34.8Q56.00000000000001 -32.275 56.00000000000001 -28.75L52.25000000000001 -30.575000000000003Q52.25000000000001 -36.025 54.6375 -40.025000000000006Q57.025000000000006 -44.025000000000006 61.112500000000004 -46.2625Q65.2 -48.5 70.275 -48.5Q75.32500000000002 -48.5 79.36250000000001 -46.3Q83.4 -44.1 85.7625 -40.1Q88.125 -36.1 88.125 -30.55V0.0ZM111.22500000000001 0.0V-28.700000000000003Q111.22500000000001 -34.0 107.97500000000001 -37.0375Q104.72500000000001 -40.075 99.85000000000001 -40.075Q96.625 -40.075 93.95 -38.7Q91.275 -37.325 89.7 -34.8Q88.125 -32.275 88.125 -28.75L82.95000000000002 -30.575000000000003Q83.32500000000002 -36.050000000000004 85.95000000000002 -40.03750000000001Q88.57500000000002 -44.025000000000006 92.775 -46.2625Q96.97500000000001 -48.5 102.025 -48.5Q107.15 -48.5 111.26250000000002 -46.3Q115.37500000000001 -44.1 117.81250000000001 -40.087500000000006Q120.25000000000001 -36.075 120.25000000000001 -30.525000000000002V0.0Z M152.47500000000002 1.0Q145.35000000000002 1.0 139.675 -2.225Q134.0 -5.45 130.7 -11.0875Q127.4 -16.725 127.4 -23.775000000000002Q127.4 -30.8 130.6375 -36.3875Q133.875 -41.975 139.45 -45.2375Q145.025 -48.5 151.875 -48.5Q158.45000000000002 -48.5 163.5 -45.4875Q168.55 -42.475 171.4375 -37.2Q174.32500000000002 -31.925 174.32500000000002 -25.150000000000002Q174.32500000000002 -24.150000000000002 174.20000000000002 -23.0Q174.07500000000002 -21.85 173.8 -20.400000000000002H133.725V-27.875H169.025L165.72500000000002 -25.0Q165.675 -29.775000000000002 164.0 -33.15Q162.32500000000002 -36.525 159.22500000000002 -38.3625Q156.125 -40.2 151.70000000000002 -40.2Q147.05 -40.2 143.5875 -38.1875Q140.125 -36.175000000000004 138.2125 -32.575Q136.3 -28.975 136.3 -24.05Q136.3 -19.075 138.3125 -15.325Q140.32500000000002 -11.575000000000001 144.0 -9.512500000000001Q147.675 -7.45 152.5 -7.45Q156.47500000000002 -7.45 159.85000000000002 -8.875Q163.22500000000002 -10.3 165.57500000000002 -13.075000000000001L171.35000000000002 -7.2250000000000005Q167.95000000000002 -3.225 163.01250000000002 -1.1125Q158.07500000000002 1.0 152.47500000000002 1.0Z M215.65 0.0V-27.650000000000002Q215.65 -33.125 212.28750000000002 -36.6Q208.925 -40.075 203.5433673469388 -40.075Q199.88086734693877 -40.075 197.07793367346937 -38.4875Q194.275 -36.9 192.6875 -34.1Q191.1 -31.3 191.1 -27.675L187.35 -29.775000000000002Q187.35 -35.2 189.7875 -39.4125Q192.225 -43.625 196.49219543147208 -46.0625Q200.75939086294417 -48.5 206.15469543147208 -48.5Q211.55 -48.5 215.7375 -45.8125Q219.925 -43.125 222.3 -38.7625Q224.675 -34.4 224.675 -29.450000000000003V0.0ZM182.075 0.0V-47.5H191.1V0.0Z"></path><circle cx="31.38" cy="-62" r="7" fill="#39E58C"></circle></svg></a>
 <span class="lm-tag" aria-hidden="false">Creative studio for MedTech, Biotech and Life Sciences</span>
 <nav aria-label="Main" class="lm-nav lm-boxes"><a href="#services" class="lm-box lm-m">Services</a><a href="#about" class="lm-box lm-m">Approach</a><a href="work.html" class="lm-box lm-m">Work</a><a href="#contact" class="lm-box lm-m lm-cta">Contact</a></nav>
 </header>
@@ -180,13 +180,13 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <p class="jar"><span class="w" style="--i: 0">A</span> <span class="w" style="--i: 1">dual-modal</span> <span class="w" style="--i: 2">biosensor</span> <span class="w" style="--i: 3">using</span> <span class="w" style="--i: 4">closed-loop</span> <span class="w" style="--i: 5">impedance</span> <span class="w" style="--i: 6">spectroscopy</span> <span class="w" style="--i: 7">with</span> <span class="w" style="--i: 8">adaptive</span> <span class="w" style="--i: 9">signal</span> <span class="w" style="--i: 10">deconvolution</span> <span class="w" style="--i: 11">and</span> <span class="w" style="--i: 12">multiplexed</span> <span class="w" style="--i: 13">electrochemical</span> <span class="w" style="--i: 14">transduction</span> <span class="w" style="--i: 15">for</span> <span class="w" style="--i: 16">continuous</span> <span class="w" style="--i: 17">biomarker</span> <span class="w" style="--i: 18">quantification</span></p>
 <p class="bf" style="margin-top: 72px">After · what they remember</p>
 <p class="aft" style="--d: 2230ms"><span class="a" style="--i: 0">A</span> <span class="a" style="--i: 1">skin</span> <span class="a" style="--i: 2">patch</span> <span class="a" style="--i: 3">that</span> <span class="a" style="--i: 4">warns</span> <span class="a" style="--i: 5">you</span> <span class="a" style="--i: 6">an</span> <span class="a" style="--i: 7">infection</span> <span class="a" style="--i: 8">is</span> <span class="a" style="--i: 9">coming,</span> <span class="a" style="--i: 10; color: #0B7A57">days</span> <span class="a" style="--i: 11; color: #0B7A57">before</span> <span class="a" style="--i: 12; color: #0B7A57">you</span> <span class="a" style="--i: 13; color: #0B7A57">feel</span> <span class="a" style="--i: 14; color: #0B7A57">ill</span></p>
-<p style="margin: 56px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #7F8A88">Illustrative example, from the founder in our opening story</p>
+<p style="margin: 56px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #5C6765">Illustrative example, from the founder in our opening story</p>
 </div>
 </section>
 
 <section id="services" style="position: relative; z-index: 3; margin-top: -30px; border-radius: 30px 30px 0 0; background: #0F0D0E; color: #EEF3F1" class="lm-dk">
 <div style="max-width: 1360px; margin: 0 auto; padding: 0 24px">
-<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #8F9A98">
+<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #A8B3B0">
 <span>Practice</span>
 </div>
 </div>
@@ -199,33 +199,33 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <article class="lm-card" style="border-radius: 30px; background: #0B1418; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refCStory}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">Story</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #39E58C">Story</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Narrative & Scientific Storytelling</h3>
-<p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #BCC7C4">The story inside the science, found and told: concepts, scripts and narratives that make complex work feel human.</p>
+<p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #A8B3B0">The story inside the science, found and told: concepts, scripts and narratives that make complex work feel human.</p>
 </div>
 </article>
 <article class="lm-card" style="border-radius: 30px; background: #0B1418; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refInv}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">Identity</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #39E58C">Identity</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Brand & Visual Identity</h3>
-<p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #BCC7C4">Identities, visual languages and design systems drawn from the science itself, so the brand looks like the work it stands for.</p>
+<p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #A8B3B0">Identities, visual languages and design systems drawn from the science itself, so the brand looks like the work it stands for.</p>
 </div>
 </article>
 <article class="lm-card" style="border-radius: 30px; background: #0B1418; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refVis}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">Image</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #39E58C">Image</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Scientific Visualization</h3>
-<p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #BCC7C4">Mechanism-of-action stories, product visuals and 2D/3D explainers, accurate enough for scientists and clear enough for everyone else.</p>
+<p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #A8B3B0">Mechanism-of-action stories, product visuals and 2D/3D explainers, accurate enough for scientists and clear enough for everyone else.</p>
 </div>
 </article>
 <article class="lm-card" style="border-radius: 30px; background: #060608; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refCode}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF">Code</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #39E58C">Code</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Creative Coding & Interactive</h3>
-<p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #BCC7C4">Generative visuals, data-driven pieces and interactive experiences, built in code for launches, congresses and digital channels.</p>
+<p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #A8B3B0">Generative visuals, data-driven pieces and interactive experiences, built in code for launches, congresses and digital channels.</p>
 </div>
 </article>
 </div>
@@ -239,7 +239,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </div>
 </div>
 <div class="lm-split" style="max-width: 1360px; margin: 0 auto; padding: 110px 24px 150px">
-<p style="margin: 0 0 22px; font-weight: 300; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; color: #4D5856">That table was one room. Your science has to work in all of them.</p>
+<p style="margin: 0 0 22px; font-weight: 300; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; color: #5C6765">That table was one room. Your science has to work in all of them.</p>
 <h2 style="margin: 0 0 56px; font-weight: 300; font-size: clamp(40px, 5.6vw, 84px); line-height: 1; letter-spacing: -0.045em">One story, every <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw" style="color: #0B7A57">room</span><svg class="lm-mk o" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18.9 29.2 L22.2 26.4 L26.0 23.3 L30.4 20.5 L35.3 17.2 L40.8 14.6 L46.9 12.2 L53.5 10.3 L60.5 9.0 L68.0 7.2 L75.6 6.6 L83.5 5.8 L91.4 5.8 L99.2 6.1 L106.9 7.1 L114.3 7.8 L121.5 8.6 L128.3 10.2 L134.9 11.7 L141.1 14.1 L147.1 16.0 L152.7 18.0 L158.2 20.1 L163.5 22.3 L168.5 24.7 L173.4 27.1 L178.1 29.2 L182.4 32.4 L186.5 35.0 L190.1 38.2 L193.2 41.3 L195.7 44.5 L197.5 48.0 L198.5 51.6 L198.7 55.1 L198.1 58.5 L196.6 62.6 L194.2 66.0 L191.0 69.5 L187.1 72.3 L182.6 75.1 L177.5 77.9 L172.0 79.8 L166.2 82.3 L160.1 84.1 L153.9 85.6 L147.5 87.1 L141.1 88.7 L134.6 89.7 L128.0 90.9 L121.4 92.0 L114.6 92.6 L107.8 93.1 L100.7 93.9 L93.6 94.0 L86.3 94.1 L79.0 93.9 L71.6 93.6 L64.3 92.6 L57.1 92.0 L50.2 90.8 L43.6 88.6 L37.5 86.7 L32.0 84.4 L27.1 81.0 L22.9 78.2 L19.4 75.6 L16.6 72.4 L14.5 68.9 L13.1 65.2 L12.2 62.1 L11.9 59.1 L12.0 55.9 L12.5 52.6 L13.3 48.9 L14.4 46.3 L15.8 42.9 L17.4 40.1 L19.3 36.6 L21.5 34.2 L24.1 30.9 L27.1 28.0 L30.6 24.7 L34.7 22.3 L39.2 19.6 L44.4 17.2 L50.1 14.8 L56.3 13.1 L62.9 11.2 L69.9 10.0 L77.1 9.0"></path></svg></span></h2>
 <div class="lm-aud lm-sv" style="--d: .1s"><canvas class="lm-face" data-face="sci" aria-hidden="true"></canvas><h3>Scientists</h3><p>trust the accuracy</p></div>
 <div class="lm-aud lm-sv" style="--d: .35s"><canvas class="lm-face" data-face="inv" aria-hidden="true"></canvas><h3>Investors</h3><p>get it in thirty seconds</p></div>
@@ -251,7 +251,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 
 <section style="position: relative; z-index: 5; margin-top: -30px; border-radius: 30px 30px 0 0; background: #0F0D0E; color: #EEF3F1" class="lm-dk">
 <div style="max-width: 1360px; margin: 0 auto; padding: 0 24px">
-<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #8F9A98">
+<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #A8B3B0">
 <span>Approach</span>
 </div>
 </div>
@@ -283,7 +283,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 
 <section id="contact" onClick="${v.plant}" style="position: relative; z-index: 6; margin-top: -30px; border-radius: 30px 30px 0 0; background: #EDF2F0; color: #0D1413; overflow: hidden; min-height: 92vh; display: flex; flex-direction: column">
 <div style="position: relative; max-width: 1360px; width: 100%; margin: 0 auto; padding: 0 24px; box-sizing: border-box">
-<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #54605E">
+<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
 <span>Contact</span>
 </div>
 </div>
@@ -291,7 +291,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div class="lm-ct">
 <div style="display: flex; flex-direction: column; gap: 32px">
 <h2 ref="${v.refRevC}" class="lm-reveal ${v.revC}" style="margin: 0; max-width: 900px; font-size: clamp(44px, 5.6vw, 92px); line-height: 0.98; letter-spacing: -0.048em">Bring us <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw" style="color: #0B7A57">your tangle</span><svg class="lm-mk u" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2.0 13.4 L6.9 12.2 L11.8 12.5 L16.7 11.6 L21.6 12.0 L26.5 10.8 L31.4 11.2 L36.3 10.7 L41.2 10.5 L46.1 10.4 L51.0 9.5 L55.9 9.3 L60.8 9.3 L65.7 8.8 L70.6 8.5 L75.5 8.3 L80.4 8.7 L85.3 8.6 L90.2 8.4 L95.1 7.8 L100.0 8.3 L104.9 8.0 L109.8 7.7 L114.7 7.9 L119.6 7.9 L124.5 7.7 L129.4 8.2 L134.3 8.1 L139.2 8.4 L144.1 8.9 L149.0 8.8 L153.9 8.8 L158.8 9.3 L163.7 9.7 L168.6 9.5 L173.5 10.1 L178.4 9.6 L183.3 9.9 L188.2 10.2 L193.1 11.1 L198.0 11.2 M190.0 17.2 L185.0 17.0 L180.0 17.4 L175.0 17.9 L170.0 17.5 L165.0 17.7 L160.0 17.8 L155.0 18.3 L150.0 18.8 L145.0 18.7 L140.0 18.7 L135.0 18.8 L130.0 18.6 L125.0 19.3 L120.0 18.9 L115.0 18.8 L110.0 18.8 L105.0 19.2 L100.0 18.8 L95.0 19.2 L90.0 18.6 L85.0 18.6 L80.0 18.1 L75.0 18.7 L70.0 18.4 L65.0 18.0 L60.0 17.5 L55.0 17.6 L50.0 17.3 L45.0 17.5 L40.0 17.3"></path></svg></span></h2>
-<p style="margin: 0; max-width: 560px; font-weight: 300; font-size: clamp(20px, 2.1vw, 28px); line-height: 1.4; color: #3E4846">Early idea or finished study, we’ll find the line that makes them lean in.</p>
+<p style="margin: 0; max-width: 560px; font-weight: 300; font-size: clamp(20px, 2.1vw, 28px); line-height: 1.4; color: #5C6765">Early idea or finished study, we’ll find the line that makes them lean in.</p>
 <div class="lm-bubw" style="position: relative; align-self: flex-start; margin-top: 8px"><a href="mailto:contact@limen.com" class="lm-btn" style="display: inline-flex; align-items: center; gap: 12px; min-height: 64px; padding: 0 34px; border-radius: 30px; background: #0D1413; color: #EEF3F1; text-decoration: none; font-size: clamp(18px, 1.6vw, 22px)">contact@limen.com <span aria-hidden="true" class="lm-arrow">→</span></a></div>
 </div>
 <figure class="lm-fig" style="margin: 0; position: relative">
@@ -2914,7 +2914,7 @@ class Component extends DCLogic {
     const segs = [];
     for (const g of c.segs) {
       const take = Math.max(0, Math.min(g[0].length, left)); left -= take;
-      if (take > 0) segs.push({ text: g[0].slice(0, take), plain: !g[1], acc: !!g[1], words: g[1] ? (function (tx) { var ws = tx.split(' '); if (ws.length <= 3) ws = [ws.join('\u00A0')]; else ws = ws.slice(0, -2).concat([ws[ws.length - 2] + '\u00A0' + ws[ws.length - 1]]); var out = [], ii = 0; for (var q = 0; q < ws.length; q++) { var ch = []; for (var c = 0; c < ws[q].length; c++) ch.push({ c: ws[q][c], i: ii++ }); out.push({ ch: ch, sp: q < ws.length - 1 ? ' ' : '' }); } return out; })(g[0].slice(0, take)) : [], cls: '', style: g[1] ? "--a: " + (dk ? pal[0] : pal[1]) + "; --b: " + (dk ? '#FFF4E4' : '#C2483C') : '' });
+      if (take > 0) segs.push({ text: g[0].slice(0, take), plain: !g[1], acc: !!g[1], words: g[1] ? (function (tx) { var ws = tx.split(' '); if (ws.length <= 3) ws = [ws.join('\u00A0')]; else ws = ws.slice(0, -2).concat([ws[ws.length - 2] + '\u00A0' + ws[ws.length - 1]]); var out = [], ii = 0; for (var q = 0; q < ws.length; q++) { var ch = []; for (var c = 0; c < ws[q].length; c++) ch.push({ c: ws[q][c], i: ii++ }); out.push({ ch: ch, sp: q < ws.length - 1 ? ' ' : '' }); } return out; })(g[0].slice(0, take)) : [], cls: '', style: g[1] ? "--a: " + (dk ? '#39E58C' : '#0B7A57') + "; --b: " + (dk ? '#39E58C' : '#0B7A57') : '' });
     }
     return {
       refRevS: refs.revS, refRevG: refs.revG, refRevA: refs.revA, refRevC: refs.revC,
@@ -2929,9 +2929,9 @@ class Component extends DCLogic {
       scrollHint: ch < 1 ? 'Scroll ↓' : 'Continue ↓',
       cursorCol: dk ? '#39E58C' : '#0B7A57',
       bgCol: dk ? '#0F0D0E' : '#F3F3F1',
-      fgCol: dk ? '#F2F2F0' : '#141210',
-      mutedCol: dk ? '#A79C97' : '#6B635D',
-      subCol: dk ? '#C9C0BB' : '#4A433F',
+      fgCol: dk ? '#EEF3F1' : '#0D1413',
+      mutedCol: dk ? '#A8B3B0' : '#5C6765',
+      subCol: dk ? '#A8B3B0' : '#5C6765',
       trackCol: dk ? 'rgba(244,239,233,0.25)' : 'rgba(20,18,16,0.2)',
       borderCol: dk ? 'rgba(244,239,233,0.35)' : 'rgba(20,18,16,0.3)',
       fadeGrad: dk ? 'linear-gradient(to top, rgba(15,13,14,0.85), rgba(15,13,14,0))' : 'linear-gradient(to top, rgba(241,236,229,0.92), rgba(241,236,229,0))'
