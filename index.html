@@ -35,7 +35,7 @@
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}.lm-split .lm-ch{animation-play-state:paused}.lm-split.is-in .lm-ch{animation-play-state:running}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
 @keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#05090B}
-a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-chc{top:46vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center}.lm-chc>div>p{max-width:980px}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important}.lm-chc>div>div>p{max-width:640px!important}@media (max-width:700px){.lm-chc{top:47vh}}a:hover{color:#39E58C}
+a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-disc{display:none}.lm-chc{top:43vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center;gap:18px!important}.lm-chc>div>p:first-child{font-size:13px!important;letter-spacing:.16em!important;color:#A8B3B0!important}.lm-chc>div>p:nth-child(2){max-width:900px;font-size:clamp(34px,4.6vw,72px)!important;font-weight:300!important;text-wrap:balance}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important;gap:26px!important}.lm-chc>div>div>p:first-child{max-width:600px!important;min-height:0!important;font-size:clamp(18px,1.6vw,23px)!important;line-height:1.55!important}.lm-chc .lm-disc{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#EEF3F1}.lm-chc .lm-disc span{display:inline-flex;align-items:center}.lm-chc .lm-disc span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:#39E58C;margin:0 16px}@media (max-width:700px){.lm-chc{top:45vh}.lm-chc .lm-disc{font-size:11px}.lm-chc .lm-disc span+span::before{margin:0 10px}}a:hover{color:#39E58C}
 @keyframes limenBlink{0%{opacity:1}50%{opacity:0}}
 .lm-thread{flex:1;height:14px;overflow:visible;min-width:40px}
 .lm-thread path,.lm-mk path,.lm-bub path{fill:none;stroke:#0B7A57;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
@@ -160,6 +160,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 <p aria-hidden="true" style="margin: 0; max-width: 1080px; font-weight: 400; font-size: clamp(36px, 5.6vw, 88px); line-height: 1.02; letter-spacing: -0.045em; transition: color 0.4s ease">${(v.segs || []).map((s, $index) => html`${(s.plain) ? html`<span>${s.text}</span>` : null}${(s.acc) ? html`<span class="lm-accw" style="${s.style}">${(s.words || []).map((wd, $index) => html`<span class="lm-w">${(wd.ch || []).map((l, $index) => html`<span class="lm-ch" style="--i: ${l.i}">${l.c}</span>`)}</span>${wd.sp}`)}</span>` : null}`)}<span style="display: inline-block; width: 0.06em; height: 0.8em; margin-left: 0.06em; background: ${v.cursorCol}; vertical-align: -0.05em; animation: limenBlink 1s steps(1) infinite"></span></p>
 <div style="display: flex; flex-wrap: wrap; gap: 20px 48px; align-items: flex-end; justify-content: space-between">
 <p aria-hidden="true" style="margin: 0; max-width: 760px; min-height: 2.9em; font-weight: 300; font-size: clamp(20px, 2.1vw, 30px); line-height: 1.4; color: ${v.subCol}; opacity: ${v.subOpacity}; transition: opacity 0.6s ease">${v.chSub}</p>
+<p class="lm-disc" aria-hidden="true"><span>Science</span><span>Design</span><span>Art</span><span>Technology</span></p>
 <div style="display: flex; align-items: center; gap: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: ${v.mutedCol}">
 <span>${v.scrollHint}</span>
 </div>
@@ -973,19 +974,24 @@ class Component extends DCLogic {
         ctx.strokeStyle = 'rgba(238,243,241,' + (0.32 * lineA).toFixed(3) + ')'; ctx.lineWidth = 1.2;
         ctx.beginPath(); ctx.moveTo(cx - L * 1.12, ly); ctx.lineTo(cx + L * 1.12, ly); ctx.stroke();
         var names = ['SCIENCE', 'DESIGN', 'ART', 'TECHNOLOGY'], at = [-1, -0.36, 0.36, 1];
-        ctx.font = (mobile ? "10px" : "11px") + " 'IBM Plex Mono', ui-monospace, monospace"; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-        var dr = mobile ? 6 : 8;
+        ctx.font = (mobile ? "11px" : "14px") + " 'IBM Plex Mono', ui-monospace, monospace"; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        var dr = mobile ? 9 : 13, S = mobile ? 0.95 : 1.45, px = cx + (31.38 - 115.63) * S;
         for (var q = 0; q < 4; q++) {
-          var x = cx + L * at[q] * (1 - em), ra = a5 * (1 - sstep(0.62, 0.92, m));
-          ctx.strokeStyle = 'rgba(238,243,241,' + (0.9 * ra).toFixed(3) + ')'; ctx.lineWidth = 1.4;
+          var x = px + (cx + L * at[q] - px) * (1 - em), ra = a5 * (1 - sstep(0.68, 0.9, m));
+          ctx.strokeStyle = 'rgba(238,243,241,' + ra.toFixed(3) + ')'; ctx.lineWidth = 1.8;
           ctx.beginPath(); ctx.arc(x, ly, dr, 0, 6.29); ctx.stroke();
-          var la = a5 * (1 - sstep(0.3, 0.6, m));
-          if (la > 0.01 && !(mobile && q % 3 !== 0 && false)) { ctx.fillStyle = 'rgba(168,179,176,' + la.toFixed(3) + ')'; ctx.fillText(names[q], x, ly + dr + 12); }
+          ctx.fillStyle = 'rgba(57,229,140,' + (ra * 0.9).toFixed(3) + ')'; ctx.beginPath(); ctx.arc(x, ly, 2.6, 0, 6.29); ctx.fill();
+          var la = a5 * (1 - sstep(0.4, 0.66, m));
+          if (la > 0.01) { ctx.fillStyle = 'rgba(238,243,241,' + (0.85 * la).toFixed(3) + ')'; ctx.fillText(names[q], x, ly + dr + 14); }
         }
-        // the dot of the i: green, with its stem rising beneath it
-        var g = sstep(0.55, 0.9, m), stem = sstep(0.75, 1, m), R5 = (mobile ? 11 : 15) * g;
-        if (stem > 0.01) { var sw = mobile ? 14 : 19, sh = (mobile ? 56 : 78) * stem, top = ly + R5 * 1.6; ctx.fillStyle = 'rgba(238,243,241,' + stem.toFixed(3) + ')'; ctx.fillRect(cx - sw / 2, top, sw, sh); }
-        if (R5 > 0.1) { ctx.fillStyle = '#39E58C'; ctx.beginPath(); ctx.arc(cx, ly, R5, 0, 6.29); ctx.fill(); }
+        // they become the dot of the i, and the name appears around it
+        var g = sstep(0.62, 0.86, m), word = sstep(0.8, 1, m), R5 = 7 * S * g;
+        if (word > 0.01) {
+          var LP = cached('limenWord', function () { return new Path2D('M6.57 0.0V-71.4H15.60V0.0Z M26.77 0.0V-47.5H35.82V0.0Z M46.97 0.0V-47.5H56.00V0.0ZM79.10 0.0V-28.70Q79.10 -34.0 75.85 -37.03Q72.60 -40.07 67.72 -40.07Q64.42 -40.07 61.78 -38.7Q59.15 -37.32 57.57 -34.8Q56.00 -32.27 56.00 -28.75L52.25 -30.57Q52.25 -36.02 54.63 -40.02Q57.02 -44.02 61.11 -46.26Q65.2 -48.5 70.27 -48.5Q75.32 -48.5 79.36 -46.3Q83.4 -44.1 85.76 -40.1Q88.12 -36.1 88.12 -30.55V0.0ZM111.22 0.0V-28.70Q111.22 -34.0 107.97 -37.03Q104.72 -40.07 99.85 -40.07Q96.62 -40.07 93.95 -38.7Q91.27 -37.32 89.7 -34.8Q88.12 -32.27 88.12 -28.75L82.95 -30.57Q83.32 -36.05 85.95 -40.03Q88.57 -44.02 92.77 -46.26Q96.97 -48.5 102.02 -48.5Q107.15 -48.5 111.26 -46.3Q115.37 -44.1 117.81 -40.08Q120.25 -36.07 120.25 -30.52V0.0Z M152.47 1.0Q145.35 1.0 139.67 -2.22Q134.0 -5.45 130.7 -11.08Q127.4 -16.72 127.4 -23.77Q127.4 -30.8 130.63 -36.38Q133.87 -41.97 139.45 -45.23Q145.02 -48.5 151.87 -48.5Q158.45 -48.5 163.5 -45.48Q168.55 -42.47 171.43 -37.2Q174.32 -31.92 174.32 -25.15Q174.32 -24.15 174.20 -23.0Q174.07 -21.85 173.8 -20.40H133.72V-27.87H169.02L165.72 -25.0Q165.67 -29.77 164.0 -33.15Q162.32 -36.52 159.22 -38.36Q156.12 -40.2 151.70 -40.2Q147.05 -40.2 143.58 -38.18Q140.12 -36.17 138.21 -32.57Q136.3 -28.97 136.3 -24.05Q136.3 -19.07 138.31 -15.32Q140.32 -11.57 144.0 -9.51Q147.67 -7.45 152.5 -7.45Q156.47 -7.45 159.85 -8.87Q163.22 -10.3 165.57 -13.07L171.35 -7.22Q167.95 -3.22 163.01 -1.11Q158.07 1.0 152.47 1.0Z M215.65 0.0V-27.65Q215.65 -33.12 212.28 -36.6Q208.92 -40.07 203.54 -40.07Q199.88 -40.07 197.07 -38.48Q194.27 -36.9 192.68 -34.1Q191.1 -31.3 191.1 -27.67L187.35 -29.77Q187.35 -35.2 189.78 -39.41Q192.22 -43.62 196.49 -46.06Q200.75 -48.5 206.15 -48.5Q211.55 -48.5 215.73 -45.81Q219.92 -43.12 222.3 -38.76Q224.67 -34.4 224.67 -29.45V0.0ZM182.07 0.0V-47.5H191.1V0.0Z'); });
+          ctx.save(); ctx.translate(cx - 115.63 * S, ly + 62 * S); ctx.scale(S, S);
+          ctx.globalAlpha = word; ctx.fillStyle = '#EEF3F1'; ctx.fill(LP); ctx.restore(); ctx.globalAlpha = 1;
+        }
+        if (R5 > 0.1) { ctx.fillStyle = '#39E58C'; ctx.beginPath(); ctx.arc(px, ly, R5, 0, 6.29); ctx.fill(); }
         ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.globalAlpha = 1; return;
       }
       // the sensor array
