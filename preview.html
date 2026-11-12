@@ -2343,9 +2343,11 @@ class Component extends DCLogic {
   var SPEED = 1.1;
   // the jargon answer races by: story 4.6 to 8.3 plays at 3x
   var FAST0 = 4.6, FAST1 = 8.3, FRATE = 3, F0r = FAST0 / SPEED, F1r = F0r + (FAST1 - FAST0) / FRATE;
-  function storyTime(t) { return t < F0r ? t * SPEED : t < F1r ? FAST0 + (t - F0r) * FRATE : FAST1 + (t - F1r) * SPEED; }
-  function realTime(st) { return st < FAST0 ? st / SPEED : st < FAST1 ? F0r + (st - FAST0) / FRATE : F1r + (st - FAST1) / SPEED; }
-  var DUR = realTime(21.2), STILL = realTime(19.3);
+  // the story stops at 'but nobody can tell': after END0 it jumps straight to the closing fold into the dot
+  var END0 = 14.6, SK = 19.6 - END0;
+  function storyTime(t) { var s = t < F0r ? t * SPEED : t < F1r ? FAST0 + (t - F0r) * FRATE : FAST1 + (t - F1r) * SPEED; return s > END0 ? s + SK : s; }
+  function realTime(st) { st = st > END0 + SK ? st - SK : st > END0 ? END0 : st; return st < FAST0 ? st / SPEED : st < FAST1 ? F0r + (st - FAST0) / FRATE : F1r + (st - FAST1) / SPEED; }
+  var DUR = realTime(20.7), STILL = realTime(END0) - 0.05;
   function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   function clamp(v, a, b) { a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return v < a ? a : v > b ? b : v; }
   function sstep(a, b, v) { var q = clamp((v - a) / (b - a)); return q * q * (3 - 2 * q); }
@@ -2603,7 +2605,7 @@ class Component extends DCLogic {
   function fit(cw, ch) { var portrait = cw / ch < 1.15, Ly = layout(portrait), s = Math.min(cw / Ly.DW, ch / Ly.DH); return { Ly: Ly, s: s, ox: (cw - Ly.DW * s) / 2, oy: (ch - Ly.DH * s) / 2 }; }
 
   function draw(ctx, cw, ch, dpr, t) {
-    var treal = t; t = storyTime(t);
+    var treal = t; t = storyTime(t); var tf = t > END0 ? END0 : t;
     x = ctx; if (!ctxM) ctxM = document.createElement('canvas').getContext('2d');
     var Fz = fit(cw, ch), Ly = Fz.Ly, sc = Ly.sc, i;
     BOIL = Math.floor(treal * 10);
@@ -2619,14 +2621,14 @@ class Component extends DCLogic {
     ink(FLOOR, { p: tp, w: 3.4, col: C.ash, seed: 70 });
     HATCH.forEach(function (h, k) { ink(h, { p: clamp(tp * 3 - 1 - k * 0.05), w: 2.6, col: C.ash, seed: 80 + k, amp: 0.8 }); });
     ink(CHAIR.map(function (p) { return [FX + p[0], TABLE + p[1]]; }), { p: eio((t - 0.25) / 0.35), w: 4.2, col: C.ash, seed: 90 });
-    var lean = -46 * eo((t - 17.65) / 0.28);
+    var lean = -46 * eo((tf - 17.65) / 0.28);
     ink(CHAIR.map(function (p) { return [IX + lean - p[0], TABLE + p[1]]; }), { p: eio((t - 0.75) / 0.35), w: 4.2, col: C.ash, seed: 91 });
     x.restore();
-    var droop = sstep(12.4, 13.2, t) - sstep(15.6, 16.4, t);
-    var fMood = -sstep(12.4, 13.0, t) + 2 * sstep(16.8, 17.4, t) - sstep(4.8, 5.6, t) * 0.3 * (1 - sstep(8.4, 9, t));
-    var iMood = -0.5 * sstep(9.0, 9.6, t) + 1.5 * sstep(17.7, 18.0, t);
+    var droop = sstep(12.4, 13.2, tf) - sstep(15.6, 16.4, tf);
+    var fMood = -sstep(12.4, 13.0, tf) + 2 * sstep(16.8, 17.4, tf) - sstep(4.8, 5.6, tf) * 0.3 * (1 - sstep(8.4, 9, tf));
+    var iMood = -0.5 * sstep(9.0, 9.6, tf) + 1.5 * sstep(17.7, 18.0, tf);
     drawFigure('f', FX, false, eio((t - 0.45) / 0.9) * (1 - eio((t - 19.6) / 0.6)), [10 * droop, 26 * droop], clamp(fMood, -1, 1));
-    drawFigure('i', IX + lean, true, invProg(t), [0, 0], clamp(iMood, -1, 1));
+    drawFigure('i', IX + lean, true, invProg(tf) * (1 - eio((t - 19.6) / 0.6)), [0, 0], clamp(iMood, -1, 1));
     if (t > 17.65 && t < 18.45) { x.save(); x.globalAlpha = 1 - sstep(18.1, 18.45, t); for (var ml = 0; ml < 3; ml++) { var my0 = TABLE - 300 + ml * 70, mx0 = IX + lean + 132 + ml * 10; ink([[mx0, my0], [mx0 + 56 - ml * 10, my0 + 2]], { w: 4, seed: 600 + ml, amp: 0.6 }); } x.restore(); }
     x.save(); x.globalAlpha = keep;
     ink(TABLE_TOP, { p: tp, w: 6.4, seed: 71, nib: true });
@@ -2646,7 +2648,7 @@ class Component extends DCLogic {
     var lw = sc.wm * sc.s;
     if (t < 15.2) { WM = lw; ink(Ly.TANG, { p: eio((t - 4.6) / 4.0), w: 4.4, seed: 300, nib: t < 8.6, nibCol: C.ink, nibR: 5, amp: 1.6 }); WM = 1; }
     else {
-      var M = clamp((t - 15.2) / 1.9), sg = 0.7, P = new Array(NT), Mi = new Array(NT);
+      var M = clamp((tf - 15.2) / 1.9), sg = 0.7, P = new Array(NT), Mi = new Array(NT);
       for (i = 0; i < NT; i++) { var u = i / (NT - 1), m = eio(clamp(M * (1 + sg) - sg * (1 - u))); P[i] = [lerp(Ly.TANG[i][0], Ly.QL[i][0], m), lerp(Ly.TANG[i][1], Ly.QL[i][1], m)]; Mi[i] = m; }
       if (t >= 19.7) { var Cc = clamp((t - 19.7) / 0.7); for (i = 0; i < NT; i++) { var d = Math.abs(i / (NT - 1) - 0.5) * 2, mm = eio(clamp(Cc * 1.6 - 0.6 * (1 - d))); P[i] = [lerp(P[i][0], Ly.END.dot[0], mm), lerp(P[i][1], Ly.END.dot[1], mm)]; } }
       var fw = t >= 19.7 ? 1 - 0.6 * sstep(19.9, 20.4, t) : 1, thrY = Ly.THR[0][1];
@@ -2662,7 +2664,7 @@ class Component extends DCLogic {
       if (t < 17.6) { x.save(); x.globalAlpha = 1 - sstep(17.2, 17.6, t); dot(P[NT - 1][0], P[NT - 1][1], 11 * lw, C.ox); x.restore(); }
       // the moment the peak clears the threshold: a ping, and a label
       var pk = P[PK];
-      if (t < 19.7 && pk[1] < thrY - 2) {
+      if (tf > 15.2 && t < 19.7 && pk[1] < thrY - 2) {
         if (this_cross == null || t < this_cross) this_cross = t;
         var pq = clamp((t - this_cross) / 0.7);
         if (pq < 1) { x.save(); x.globalAlpha = 1 - pq; x.strokeStyle = C.ox; x.lineWidth = 3 * lw; x.beginPath(); x.arc(pk[0], pk[1], (12 + 70 * eo(pq)) * lw, 0, 7); x.stroke(); x.restore(); }
@@ -2672,7 +2674,7 @@ class Component extends DCLogic {
     }
     if (t >= 15.0 && t < 15.2) dot(Ly.TANG[NT - 1][0], Ly.TANG[NT - 1][1], 11 * lw * back((t - 15.0) / 0.2), C.ox);
     // the limen: a dashed detection threshold, drawn by the pen, labelled, later folded into the full stop
-    if (t > 13.8) {
+    if (false && t > 13.8) {
       var T0 = Ly.THR[0], T1 = Ly.THR[1], tlen = T1[0] - T0[0], tpg = eio((t - 13.8) / 0.6), Cq = t >= 19.7 ? eio(clamp((t - 19.7) / 0.6)) : 0, ED = Ly.END.dot;
       if (Cq < 1) {
         var dl = 22 * lw, gp = 13 * lw, hd = tlen * tpg; WM = lw;
@@ -2690,8 +2692,8 @@ class Component extends DCLogic {
 
     Ly.B.forEach(function (b) { drawBubble(Ly, b, t); });
     var nA = t < 12.6 ? typed(t, 0.6, 1.5, TA[0].t.length) : TA[0].t.length + typed(t, 12.6, 13.35, TA[1].t.length);
-    if (t < 15.6) drawFlow(Ly.TA, nA, Ly.tx, Ly.ty, 1);
-    if (t >= 15.6) {
+    drawFlow(Ly.TA, nA, Ly.tx, Ly.ty, keep);
+    if (false) {
       var Fa = Ly.TA, k0 = -1; for (var ti = 0; ti < Fa.tk.length; ti++) if (Fa.tk[ti].t.charAt(0) === ',') { k0 = ti; break; }
       var ra = keep, ga = ra * (1 - sstep(16.7, 17.1, t));
       x.save(); x.font = Fa.font; x.fillStyle = C.ink;
@@ -2722,7 +2724,7 @@ class Component extends DCLogic {
       var E = Ly.END, D = E.dot, es = E.es, TK = E.toks, LM = TK[0], top = LM.Y - es * 1.05, hgt = es * 1.45;
       // the threshold and the signal fold into one dot; the name draws out of it, right to left
       var dr = es * 0.115 * eo((t - 19.95) / 0.35), sq = 1 + 0.2 * Math.sin(clamp((t - 20.3) / 0.28) * Math.PI);
-      var revL = eio((t - 20.3) / 0.55) * (LM.w + 14);
+      var revL = 0; // the name no longer draws out of the dot
       if (revL > 0) { x.save(); x.beginPath(); x.rect(LM.X + LM.w + 8 - revL, top, revL + 8, hgt); x.clip(); x.font = E.font; x.fillStyle = C.ink; x.fillText('Limen', LM.X, LM.Y); x.restore(); }
       x.save(); x.translate(D[0], D[1]); x.scale(sq, 1 / sq); dot(0, 0, dr, C.ox); x.restore();
     }
