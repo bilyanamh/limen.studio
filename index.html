@@ -128,7 +128,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Your science is brilliant, but nobody can tell</h1>
 <p style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Most breakthroughs don’t stall in the lab. They stall in the room, with an investor, a clinician or a partner who needed to get it in thirty seconds. That’s where Limen comes in.</p>
 <div style="position: relative; flex: 1; min-height: 0">
-<canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. A dashed line appears: the limen, the threshold of detection. The scribble straightens, and one clean signal rises above the threshold. The line “but nobody can tell” is crossed out and becomes “and now the room can tell”. The investor comes back, leans in and says tell me more." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+<canvas ref="${v.refDoodle}" role="img" aria-label="A hand-drawn story. A founder explains a dual-modal biosensor in jargon, and the words tangle into a scribble. The investor asks what it actually does, says let’s circle back next quarter, and leaves. A dashed line appears: the limen, the threshold of detection. The scribble straightens, and one clean signal rises above the threshold. The line “but nobody can tell” is crossed out and becomes “and now the room can tell”. The investor comes back and leans in." style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 </div>
 <div style="position: relative; display: flex; justify-content: center; gap: 4px; padding: 0 0 10px">
 <a href="#studio" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #5C6765; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; background: none; border: 0; cursor: pointer">Scroll ↓</a>
@@ -2261,8 +2261,9 @@ class Component extends DCLogic {
   var SANS = "'Outfit', system-ui, sans-serif", MONO = "'IBM Plex Mono', monospace";
   // the second half eases down to two-thirds speed: real seconds -> story seconds
   var SLOW0 = 15.5, SLOW1 = 17, RATE = 0.75, S1 = SLOW1 - (1 - RATE) * (SLOW1 - SLOW0) / 2;
-  function storyTime(t) { if (t < SLOW0) return t; if (t < SLOW1) { var d = t - SLOW0; return SLOW0 + d - (1 - RATE) * d * d / (2 * (SLOW1 - SLOW0)); } return S1 + RATE * (t - SLOW1); }
-  function realTime(st) { return st <= SLOW0 ? st : SLOW1 + (st - S1) / RATE; }
+  var SPEED = 1.35;
+  function storyTime(t) { return t * SPEED; }
+  function realTime(st) { return st / SPEED; }
   var DUR = realTime(21.2), STILL = realTime(19.3);
   function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   function clamp(v, a, b) { a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return v < a ? a : v > b ? b : v; }
@@ -2432,7 +2433,6 @@ class Component extends DCLogic {
     { side: 'l', text: 'A dual-modal biosensor using closed-loop impedance spectroscopy with adaptive signal deconvolution and multiplexed electrochemical transduction…', t0: 4.4, ty: [4.6, 7.6], out: 8.3, rot: -0.01 },
     { side: 'r', text: 'Sounds great. What does it actually do?', t0: 8.5, ty: [8.7, 9.7], out: 10.5, rot: -0.014 },
     { side: 'r', text: 'Let’s circle back next quarter.', t0: 10.8, dots: [11.0, 11.8], ty: [11.8, 12.4], out: 13.3, seen: 12.55, rot: 0.01 },
-    { side: 'r', text: 'Tell me more', col: C.ox, t0: 18.55, ty: [18.7, 19.05], out: 19.6, rot: -0.016, narrow: true },
   ];
   var QM = [{ t: 5.4, x: 1392, y: 392, s: 70, r: -0.24 }, { t: 6.2, x: 1504, y: 344, s: 90, r: 0.18 }, { t: 7.0, x: 1430, y: 280, s: 116, r: -0.07 }];
 
@@ -2585,7 +2585,7 @@ class Component extends DCLogic {
         if (this_cross == null || t < this_cross) this_cross = t;
         var pq = clamp((t - this_cross) / 0.7);
         if (pq < 1) { x.save(); x.globalAlpha = 1 - pq; x.strokeStyle = C.ox; x.lineWidth = 3 * lw; x.beginPath(); x.arc(pk[0], pk[1], (12 + 70 * eo(pq)) * lw, 0, 7); x.stroke(); x.restore(); }
-        x.save(); x.globalAlpha = sstep(this_cross + 0.15, this_cross + 0.45, t) * (1 - sstep(19.3, 19.7, t)); x.font = '400 ' + Ly.mono + 'px ' + MONO; x.fillStyle = C.ox; x.textAlign = 'left'; x.fillText('SIGNAL', pk[0] + 22 * lw, pk[1] + 6 * lw); x.restore();
+        x.save(); x.globalAlpha = sstep(this_cross + 0.15, this_cross + 0.45, t) * (1 - sstep(19.3, 19.7, t)); x.font = '400 ' + Ly.mono + 'px ' + MONO; x.fillStyle = C.ox; x.textAlign = 'left'; void 0 && x.fillText('SIGNAL', pk[0] + 22 * lw, pk[1] + 6 * lw); x.restore();
       } else if (t < 15.2 || t >= 19.7) this_cross = null;
       WM = 1;
     }
@@ -2602,7 +2602,7 @@ class Component extends DCLogic {
         }
         WM = 1;
         if (tpg < 1) dot(T0[0] + hd, T0[1], 8 * lw, C.ox);
-        var lba = sstep(14.15, 14.55, t) * (1 - sstep(19.3, 19.7, t));
+        var lba = 0;
         if (lba > 0) { x.save(); x.globalAlpha = lba; var LBL = 'LIMEN \u00B7 THRESHOLD OF DETECTION', room = Ly.S([870, 0])[0] - T0[0]; try { x.letterSpacing = '1px'; } catch (e) {} x.font = '400 ' + Ly.mono + 'px ' + MONO; var fz = Math.min(Ly.mono, Ly.mono * room / Math.max(1, x.measureText(LBL).width)); x.font = '400 ' + fz.toFixed(1) + 'px ' + MONO; x.fillStyle = C.ox; x.textAlign = 'left'; x.fillText(LBL, T0[0], T0[1] + fz * 1.5); x.restore(); }
       }
     }
