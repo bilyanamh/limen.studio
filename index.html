@@ -35,7 +35,7 @@
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}.lm-split .lm-ch{animation-play-state:paused}.lm-split.is-in .lm-ch{animation-play-state:running}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
 @keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#05090B}
-a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a:hover{color:#39E58C}
+a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-chc{top:46vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center}.lm-chc>div>p{max-width:980px}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important}.lm-chc>div>div>p{max-width:640px!important}@media (max-width:700px){.lm-chc{top:47vh}}a:hover{color:#39E58C}
 @keyframes limenBlink{0%{opacity:1}50%{opacity:0}}
 .lm-thread{flex:1;height:14px;overflow:visible;min-width:40px}
 .lm-thread path,.lm-mk path,.lm-bub path{fill:none;stroke:#0B7A57;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
@@ -154,7 +154,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 <span class="lm-tag" aria-hidden="false">Creative studio for MedTech, Biotech and Life Sciences</span>
 <nav aria-label="Main" class="lm-nav lm-boxes"><a href="#services" class="lm-box lm-m">Services</a><a href="#about" class="lm-box lm-m">Approach</a><a href="work.html" class="lm-box lm-m">Work</a><a href="#contact" class="lm-box lm-m lm-cta">Contact</a></nav>
 </header>
-<div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 0 24px 9vh">
+<div class="${v.chCls}" style="position: absolute; left: 0; right: 0; bottom: 0; padding: 0 24px 9vh">
 <div style="max-width: 1360px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px">
 <p style="margin: 0; display: inline-flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: clamp(14px, 1.2vw, 17px); font-weight: 400; text-transform: uppercase; letter-spacing: 0.14em; color: ${v.fgCol}">${v.chLabel}</p>
 <p aria-hidden="true" style="margin: 0; max-width: 1080px; font-weight: 400; font-size: clamp(36px, 5.6vw, 88px); line-height: 1.02; letter-spacing: -0.045em; transition: color 0.4s ease">${(v.segs || []).map((s, $index) => html`${(s.plain) ? html`<span>${s.text}</span>` : null}${(s.acc) ? html`<span class="lm-accw" style="${s.style}">${(s.words || []).map((wd, $index) => html`<span class="lm-w">${(wd.ch || []).map((l, $index) => html`<span class="lm-ch" style="--i: ${l.i}">${l.c}</span>`)}</span>${wd.sp}`)}</span>` : null}`)}<span style="display: inline-block; width: 0.06em; height: 0.8em; margin-left: 0.06em; background: ${v.cursorCol}; vertical-align: -0.05em; animation: limenBlink 1s steps(1) infinite"></span></p>
@@ -964,7 +964,30 @@ class Component extends DCLogic {
       if (ix.qClose > 0.01) { quads(ctx, w, QH, t, ix.qClose, true); ctx.globalAlpha = 1; }
       // four worlds, one screen
       var e5 = sstep(4.2, 4.62, pg);
-      if (e5 > 0.01) { quads(ctx, w, QH, t, e5); ctx.globalAlpha = 1; return; }
+      if (e5 > 0.01) {
+        // How we cross: four worlds travel along the threshold and become the dot of the i
+        var m = ix.c2 || 0, em = m * m * (3 - 2 * m), a5 = e5;
+        ctx.globalAlpha = 1; ctx.fillStyle = DARK; ctx.fillRect(0, 0, w, h);
+        var cx = w / 2, ly = h * (mobile ? 0.3 : 0.24), L = Math.min(w * (mobile ? 0.4 : 0.34), 520);
+        var lineA = a5 * (1 - sstep(0.7, 1, m));
+        ctx.strokeStyle = 'rgba(238,243,241,' + (0.32 * lineA).toFixed(3) + ')'; ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(cx - L * 1.12, ly); ctx.lineTo(cx + L * 1.12, ly); ctx.stroke();
+        var names = ['SCIENCE', 'DESIGN', 'ART', 'TECHNOLOGY'], at = [-1, -0.36, 0.36, 1];
+        ctx.font = (mobile ? "10px" : "11px") + " 'IBM Plex Mono', ui-monospace, monospace"; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        var dr = mobile ? 6 : 8;
+        for (var q = 0; q < 4; q++) {
+          var x = cx + L * at[q] * (1 - em), ra = a5 * (1 - sstep(0.62, 0.92, m));
+          ctx.strokeStyle = 'rgba(238,243,241,' + (0.9 * ra).toFixed(3) + ')'; ctx.lineWidth = 1.4;
+          ctx.beginPath(); ctx.arc(x, ly, dr, 0, 6.29); ctx.stroke();
+          var la = a5 * (1 - sstep(0.3, 0.6, m));
+          if (la > 0.01 && !(mobile && q % 3 !== 0 && false)) { ctx.fillStyle = 'rgba(168,179,176,' + la.toFixed(3) + ')'; ctx.fillText(names[q], x, ly + dr + 12); }
+        }
+        // the dot of the i: green, with its stem rising beneath it
+        var g = sstep(0.55, 0.9, m), stem = sstep(0.75, 1, m), R5 = (mobile ? 11 : 15) * g;
+        if (stem > 0.01) { var sw = mobile ? 14 : 19, sh = (mobile ? 56 : 78) * stem, top = ly + R5 * 1.6; ctx.fillStyle = 'rgba(238,243,241,' + stem.toFixed(3) + ')'; ctx.fillRect(cx - sw / 2, top, sw, sh); }
+        if (R5 > 0.1) { ctx.fillStyle = '#39E58C'; ctx.beginPath(); ctx.arc(cx, ly, R5, 0, 6.29); ctx.fill(); }
+        ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.globalAlpha = 1; return;
+      }
       // the sensor array
       var P = particles(), N = P.length, cols = Math.max(10, Math.round(Math.sqrt(N * w / h))), rows = Math.ceil(N / cols);
       var cw = w / cols, chh = h / rows;
@@ -2438,7 +2461,6 @@ class Component extends DCLogic {
     { side: 'r', text: 'So, in a sentence, what are you building?', t0: 2.0, ty: [2.25, 3.3], out: 4.3, rot: 0.012 },
     { side: 'l', text: 'A dual-modal biosensor using closed-loop impedance spectroscopy with adaptive signal deconvolution…', t0: 4.4, ty: [4.6, 7.6], out: 8.3, rot: -0.01 },
     { side: 'r', text: 'Sounds great. What does it actually do?', t0: 8.5, ty: [8.7, 9.7], out: 10.5, rot: -0.014 },
-    { side: 'l', mw: 720, text: 'We’re working on a product that warns you about an infection before you feel ill', t0: 15.9, ty: [16.05, 17.2], out: 19.2, rot: 0.012 },
     { side: 'r', text: 'Let’s circle back next quarter.', t0: 10.8, dots: [11.0, 11.8], ty: [11.8, 12.4], out: 13.3, seen: 12.55, rot: 0.01 },
   ];
   var QM = [{ t: 5.4, x: 1392, y: 392, s: 70, r: -0.24 }, { t: 6.2, x: 1504, y: 344, s: 90, r: 0.18 }, { t: 7.0, x: 1430, y: 280, s: 116, r: -0.07 }];
@@ -2816,7 +2838,7 @@ class Component extends DCLogic {
           ix.mx = m && m.in ? m.x - r.left : -1; ix.my = m && m.in ? m.y - r.top : -1;
           const target = ix.mx >= 0 ? ix.mx : -1;
           ix.sigX = target < 0 ? (ix.sigX < 0 ? -1 : ix.sigX) : (ix.sigX < 0 ? target : ix.sigX + (target - ix.sigX) * 0.08);
-          ix.pings = (this.pings || []).filter((q) => now - q.t0 < 2); ix.noSig = noSig; ix.qClose = qClose; ix.bg = this.vid2; ix.fa = footA;
+          ix.pings = (this.pings || []).filter((q) => now - q.t0 < 2); ix.noSig = noSig; ix.qClose = qClose; ix.bg = this.vid2; ix.fa = footA; ix.c2 = seg === 1 ? Math.min(1, Math.max(0, (u - 0.04) / 0.55)) : 0;
           this.pings = ix.pings;
           A.story(ctx, r.width, r.height, still ? 4 : now, pgv, this.vid, ix);
           const th = A.storyTheme(pgv); const dark = !(th.lightTop < 0.75 && th.dTop > 0.75);
@@ -2925,6 +2947,7 @@ class Component extends DCLogic {
       segs: segs,
       chLabel: c.label,
       chSub: c.sub,
+      chCls: ch === 1 ? 'lm-chc' : '',
       subOpacity: (this.n == null || this.n >= total) ? '1' : '0',
       chCount: '0' + (ch + 1) + ' / 02',
       barWidth: String(this.bar || 0),
