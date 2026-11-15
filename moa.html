@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A patch that sees infection coming · Limen</title>
+<meta name="description" content="A 3D mechanism-of-action study by Limen: how a skin patch could read the fluid between cells and flag an infection before symptoms. Illustrative concept.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:'Outfit';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/outfit-latin-wght-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2')}
+:root{--ink:#0D1413;--paper:#EEF3F1;--muted:#5C6765;--line:#BCC7C4;--green:#0B7A57}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:'Outfit',system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.mo-hd{position:absolute;z-index:3;left:0;right:0;top:0;padding:22px max(24px,env(safe-area-inset-left,0px));display:flex;justify-content:space-between;align-items:center;gap:16px}
+.mo-logo{height:30px;width:auto;display:block}
+.mo-back{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid currentColor;border-radius:9px;height:42px;padding:0 16px;display:inline-flex;align-items:center;font-weight:400}
+.mo-back:hover,.mo-back:focus-visible{background:var(--green);border-color:var(--green);color:#fff}
+.mo-back:focus-visible,.mo-ctl button:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.mo-stage{position:relative;height:100vh;min-height:560px;overflow:hidden}
+.mo-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}.mo-stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(to top,rgba(238,243,241,.92),rgba(238,243,241,0));pointer-events:none;z-index:1}
+.mo-cap{position:absolute;z-index:2;left:max(24px,env(safe-area-inset-left,0px));bottom:110px;max-width:min(560px,calc(100% - 48px));display:flex;flex-direction:column;gap:12px;pointer-events:none}
+.mo-lab{display:flex;align-items:center;gap:12px;margin:0;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:400}
+.mo-lab::before{content:"";width:11px;height:11px;border-radius:50%;background:var(--green)}
+.mo-t{margin:0;font-size:clamp(30px,4vw,56px);line-height:1.04;letter-spacing:-.04em;text-wrap:balance;transition:opacity .5s ease,transform .5s ease}
+.mo-t span{color:var(--green)}
+.mo-t.out{opacity:0;transform:translateY(8px)}
+.mo-ctl{position:absolute;z-index:2;left:max(24px,env(safe-area-inset-left,0px));right:max(24px,env(safe-area-inset-right,0px));bottom:36px;display:flex;align-items:center;gap:18px}
+.mo-ctl button{font:inherit;cursor:pointer}
+.mo-play{font-family:'IBM Plex Mono',monospace!important;font-size:12.5px!important;letter-spacing:.08em;text-transform:uppercase;background:none;color:var(--ink);border:1px solid currentColor;border-radius:9px;height:42px;padding:0 16px;font-weight:400!important}
+.mo-play:hover{background:var(--green);border-color:var(--green);color:#fff}
+.mo-steps{flex:1;display:flex;align-items:center;gap:0;position:relative;height:42px}
+.mo-steps::before{content:"";position:absolute;left:0;right:0;top:20px;height:1px;background:var(--ink);opacity:.25}
+.mo-steps button{position:relative;flex:1;height:42px;background:none;border:0;padding:0;display:flex;align-items:center;justify-content:flex-start}
+.mo-steps button::before{content:"";width:11px;height:11px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);box-sizing:border-box;transition:background-color .3s,border-color .3s}
+.mo-steps button[aria-current="step"]::before,.mo-steps button.done::before{background:var(--green);border-color:var(--green)}
+.mo-prog{position:absolute;left:0;top:20px;height:1px;background:var(--green);width:0}
+.mo-body{max-width:1360px;margin:0 auto;padding:110px 24px 140px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px 80px}
+.mo-body h1{margin:0;font-weight:300;font-size:clamp(40px,5.2vw,78px);line-height:1;letter-spacing:-.045em;text-wrap:balance}
+.mo-body h1 span{color:var(--green)}
+.mo-body p{margin:0;font-size:clamp(18px,1.6vw,22px);line-height:1.55;color:var(--muted);max-width:60ch}
+.mo-body ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.mo-body li{display:flex;justify-content:space-between;gap:24px;padding:18px 0;border-bottom:1px solid var(--line);font-size:18px}
+.mo-body li b{font-weight:400;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mo-note{font-family:'IBM Plex Mono',monospace;font-size:12px!important;letter-spacing:.1em;text-transform:uppercase}
+footer{background:#0F0D0E;color:#A8B3B0}
+footer div{max-width:1360px;margin:0 auto;padding:30px 24px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;font-size:16px}
+footer a{color:#EEF3F1}
+@media (max-width:700px){.mo-cap{bottom:104px}.mo-t{font-size:30px}.mo-hd{padding:16px}}
+</style>
+</head>
+<body>
+<header class="mo-hd">
+<a href="index.html" aria-label="limen, home"><svg class="mo-logo" aria-hidden="true" viewBox="4.58 -71.00 222.10 73.00"><path fill="currentColor" d="M6.575 0.0V-71.4H15.600000000000001V0.0Z M26.775000000000002 0.0V-47.5H35.825V0.0Z M46.97500000000001 0.0V-47.5H56.00000000000001V0.0ZM79.10000000000001 0.0V-28.700000000000003Q79.10000000000001 -34.0 75.85000000000001 -37.0375Q72.60000000000001 -40.075 67.72500000000001 -40.075Q64.42500000000001 -40.075 61.78750000000001 -38.7Q59.150000000000006 -37.325 57.575 -34.8Q56.00000000000001 -32.275 56.00000000000001 -28.75L52.25000000000001 -30.575000000000003Q52.25000000000001 -36.025 54.6375 -40.025000000000006Q57.025000000000006 -44.025000000000006 61.112500000000004 -46.2625Q65.2 -48.5 70.275 -48.5Q75.32500000000002 -48.5 79.36250000000001 -46.3Q83.4 -44.1 85.7625 -40.1Q88.125 -36.1 88.125 -30.55V0.0ZM111.22500000000001 0.0V-28.700000000000003Q111.22500000000001 -34.0 107.97500000000001 -37.0375Q104.72500000000001 -40.075 99.85000000000001 -40.075Q96.625 -40.075 93.95 -38.7Q91.275 -37.325 89.7 -34.8Q88.125 -32.275 88.125 -28.75L82.95000000000002 -30.575000000000003Q83.32500000000002 -36.050000000000004 85.95000000000002 -40.03750000000001Q88.57500000000002 -44.025000000000006 92.775 -46.2625Q96.97500000000001 -48.5 102.025 -48.5Q107.15 -48.5 111.26250000000002 -46.3Q115.37500000000001 -44.1 117.81250000000001 -40.087500000000006Q120.25000000000001 -36.075 120.25000000000001 -30.525000000000002V0.0Z M152.47500000000002 1.0Q145.35000000000002 1.0 139.675 -2.225Q134.0 -5.45 130.7 -11.0875Q127.4 -16.725 127.4 -23.775000000000002Q127.4 -30.8 130.6375 -36.3875Q133.875 -41.975 139.45 -45.2375Q145.025 -48.5 151.875 -48.5Q158.45000000000002 -48.5 163.5 -45.4875Q168.55 -42.475 171.4375 -37.2Q174.32500000000002 -31.925 174.32500000000002 -25.150000000000002Q174.32500000000002 -24.150000000000002 174.20000000000002 -23.0Q174.07500000000002 -21.85 173.8 -20.400000000000002H133.725V-27.875H169.025L165.72500000000002 -25.0Q165.675 -29.775000000000002 164.0 -33.15Q162.32500000000002 -36.525 159.22500000000002 -38.3625Q156.125 -40.2 151.70000000000002 -40.2Q147.05 -40.2 143.5875 -38.1875Q140.125 -36.175000000000004 138.2125 -32.575Q136.3 -28.975 136.3 -24.05Q136.3 -19.075 138.3125 -15.325Q140.32500000000002 -11.575000000000001 144.0 -9.512500000000001Q147.675 -7.45 152.5 -7.45Q156.47500000000002 -7.45 159.85000000000002 -8.875Q163.22500000000002 -10.3 165.57500000000002 -13.075000000000001L171.35000000000002 -7.2250000000000005Q167.95000000000002 -3.225 163.01250000000002 -1.1125Q158.07500000000002 1.0 152.47500000000002 1.0Z M215.65 0.0V-27.650000000000002Q215.65 -33.125 212.28750000000002 -36.6Q208.925 -40.075 203.5433673469388 -40.075Q199.88086734693877 -40.075 197.07793367346937 -38.4875Q194.275 -36.9 192.6875 -34.1Q191.1 -31.3 191.1 -27.675L187.35 -29.775000000000002Q187.35 -35.2 189.7875 -39.4125Q192.225 -43.625 196.49219543147208 -46.0625Q200.75939086294417 -48.5 206.15469543147208 -48.5Q211.55 -48.5 215.7375 -45.8125Q219.925 -43.125 222.3 -38.7625Q224.675 -34.4 224.675 -29.450000000000003V0.0ZM182.075 0.0V-47.5H191.1V0.0Z"></path><circle cx="31.38" cy="-62" r="7" fill="#0B7A57"></circle></svg></a>
+<a class="mo-back" href="work.html">Back to work</a>
+</header>
+<main>
+<section class="mo-stage" aria-label="3D animation: how the patch reads an infection">
+<canvas id="mo-c" aria-hidden="true"></canvas>
+<div class="mo-cap" aria-live="polite">
+<p class="mo-lab" id="mo-n">01 / 05</p>
+<p class="mo-t" id="mo-t">Skin, seen in section</p>
+</div>
+<div class="mo-ctl">
+<button class="mo-play" id="mo-play" type="button">Pause</button>
+<div class="mo-steps" id="mo-steps"><span class="mo-prog" id="mo-prog"></span></div>
+</div>
+</section>
+<section class="mo-body">
+<div style="display:flex;flex-direction:column;gap:28px">
+<p class="mo-lab">Concept study · 3D mechanism of action</p>
+<h1>A patch that sees an infection <span>coming</span></h1>
+<p>A short 3D explainer for a wearable biosensor: the patch sits on the skin, reads the fluid between cells and flags the chemical signs of an infection before the wearer feels unwell. Built to show an investor or a clinician the mechanism in under thirty seconds, without a single line of jargon.</p>
+<p class="mo-note">Illustrative concept by Limen. Not a real product, device or clinical data.</p>
+</div>
+<ul>
+<li><b>Format</b><span>Real-time 3D, web and film</span></li>
+<li><b>Audience</b><span>Investors and clinicians</span></li>
+<li><b>Length</b><span>About 25 seconds</span></li>
+<li><b>Disciplines</b><span>Science, design, art, technology</span></li>
+</ul>
+</section>
+</main>
+<footer><div><a href="index.html" aria-label="limen, home" style="line-height:0"><svg style="height:22px;width:auto;display:block" aria-hidden="true" viewBox="4.58 -71.00 222.10 73.00"><path fill="#EEF3F1" d="M6.575 0.0V-71.4H15.600000000000001V0.0Z M26.775000000000002 0.0V-47.5H35.825V0.0Z M46.97500000000001 0.0V-47.5H56.00000000000001V0.0ZM79.10000000000001 0.0V-28.700000000000003Q79.10000000000001 -34.0 75.85000000000001 -37.0375Q72.60000000000001 -40.075 67.72500000000001 -40.075Q64.42500000000001 -40.075 61.78750000000001 -38.7Q59.150000000000006 -37.325 57.575 -34.8Q56.00000000000001 -32.275 56.00000000000001 -28.75L52.25000000000001 -30.575000000000003Q52.25000000000001 -36.025 54.6375 -40.025000000000006Q57.025000000000006 -44.025000000000006 61.112500000000004 -46.2625Q65.2 -48.5 70.275 -48.5Q75.32500000000002 -48.5 79.36250000000001 -46.3Q83.4 -44.1 85.7625 -40.1Q88.125 -36.1 88.125 -30.55V0.0ZM111.22500000000001 0.0V-28.700000000000003Q111.22500000000001 -34.0 107.97500000000001 -37.0375Q104.72500000000001 -40.075 99.85000000000001 -40.075Q96.625 -40.075 93.95 -38.7Q91.275 -37.325 89.7 -34.8Q88.125 -32.275 88.125 -28.75L82.95000000000002 -30.575000000000003Q83.32500000000002 -36.050000000000004 85.95000000000002 -40.03750000000001Q88.57500000000002 -44.025000000000006 92.775 -46.2625Q96.97500000000001 -48.5 102.025 -48.5Q107.15 -48.5 111.26250000000002 -46.3Q115.37500000000001 -44.1 117.81250000000001 -40.087500000000006Q120.25000000000001 -36.075 120.25000000000001 -30.525000000000002V0.0Z M152.47500000000002 1.0Q145.35000000000002 1.0 139.675 -2.225Q134.0 -5.45 130.7 -11.0875Q127.4 -16.725 127.4 -23.775000000000002Q127.4 -30.8 130.6375 -36.3875Q133.875 -41.975 139.45 -45.2375Q145.025 -48.5 151.875 -48.5Q158.45000000000002 -48.5 163.5 -45.4875Q168.55 -42.475 171.4375 -37.2Q174.32500000000002 -31.925 174.32500000000002 -25.150000000000002Q174.32500000000002 -24.150000000000002 174.20000000000002 -23.0Q174.07500000000002 -21.85 173.8 -20.400000000000002H133.725V-27.875H169.025L165.72500000000002 -25.0Q165.675 -29.775000000000002 164.0 -33.15Q162.32500000000002 -36.525 159.22500000000002 -38.3625Q156.125 -40.2 151.70000000000002 -40.2Q147.05 -40.2 143.5875 -38.1875Q140.125 -36.175000000000004 138.2125 -32.575Q136.3 -28.975 136.3 -24.05Q136.3 -19.075 138.3125 -15.325Q140.32500000000002 -11.575000000000001 144.0 -9.512500000000001Q147.675 -7.45 152.5 -7.45Q156.47500000000002 -7.45 159.85000000000002 -8.875Q163.22500000000002 -10.3 165.57500000000002 -13.075000000000001L171.35000000000002 -7.2250000000000005Q167.95000000000002 -3.225 163.01250000000002 -1.1125Q158.07500000000002 1.0 152.47500000000002 1.0Z M215.65 0.0V-27.650000000000002Q215.65 -33.125 212.28750000000002 -36.6Q208.925 -40.075 203.5433673469388 -40.075Q199.88086734693877 -40.075 197.07793367346937 -38.4875Q194.275 -36.9 192.6875 -34.1Q191.1 -31.3 191.1 -27.675L187.35 -29.775000000000002Q187.35 -35.2 189.7875 -39.4125Q192.225 -43.625 196.49219543147208 -46.0625Q200.75939086294417 -48.5 206.15469543147208 -48.5Q211.55 -48.5 215.7375 -45.8125Q219.925 -43.125 222.3 -38.7625Q224.675 -34.4 224.675 -29.450000000000003V0.0ZM182.075 0.0V-47.5H191.1V0.0Z"></path><circle cx="31.38" cy="-62" r="7" fill="#0B7A57"></circle></svg></a><span>Working globally</span><a href="index.html#contact">LinkedIn</a><span>© 2026 Limen Studio</span></div></footer>
+<script type="importmap">{"imports":{"three":"./lib/three.module.min.js"}}</script>
+<script type="module" src="moa.js"></script>
+</body>
+</html>
