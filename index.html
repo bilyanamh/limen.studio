@@ -976,60 +976,29 @@ class Component extends DCLogic {
       // four worlds, one screen
       var e5 = sstep(4.2, 4.62, pg);
       if (e5 > 0.01) {
-        // How we cross: four worlds travel along the threshold and become the dot of the i
+        // Where they overlap: four cells, a thread running round each, the dot where all four meet
         var m = ix.c2 || 0, em = m * m * (3 - 2 * m), a5 = e5;
         ctx.globalAlpha = 1; ctx.fillStyle = DARK; ctx.fillRect(0, 0, w, h);
-        // each world has its own small mark inside its ring: a cell, a grid, a brushstroke, a circuit
-        function worldMark(q, x, y, r, a, tt) {
-          if (a <= 0.01) return;
-          var W1 = 'rgba(238,243,241,' + a.toFixed(3) + ')', W2 = 'rgba(238,243,241,' + (a * 0.85).toFixed(3) + ')', G1 = 'rgba(10,122,110,' + a.toFixed(3) + ')';
-          ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-          ctx.strokeStyle = W1; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.29); ctx.stroke();
-          ctx.beginPath(); ctx.arc(x, y, r - 1, 0, 6.29); ctx.clip(); ctx.fillStyle = DARK; ctx.fillRect(x - r, y - r, 2 * r, 2 * r);
-          if (q === 0) { // science: a cell with its nucleus, slowly breathing
-            var br = 1 + 0.06 * Math.sin(tt * 2.2);
-            ctx.strokeStyle = W2; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.ellipse(x, y, r * 0.62 * br, r * 0.48 * br, 0.5, 0, 6.29); ctx.stroke();
-            ctx.fillStyle = G1; ctx.beginPath(); ctx.arc(x + r * 0.12, y - r * 0.06, r * 0.22, 0, 6.29); ctx.fill();
-          } else if (q === 1) { // design: a construction grid with a golden diagonal
-            ctx.strokeStyle = W2; ctx.lineWidth = 1.2;
-            for (var gi = -1; gi <= 1; gi++) { ctx.beginPath(); ctx.moveTo(x + gi * r * 0.42, y - r); ctx.lineTo(x + gi * r * 0.42, y + r); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x - r, y + gi * r * 0.42); ctx.lineTo(x + r, y + gi * r * 0.42); ctx.stroke(); }
-            ctx.strokeStyle = G1; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - r * 0.7, y + r * 0.7); ctx.lineTo(x + r * 0.7, y - r * 0.7); ctx.stroke();
-          } else if (q === 2) { // art: a single loose brushstroke
-            var sw = Math.sin(tt * 1.6) * r * 0.08;
-            ctx.strokeStyle = W1; ctx.lineWidth = r * 0.22; ctx.beginPath(); ctx.moveTo(x - r * 0.6, y + r * 0.25); ctx.bezierCurveTo(x - r * 0.25, y - r * 0.55 + sw, x + r * 0.1, y + r * 0.55 - sw, x + r * 0.6, y - r * 0.2); ctx.stroke();
-            ctx.fillStyle = G1; ctx.beginPath(); ctx.arc(x + r * 0.6, y - r * 0.2, r * 0.16, 0, 6.29); ctx.fill();
-          } else { // technology: a circuit trace with a travelling pulse
-            ctx.strokeStyle = W2; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - r, y + r * 0.2); ctx.lineTo(x - r * 0.2, y + r * 0.2); ctx.lineTo(x + r * 0.15, y - r * 0.25); ctx.lineTo(x + r, y - r * 0.25); ctx.stroke();
-            ctx.fillStyle = W1; ctx.beginPath(); ctx.arc(x - r * 0.2, y + r * 0.2, 1.4, 0, 6.29); ctx.fill(); ctx.beginPath(); ctx.arc(x + r * 0.15, y - r * 0.25, 1.4, 0, 6.29); ctx.fill();
-            var ph = (tt * 0.6) % 1, pxp = ph < 0.4 ? x - r + (r * 0.8) * (ph / 0.4) : ph < 0.6 ? x - r * 0.2 + r * 0.35 * ((ph - 0.4) / 0.2) : x + r * 0.15 + r * 0.85 * ((ph - 0.6) / 0.4), pyp = ph < 0.4 ? y + r * 0.2 : ph < 0.6 ? y + r * 0.2 - r * 0.45 * ((ph - 0.4) / 0.2) : y - r * 0.25;
-            ctx.fillStyle = G1; ctx.beginPath(); ctx.arc(pxp, pyp, r * 0.16, 0, 6.29); ctx.fill();
-          }
-          ctx.restore();
-        }
-        var cx = w / 2, ly = h * (mobile ? 0.3 : 0.24), L = Math.min(w * (mobile ? 0.36 : 0.26), 400);
-        var lineA = a5 * (1 - sstep(0.7, 1, m));
-        ctx.strokeStyle = 'rgba(238,243,241,' + (0.32 * lineA).toFixed(3) + ')'; ctx.lineWidth = 1.2;
-        ctx.beginPath(); ctx.moveTo(cx - L * 1.12, ly); ctx.lineTo(cx + L * 1.12, ly); ctx.stroke();
-        var names = ['SCIENCE', 'DESIGN', 'ART', 'TECHNOLOGY'], at = [-1, -0.36, 0.36, 1];
-        ctx.font = (mobile ? "11px" : "14px") + " 'Geist Mono', ui-monospace, monospace"; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-        var dr = mobile ? 18 : 28, S = mobile ? 1.2 : 2, px = cx + (31.38 - 115.63) * S;
+        var cx = w / 2, cy = h * 0.215, r = Math.min(h * 0.12, w * 0.17), d = r * 0.47 * (0.35 + 0.65 * sstep(0, 0.35, m));
+        var cs = [[-1, -1], [1, -1], [-1, 1], [1, 1]], spd = [0.785, -0.661, -0.838, 0.628], ph = [0, 1.9, 3.7, 5.1], arc = 1.13;
+        ctx.save(); ctx.lineCap = 'round';
         for (var q = 0; q < 4; q++) {
-          var x = px + (cx + L * at[q] - px) * (1 - em), ra = a5 * (1 - sstep(0.5, 0.66, m));
-          worldMark(q, x, ly, dr, ra, t);
-          var la = a5 * (1 - sstep(0.4, 0.66, m));
-          if (la > 0.01) { ctx.fillStyle = 'rgba(238,243,241,' + (0.85 * la).toFixed(3) + ')'; ctx.fillText(names[q], x, ly + dr + 14); }
+          var qx = cx + cs[q][0] * d, qy = cy + cs[q][1] * d;
+          ctx.strokeStyle = 'rgba(168,179,176,' + (0.55 * a5).toFixed(3) + ')'; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.arc(qx, qy, r, 0, 6.2832); ctx.stroke();
+          var st = t * spd[q] + ph[q];
+          ctx.strokeStyle = 'rgba(238,243,241,' + a5.toFixed(3) + ')'; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(qx, qy, r, st, st + arc); ctx.stroke();
         }
-        // they become the dot of the i, and the name appears around it
-        var g = sstep(0.5, 0.68, m), stemP = sstep(0.6, 0.76, m), word = sstep(0, 1, ix.c2w || 0), R5 = 7 * S * g;
-        if (word > 0.01) {
-          var LP = cached('limenWord', function () { return new Path2D('M6.57 0.0V-71.4H15.60V0.0Z M26.77 0.0V-47.5H35.82V0.0Z M46.97 0.0V-47.5H56.00V0.0ZM79.10 0.0V-28.70Q79.10 -34.0 75.85 -37.03Q72.60 -40.07 67.72 -40.07Q64.42 -40.07 61.78 -38.7Q59.15 -37.32 57.57 -34.8Q56.00 -32.27 56.00 -28.75L52.25 -30.57Q52.25 -36.02 54.63 -40.02Q57.02 -44.02 61.11 -46.26Q65.2 -48.5 70.27 -48.5Q75.32 -48.5 79.36 -46.3Q83.4 -44.1 85.76 -40.1Q88.12 -36.1 88.12 -30.55V0.0ZM111.22 0.0V-28.70Q111.22 -34.0 107.97 -37.03Q104.72 -40.07 99.85 -40.07Q96.62 -40.07 93.95 -38.7Q91.27 -37.32 89.7 -34.8Q88.12 -32.27 88.12 -28.75L82.95 -30.57Q83.32 -36.05 85.95 -40.03Q88.57 -44.02 92.77 -46.26Q96.97 -48.5 102.02 -48.5Q107.15 -48.5 111.26 -46.3Q115.37 -44.1 117.81 -40.08Q120.25 -36.07 120.25 -30.52V0.0Z M152.47 1.0Q145.35 1.0 139.67 -2.22Q134.0 -5.45 130.7 -11.08Q127.4 -16.72 127.4 -23.77Q127.4 -30.8 130.63 -36.38Q133.87 -41.97 139.45 -45.23Q145.02 -48.5 151.87 -48.5Q158.45 -48.5 163.5 -45.48Q168.55 -42.47 171.43 -37.2Q174.32 -31.92 174.32 -25.15Q174.32 -24.15 174.20 -23.0Q174.07 -21.85 173.8 -20.40H133.72V-27.87H169.02L165.72 -25.0Q165.67 -29.77 164.0 -33.15Q162.32 -36.52 159.22 -38.36Q156.12 -40.2 151.70 -40.2Q147.05 -40.2 143.58 -38.18Q140.12 -36.17 138.21 -32.57Q136.3 -28.97 136.3 -24.05Q136.3 -19.07 138.31 -15.32Q140.32 -11.57 144.0 -9.51Q147.67 -7.45 152.5 -7.45Q156.47 -7.45 159.85 -8.87Q163.22 -10.3 165.57 -13.07L171.35 -7.22Q167.95 -3.22 163.01 -1.11Q158.07 1.0 152.47 1.0Z M215.65 0.0V-27.65Q215.65 -33.12 212.28 -36.6Q208.92 -40.07 203.54 -40.07Q199.88 -40.07 197.07 -38.48Q194.27 -36.9 192.68 -34.1Q191.1 -31.3 191.1 -27.67L187.35 -29.77Q187.35 -35.2 189.78 -39.41Q192.22 -43.62 196.49 -46.06Q200.75 -48.5 206.15 -48.5Q211.55 -48.5 215.73 -45.81Q219.92 -43.12 222.3 -38.76Q224.67 -34.4 224.67 -29.45V0.0ZM182.07 0.0V-47.5H191.1V0.0Z'); });
-          ctx.save(); ctx.beginPath(); ctx.arc(px, ly + 38 * S, word * 200 * S, 0, 6.29); ctx.clip(); // the rest of the name opens out from the i
-          ctx.translate(cx - 115.63 * S, ly + 62 * S); ctx.scale(S, S);
-          ctx.globalAlpha = Math.min(1, word * 1.6); ctx.fillStyle = '#EEF3F1'; ctx.fill(LP); ctx.restore(); ctx.globalAlpha = 1;
+        var names = ['SCIENCE', 'DESIGN', 'ART', 'TECHNOLOGY'];
+        ctx.font = (mobile ? "11px" : "13px") + " 'Geist Mono', ui-monospace, monospace"; ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'rgba(168,179,176,' + a5.toFixed(3) + ')';
+        for (var q2 = 0; q2 < 4; q2++) {
+          ctx.textAlign = cs[q2][0] < 0 ? 'right' : 'left';
+          ctx.fillText(names[q2], cx + cs[q2][0] * (d + r + 14), cy + cs[q2][1] * d);
         }
-        // the i first and bright: its stem grows down from the dot, the rest of the name follows quietly
-        if (stemP > 0.01) { var ix0 = px - 4.525 * S, sh5 = 47.5 * S * stemP; ctx.fillStyle = '#EEF3F1'; ctx.fillRect(ix0, ly + 62 * S - 47.5 * S, 9.05 * S, sh5); }
-        if (R5 > 0.1) { ctx.fillStyle = '#0A7A6E'; ctx.beginPath(); ctx.arc(px, ly, R5, 0, 6.29); ctx.fill(); }
+        ctx.fillStyle = '#0A7A6E'; ctx.globalAlpha = a5; ctx.beginPath(); ctx.arc(cx, cy, Math.max(6, r * 0.09), 0, 6.2832); ctx.fill();
+        ctx.restore();
         ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.globalAlpha = 1; return;
       }
       // the sensor array
@@ -2238,7 +2207,7 @@ class Component extends DCLogic {
   chapters() {
     return [
       { label: 'Limen, Latin for threshold', segs: [['Limen is the point where ', 0], ['science becomes clear', 1]], sub: 'A creative studio at the threshold of science, technology and art for MedTech, Biotech and Life Sciences companies' },
-      { label: 'How we cross', segs: [['It takes ', 0], ['different worlds', 1], [' to untangle one idea', 0]], sub: 'Limen brings together people who don’t usually share a room, because breakthrough science deserves more than one way of seeing' }
+      { label: '', segs: [['Clarity lives ', 0], ['where they overlap', 1]], sub: 'A scientist sees the mechanism. A designer sees the structure. An artist sees the feeling. A technologist sees what it can become. The story your investors need sits in the middle' }
     ];
   }
 
