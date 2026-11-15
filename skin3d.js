@@ -7,6 +7,7 @@ import { EffectComposer } from './lib/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from './lib/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from './lib/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from './lib/jsm/postprocessing/OutputPass.js';
+import { BokehPass } from './lib/jsm/postprocessing/BokehPass.js';
 
 export const STEPS = [
   { p: 0, h: 'A patch on the <span>skin</span>' },
@@ -18,10 +19,10 @@ export const STEPS = [
 ];
 
 const P = {
-  night: 0x0F0D0E, skin: 0xE48AA2, sheen: 0xFFC9D8, cells: [0xE98AA6, 0xD9668A, 0xEFA6BC, 0xC85580, 0xE296B0],
-  basal: [0xC86C9C, 0xB65E92, 0xD37AA6], membrane: 0xA77CC4, collagen: [0xE59A92, 0xD97C88, 0xEDB0A4, 0xCF8AA2],
-  fibro: 0xC48BC9, vessel: 0xC0244A, vein: 0x6F5BB0, rbc: 0xD3203F, fat: 0xF3CFA4, patch: 0xF5EEF2,
-  bact: [0xC9A23A, 0x9FB24A, 0xB3943C], marker: 0xFF4F86, glow: 0xFFD9E6
+  night: 0x0F0D0E, ground: 0xF4DCCB, skin: 0xEAB0A0, sheen: 0xFFE4D6, cells: [0xF0B49F, 0xE59C8E, 0xF4C6B2, 0xDB8E88, 0xEEAA9A],
+  basal: [0xD68C93, 0xC97F8E, 0xDF9C98], membrane: 0xC8A2BC, collagen: [0xF0D2BE, 0xE7BBA8, 0xF5DECB, 0xE2B2A6],
+  fibro: 0xD6A8C2, vessel: 0xD0505A, vein: 0xA48CBE, rbc: 0xD9485A, fat: 0xF6DDAA, patch: 0xF8F2EE,
+  bact: [0xD9A441, 0xB8B35A, 0xC98F3E], marker: 0xFFF1DE, glow: 0xFFF3E8, vesicle: 0xF9D6CC, cargo: [0xE9A1C8, 0xF3B45C, 0xC9A0E8, 0xF07F8E]
 };
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const ss = (a, b, v) => { const q = clamp((v - a) / (b - a)); return q * q * (3 - 2 * q); };
@@ -34,25 +35,25 @@ export function createSkin(canvas, opts = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: !lite, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1.25 : 1.6));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.84;
+  renderer.toneMappingExposure = 0.9;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xEEF3F1); // paper: the section reads as a clean medical plate
-  scene.fog = new THREE.FogExp2(0xEEF3F1, 0.05);
+  scene.background = new THREE.Color(P.ground); // a warm blush ground inside the figure frame
+  scene.fog = new THREE.FogExp2(P.ground, 0.05);
   const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 120);
 
   // light: a warm pink key from above, a magenta glow from inside the tissue, a cool violet rim
-  scene.add(new THREE.HemisphereLight(0xfff4f7, 0xb98aa0, 0.7));
-  const key = new THREE.DirectionalLight(0xfff0f4, 2.8); key.position.set(-6, 12, 14); scene.add(key);
-  const rim = new THREE.DirectionalLight(0x9a7cff, 1.2); rim.position.set(10, -4, -6); scene.add(rim);
-  const inner = new THREE.PointLight(0xff2f74, 140, 0, 2); inner.position.set(5, -6, 6); scene.add(inner);
-  const tipLight = new THREE.PointLight(0xffb3cc, 0, 0, 2); tipLight.position.set(0, -7.3, 0.6); scene.add(tipLight);
+  scene.add(new THREE.HemisphereLight(0xfff3ea, 0xc69a90, 0.8));
+  const key = new THREE.DirectionalLight(0xffe8d6, 2.6); key.position.set(-6, 12, 14); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xd9b8ff, 0.9); rim.position.set(10, -4, -6); scene.add(rim);
+  const inner = new THREE.PointLight(0xff9a7a, 120, 0, 2); inner.position.set(5, -6, 6); scene.add(inner);
+  const tipLight = new THREE.PointLight(0xffe2c4, 0, 0, 2); tipLight.position.set(0, -7.3, 0.6); scene.add(tipLight);
   const patchLight = new THREE.PointLight(0xfff0f5, 0, 0, 2); patchLight.position.set(0, 1.2, 1.2); scene.add(patchLight);
 
   const phys = (color, o = {}) => new THREE.MeshPhysicalMaterial({ color, roughness: 0.45, sheen: 0.45, sheenColor: new THREE.Color(P.sheen), sheenRoughness: 0.5, clearcoat: 0.25, clearcoatRoughness: 0.5, ...o });
   const tissue = new THREE.Group(); scene.add(tissue);
   // deep tissue behind the cut face, so gaps between structures read as flesh, not paper
-  { const back = new THREE.Mesh(new THREE.PlaneGeometry(24, 15), new THREE.MeshStandardMaterial({ color: 0x9C4467, roughness: 0.9 })); back.position.set(0, -8.6, -6.2); tissue.add(back); }
+  { const back = new THREE.Mesh(new THREE.PlaneGeometry(24, 15), new THREE.MeshStandardMaterial({ color: 0xC08680, roughness: 0.9 })); back.position.set(0, -8.6, -6.2); tissue.add(back); }
   const dummy = new THREE.Object3D(), col = new THREE.Color();
   const X0 = -11, X1 = 11, Z0 = -7;
 
@@ -178,8 +179,26 @@ export function createSkin(canvas, opts = {}) {
 
   // the signal: light running up the needle once the markers have bound
   const PN = 90, pPos = new Float32Array(PN * 3), pGeo = new THREE.BufferGeometry(); pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-  const pulse = new THREE.Points(pGeo, new THREE.PointsMaterial({ size: 0.3, map: dotTex, color: 0xffe6ef, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
+  const pulse = new THREE.Points(pGeo, new THREE.PointsMaterial({ size: 0.3, map: dotTex, color: 0xfff0dc, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
   scene.add(pulse);
+
+  // a fine spray of particles streaming off the infection towards the needle tip
+  const SN = lite ? 700 : 2000, sPos = new Float32Array(SN * 3), sGeo = new THREE.BufferGeometry(), sSeed = [];
+  for (let i = 0; i < SN; i++) sSeed.push([R(), R(), R(), R()]);
+  sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
+  const spray = new THREE.Points(sGeo, new THREE.PointsMaterial({ size: 0.075, map: dotTex, color: 0xfff6e6, transparent: true, opacity: 0, depthWrite: false }));
+  scene.add(spray);
+  // translucent vesicles drifting through the fluid, each carrying a little coloured cargo
+  const VN = lite ? 8 : 16, ves = [];
+  const vMat = new THREE.MeshPhysicalMaterial({ color: P.vesicle, roughness: 0.08, clearcoat: 1, clearcoatRoughness: 0.05, transparent: true, opacity: 0.32, sheen: 1, sheenColor: new THREE.Color(0xffffff), depthWrite: false });
+  const cargoG = new THREE.SphereGeometry(1, 10, 8), vG = new THREE.SphereGeometry(1, 40, 28);
+  const cargo = new THREE.InstancedMesh(cargoG, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3, emissive: 0x2a0f12 }), VN * 14);
+  for (let i = 0; i < VN; i++) {
+    const r = 0.28 + R() * 0.5, m = new THREE.Mesh(vG, vMat); m.scale.setScalar(r); scene.add(m);
+    ves.push({ m, r, x: -7 + R() * 14, y: -3.8 - R() * 8.2, z: 0.6 + R() * 2.2, sp: 0.08 + R() * 0.12, ph: R() * 6.28, k: [] });
+    for (let k = 0; k < 14; k++) { ves[i].k.push([(R() - 0.5) * 1.2, (R() - 0.5) * 1.2, (R() - 0.5) * 1.2, 0.05 + R() * 0.08]); cargo.setColorAt(i * 14 + k, col.setHex(P.cargo[Math.floor(R() * P.cargo.length)])); }
+  }
+  scene.add(cargo);
 
   // camera path
   const K = [
@@ -198,6 +217,7 @@ export function createSkin(canvas, opts = {}) {
   // post: a soft bloom so the markers and the signal glow like the light in the tissue
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
+  const bokeh = lite ? null : new BokehPass(scene, camera, { focus: 10, aperture: 0.0045, maxblur: 0.012 }); if (bokeh) composer.addPass(bokeh);
   const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), lite ? 0.35 : 0.45, 0.5, 0.97); composer.addPass(bloom);
   composer.addPass(new OutputPass());
 
@@ -244,6 +264,24 @@ export function createSkin(canvas, opts = {}) {
     pGeo.attributes.position.needsUpdate = true;
     const lit = ss(0.84, 0.94, p);
     patchMat.emissiveIntensity = lit * 0.18; patchLight.intensity = lit * 10;
+
+    // spray: particles leave the colony in a soft cone and drift up towards the tip
+    const sp = ss(0.5, 0.56, p) * (1 - ss(0.8, 0.86, p));
+    spray.material.opacity = sp * 0.85;
+    if (sp > 0) for (let i = 0; i < SN; i++) {
+      const q = sSeed[i], ph = (q[0] + t * (0.16 + q[1] * 0.2)) % 1, sx = 1.9 + (q[2] - 0.5) * 2.6, sy = -9.4 + (q[3] - 0.5) * 0.8;
+      const tx = TIP.x + (q[2] - 0.5) * 1.6, ty = TIP.y - 0.2 + (q[1] - 0.5) * 0.6, e = ph * ph * (3 - 2 * ph);
+      sPos[i * 3] = lerp(sx, tx, e) + Math.sin(ph * 9 + q[0] * 20) * 0.18 * (1 - e); sPos[i * 3 + 1] = lerp(sy, ty, e) + Math.sin(ph * 3.14) * (0.6 + q[3] * 0.8); sPos[i * 3 + 2] = 0.15 + q[1] * 0.9 * (1 - e);
+    }
+    sGeo.attributes.position.needsUpdate = true;
+    // vesicles drift and turn slowly; their cargo turns with them
+    ves.forEach((v, i) => {
+      const x = ((v.x + 7 + t * v.sp) % 14) - 7, y = v.y + Math.sin(t * 0.4 + v.ph) * 0.3, z = v.z + Math.cos(t * 0.3 + v.ph) * 0.2;
+      v.m.position.set(x, y, z);
+      v.k.forEach((k, j) => { const a = t * 0.3 + v.ph; dummy.position.set(x + (k[0] * Math.cos(a) - k[2] * Math.sin(a)) * v.r * 0.75, y + k[1] * v.r * 0.75, z + (k[0] * Math.sin(a) + k[2] * Math.cos(a)) * v.r * 0.75); dummy.rotation.set(0, 0, 0); dummy.scale.setScalar(k[3] * v.r * 2); dummy.updateMatrix(); cargo.setMatrixAt(i * 14 + j, dummy.matrix); });
+    });
+    cargo.instanceMatrix.needsUpdate = true;
+    if (bokeh) bokeh.uniforms.focus.value = cp.distanceTo(lp);
 
     composer.render();
   }
