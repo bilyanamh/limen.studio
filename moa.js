@@ -4,7 +4,7 @@ import { createSkin, STEPS } from './skin3d.js';
 
 const T = 30;
 const canvas = document.getElementById('mo-c');
-const s = createSkin(canvas, { lite: innerWidth < 760 || (navigator.hardwareConcurrency || 8) <= 4 });
+const s = createSkin(canvas, { lite: innerWidth < 760 || (navigator.hardwareConcurrency || 8) <= 2 });
 const tEl = document.getElementById('mo-t'), nEl = document.getElementById('mo-n'), steps = document.getElementById('mo-steps'), prog = document.getElementById('mo-prog'), play = document.getElementById('mo-play');
 
 const btns = STEPS.map((st, i) => {
