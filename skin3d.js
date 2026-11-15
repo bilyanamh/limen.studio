@@ -21,7 +21,7 @@ export const STEPS = [
 
 export const GROUND = '#B4ADA6';
 const P = {
-  ground: 0xB4ADA6, fibre: 0xEAE3DC, surface: 0xEDE3DA, lip: 0xE4D4C9,
+  ground: 0xB4ADA6, fibre: 0xEFE7DE, elastic: 0xE6D6B8, vessel: 0xE58A86, rbc: 0xC2343F, surface: 0xEDE3DA, lip: 0xE4D4C9,
   cells: [0xF3E9E1, 0xEDE0D6, 0xF6EEE8, 0xE9DBD0], basal: [0xEC9A84, 0xE38671, 0xF0AA92], nucleus: 0xB9503D,
   membrane: 0xE6CDBF, coral: 0xE9765E, coralHot: 0xF0603F, bact: [0x6E2E33, 0x5A2630, 0x82393A],
   glow: 0xFF8F45, marker: 0xFF7A2E, dust: 0xFFF8F0, patch: 0xF7F2EE
@@ -159,62 +159,103 @@ export function createSkin(canvas, opts = {}) {
     g.computeVertexNormals(); tissue.add(new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: P.membrane, side: THREE.DoubleSide, roughness: 0.7 })));
   }
 
-  // the dermis: a deep network of branching cream fibres
-  const trunks = [];
+  // the dermis as it really is. Papillary layer: thin loose collagen just under the membrane.
+  // Reticular layer: thick wavy collagen bundles, each a rope of fine fibrils, in a loose basket weave.
+  // Thin branching elastic fibres run between them, and everything sits in interstitial fluid.
+  const bundles = [];
   {
-    const R = rng(11), RH = rng(13), tb = TubeBuilder(), radial = lite ? 7 : 12;
-    const dir = new THREE.Vector3(), rv = new THREE.Vector3();
-    const walk = (start, d0, len, step, turn, steer = true) => {
+    const R = rng(11), tb = TubeBuilder(), eb = TubeBuilder();
+    const rv = new THREE.Vector3(), T = new THREE.Vector3(), N = new THREE.Vector3(), B = new THREE.Vector3(), tmp = new THREE.Vector3();
+    const walk = (start, d0, len, step, turn, r2, steer) => {
       const pts = [start.clone()], d = d0.clone().normalize(), p = start.clone();
       for (let s = 0; s < len / step; s++) {
-        rv.set(R() - 0.5, R() - 0.5, (R() - 0.5) * 0.7); d.addScaledVector(rv, turn).normalize();
-        if (p.y > -3.7 && d.y > 0) d.y = -Math.abs(d.y) - 0.2;
-        if (p.z > 2.2 && d.z > 0) d.z = -0.3;
-        d.normalize(); const r2 = steer ? 3.6 : 9; let ok = !blocked(rv.copy(p).addScaledVector(d, step), r2);
+        rv.set(R() - 0.5, (R() - 0.5) * 0.5, (R() - 0.5) * 0.8); d.addScaledVector(rv, turn).normalize();
+        if (p.y > -3.8 && d.y > 0) d.y = -Math.abs(d.y) - 0.15;
+        if (p.z > 2 && d.z > 0) d.z = -0.3;
+        d.normalize(); let ok = !blocked(rv.copy(p).addScaledVector(d, step), r2);
         for (let k = 0; k < (steer ? 8 : 0) && !ok; k++) { d.x += (R() - 0.5) * 1.2; d.y += (R() - 0.5) * 1.2; d.z -= R() * 0.6; d.normalize(); ok = !blocked(rv.copy(p).addScaledVector(d, step), r2); }
         if (!ok) break;
-        p.addScaledVector(d, step);
-        pts.push(p.clone());
+        p.addScaledVector(d, step); pts.push(p.clone());
       }
       return pts;
     };
     const smooth = (pts, k) => { for (let n = 0; n < k; n++) for (let i = pts.length - 2; i > 0; i--) pts[i] = pts[i - 1].clone().add(pts[i].clone().multiplyScalar(2)).add(pts[i + 1]).multiplyScalar(0.25); return pts; };
-    const grow = (pts, r0, depth, trunk) => {
-      if (pts.length < 4) return;
-      smooth(pts, 3);
-      tb.add(pts, trunk ? (u) => r0 * Math.pow(Math.sin(Math.PI * clamp(u * 0.96 + 0.02)), 0.7) * (1 + 0.14 * Math.sin(u * pts.length * 0.9 + r0 * 40))
-        : (u) => (r0 * Math.pow(1 - u, 0.75) + 0.008) * (1 + 0.12 * Math.sin(u * pts.length * 1.3)), radial);
-      if (trunk) trunks.push(pts);
-      const nh = Math.floor(pts.length * (lite ? 0.08 : 0.2));
-      for (let h = 0; h < nh; h++) {
-        const i = 1 + Math.floor(RH() * (pts.length - 2)), q = pts[i].clone(), d = new THREE.Vector3(RH() - 0.5, RH() - 0.5, RH() - 0.5).normalize(), hp = [q.clone()], hl = 0.6 + RH() * 1.8;
-        for (let k = 0; k < 10; k++) { rv.set(RH() - 0.5, RH() - 0.5, RH() - 0.5); d.addScaledVector(rv, 0.3).normalize(); q.addScaledVector(d, hl / 10); hp.push(q.clone()); }
-        if (!blocked(q)) tb.add(hp, (u) => 0.022 * (1 - u * 0.7), 4);
+    const frames = (pts) => {
+      const out = [];
+      for (let i = 0; i < pts.length; i++) {
+        T.subVectors(pts[Math.min(pts.length - 1, i + 1)], pts[Math.max(0, i - 1)]); if (T.lengthSq() < 1e-10) T.set(1, 0, 0); T.normalize();
+        if (i > 0) N.addScaledVector(T, -N.dot(T));
+        if (i === 0 || N.lengthSq() < 1e-6) { tmp.set(Math.abs(T.y) < 0.9 ? 0 : 1, Math.abs(T.y) < 0.9 ? 1 : 0, 0); N.crossVectors(T, tmp); }
+        N.normalize(); B.crossVectors(T, N); out.push([T.clone(), N.clone(), B.clone()]);
       }
-      if (depth <= 0) return;
-      const nb = depth === 2 ? 2 + Math.floor(R() * 3) : 1 + Math.floor(R() * 3);
-      for (let b = 0; b < nb; b++) {
-        const i = 1 + Math.floor((0.15 + R() * 0.7) * (pts.length - 3)), a = pts[i], nxt = pts[i + 1];
-        dir.subVectors(nxt, a).normalize(); rv.set(R() - 0.5, R() - 0.5, R() - 0.5).normalize(); dir.addScaledVector(rv, 1.1 + R() * 0.6).normalize();
-        const child = walk(a, dir, pts.length * 0.3 * (0.35 + R() * 0.45), 0.28, 0.32);
-        grow(child, r0 * (0.45 + R() * 0.2), depth - 1, false);
+      return out;
+    };
+    const NS = lite ? 5 : 9, rad = lite ? 6 : 8;
+    const bundle = (pts, Rb) => {
+      if (pts.length < 6) return;
+      smooth(pts, 4);
+      const F = frames(pts), along = [0];
+      for (let i = 1; i < pts.length; i++) along.push(along[i - 1] + pts[i].distanceTo(pts[i - 1]));
+      // the crimp: relaxed collagen is gently wavy
+      const ph = R() * 6.28, cf = 1.6 + R() * 0.8, ca = Rb * 0.35;
+      const C = pts.map((q, i) => q.clone().addScaledVector(F[i][1], Math.sin(along[i] * cf + ph) * ca).addScaledVector(F[i][2], Math.cos(along[i] * cf * 0.7 + ph) * ca * 0.6));
+      bundles.push({ C, F, Rb });
+      const tw = (0.35 + R() * 0.3) * (R() < 0.5 ? 1 : -1);
+      for (let k = 0; k <= NS; k++) {
+        const a0 = (k / NS) * 6.28 + R() * 0.4, off = k === NS ? 0 : Rb * (0.42 + R() * 0.2), rs = Rb * (k === NS ? 0.5 : 0.36) * (0.85 + R() * 0.3);
+        const i0 = Math.floor(R() * pts.length * 0.06), i1 = pts.length - Math.floor(R() * pts.length * 0.06); // fibres fray at the ends
+        const sp = [];
+        for (let i = i0; i < i1; i++) { const a = a0 + tw * along[i]; sp.push(C[i].clone().addScaledVector(F[i][1], Math.cos(a) * off).addScaledVector(F[i][2], Math.sin(a) * off)); }
+        tb.add(sp, (u) => rs * Math.pow(Math.sin(Math.PI * clamp(u * 0.98 + 0.01)), 0.3) * (1 + 0.06 * Math.sin(u * sp.length * 1.7 + k)), rad);
+      }
+      // a few hair-fine fibrils wound around the outside of the bundle
+      for (let k = 0; k < (lite ? 1 : 3); k++) {
+        const a0 = R() * 6.28, tw2 = tw * (2.2 + R()), sp = [], i0 = Math.floor(R() * pts.length * 0.3), i1 = i0 + Math.floor(pts.length * (0.3 + R() * 0.4));
+        for (let i = i0; i < Math.min(i1, pts.length); i++) { const a = a0 + tw2 * along[i]; sp.push(C[i].clone().addScaledVector(F[i][1], Math.cos(a) * Rb * 0.92).addScaledVector(F[i][2], Math.sin(a) * Rb * 0.92)); }
+        tb.add(sp, () => Math.max(0.014, Rb * 0.07), 4);
       }
     };
-    const NT = lite ? 64 : 110;
-    for (let t = 0; t < NT; t++) {
-      const thick = R() < 0.16;
-      const s = new THREE.Vector3(X0 - 2 + R() * (X1 - X0 + 4), -4 - R() * 11, thick ? 0.5 + R() * 1.6 : -8 + R() * 9.6);
-      const d = new THREE.Vector3(R() < 0.5 ? 1 : -1, (R() - 0.5) * 1.4, (R() - 0.5) * 0.6);
-      const len = 6 + R() * 10, back = walk(s, d.clone().negate(), len * 0.5, 0.3, 0.24, !thick).reverse(), fwd = walk(s, d, len * 0.5, 0.3, 0.24, !thick);
-      const pts = back.concat(fwd.slice(1));
-      grow(pts, thick ? 0.2 + R() * 0.14 : 0.07 + R() * 0.12, lite ? 1 : 2, true);
+    const NB = lite ? 48 : 64;
+    for (let t = 0; t < NB; t++) {
+      const papillary = t < NB * 0.22;
+      const s = new THREE.Vector3(X0 - 2 + R() * (X1 - X0 + 4), papillary ? -3.9 - R() * 1.4 : -5.4 - R() * 9.6, -8.5 + R() * 10);
+      const th = R() * 6.28, d = new THREE.Vector3(Math.cos(th), (R() - 0.5) * 0.45, Math.sin(th) * 0.7);
+      const Rb = papillary ? 0.07 + R() * 0.07 : 0.2 + R() * 0.26, len = 8 + R() * 10;
+      const back = walk(s, d.clone().negate(), len * 0.5, 0.25, 0.09, 9, false).reverse(), fwd = walk(s, d, len * 0.5, 0.25, 0.09, 9, false);
+      bundle(back.concat(fwd.slice(1)), Rb);
     }
-    const g = tb.build();
-    const m = new THREE.Mesh(g, new THREE.MeshPhysicalMaterial({ color: P.fibre, roughness: 0.82, sheen: 1, sheenColor: new THREE.Color(0xffffff), sheenRoughness: 0.55, bumpMap: bump, bumpScale: lite ? 1.6 : 2.2 }));
-    tissue.add(m);
+    // elastic fibres: thin, branching, slightly warmer
+    const NE = lite ? 30 : 60;
+    for (let t = 0; t < NE; t++) {
+      const s = new THREE.Vector3(X0 + R() * (X1 - X0), -4 - R() * 10.5, -8 + R() * 9.5), d = new THREE.Vector3(R() - 0.5, (R() - 0.5) * 0.8, R() - 0.5);
+      const pts = smooth(walk(s, d, 4 + R() * 7, 0.22, 0.28, 3.6, true), 3);
+      if (pts.length < 5) continue;
+      const r0 = 0.03 + R() * 0.025; eb.add(pts, (u) => r0 * (1 - u * 0.5), 5);
+      for (let b = 0; b < 2 + Math.floor(R() * 3); b++) {
+        const i = 1 + Math.floor(R() * (pts.length - 3)), dd = new THREE.Vector3().subVectors(pts[i + 1], pts[i]).normalize().add(rv.set(R() - 0.5, R() - 0.5, R() - 0.5)).normalize();
+        const c = smooth(walk(pts[i], dd, 1.5 + R() * 2.5, 0.2, 0.3, 3.6, true), 2); if (c.length > 4) eb.add(c, (u) => r0 * 0.7 * (1 - u * 0.8), 4);
+      }
+    }
+    tissue.add(new THREE.Mesh(tb.build(), new THREE.MeshPhysicalMaterial({ color: P.fibre, roughness: 0.55, sheen: 0.8, sheenColor: new THREE.Color(0xffffff), sheenRoughness: 0.5, clearcoat: 0.25, clearcoatRoughness: 0.4, bumpMap: bump, bumpScale: lite ? 1.2 : 1.6 })));
+    tissue.add(new THREE.Mesh(eb.build(), new THREE.MeshPhysicalMaterial({ color: P.elastic, roughness: 0.45, clearcoat: 0.4, clearcoatRoughness: 0.3 })));
   }
 
-  // coral star-shaped immune cells resting on the fibres, their arms swaying slowly
+  // capillaries: a vessel under the membrane sending loops up into the papillae, red blood cells flowing through
+  const flows = [];
+  {
+    const vessel = (q, r, cells) => {
+      const curve = new THREE.CatmullRomCurve3(q.map((v) => new THREE.Vector3(...v)));
+      tissue.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 220, r, 16, false), new THREE.MeshPhysicalMaterial({ color: P.vessel, roughness: 0.25, clearcoat: 0.9, transparent: true, opacity: 0.45, depthWrite: false })));
+      const m = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 18, 10), new THREE.MeshPhysicalMaterial({ color: P.rbc, roughness: 0.35, clearcoat: 0.6, emissive: 0x3a0408 }), cells);
+      tissue.add(m); flows.push({ curve, m, n: cells, r, ph: 0 });
+    };
+    const q = [[-11, -5.6, -1.8]];
+    for (let x = -9; x <= 9; x += 3) q.push([x - 0.7, -5.4, -1.7], [x - 0.45, -3.9, -1.6], [x, -3.6, -1.6], [x + 0.45, -3.9, -1.6], [x + 0.7, -5.4, -1.7]);
+    q.push([11, -5.6, -1.8]);
+    vessel(q, 0.16, lite ? 90 : 200);
+  }
+
+  // the cells of the dermis, in coral: their arms sway slowly in the fluid
   const cellMats = [];
   const cellMat = (hot) => {
     const m = new THREE.MeshPhysicalMaterial({ color: hot ? P.coralHot : P.coral, roughness: 0.5, sheen: 1, sheenColor: new THREE.Color(0xffc9b2), sheenRoughness: 0.4, emissive: 0xc8402a, emissiveIntensity: 0.28, bumpMap: bump, bumpScale: 1.4, clearcoat: 0.35, clearcoatRoughness: 0.5 });
@@ -229,32 +270,56 @@ export function createSkin(canvas, opts = {}) {
   {
     const R = rng(17);
     const makeCell = (c, size, mat) => {
-      const tb = TubeBuilder(), arms = 5 + Math.floor(R() * 4), rv = new THREE.Vector3();
+      const tb = TubeBuilder(), arms = 6 + Math.floor(R() * 4), rv = new THREE.Vector3();
       for (let a = 0; a < arms; a++) {
         const d = new THREE.Vector3(R() - 0.5, (R() - 0.5) * 0.9, R() - 0.5).normalize(), p = new THREE.Vector3(), pts = [p.clone()];
-        const len = (1.0 + R() * 1.1) * size, n = 18;
+        const len = (1.5 + R() * 1.2) * size, n = 22;
         const ax = new THREE.Vector3(R() - 0.5, R() - 0.5, R() - 0.5).normalize(), curl = 0.06 + R() * 0.07, wph = R() * 6.28;
         for (let i = 0; i < n; i++) { d.applyAxisAngle(ax, curl * Math.sin(wph + (i / n) * 4.2)); p.addScaledVector(d, len / n); pts.push(p.clone()); }
         rv.set(R() - 0.5, R() - 0.5, R() - 0.5);
-        tb.add(pts, (u) => size * (0.25 * Math.pow(1 - u, 1.1) + 0.026), lite ? 6 : 8, (u) => u);
-        if (R() < 0.5) { const k = 10 + Math.floor(R() * 5), q = pts[k].clone(), d2 = d.clone().add(rv.set(R() - 0.5, R() - 0.5, R() - 0.5)).normalize(), pts2 = [q.clone()];
-          for (let i = 0; i < 9; i++) { q.addScaledVector(d2, len * 0.6 / 9); pts2.push(q.clone()); }
-          tb.add(pts2, (u) => size * (0.045 * (1 - u) + 0.01), 6, (u) => 0.6 + u * 0.4); }
+        tb.add(pts, (u) => size * (0.13 * Math.pow(1 - u, 1.6) + 0.018), lite ? 6 : 8, (u) => u);
+        if (R() < 0.75) { const k = 8 + Math.floor(R() * 8), q = pts[k].clone(), d2 = d.clone().add(rv.set(R() - 0.5, R() - 0.5, R() - 0.5)).normalize(), pts2 = [q.clone()];
+          const ax2 = new THREE.Vector3(R() - 0.5, R() - 0.5, R() - 0.5).normalize(); for (let i = 0; i < 12; i++) { d2.applyAxisAngle(ax2, 0.06); q.addScaledVector(d2, len * 0.55 / 12); pts2.push(q.clone()); }
+          tb.add(pts2, (u) => size * (0.04 * Math.pow(1 - u, 1.3) + 0.014), 6, (u) => 0.5 + u * 0.5); }
       }
       const g = tb.build(), cm = new THREE.Mesh(g, mat);
-      const body = new THREE.IcosahedronGeometry(size * 0.42, 3); const bp = body.attributes.position;
-      for (let i = 0; i < bp.count; i++) { const f = 1 + 0.18 * Math.sin(bp.getX(i) * 9 + bp.getY(i) * 7) * Math.cos(bp.getZ(i) * 8); bp.setXYZ(i, bp.getX(i) * f, bp.getY(i) * f * 0.8, bp.getZ(i) * f); }
+      const body = new THREE.IcosahedronGeometry(size * 0.3, 4); const bp = body.attributes.position;
+      for (let i = 0; i < bp.count; i++) { const f = 1 + 0.08 * Math.sin(bp.getX(i) * 9 + bp.getY(i) * 7) * Math.cos(bp.getZ(i) * 8); bp.setXYZ(i, bp.getX(i) * f, bp.getY(i) * f * 0.8, bp.getZ(i) * f); }
       body.computeVertexNormals(); body.setAttribute('aW', new THREE.Float32BufferAttribute(new Float32Array(bp.count), 1));
       const grp = new THREE.Group(); grp.add(cm, new THREE.Mesh(body, mat)); grp.position.copy(c); grp.rotation.set(R() * 6, R() * 6, R() * 6); tissue.add(grp);
     };
-    const N = lite ? 9 : 18; let made = 0, tries = 0;
-    while (made < N && tries++ < 400) {
-      const tr = trunks[Math.floor(R() * trunks.length)], q = tr[Math.floor(R() * tr.length)];
-      if (blocked(q) || q.y > -4) continue;
-      makeCell(q, 0.8 + R() * 0.6, cool); made++;
+    // fibroblasts: spindle cells lying along the collagen bundles they make
+    const makeFibro = (bd, i, size, mat) => {
+      const tb = TubeBuilder(), rv = new THREE.Vector3();
+      for (const sgn of [1, -1, 0]) {
+        if (sgn === 0 && R() < 0.4) continue;
+        const d = sgn ? new THREE.Vector3(sgn, (R() - 0.5) * 0.15, (R() - 0.5) * 0.15).normalize() : new THREE.Vector3((R() - 0.5) * 0.6, 1, (R() - 0.5) * 0.6).normalize();
+        const p = new THREE.Vector3(sgn * size * 0.3, 0, 0), pts = [p.clone()], len = size * (sgn ? 1.3 + R() * 0.9 : 0.6 + R() * 0.5), ax = new THREE.Vector3(R() - 0.5, R() - 0.5, R() - 0.5).normalize(), cu = 0.04 + R() * 0.05;
+        for (let k = 0; k < 16; k++) { d.applyAxisAngle(ax, cu * Math.sin(k * 0.5)); p.addScaledVector(d, len / 16); pts.push(p.clone()); }
+        tb.add(pts, (u) => size * (0.11 * Math.pow(1 - u, 1.2) + 0.012), lite ? 6 : 8, (u) => u * 0.5);
+      }
+      const body = new THREE.SphereGeometry(1, 24, 16); body.scale(size * 0.5, size * 0.14, size * 0.18);
+      body.setAttribute('aW', new THREE.Float32BufferAttribute(new Float32Array(body.attributes.position.count), 1));
+      const nuc = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 12), new THREE.MeshStandardMaterial({ color: P.nucleus, roughness: 0.5 })); nuc.scale.set(size * 0.22, size * 0.09, size * 0.1); nuc.position.set(0, 0, size * 0.06);
+      const grp = new THREE.Group(); grp.add(new THREE.Mesh(tb.build(), mat), new THREE.Mesh(body, mat), nuc);
+      const [T, Nn, Bn] = bd.F[i]; grp.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(T, Nn, Bn));
+      grp.position.copy(bd.C[i]).addScaledVector(Nn, bd.Rb + size * 0.12); tissue.add(grp);
+    };
+    let made = 0, tries = 0; const NF = lite ? 9 : 20, ND = lite ? 3 : 6;
+    while (made < NF && tries++ < 600) {
+      const bd = bundles[Math.floor(R() * bundles.length)], i = 3 + Math.floor(R() * (bd.C.length - 6));
+      if (bd.Rb < 0.18 || i < 3 || blocked(bd.C[i])) continue;
+      makeFibro(bd, i, 0.75 + R() * 0.4, cool); made++;
+    }
+    // dermal dendritic cells: the skin's resident immune sentinels, star-shaped, sitting in the fluid
+    made = 0; tries = 0;
+    while (made < ND && tries++ < 400) {
+      const q = new THREE.Vector3(X0 + 1 + R() * (X1 - X0 - 2), -5 - R() * 8, -1.5 - R() * 5);
+      if (blocked(q, 9)) continue;
+      makeCell(q, 0.65 + R() * 0.3, cool); made++;
     }
     // three cells close to where the infection will start: they warm and reach as it grows
-    [[-0.6, -10.8, -2.2], [4.6, -8.4, -2.0], [3.2, -11.6, -1.9]].forEach((q) => makeCell(new THREE.Vector3(...q), 1.05, hot));
+    [[-0.8, -10.6, -2.6], [4.8, -8.2, -2.4]].forEach((q) => makeCell(new THREE.Vector3(...q), 0.8, hot));
   }
 
   // small orange lights deep in the haze, flickering; more of them wake near the infection
@@ -290,11 +355,14 @@ export function createSkin(canvas, opts = {}) {
   patch.position.set(0, 0.06, -1.85);
 
   // bacteria, multiplying near the tip of the front needle: small dark rods against the cream
-  const R = rng(21), BN = lite ? 120 : 260, bact = [];
-  const bMesh = new THREE.InstancedMesh(new THREE.CapsuleGeometry(0.07, 0.24, 6, 12), new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.45, sheen: 0.3, sheenColor: new THREE.Color(0xe0a090), bumpMap: bump, bumpScale: 1.6 }), BN);
+  const R = rng(21), BN = lite ? 160 : 352, bact = [];
+  const bMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(0.075, 16, 12), new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.45, sheen: 0.3, sheenColor: new THREE.Color(0xe0a090), bumpMap: bump, bumpScale: 1.6 }), BN);
   for (let i = 0; i < BN; i++) {
-    const a = R() * 6.28, d = Math.pow(R(), 0.7);
-    bact.push({ x: COL.x + Math.cos(a) * d * 2.2, y: COL.y + Math.sin(a) * d * 1.0, z: 0.05 - R() * 1.1, r: [R() * 6.28, R() * 6.28, R() * 6.28], born: 0.44 + (i / BN) * 0.17 + R() * 0.02, ph: R() * 6.28 });
+    // cocci in grape-like clusters, the way Staphylococcus aureus grows
+    const NC = 16, c = i % NC, k = Math.floor(i / NC), ca = c * 2.4, cd = Math.sqrt((c + 0.5) / NC);
+    const cx = COL.x + Math.cos(ca) * cd * 2.0, cy = COL.y + Math.sin(ca) * cd * 0.9, cz = -0.45 + Math.sin(c * 1.7) * 0.4;
+    const u = R() * 2 - 1, th = R() * 6.28, rr = 0.16 * Math.cbrt(k + 1) * 0.55, sq = Math.sqrt(1 - u * u);
+    bact.push({ x: cx + sq * Math.cos(th) * rr, y: cy + u * rr, z: cz + sq * Math.sin(th) * rr, r: [0, 0, 0], born: 0.44 + (k / (BN / NC)) * 0.17 + (c / NC) * 0.02, ph: R() * 6.28 });
     bMesh.setColorAt(i, col.setHex(P.bact[i % 3]));
   }
   scene.add(bMesh);
@@ -334,8 +402,8 @@ export function createSkin(canvas, opts = {}) {
   composer.addPass(new ShaderPass({ uniforms: { tDiffuse: { value: null }, uC: { value: new THREE.Color(P.ground) } },
     vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
     fragmentShader: 'uniform sampler2D tDiffuse; uniform vec3 uC; varying vec2 vUv; void main(){ vec4 c = texture2D(tDiffuse, vUv); if (!(c.r == c.r && c.g == c.g && c.b == c.b) || max(c.r, max(c.g, c.b)) > 60.0) c = vec4(uC, 1.0); gl_FragColor = c; }' }));
-  const bokeh = lite ? null : new BokehPass(scene, camera, { focus: 10, aperture: 0.0032, maxblur: 0.0065 }); if (bokeh) composer.addPass(bokeh);
-  const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), lite ? 0.22 : 0.26, 0.5, 0.97); composer.addPass(bloom);
+  const bokeh = lite ? null : new BokehPass(scene, camera, { focus: 10, aperture: 0.0012, maxblur: 0.0025 }); if (bokeh) composer.addPass(bokeh);
+  const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), lite ? 0.18 : 0.2, 0.45, 0.98); composer.addPass(bloom);
   composer.addPass(new OutputPass());
   const finish = new ShaderPass({
     uniforms: { tDiffuse: { value: null }, uT: { value: 0 }, uRes: { value: new THREE.Vector2(1, 1) } },
@@ -343,7 +411,7 @@ export function createSkin(canvas, opts = {}) {
     fragmentShader: 'uniform sampler2D tDiffuse; uniform float uT; uniform vec2 uRes; varying vec2 vUv;\n' +
       'void main(){ vec4 c = texture2D(tDiffuse, vUv); vec2 q = vUv - 0.5; float v = smoothstep(0.95, 0.25, length(q * vec2(1.0, 1.15)));\n' +
       ' c.rgb *= mix(0.88, 1.0, v); float n = fract(sin(dot(floor(vUv * uRes) + floor(uT * 24.0) * 7.13, vec2(12.9898, 78.233))) * 43758.5453);\n' +
-      ' c.rgb += (n - 0.5) * 0.03; gl_FragColor = c; }'
+      ' c.rgb += (n - 0.5) * 0.008; gl_FragColor = c; }'
   });
   composer.addPass(finish);
 
@@ -355,10 +423,17 @@ export function createSkin(canvas, opts = {}) {
     const u = pathU(p), cp = posCurve.getPointAt(u), lp = lookCurve.getPointAt(u);
     camera.position.set(cp.x + Math.sin(t * 0.3) * 0.12, cp.y + Math.sin(t * 0.4) * 0.08, cp.z); camera.lookAt(lp);
     const dist = cp.distanceTo(lp);
-    scene.fog.density = (lite ? 0.36 : 0.28) / (dist + 3); // misty in close, clearer on the wide views
+    scene.fog.density = (lite ? 0.26 : 0.2) / (dist + 3); // misty in close, clearer on the wide views
 
     for (let i = 0; i < FN; i++) { const s = fSeed[i], x = ((s[0] - X0 + t * s[3]) % (X1 - X0)) + X0; fPos[i * 3] = x; fPos[i * 3 + 1] = s[1] + Math.sin(t * 0.7 + s[4]) * 0.12; fPos[i * 3 + 2] = s[2]; }
     fGeo.attributes.position.needsUpdate = true;
+    for (const f of flows) {
+      for (let i = 0; i < f.n; i++) {
+        const q = ((i / f.n) + t * 0.012) % 1, pt = f.curve.getPointAt(q);
+        dummy.position.copy(pt); dummy.rotation.set(i * 1.3, i * 0.7, i * 0.4); const sc = f.r * 0.62; dummy.scale.set(sc, sc * 0.38, sc); dummy.updateMatrix(); f.m.setMatrixAt(i, dummy.matrix);
+      }
+      f.m.instanceMatrix.needsUpdate = true;
+    }
 
     const inf = ss(0.46, 0.62, p) * (1 - ss(0.95, 1, p));
     for (const g of glows) { const fl = 0.62 + 0.38 * Math.sin(t * g.f + g.ph) * Math.sin(t * g.f * 0.37 + g.ph * 2); const o = g.near ? lerp(0.25, 1, inf) : 0.8; g.sp.material.opacity = o * fl; g.sp.scale.setScalar(g.s * (g.near ? 1 + inf * 0.5 : 1)); }
