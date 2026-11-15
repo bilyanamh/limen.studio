@@ -35,7 +35,7 @@
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}.lm-split .lm-ch{animation-play-state:paused}.lm-split.is-in .lm-ch{animation-play-state:running}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
 @keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#05090B}
-a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-lab .lm-sig{flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;transition:background-color .5s ease,border-color .5s ease}.lm-lab[data-seen="1"] .lm-sig{background:#0B7A57;border-color:#0B7A57}.lm-thr{position:relative;flex:1;height:9px;margin-left:8px}.lm-thr::before{content:"";position:absolute;left:0;right:0;top:4px;height:1px;background:currentColor;opacity:.3}.lm-thr i{position:absolute;top:0;left:calc(var(--p,0) * (100% - 9px));width:9px;height:9px;border-radius:50%;background:#0B7A57;opacity:0;transition:opacity .5s ease}.lm-lab[data-on="1"] .lm-thr i{opacity:1}.lm-unt{display:flex;align-items:flex-end;gap:10px;margin-top:4px}.lm-unt-p{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.6s cubic-bezier(.5,0,.2,1) .3s}.lm-unt-d{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.2);transition:opacity .4s ease 2.7s,transform .5s cubic-bezier(.3,1.6,.5,1) 2.7s}#contact:has(.lm-lab[data-seen="1"]) .lm-unt-p{stroke-dashoffset:0}#contact:has(.lm-lab[data-seen="1"]) .lm-unt-d{opacity:1;transform:none}.lm-lgf{height:22px;width:auto;display:block}@media (prefers-reduced-motion:reduce){.lm-unt-p{stroke-dashoffset:0;transition:none}.lm-unt-d{opacity:1;transform:none;transition:none}.lm-thr i{transition:none}}.lm-ba .bf{display:flex;align-items:center;gap:12px}.lm-ba .bf::before{content:"";flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box}.lm-ba .bf.af::before{background:#0B7A57;border-color:#0B7A57}.lm-disc{display:none}.lm-chc{top:43vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center;gap:18px!important}.lm-chc>div>p:first-child{font-size:13px!important;letter-spacing:.16em!important;color:#A8B3B0!important}.lm-chc>div>p:nth-child(2){max-width:900px;font-size:clamp(34px,4.6vw,72px)!important;font-weight:300!important;text-wrap:balance}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important;gap:26px!important}.lm-chc>div>div>p:first-child{max-width:600px!important;min-height:0!important;font-size:clamp(18px,1.6vw,23px)!important;line-height:1.55!important}.lm-chc .lm-disc{display:none;flex-wrap:wrap;justify-content:center;gap:10px 0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#EEF3F1}.lm-chc .lm-disc span{display:inline-flex;align-items:center}.lm-chc .lm-disc span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:#0B7A57;margin:0 16px}@media (max-width:700px){.lm-chc{top:45vh}.lm-chc .lm-disc{font-size:11px}.lm-chc .lm-disc span+span::before{margin:0 10px}}a:hover{color:#0B7A57}
+a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-in-vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 60% 40%,rgba(15,13,14,0) 45%,rgba(15,13,14,.7) 100%),linear-gradient(to top,rgba(15,13,14,.97) 0,rgba(15,13,14,.9) 22%,rgba(15,13,14,0) 56%)}.lm-in-cap{position:absolute;z-index:2;left:max(24px,calc((100% - 1360px) / 2 + 24px));bottom:9vh;max-width:min(680px,calc(100% - 48px));display:flex;flex-direction:column;gap:14px}.lm-in-n{margin:0;font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.12em;color:#A8B3B0}.lm-in-t{margin:0;font-weight:300;font-size:clamp(32px,4.4vw,66px);line-height:1.02;letter-spacing:-.04em;text-wrap:balance;transition:opacity .45s ease,transform .45s ease}.lm-in-t span{color:#0B7A57}.lm-in-t.out{opacity:0;transform:translateY(10px)}.lm-in-note{margin:6px 0 0;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#A8B3B0}.lm-lab .lm-sig{flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;transition:background-color .5s ease,border-color .5s ease}.lm-lab[data-seen="1"] .lm-sig{background:#0B7A57;border-color:#0B7A57}.lm-thr{position:relative;flex:1;height:9px;margin-left:8px}.lm-thr::before{content:"";position:absolute;left:0;right:0;top:4px;height:1px;background:currentColor;opacity:.3}.lm-thr i{position:absolute;top:0;left:calc(var(--p,0) * (100% - 9px));width:9px;height:9px;border-radius:50%;background:#0B7A57;opacity:0;transition:opacity .5s ease}.lm-lab[data-on="1"] .lm-thr i{opacity:1}.lm-unt{display:flex;align-items:flex-end;gap:10px;margin-top:4px}.lm-unt-p{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.6s cubic-bezier(.5,0,.2,1) .3s}.lm-unt-d{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.2);transition:opacity .4s ease 2.7s,transform .5s cubic-bezier(.3,1.6,.5,1) 2.7s}#contact:has(.lm-lab[data-seen="1"]) .lm-unt-p{stroke-dashoffset:0}#contact:has(.lm-lab[data-seen="1"]) .lm-unt-d{opacity:1;transform:none}.lm-lgf{height:22px;width:auto;display:block}@media (prefers-reduced-motion:reduce){.lm-unt-p{stroke-dashoffset:0;transition:none}.lm-unt-d{opacity:1;transform:none;transition:none}.lm-thr i{transition:none}}.lm-ba .bf{display:flex;align-items:center;gap:12px}.lm-ba .bf::before{content:"";flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box}.lm-ba .bf.af::before{background:#0B7A57;border-color:#0B7A57}.lm-disc{display:none}.lm-chc{top:43vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center;gap:18px!important}.lm-chc>div>p:first-child{font-size:13px!important;letter-spacing:.16em!important;color:#A8B3B0!important}.lm-chc>div>p:nth-child(2){max-width:900px;font-size:clamp(34px,4.6vw,72px)!important;font-weight:300!important;text-wrap:balance}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important;gap:26px!important}.lm-chc>div>div>p:first-child{max-width:600px!important;min-height:0!important;font-size:clamp(18px,1.6vw,23px)!important;line-height:1.55!important}.lm-chc .lm-disc{display:none;flex-wrap:wrap;justify-content:center;gap:10px 0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#EEF3F1}.lm-chc .lm-disc span{display:inline-flex;align-items:center}.lm-chc .lm-disc span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:#0B7A57;margin:0 16px}@media (max-width:700px){.lm-chc{top:45vh}.lm-chc .lm-disc{font-size:11px}.lm-chc .lm-disc span+span::before{margin:0 10px}}a:hover{color:#0B7A57}
 @keyframes limenBlink{0%{opacity:1}50%{opacity:0}}
 .lm-thread{flex:1;height:14px;overflow:visible;min-width:40px}
 .lm-thread path,.lm-mk path,.lm-bub path{fill:none;stroke:#0B7A57;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
@@ -110,6 +110,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 <meta property="og:image" content="og.png">
 <meta name="twitter:card" content="summary_large_image">
 <script src="runtime.js"></script>
+<script type="importmap">{"imports":{"three":"./lib/three.module.min.js"}}</script>
 </head>
 <body>
 <div id="app"></div>
@@ -170,13 +171,26 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 </div>
 </section>
 
-<section id="before-after" class="lm-ba" style="position: relative; z-index: 3; margin-top: -100vh; box-shadow: 0 -24px 60px rgba(0,0,0,0.45); border-radius: 30px 30px 0 0; background: #FFFFFF; color: #0D1413">
+<section id="before-after" class="lm-ba" style="position: relative; z-index: 3; margin-top: -100vh; box-shadow: 0 -24px 60px rgba(0,0,0,0.45), 0 40px 80px rgba(0,0,0,0.55); border-radius: 30px; background: #FFFFFF; color: #0D1413">
 <div style="max-width: 1360px; margin: 0 auto; padding: 110px 24px 150px">
 <p class="bf">Before · what the investor heard</p>
 <p class="jar"><span class="w" style="--i: 0">A</span> <span class="w" style="--i: 1">dual-modal</span> <span class="w" style="--i: 2">biosensor</span> <span class="w" style="--i: 3">using</span> <span class="w" style="--i: 4">closed-loop</span> <span class="w" style="--i: 5">impedance</span> <span class="w" style="--i: 6">spectroscopy</span> <span class="w" style="--i: 7">with</span> <span class="w" style="--i: 8">adaptive</span> <span class="w" style="--i: 9">signal</span> <span class="w" style="--i: 10">deconvolution</span> <span class="w" style="--i: 11">and</span> <span class="w" style="--i: 12">multiplexed</span> <span class="w" style="--i: 13">electrochemical</span> <span class="w" style="--i: 14">transduction</span> <span class="w" style="--i: 15">for</span> <span class="w" style="--i: 16">continuous</span> <span class="w" style="--i: 17">biomarker</span> <span class="w" style="--i: 18">quantification</span></p>
 <p class="bf af" style="margin-top: 72px">After · what they remember</p>
 <p class="aft" style="--d: 2230ms"><span class="a" style="--i: 0">A</span> <span class="a" style="--i: 1">skin</span> <span class="a" style="--i: 2">patch</span> <span class="a" style="--i: 3">that</span> <span class="a" style="--i: 4">warns</span> <span class="a" style="--i: 5">you</span> <span class="a" style="--i: 6">an</span> <span class="a" style="--i: 7">infection</span> <span class="a" style="--i: 8">is</span> <span class="a" style="--i: 9">coming,</span> <span class="a" style="--i: 10; color: #0B7A57">days</span> <span class="a" style="--i: 11; color: #0B7A57">before</span> <span class="a" style="--i: 12; color: #0B7A57">you</span> <span class="a" style="--i: 13; color: #0B7A57">feel</span> <span class="a" style="--i: 14; color: #0B7A57">ill</span></p>
 <p style="margin: 56px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #5C6765">Illustrative example, from the founder in our opening story</p>
+</div>
+</section>
+
+<section id="inside" style="position: relative; z-index: 2; margin-top: -100vh; height: 560vh; background: #0F0D0E; color: #EEF3F1">
+<div style="position: sticky; top: 0; height: 100vh; overflow: hidden">
+<canvas id="lm-in-c" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+<div class="lm-in-vig" aria-hidden="true"></div>
+<div style="position: relative; z-index: 2; max-width: 1360px; margin: 0 auto; padding: 0 24px">
+<div class="lm-lab" style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #A8B3B0">
+<span class="lm-sig" aria-hidden="true"></span><span>Inside the skin</span><span class="lm-thr" aria-hidden="true"><i></i></span>
+</div>
+</div>
+<div class="lm-in-cap" aria-live="polite"><p class="lm-in-n" id="lm-in-n"></p><p class="lm-in-t" id="lm-in-t"></p><p class="lm-in-note">Illustrative concept · 3D mechanism of action, made in code</p></div>
 </div>
 </section>
 
@@ -3018,6 +3032,28 @@ class Component extends DCLogic {
 
   render(html`<${Component} ...${{"accent": "oxblood", "motion": true}} />`, document.getElementById('app'));
 })();
+</script>
+<script type="module">
+import { createSkin, STEPS } from './skin3d.js';
+function boot() {
+  const c = document.getElementById('lm-in-c'); if (!c) { setTimeout(boot, 300); return; }
+  const sec = c.closest('section'), tEl = document.getElementById('lm-in-t'), nEl = document.getElementById('lm-in-n');
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let s = null, vis = false, shown = -1; const t0 = performance.now();
+  const size = () => { const r = c.getBoundingClientRect(); s.resize(Math.max(1, r.width), Math.max(1, r.height)); };
+  const start = () => { try { s = createSkin(c, { lite: innerWidth < 760 || (navigator.hardwareConcurrency || 8) <= 4 }); size(); requestAnimationFrame(loop); } catch (e) { console.warn('3D off', e); } };
+  new IntersectionObserver((es) => { vis = es[0].isIntersecting; if (vis && !s) start(); }, { rootMargin: '100% 0px' }).observe(sec);
+  addEventListener('resize', () => { if (s) size(); });
+  function loop(now) {
+    requestAnimationFrame(loop); if (!vis) return;
+    const r = sec.getBoundingClientRect(), vh = innerHeight;
+    const p = Math.min(1, Math.max(0, (-r.top - vh * 0.7) / (r.height - vh * 1.7)));
+    s.setProgress(p); s.render(reduce ? 3 : (now - t0) / 1000);
+    let i = 0; while (i < STEPS.length - 1 && p >= STEPS[i + 1].p) i++;
+    if (i !== shown) { const first = shown < 0; shown = i; tEl.classList.add('out'); setTimeout(() => { tEl.innerHTML = STEPS[i].h; nEl.textContent = '0' + (i + 1) + ' / 0' + STEPS.length; tEl.classList.remove('out'); }, first ? 0 : 220); }
+  }
+}
+boot();
 </script>
 </body>
 </html>
