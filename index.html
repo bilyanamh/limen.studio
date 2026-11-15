@@ -35,7 +35,7 @@
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}.lm-split .lm-ch{animation-play-state:paused}.lm-split.is-in .lm-ch{animation-play-state:running}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
 @keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#05090B}
-a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-ba .bf{display:flex;align-items:center;gap:12px}.lm-ba .bf::before{content:"";flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box}.lm-ba .bf.af::before{background:#0B7A57;border-color:#0B7A57}.lm-disc{display:none}.lm-chc{top:43vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center;gap:18px!important}.lm-chc>div>p:first-child{font-size:13px!important;letter-spacing:.16em!important;color:#A8B3B0!important}.lm-chc>div>p:nth-child(2){max-width:900px;font-size:clamp(34px,4.6vw,72px)!important;font-weight:300!important;text-wrap:balance}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important;gap:26px!important}.lm-chc>div>div>p:first-child{max-width:600px!important;min-height:0!important;font-size:clamp(18px,1.6vw,23px)!important;line-height:1.55!important}.lm-chc .lm-disc{display:none;flex-wrap:wrap;justify-content:center;gap:10px 0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#EEF3F1}.lm-chc .lm-disc span{display:inline-flex;align-items:center}.lm-chc .lm-disc span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:#0B7A57;margin:0 16px}@media (max-width:700px){.lm-chc{top:45vh}.lm-chc .lm-disc{font-size:11px}.lm-chc .lm-disc span+span::before{margin:0 10px}}a:hover{color:#0B7A57}
+a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.lm-lab .lm-sig{flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box;transition:background-color .5s ease,border-color .5s ease}.lm-lab[data-seen="1"] .lm-sig{background:#0B7A57;border-color:#0B7A57}.lm-thr{position:relative;flex:1;height:9px;margin-left:8px}.lm-thr::before{content:"";position:absolute;left:0;right:0;top:4px;height:1px;background:currentColor;opacity:.3}.lm-thr i{position:absolute;top:0;left:calc(var(--p,0) * (100% - 9px));width:9px;height:9px;border-radius:50%;background:#0B7A57;opacity:0;transition:opacity .5s ease}.lm-lab[data-on="1"] .lm-thr i{opacity:1}.lm-unt{display:flex;align-items:flex-end;gap:10px;margin-top:4px}.lm-unt-p{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.6s cubic-bezier(.5,0,.2,1) .3s}.lm-unt-d{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.2);transition:opacity .4s ease 2.7s,transform .5s cubic-bezier(.3,1.6,.5,1) 2.7s}#contact:has(.lm-lab[data-seen="1"]) .lm-unt-p{stroke-dashoffset:0}#contact:has(.lm-lab[data-seen="1"]) .lm-unt-d{opacity:1;transform:none}.lm-lgf{height:22px;width:auto;display:block}@media (prefers-reduced-motion:reduce){.lm-unt-p{stroke-dashoffset:0;transition:none}.lm-unt-d{opacity:1;transform:none;transition:none}.lm-thr i{transition:none}}.lm-ba .bf{display:flex;align-items:center;gap:12px}.lm-ba .bf::before{content:"";flex:none;width:11px;height:11px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box}.lm-ba .bf.af::before{background:#0B7A57;border-color:#0B7A57}.lm-disc{display:none}.lm-chc{top:43vh;bottom:auto!important;padding:0 24px!important}.lm-chc>div{align-items:center;text-align:center;gap:18px!important}.lm-chc>div>p:first-child{font-size:13px!important;letter-spacing:.16em!important;color:#A8B3B0!important}.lm-chc>div>p:nth-child(2){max-width:900px;font-size:clamp(34px,4.6vw,72px)!important;font-weight:300!important;text-wrap:balance}.lm-chc>div>div{flex-direction:column;align-items:center!important;justify-content:center!important;gap:26px!important}.lm-chc>div>div>p:first-child{max-width:600px!important;min-height:0!important;font-size:clamp(18px,1.6vw,23px)!important;line-height:1.55!important}.lm-chc .lm-disc{display:none;flex-wrap:wrap;justify-content:center;gap:10px 0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#EEF3F1}.lm-chc .lm-disc span{display:inline-flex;align-items:center}.lm-chc .lm-disc span+span::before{content:"";width:6px;height:6px;border-radius:50%;background:#0B7A57;margin:0 16px}@media (max-width:700px){.lm-chc{top:45vh}.lm-chc .lm-disc{font-size:11px}.lm-chc .lm-disc span+span::before{margin:0 10px}}a:hover{color:#0B7A57}
 @keyframes limenBlink{0%{opacity:1}50%{opacity:0}}
 .lm-thread{flex:1;height:14px;overflow:visible;min-width:40px}
 .lm-thread path,.lm-mk path,.lm-bub path{fill:none;stroke:#0B7A57;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
@@ -182,8 +182,8 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 
 <section id="services" style="position: relative; z-index: 3; margin-top: -30px; border-radius: 30px 30px 0 0; background: #0F0D0E; color: #EEF3F1" class="lm-dk">
 <div style="max-width: 1360px; margin: 0 auto; padding: 0 24px">
-<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #A8B3B0">
-<span>Practice</span>
+<div class="lm-lab" style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #A8B3B0">
+<span class="lm-sig" aria-hidden="true"></span><span>Practice</span><span class="lm-thr" aria-hidden="true"><i></i></span>
 </div>
 </div>
 <div style="max-width: 1360px; margin: 0 auto; padding: 120px 24px 160px; display: flex; flex-direction: column; gap: 72px">
@@ -195,7 +195,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 <article class="lm-card" style="border-radius: 30px; background: #0B1418; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refCStory}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">Story</p>
+<p style="margin: 0; display: flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A8B3B0"><svg width="30" height="30" viewBox="-24 -24 48 48" aria-hidden="true" style="flex: none"><circle r="20" fill="none" stroke="#EEF3F1" stroke-width="1.6"></circle><path d="M-12 5 C-5 -11 2 11 12 -4" fill="none" stroke="#EEF3F1" stroke-width="3.6" stroke-linecap="round"></path><circle cx="12" cy="-4" r="3.2" fill="#0B7A57"></circle></svg>Story</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Narrative & scientific storytelling</h3>
 <p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #A8B3B0">The story inside the science, found and told: concepts, scripts and narratives that make complex work feel human.</p>
 </div>
@@ -203,7 +203,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 <article class="lm-card" style="border-radius: 30px; background: #0B1418; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refInv}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">Identity</p>
+<p style="margin: 0; display: flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A8B3B0"><svg width="30" height="30" viewBox="-24 -24 48 48" aria-hidden="true" style="flex: none"><defs><clipPath id="lmMk2"><circle r="19"></circle></clipPath></defs><circle r="20" fill="none" stroke="#EEF3F1" stroke-width="1.6"></circle><g clip-path="url(#lmMk2)" stroke="rgba(238,243,241,0.55)" stroke-width="0.9"><line x1="-8.4" y1="-20" x2="-8.4" y2="20"></line><line x1="0" y1="-20" x2="0" y2="20"></line><line x1="8.4" y1="-20" x2="8.4" y2="20"></line><line x1="-20" y1="-8.4" x2="20" y2="-8.4"></line><line x1="-20" y1="0" x2="20" y2="0"></line><line x1="-20" y1="8.4" x2="20" y2="8.4"></line></g><line x1="-14" y1="14" x2="14" y2="-14" stroke="#0B7A57" stroke-width="1.8" stroke-linecap="round"></line></svg>Identity</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Brand & visual identity</h3>
 <p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #A8B3B0">Identities, visual languages and design systems drawn from the science itself, so the brand looks like the work it stands for.</p>
 </div>
@@ -211,7 +211,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 <article class="lm-card" style="border-radius: 30px; background: #0B1418; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refVis}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">Image</p>
+<p style="margin: 0; display: flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A8B3B0"><svg width="30" height="30" viewBox="-24 -24 48 48" aria-hidden="true" style="flex: none"><circle r="20" fill="none" stroke="#EEF3F1" stroke-width="1.6"></circle><ellipse rx="12.4" ry="9.6" transform="rotate(28)" fill="none" stroke="rgba(238,243,241,0.55)" stroke-width="1"></ellipse><circle cx="2.4" cy="-1.2" r="4.4" fill="#0B7A57"></circle></svg>Image</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Scientific visualization</h3>
 <p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #A8B3B0">Mechanism-of-action stories, product visuals and 2D/3D explainers, accurate enough for scientists and clear enough for everyone else.</p>
 </div>
@@ -219,7 +219,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 <article class="lm-card" style="border-radius: 30px; background: #060608; color: #EEF3F1; border: 1px solid #16212A; overflow: hidden; display: flex; flex-direction: column">
 <canvas ref="${v.refCode}" aria-hidden="true" style="width: 100%; aspect-ratio: 4 / 3; display: block"></canvas>
 <div style="padding: 28px 32px 36px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0B7A57">Code</p>
+<p style="margin: 0; display: flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A8B3B0"><svg width="30" height="30" viewBox="-24 -24 48 48" aria-hidden="true" style="flex: none"><circle r="20" fill="none" stroke="#EEF3F1" stroke-width="1.6"></circle><polyline points="-19,4 -4,4 3,-5 19,-5" fill="none" stroke="rgba(238,243,241,0.55)" stroke-width="1"></polyline><circle cx="-4" cy="4" r="1.4" fill="#EEF3F1"></circle><circle cx="3" cy="-5" r="1.4" fill="#EEF3F1"></circle><circle cx="11" cy="-5" r="3.2" fill="#0B7A57"></circle></svg>Code</p>
 <h3 style="margin: 0; font-weight: 300; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.035em">Creative coding & interactive</h3>
 <p style="margin: 0; font-weight: 300; font-size: 19px; line-height: 1.55; color: #A8B3B0">Generative visuals, data-driven pieces and interactive experiences, built in code for launches, congresses and digital channels.</p>
 </div>
@@ -230,8 +230,8 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 
 <section style="position: relative; z-index: 4; margin-top: -30px; border-radius: 30px 30px 0 0; background: #FFFFFF; color: #0D1413">
 <div style="max-width: 1360px; margin: 0 auto; padding: 0 24px">
-<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
-<span>How it lands</span>
+<div class="lm-lab" style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
+<span class="lm-sig" aria-hidden="true"></span><span>How it lands</span><span class="lm-thr" aria-hidden="true"><i></i></span>
 </div>
 </div>
 <div class="lm-split" style="max-width: 1360px; margin: 0 auto; padding: 110px 24px 150px">
@@ -247,8 +247,8 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 
 <section style="position: relative; z-index: 5; margin-top: -30px; border-radius: 30px 30px 0 0; background: #0F0D0E; color: #EEF3F1" class="lm-dk">
 <div style="max-width: 1360px; margin: 0 auto; padding: 0 24px">
-<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #A8B3B0">
-<span>Approach</span>
+<div class="lm-lab" style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #A8B3B0">
+<span class="lm-sig" aria-hidden="true"></span><span>Approach</span><span class="lm-thr" aria-hidden="true"><i></i></span>
 </div>
 </div>
 <div id="about" ref="${v.refRevA}" class="lm-stagger ${v.revA}" style="max-width: 1360px; margin: 0 auto; padding: 120px 24px 160px; display: flex; flex-direction: column">
@@ -279,8 +279,8 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 
 <section id="contact" onClick="${v.plant}" style="position: relative; z-index: 6; margin-top: -30px; border-radius: 30px 30px 0 0; background: #EEF3F1; color: #0D1413; overflow: hidden; min-height: 92vh; display: flex; flex-direction: column">
 <div style="position: relative; max-width: 1360px; width: 100%; margin: 0 auto; padding: 0 24px; box-sizing: border-box">
-<div style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
-<span>Contact</span>
+<div class="lm-lab" style="display: flex; align-items: center; gap: 14px; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #5C6765">
+<span class="lm-sig" aria-hidden="true"></span><span>Contact</span><span class="lm-thr" aria-hidden="true"><i></i></span>
 </div>
 </div>
 <div style="position: relative; flex: 1; max-width: 1360px; width: 100%; margin: 0 auto; padding: 72px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 64px">
@@ -288,6 +288,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 <div style="display: flex; flex-direction: column; gap: 32px">
 <h2 ref="${v.refRevC}" class="lm-reveal ${v.revC}" style="margin: 0; max-width: 900px; font-size: clamp(44px, 5.6vw, 92px); line-height: 0.98; letter-spacing: -0.048em">Bring us <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw" style="color: #0B7A57">your tangle</span><svg class="lm-mk u" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2.0 13.4 L6.9 12.2 L11.8 12.5 L16.7 11.6 L21.6 12.0 L26.5 10.8 L31.4 11.2 L36.3 10.7 L41.2 10.5 L46.1 10.4 L51.0 9.5 L55.9 9.3 L60.8 9.3 L65.7 8.8 L70.6 8.5 L75.5 8.3 L80.4 8.7 L85.3 8.6 L90.2 8.4 L95.1 7.8 L100.0 8.3 L104.9 8.0 L109.8 7.7 L114.7 7.9 L119.6 7.9 L124.5 7.7 L129.4 8.2 L134.3 8.1 L139.2 8.4 L144.1 8.9 L149.0 8.8 L153.9 8.8 L158.8 9.3 L163.7 9.7 L168.6 9.5 L173.5 10.1 L178.4 9.6 L183.3 9.9 L188.2 10.2 L193.1 11.1 L198.0 11.2 M190.0 17.2 L185.0 17.0 L180.0 17.4 L175.0 17.9 L170.0 17.5 L165.0 17.7 L160.0 17.8 L155.0 18.3 L150.0 18.8 L145.0 18.7 L140.0 18.7 L135.0 18.8 L130.0 18.6 L125.0 19.3 L120.0 18.9 L115.0 18.8 L110.0 18.8 L105.0 19.2 L100.0 18.8 L95.0 19.2 L90.0 18.6 L85.0 18.6 L80.0 18.1 L75.0 18.7 L70.0 18.4 L65.0 18.0 L60.0 17.5 L55.0 17.6 L50.0 17.3 L45.0 17.5 L40.0 17.3"></path></svg></span></h2>
 <p style="margin: 0; max-width: 560px; font-weight: 300; font-size: clamp(20px, 2.1vw, 28px); line-height: 1.4; color: #5C6765">Early idea or finished study, we’ll find the line that makes them lean in.</p>
+<div class="lm-unt" aria-hidden="true"><canvas data-face="founder" style="width: 64px; height: 78px; display: block; flex: none"></canvas><svg viewBox="0 0 372 80" style="width: min(372px, 70vw); height: auto; display: block; overflow: visible"><path class="lm-unt-p" pathLength="1" d="M67.4 40.0 L70.5 48.7 L67.0 58.4 L57.1 66.3 L43.0 67.5 L29.1 64.4 L24.6 52.9 L20.8 44.3 L22.4 35.6 L32.2 30.8 L39.7 28.5 L47.2 33.5 L50.9 33.6 L52.8 36.1 L57.5 36.9 L61.4 40.2 L60.8 44.4 L61.5 51.5 L56.1 58.3 L45.4 65.2 L32.2 62.9 L24.3 54.1 L16.1 45.1 L22.6 34.7 L28.2 26.4 L40.8 25.6 L49.5 28.0 L56.3 27.8 L57.1 34.9 L57.5 38.0 L62.6 40.3 L62.2 44.1 L58.8 46.8 L57.2 54.7 L49.1 56.7 L38.2 57.9 L29.7 52.1 L18.5 44.6 L19.6 33.2 L25.2 22.3 L38.0 16.6 L51.9 19.4 L61.3 23.7 L65.0 30.9 L64.8 36.6 L61.9 40.3 L60.8 42.6 L60.0 45.5 L56.3 45.0 L52.7 50.7 L46.6 50.3 L38.6 48.5 L28.3 43.3 L27.5 33.8 L32.0 24.3 L41.2 16.4 L54.7 12.9 L66.5 19.4 L77.9 23.3 L75.1 34.6 L76.4 41.1 L71.1 46.0 L61.8 44.7 L59.8 48.0 L56.2 45.8 L52.0 46.7 L49.9 44.0 L44.6 41.5 L40.0 35.7 L36.9 25.3 L46.8 20.2 L57.9 13.2 L72.7 13.6 L84.8 20.6 L87.1 32.2 L85.4 41.7 L79.6 48.8 L71.7 52.6 L62.6 48.8 L57.9 49.4 L54.4 46.8 L51.6 44.3 L54.1 40.6 L46.3 36.4 L50.7 32.6 L53.0 25.4 L61.3 19.0 L74.5 16.6 L84.8 23.3 L96.0 31.0 L94.8 42.6 L87.7 51.6 L77.7 56.6 L67.0 56.0 L59.7 51.9 L56.4 47.4 L53.3 44.6 L51.9 40.9 L57.8 38.5 L58.8 36.3 L57.8 28.5 L64.3 26.6 L72.9 25.0 L82.5 27.3 L93.4 32.9 L98.7 43.2 L93.3 53.5 L83.7 60.9 L70.7 61.6 L59.0 62.9 L54.1 52.4 L50.4 46.9 L50.5 41.1 L58.8 37.9 L59.3 34.6 L62.4 31.8 L67.1 31.6 L73.3 29.6 L78.1 32.6 L87.4 35.3 Q 127.4 35.3 120 40 L 352 40" fill="none" stroke="#0D1413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><circle class="lm-unt-d" cx="360" cy="40" r="8" fill="#0B7A57"></circle></svg></div>
 <div class="lm-bubw" style="position: relative; align-self: flex-start; margin-top: 8px"><a href="mailto:contact@limen.com" class="lm-btn" style="display: inline-flex; align-items: center; gap: 12px; min-height: 64px; padding: 0 34px; border-radius: 30px; background: #0D1413; color: #EEF3F1; text-decoration: none; font-size: clamp(18px, 1.6vw, 22px)">contact@limen.com <span aria-hidden="true" class="lm-arrow">→</span></a></div>
 </div>
 <figure class="lm-fig" style="margin: 0; position: relative">
@@ -298,7 +299,7 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 
 </div>
 </section>
-<footer style="position: relative; z-index: 7; background: #0F0D0E; color: #A8B3B0"><div style="max-width: 1360px; margin: 0 auto; padding: 30px 24px; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; font-size: 16px"><span>Working globally</span><a href="#contact" style="color: #EEF3F1">LinkedIn</a><span>© 2026 Limen Studio</span></div></footer>
+<footer style="position: relative; z-index: 7; background: #0F0D0E; color: #A8B3B0"><div style="max-width: 1360px; margin: 0 auto; padding: 30px 24px; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: center; font-size: 16px"><a href="#start" aria-label="limen, back to the top" style="display: block; line-height: 0"><svg class="lm-lgf" aria-hidden="true" viewBox="4.58 -71.00 222.10 73.00"><path fill="#EEF3F1" d="M6.575 0.0V-71.4H15.600000000000001V0.0Z M26.775000000000002 0.0V-47.5H35.825V0.0Z M46.97500000000001 0.0V-47.5H56.00000000000001V0.0ZM79.10000000000001 0.0V-28.700000000000003Q79.10000000000001 -34.0 75.85000000000001 -37.0375Q72.60000000000001 -40.075 67.72500000000001 -40.075Q64.42500000000001 -40.075 61.78750000000001 -38.7Q59.150000000000006 -37.325 57.575 -34.8Q56.00000000000001 -32.275 56.00000000000001 -28.75L52.25000000000001 -30.575000000000003Q52.25000000000001 -36.025 54.6375 -40.025000000000006Q57.025000000000006 -44.025000000000006 61.112500000000004 -46.2625Q65.2 -48.5 70.275 -48.5Q75.32500000000002 -48.5 79.36250000000001 -46.3Q83.4 -44.1 85.7625 -40.1Q88.125 -36.1 88.125 -30.55V0.0ZM111.22500000000001 0.0V-28.700000000000003Q111.22500000000001 -34.0 107.97500000000001 -37.0375Q104.72500000000001 -40.075 99.85000000000001 -40.075Q96.625 -40.075 93.95 -38.7Q91.275 -37.325 89.7 -34.8Q88.125 -32.275 88.125 -28.75L82.95000000000002 -30.575000000000003Q83.32500000000002 -36.050000000000004 85.95000000000002 -40.03750000000001Q88.57500000000002 -44.025000000000006 92.775 -46.2625Q96.97500000000001 -48.5 102.025 -48.5Q107.15 -48.5 111.26250000000002 -46.3Q115.37500000000001 -44.1 117.81250000000001 -40.087500000000006Q120.25000000000001 -36.075 120.25000000000001 -30.525000000000002V0.0Z M152.47500000000002 1.0Q145.35000000000002 1.0 139.675 -2.225Q134.0 -5.45 130.7 -11.0875Q127.4 -16.725 127.4 -23.775000000000002Q127.4 -30.8 130.6375 -36.3875Q133.875 -41.975 139.45 -45.2375Q145.025 -48.5 151.875 -48.5Q158.45000000000002 -48.5 163.5 -45.4875Q168.55 -42.475 171.4375 -37.2Q174.32500000000002 -31.925 174.32500000000002 -25.150000000000002Q174.32500000000002 -24.150000000000002 174.20000000000002 -23.0Q174.07500000000002 -21.85 173.8 -20.400000000000002H133.725V-27.875H169.025L165.72500000000002 -25.0Q165.675 -29.775000000000002 164.0 -33.15Q162.32500000000002 -36.525 159.22500000000002 -38.3625Q156.125 -40.2 151.70000000000002 -40.2Q147.05 -40.2 143.5875 -38.1875Q140.125 -36.175000000000004 138.2125 -32.575Q136.3 -28.975 136.3 -24.05Q136.3 -19.075 138.3125 -15.325Q140.32500000000002 -11.575000000000001 144.0 -9.512500000000001Q147.675 -7.45 152.5 -7.45Q156.47500000000002 -7.45 159.85000000000002 -8.875Q163.22500000000002 -10.3 165.57500000000002 -13.075000000000001L171.35000000000002 -7.2250000000000005Q167.95000000000002 -3.225 163.01250000000002 -1.1125Q158.07500000000002 1.0 152.47500000000002 1.0Z M215.65 0.0V-27.650000000000002Q215.65 -33.125 212.28750000000002 -36.6Q208.925 -40.075 203.5433673469388 -40.075Q199.88086734693877 -40.075 197.07793367346937 -38.4875Q194.275 -36.9 192.6875 -34.1Q191.1 -31.3 191.1 -27.675L187.35 -29.775000000000002Q187.35 -35.2 189.7875 -39.4125Q192.225 -43.625 196.49219543147208 -46.0625Q200.75939086294417 -48.5 206.15469543147208 -48.5Q211.55 -48.5 215.7375 -45.8125Q219.925 -43.125 222.3 -38.7625Q224.675 -34.4 224.675 -29.450000000000003V0.0ZM182.075 0.0V-47.5H191.1V0.0Z"></path><circle cx="31.38" cy="-62" r="7" fill="#0B7A57"></circle></svg></a><span>Working globally</span><a href="#contact" style="color: #EEF3F1">LinkedIn</a><span>© 2026 Limen Studio</span></div></footer>
 
 </div>
 `; }
@@ -2763,10 +2764,29 @@ class Component extends DCLogic {
   return { draw: draw, dot: dotPos, mini: mini, DUR: DUR, STILL: STILL };
 }
 
+  setupSignal() {
+    const rows = Array.from(document.querySelectorAll('.lm-lab'));
+    const tick = () => {
+      const vh = window.innerHeight;
+      for (const r of rows) {
+        const sec = r.closest('section'); if (!sec) continue;
+        const b = sec.getBoundingClientRect();
+        const on = b.top < vh * 0.65 && b.bottom > vh * 0.25 ? '1' : '0';
+        if (r.getAttribute('data-on') !== on) r.setAttribute('data-on', on);
+        if (b.top < vh * 0.65 && r.getAttribute('data-seen') !== '1') r.setAttribute('data-seen', '1');
+        const p = Math.min(1, Math.max(0, (vh * 0.65 - b.top) / Math.max(1, b.height - vh * 0.4)));
+        const t = r.querySelector('.lm-thr'); if (t && t.__p !== p) { t.__p = p; t.style.setProperty('--p', p.toFixed(4)); }
+      }
+      this.sigRaf = requestAnimationFrame(tick);
+    };
+    this.sigRaf = requestAnimationFrame(tick);
+  }
+
   componentDidMount() {
     this.ensureRefs();
     setTimeout(() => this.setupRise(), 300);
     this.setupReveal();
+    this.setupSignal();
     const A = this.buildAnims();
     const reduceMQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
     const SPEC = {
@@ -2953,6 +2973,7 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    if (this.sigRaf) cancelAnimationFrame(this.sigRaf);
     if (this.onUser) ['wheel', 'touchstart', 'keydown'].forEach((ev) => window.removeEventListener(ev, this.onUser));
     if (this.riseIO) this.riseIO.disconnect(); if (this.baIO) this.baIO.disconnect(); if (this.mkIO) this.mkIO.disconnect(); if (this.riseScroll) window.removeEventListener('scroll', this.riseScroll, { capture: true }); if (this.io) this.io.disconnect(); if (this.raf) window.cancelAnimationFrame(this.raf); window.removeEventListener('pointermove', this.onMove); window.removeEventListener('pointerdown', this.onDown); }
 
