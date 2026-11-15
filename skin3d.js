@@ -70,7 +70,7 @@ function TubeBuilder() {
 export function createSkin(canvas, opts = {}) {
   const lite = !!opts.lite;
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: !lite, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1.25 : 1.6));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1.5 : 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 0.95;
 
@@ -111,9 +111,9 @@ export function createSkin(canvas, opts = {}) {
   const uT = { value: 0 };
   // a fine, fibrous surface texture used as a bump map on fibres and cells
   const bump = (() => {
-    const c = document.createElement('canvas'); c.width = 256; c.height = 128; const x = c.getContext('2d'), R = rng(5);
-    x.fillStyle = '#808080'; x.fillRect(0, 0, 256, 128);
-    for (let i = 0; i < 2600; i++) { const v = 90 + R() * 120 | 0; x.fillStyle = `rgba(${v},${v},${v},${0.25 + R() * 0.4})`; const r = 0.6 + R() * 2.4; x.beginPath(); x.ellipse(R() * 256, R() * 128, r * 1.8, r, 0, 0, 6.28); x.fill(); }
+    const c = document.createElement('canvas'); c.width = 512; c.height = 256; const x = c.getContext('2d'), R = rng(5);
+    x.fillStyle = '#808080'; x.fillRect(0, 0, 512, 256); for (let i = 0; i < 512; i += 3 + (R() * 4 | 0)) { x.fillStyle = `rgba(${R() < 0.5 ? 60 : 200},${R() < 0.5 ? 60 : 200},128,0.18)`; x.fillRect(i, 0, 1 + R() * 1.5, 256); }
+    for (let i = 0; i < 9000; i++) { const v = 90 + R() * 120 | 0; x.fillStyle = `rgba(${v},${v},${v},${0.25 + R() * 0.4})`; const r = 0.6 + R() * 2.4; x.beginPath(); x.ellipse(R() * 512, R() * 256, r * 1.4, r * 0.8, 0, 0, 6.28); x.fill(); }
     const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
   })();
 
@@ -162,7 +162,7 @@ export function createSkin(canvas, opts = {}) {
   // the dermis: a deep network of branching cream fibres
   const trunks = [];
   {
-    const R = rng(11), tb = TubeBuilder(), radial = lite ? 6 : 9;
+    const R = rng(11), RH = rng(13), tb = TubeBuilder(), radial = lite ? 7 : 12;
     const dir = new THREE.Vector3(), rv = new THREE.Vector3();
     const walk = (start, d0, len, step, turn, steer = true) => {
       const pts = [start.clone()], d = d0.clone().normalize(), p = start.clone();
@@ -185,6 +185,12 @@ export function createSkin(canvas, opts = {}) {
       tb.add(pts, trunk ? (u) => r0 * Math.pow(Math.sin(Math.PI * clamp(u * 0.96 + 0.02)), 0.7) * (1 + 0.14 * Math.sin(u * pts.length * 0.9 + r0 * 40))
         : (u) => (r0 * Math.pow(1 - u, 0.75) + 0.008) * (1 + 0.12 * Math.sin(u * pts.length * 1.3)), radial);
       if (trunk) trunks.push(pts);
+      const nh = Math.floor(pts.length * (lite ? 0.08 : 0.2));
+      for (let h = 0; h < nh; h++) {
+        const i = 1 + Math.floor(RH() * (pts.length - 2)), q = pts[i].clone(), d = new THREE.Vector3(RH() - 0.5, RH() - 0.5, RH() - 0.5).normalize(), hp = [q.clone()], hl = 0.6 + RH() * 1.8;
+        for (let k = 0; k < 10; k++) { rv.set(RH() - 0.5, RH() - 0.5, RH() - 0.5); d.addScaledVector(rv, 0.3).normalize(); q.addScaledVector(d, hl / 10); hp.push(q.clone()); }
+        if (!blocked(q)) tb.add(hp, (u) => 0.022 * (1 - u * 0.7), 4);
+      }
       if (depth <= 0) return;
       const nb = depth === 2 ? 2 + Math.floor(R() * 3) : 1 + Math.floor(R() * 3);
       for (let b = 0; b < nb; b++) {
@@ -204,14 +210,14 @@ export function createSkin(canvas, opts = {}) {
       grow(pts, thick ? 0.2 + R() * 0.14 : 0.07 + R() * 0.12, lite ? 1 : 2, true);
     }
     const g = tb.build();
-    const m = new THREE.Mesh(g, new THREE.MeshPhysicalMaterial({ color: P.fibre, roughness: 0.82, sheen: 1, sheenColor: new THREE.Color(0xffffff), sheenRoughness: 0.55, bumpMap: bump, bumpScale: lite ? 1.4 : 3 }));
+    const m = new THREE.Mesh(g, new THREE.MeshPhysicalMaterial({ color: P.fibre, roughness: 0.82, sheen: 1, sheenColor: new THREE.Color(0xffffff), sheenRoughness: 0.55, bumpMap: bump, bumpScale: lite ? 1.6 : 2.2 }));
     tissue.add(m);
   }
 
   // coral star-shaped immune cells resting on the fibres, their arms swaying slowly
   const cellMats = [];
   const cellMat = (hot) => {
-    const m = new THREE.MeshPhysicalMaterial({ color: hot ? P.coralHot : P.coral, roughness: 0.5, sheen: 1, sheenColor: new THREE.Color(0xffc9b2), sheenRoughness: 0.4, emissive: 0xc8402a, emissiveIntensity: 0.28, bumpMap: bump, bumpScale: 0.5, clearcoat: 0.35, clearcoatRoughness: 0.5 });
+    const m = new THREE.MeshPhysicalMaterial({ color: hot ? P.coralHot : P.coral, roughness: 0.5, sheen: 1, sheenColor: new THREE.Color(0xffc9b2), sheenRoughness: 0.4, emissive: 0xc8402a, emissiveIntensity: 0.28, bumpMap: bump, bumpScale: 1.4, clearcoat: 0.35, clearcoatRoughness: 0.5 });
     const amp = { value: hot ? 0.16 : 0.1 };
     m.onBeforeCompile = (sh) => {
       sh.uniforms.uT = uT; sh.uniforms.uAmp = amp;
@@ -285,7 +291,7 @@ export function createSkin(canvas, opts = {}) {
 
   // bacteria, multiplying near the tip of the front needle: small dark rods against the cream
   const R = rng(21), BN = lite ? 120 : 260, bact = [];
-  const bMesh = new THREE.InstancedMesh(new THREE.CapsuleGeometry(0.07, 0.24, 6, 12), new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.4, sheen: 0.3, sheenColor: new THREE.Color(0xe0a090) }), BN);
+  const bMesh = new THREE.InstancedMesh(new THREE.CapsuleGeometry(0.07, 0.24, 6, 12), new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.45, sheen: 0.3, sheenColor: new THREE.Color(0xe0a090), bumpMap: bump, bumpScale: 1.6 }), BN);
   for (let i = 0; i < BN; i++) {
     const a = R() * 6.28, d = Math.pow(R(), 0.7);
     bact.push({ x: COL.x + Math.cos(a) * d * 2.2, y: COL.y + Math.sin(a) * d * 1.0, z: 0.05 - R() * 1.1, r: [R() * 6.28, R() * 6.28, R() * 6.28], born: 0.44 + (i / BN) * 0.17 + R() * 0.02, ph: R() * 6.28 });
@@ -328,8 +334,8 @@ export function createSkin(canvas, opts = {}) {
   composer.addPass(new ShaderPass({ uniforms: { tDiffuse: { value: null }, uC: { value: new THREE.Color(P.ground) } },
     vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
     fragmentShader: 'uniform sampler2D tDiffuse; uniform vec3 uC; varying vec2 vUv; void main(){ vec4 c = texture2D(tDiffuse, vUv); if (!(c.r == c.r && c.g == c.g && c.b == c.b) || max(c.r, max(c.g, c.b)) > 60.0) c = vec4(uC, 1.0); gl_FragColor = c; }' }));
-  const bokeh = lite ? null : new BokehPass(scene, camera, { focus: 10, aperture: 0.009, maxblur: 0.016 }); if (bokeh) composer.addPass(bokeh);
-  const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), lite ? 0.3 : 0.38, 0.6, 0.95); composer.addPass(bloom);
+  const bokeh = lite ? null : new BokehPass(scene, camera, { focus: 10, aperture: 0.0032, maxblur: 0.0065 }); if (bokeh) composer.addPass(bokeh);
+  const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), lite ? 0.22 : 0.26, 0.5, 0.97); composer.addPass(bloom);
   composer.addPass(new OutputPass());
   const finish = new ShaderPass({
     uniforms: { tDiffuse: { value: null }, uT: { value: 0 }, uRes: { value: new THREE.Vector2(1, 1) } },
@@ -349,7 +355,7 @@ export function createSkin(canvas, opts = {}) {
     const u = pathU(p), cp = posCurve.getPointAt(u), lp = lookCurve.getPointAt(u);
     camera.position.set(cp.x + Math.sin(t * 0.3) * 0.12, cp.y + Math.sin(t * 0.4) * 0.08, cp.z); camera.lookAt(lp);
     const dist = cp.distanceTo(lp);
-    scene.fog.density = (lite ? 0.62 : 0.46) / (dist + 3); // misty in close, clearer on the wide views
+    scene.fog.density = (lite ? 0.36 : 0.28) / (dist + 3); // misty in close, clearer on the wide views
 
     for (let i = 0; i < FN; i++) { const s = fSeed[i], x = ((s[0] - X0 + t * s[3]) % (X1 - X0)) + X0; fPos[i * 3] = x; fPos[i * 3 + 1] = s[1] + Math.sin(t * 0.7 + s[4]) * 0.12; fPos[i * 3 + 2] = s[2]; }
     fGeo.attributes.position.needsUpdate = true;
