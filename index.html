@@ -968,37 +968,37 @@ class Component extends DCLogic {
         // each world has its own small mark inside its ring: a cell, a grid, a brushstroke, a circuit
         function worldMark(q, x, y, r, a, tt) {
           if (a <= 0.01) return;
-          var W1 = 'rgba(238,243,241,' + a.toFixed(3) + ')', W2 = 'rgba(238,243,241,' + (a * 0.55).toFixed(3) + ')', G1 = 'rgba(11,122,87,' + a.toFixed(3) + ')';
+          var W1 = 'rgba(238,243,241,' + a.toFixed(3) + ')', W2 = 'rgba(238,243,241,' + (a * 0.85).toFixed(3) + ')', G1 = 'rgba(11,122,87,' + a.toFixed(3) + ')';
           ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-          ctx.strokeStyle = W1; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.29); ctx.stroke();
+          ctx.strokeStyle = W1; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.29); ctx.stroke();
           ctx.beginPath(); ctx.arc(x, y, r - 1, 0, 6.29); ctx.clip(); ctx.fillStyle = DARK; ctx.fillRect(x - r, y - r, 2 * r, 2 * r);
           if (q === 0) { // science: a cell with its nucleus, slowly breathing
             var br = 1 + 0.06 * Math.sin(tt * 2.2);
-            ctx.strokeStyle = W2; ctx.lineWidth = 1; ctx.beginPath(); ctx.ellipse(x, y, r * 0.62 * br, r * 0.48 * br, 0.5, 0, 6.29); ctx.stroke();
+            ctx.strokeStyle = W2; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.ellipse(x, y, r * 0.62 * br, r * 0.48 * br, 0.5, 0, 6.29); ctx.stroke();
             ctx.fillStyle = G1; ctx.beginPath(); ctx.arc(x + r * 0.12, y - r * 0.06, r * 0.22, 0, 6.29); ctx.fill();
           } else if (q === 1) { // design: a construction grid with a golden diagonal
-            ctx.strokeStyle = W2; ctx.lineWidth = 0.9;
+            ctx.strokeStyle = W2; ctx.lineWidth = 1.2;
             for (var gi = -1; gi <= 1; gi++) { ctx.beginPath(); ctx.moveTo(x + gi * r * 0.42, y - r); ctx.lineTo(x + gi * r * 0.42, y + r); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x - r, y + gi * r * 0.42); ctx.lineTo(x + r, y + gi * r * 0.42); ctx.stroke(); }
-            ctx.strokeStyle = G1; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - r * 0.7, y + r * 0.7); ctx.lineTo(x + r * 0.7, y - r * 0.7); ctx.stroke();
+            ctx.strokeStyle = G1; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - r * 0.7, y + r * 0.7); ctx.lineTo(x + r * 0.7, y - r * 0.7); ctx.stroke();
           } else if (q === 2) { // art: a single loose brushstroke
             var sw = Math.sin(tt * 1.6) * r * 0.08;
             ctx.strokeStyle = W1; ctx.lineWidth = r * 0.22; ctx.beginPath(); ctx.moveTo(x - r * 0.6, y + r * 0.25); ctx.bezierCurveTo(x - r * 0.25, y - r * 0.55 + sw, x + r * 0.1, y + r * 0.55 - sw, x + r * 0.6, y - r * 0.2); ctx.stroke();
             ctx.fillStyle = G1; ctx.beginPath(); ctx.arc(x + r * 0.6, y - r * 0.2, r * 0.16, 0, 6.29); ctx.fill();
           } else { // technology: a circuit trace with a travelling pulse
-            ctx.strokeStyle = W2; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x - r, y + r * 0.2); ctx.lineTo(x - r * 0.2, y + r * 0.2); ctx.lineTo(x + r * 0.15, y - r * 0.25); ctx.lineTo(x + r, y - r * 0.25); ctx.stroke();
+            ctx.strokeStyle = W2; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - r, y + r * 0.2); ctx.lineTo(x - r * 0.2, y + r * 0.2); ctx.lineTo(x + r * 0.15, y - r * 0.25); ctx.lineTo(x + r, y - r * 0.25); ctx.stroke();
             ctx.fillStyle = W1; ctx.beginPath(); ctx.arc(x - r * 0.2, y + r * 0.2, 1.4, 0, 6.29); ctx.fill(); ctx.beginPath(); ctx.arc(x + r * 0.15, y - r * 0.25, 1.4, 0, 6.29); ctx.fill();
             var ph = (tt * 0.6) % 1, pxp = ph < 0.4 ? x - r + (r * 0.8) * (ph / 0.4) : ph < 0.6 ? x - r * 0.2 + r * 0.35 * ((ph - 0.4) / 0.2) : x + r * 0.15 + r * 0.85 * ((ph - 0.6) / 0.4), pyp = ph < 0.4 ? y + r * 0.2 : ph < 0.6 ? y + r * 0.2 - r * 0.45 * ((ph - 0.4) / 0.2) : y - r * 0.25;
             ctx.fillStyle = G1; ctx.beginPath(); ctx.arc(pxp, pyp, r * 0.16, 0, 6.29); ctx.fill();
           }
           ctx.restore();
         }
-        var cx = w / 2, ly = h * (mobile ? 0.3 : 0.24), L = Math.min(w * (mobile ? 0.4 : 0.34), 520);
+        var cx = w / 2, ly = h * (mobile ? 0.3 : 0.24), L = Math.min(w * (mobile ? 0.36 : 0.26), 400);
         var lineA = a5 * (1 - sstep(0.7, 1, m));
         ctx.strokeStyle = 'rgba(238,243,241,' + (0.32 * lineA).toFixed(3) + ')'; ctx.lineWidth = 1.2;
         ctx.beginPath(); ctx.moveTo(cx - L * 1.12, ly); ctx.lineTo(cx + L * 1.12, ly); ctx.stroke();
         var names = ['SCIENCE', 'DESIGN', 'ART', 'TECHNOLOGY'], at = [-1, -0.36, 0.36, 1];
         ctx.font = (mobile ? "11px" : "14px") + " 'IBM Plex Mono', ui-monospace, monospace"; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-        var dr = mobile ? 14 : 20, S = mobile ? 1.2 : 2, px = cx + (31.38 - 115.63) * S;
+        var dr = mobile ? 18 : 28, S = mobile ? 1.2 : 2, px = cx + (31.38 - 115.63) * S;
         for (var q = 0; q < 4; q++) {
           var x = px + (cx + L * at[q] - px) * (1 - em), ra = a5 * (1 - sstep(0.5, 0.66, m));
           worldMark(q, x, ly, dr, ra, t);
@@ -2889,7 +2889,7 @@ class Component extends DCLogic {
           ix.mx = m && m.in ? m.x - r.left : -1; ix.my = m && m.in ? m.y - r.top : -1;
           const target = ix.mx >= 0 ? ix.mx : -1;
           ix.sigX = target < 0 ? (ix.sigX < 0 ? -1 : ix.sigX) : (ix.sigX < 0 ? target : ix.sigX + (target - ix.sigX) * 0.08);
-          ix.pings = (this.pings || []).filter((q) => now - q.t0 < 2); ix.noSig = noSig; ix.qClose = qClose; ix.bg = this.vid2; ix.fa = footA; ix.c2 = seg === 1 ? Math.min(1, Math.max(0, (u - 0.04) / 0.55)) : 0; ix.c2w = seg === 1 ? Math.min(1, Math.max(0, (u - 0.48) / 0.3)) : 0;
+          ix.pings = (this.pings || []).filter((q) => now - q.t0 < 2); ix.noSig = noSig; ix.qClose = qClose; ix.bg = this.vid2; ix.fa = footA; ix.c2 = seg === 1 ? Math.min(1, Math.max(0, (u - 0.04) / 0.75)) : 0; ix.c2w = seg === 1 ? Math.min(1, Math.max(0, (u - 0.64) / 0.3)) : 0;
           this.pings = ix.pings;
           A.story(ctx, r.width, r.height, still ? 4 : now, pgv, this.vid, ix);
           const th = A.storyTheme(pgv); const dark = !(th.lightTop < 0.75 && th.dTop > 0.75);
