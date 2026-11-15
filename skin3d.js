@@ -18,8 +18,8 @@ export const STEPS = [
 ];
 
 const P = {
-  night: 0x0F0D0E, skin: 0xE48AA2, sheen: 0xFFC9D8, cells: [0xF3A6BC, 0xE9809E, 0xF7C3D1, 0xD96F91, 0xEFB0C4],
-  basal: [0xC86C9C, 0xB65E92, 0xD37AA6], membrane: 0xA77CC4, collagen: [0xF2B6AA, 0xE99DA2, 0xF6C8B8, 0xDFA0B6],
+  night: 0x0F0D0E, skin: 0xE48AA2, sheen: 0xFFC9D8, cells: [0xE98AA6, 0xD9668A, 0xEFA6BC, 0xC85580, 0xE296B0],
+  basal: [0xC86C9C, 0xB65E92, 0xD37AA6], membrane: 0xA77CC4, collagen: [0xE59A92, 0xD97C88, 0xEDB0A4, 0xCF8AA2],
   fibro: 0xC48BC9, vessel: 0xC0244A, vein: 0x6F5BB0, rbc: 0xD3203F, fat: 0xF3CFA4, patch: 0xF5EEF2,
   bact: [0xC9A23A, 0x9FB24A, 0xB3943C], marker: 0xFF4F86, glow: 0xFFD9E6
 };
@@ -34,23 +34,25 @@ export function createSkin(canvas, opts = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: !lite, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1.25 : 1.6));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.95;
+  renderer.toneMappingExposure = 0.84;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(P.night);
-  scene.fog = new THREE.FogExp2(0x12060d, 0.07);
+  scene.background = new THREE.Color(0xEEF3F1); // paper: the section reads as a clean medical plate
+  scene.fog = new THREE.FogExp2(0xEEF3F1, 0.05);
   const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 120);
 
   // light: a warm pink key from above, a magenta glow from inside the tissue, a cool violet rim
-  scene.add(new THREE.HemisphereLight(0xffc2d8, 0x1a0612, 0.45));
-  const key = new THREE.DirectionalLight(0xffdbe6, 2.0); key.position.set(-6, 12, 14); scene.add(key);
+  scene.add(new THREE.HemisphereLight(0xfff4f7, 0xb98aa0, 0.7));
+  const key = new THREE.DirectionalLight(0xfff0f4, 2.8); key.position.set(-6, 12, 14); scene.add(key);
   const rim = new THREE.DirectionalLight(0x9a7cff, 1.2); rim.position.set(10, -4, -6); scene.add(rim);
   const inner = new THREE.PointLight(0xff2f74, 140, 0, 2); inner.position.set(5, -6, 6); scene.add(inner);
   const tipLight = new THREE.PointLight(0xffb3cc, 0, 0, 2); tipLight.position.set(0, -7.3, 0.6); scene.add(tipLight);
   const patchLight = new THREE.PointLight(0xfff0f5, 0, 0, 2); patchLight.position.set(0, 1.2, 1.2); scene.add(patchLight);
 
-  const phys = (color, o = {}) => new THREE.MeshPhysicalMaterial({ color, roughness: 0.45, sheen: 0.8, sheenColor: new THREE.Color(P.sheen), sheenRoughness: 0.5, clearcoat: 0.25, clearcoatRoughness: 0.5, ...o });
+  const phys = (color, o = {}) => new THREE.MeshPhysicalMaterial({ color, roughness: 0.45, sheen: 0.45, sheenColor: new THREE.Color(P.sheen), sheenRoughness: 0.5, clearcoat: 0.25, clearcoatRoughness: 0.5, ...o });
   const tissue = new THREE.Group(); scene.add(tissue);
+  // deep tissue behind the cut face, so gaps between structures read as flesh, not paper
+  { const back = new THREE.Mesh(new THREE.PlaneGeometry(24, 15), new THREE.MeshStandardMaterial({ color: 0x9C4467, roughness: 0.9 })); back.position.set(0, -8.6, -6.2); tissue.add(back); }
   const dummy = new THREE.Object3D(), col = new THREE.Color();
   const X0 = -11, X1 = 11, Z0 = -7;
 
@@ -171,7 +173,7 @@ export function createSkin(canvas, opts = {}) {
   for (let i = 0; i < FN; i++) { fSeed.push([X0 + R() * (X1 - X0), -3.4 - R() * 9.5, 0.6 - R() * 3, 0.1 + R() * 0.25, R() * 6.28]); }
   const fGeo = new THREE.BufferGeometry(); fGeo.setAttribute('position', new THREE.BufferAttribute(fPos, 3));
   const dotTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.35, 'rgba(255,220,235,0.6)'); g.addColorStop(1, 'rgba(255,200,220,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
-  const fluid = new THREE.Points(fGeo, new THREE.PointsMaterial({ size: 0.09, map: dotTex, color: P.glow, transparent: true, opacity: 0.75, depthWrite: false, blending: THREE.AdditiveBlending }));
+  const fluid = new THREE.Points(fGeo, new THREE.PointsMaterial({ size: 0.09, map: dotTex, color: P.glow, transparent: true, opacity: 0.75, depthWrite: false, blending: THREE.NormalBlending }));
   scene.add(fluid);
 
   // the signal: light running up the needle once the markers have bound
@@ -196,7 +198,7 @@ export function createSkin(canvas, opts = {}) {
   // post: a soft bloom so the markers and the signal glow like the light in the tissue
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
-  const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), lite ? 0.5 : 0.62, 0.55, 0.86); composer.addPass(bloom);
+  const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), lite ? 0.35 : 0.45, 0.5, 0.97); composer.addPass(bloom);
   composer.addPass(new OutputPass());
 
   let p = 0;
@@ -204,7 +206,7 @@ export function createSkin(canvas, opts = {}) {
   function render(t) {
     const u = pathU(p), cp = posCurve.getPointAt(u), lp = lookCurve.getPointAt(u);
     camera.position.set(cp.x + Math.sin(t * 0.3) * 0.12, cp.y + Math.sin(t * 0.4) * 0.08, cp.z); camera.lookAt(lp);
-    scene.fog.density = 0.75 / (cp.distanceTo(lp) + 4); // thinner haze on wide views, thick haze close in
+    scene.fog.density = 0.22 / (cp.distanceTo(lp) + 6); // thinner haze on wide views, thick haze close in
 
     for (const f of flows) {
       for (let i = 0; i < f.n; i++) {
