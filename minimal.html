@@ -18,7 +18,7 @@
 .lm-chat .who{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7F8A88;margin:0 6px 6px}
 .lm-chat .msg{max-width:84%;padding:14px 18px;border-radius:20px;font-size:clamp(16px,1.35vw,19px);line-height:1.45;font-weight:300}
 .lm-chat .them{align-self:flex-start;background:#E6ECEA;color:#0D1413;border-bottom-left-radius:6px}
-.lm-chat .me{align-self:flex-end;background:#0B7A57;color:#EEF3F1;border-bottom-right-radius:6px}
+.lm-chat .me{align-self:flex-end;background:#0A7A6E;color:#EEF3F1;border-bottom-right-radius:6px}
 .lm-chat .row{display:flex;flex-direction:column}
 .lm-chat .row.r{align-items:flex-end}
 .lm-chat .meta{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#A8A29D;margin:6px 8px 0}
@@ -27,7 +27,7 @@
 .lm-dots i:nth-child(2){animation-delay:.15s}.lm-dots i:nth-child(3){animation-delay:.3s}
 @keyframes lmDot{0%,60%,100%{opacity:.25;transform:none}30%{opacity:1;transform:translateY(-3px)}}
 .lm-aud{display:grid;grid-template-columns:88px minmax(0,5fr) minmax(0,7fr);gap:8px 40px;align-items:center;padding:30px 0;border-top:1px solid #D3DBD9}
-.lm-aud h3{margin:0;font-weight:300;font-size:clamp(34px,4.4vw,68px);line-height:1;letter-spacing:-.045em;color:#0B7A57}
+.lm-aud h3{margin:0;font-weight:300;font-size:clamp(34px,4.4vw,68px);line-height:1;letter-spacing:-.045em;color:#0A7A6E}
 .lm-aud p{margin:0;font-weight:300;font-size:clamp(26px,3.2vw,48px);line-height:1.08;letter-spacing:-.035em}
 @media (max-width:760px){.lm-aud{grid-template-columns:64px minmax(0,1fr);gap:2px 18px}.lm-aud .lm-face{grid-row:span 2;width:64px;height:64px}}
 @media (prefers-reduced-motion: reduce){.lm-sv{opacity:1;transform:none;transition:none}.lm-dots i{animation:none}}
@@ -38,7 +38,7 @@ body{margin:0;background:#05090B}
 a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a:hover{color:#7DB8FF}
 @keyframes limenBlink{0%{opacity:1}50%{opacity:0}}
 .lm-thread{flex:1;height:14px;overflow:visible;min-width:40px}
-.lm-thread path,.lm-mk path,.lm-bub path{fill:none;stroke:#0B7A57;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
+.lm-thread path,.lm-mk path,.lm-bub path{fill:none;stroke:#0A7A6E;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
 .lm-thread path{stroke-width:1.5;stroke-opacity:.6;vector-effect:none}
 .lm-thread.is-in path,.lm-mark.is-in .lm-mk path,.lm-bub.is-in path{stroke-dashoffset:0}
 .lm-mk{position:absolute;pointer-events:none;overflow:visible}
@@ -46,7 +46,7 @@ a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a:hover{co
 .lm-mk.u{left:-2%;width:104%;bottom:-.14em;height:.26em}
 .lm-mk.o{left:-11%;width:122%;top:-.1em;height:1.2em}
 .lm-mk path.sp{transition-duration:.35s;transition-delay:2.1s}
-.lm-bub{position:absolute;left:calc(100% + 20px);top:-46px;width:178px;height:74px;display:flex;align-items:flex-start;justify-content:center;padding-top:14px;box-sizing:border-box;font-size:19px;font-weight:300;color:#0B7A57;transform:rotate(-3deg) scale(.85);opacity:0;transition:opacity .5s ease,transform .6s cubic-bezier(.3,1.6,.5,1);pointer-events:none}
+.lm-bub{position:absolute;left:calc(100% + 20px);top:-46px;width:178px;height:74px;display:flex;align-items:flex-start;justify-content:center;padding-top:14px;box-sizing:border-box;font-size:19px;font-weight:300;color:#0A7A6E;transform:rotate(-3deg) scale(.85);opacity:0;transition:opacity .5s ease,transform .6s cubic-bezier(.3,1.6,.5,1);pointer-events:none}
 .lm-bub svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.lm-bub path{stroke-width:2.2px;fill:#FFFFFF}
 .lm-bub span{position:relative}
 .lm-bub.is-in{opacity:1;transform:rotate(-3deg)}
@@ -62,19 +62,19 @@ a{color:inherit}p,li,span{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a:hover{co
 .lm-ba .bf{margin:0 0 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#5C6765}
 .lm-ba .jar{margin:0;max-width:1040px;font-weight:300;font-size:clamp(22px,2.5vw,38px);line-height:1.4;letter-spacing:-.015em;color:#3E4846}
 .lm-ba .jar .w{position:relative;transition:color .5s ease;transition-delay:calc(var(--i) * 70ms + .3s)}
-.lm-ba .jar .w::after{content:"";position:absolute;left:-3px;right:-3px;top:56%;height:2px;border-radius:2px;background:#0B7A57;transform:scaleX(0);transform-origin:left;transition:transform .32s cubic-bezier(.6,.05,.3,1);transition-delay:calc(var(--i) * 70ms + .3s)}
+.lm-ba .jar .w::after{content:"";position:absolute;left:-3px;right:-3px;top:56%;height:2px;border-radius:2px;background:#0A7A6E;transform:scaleX(0);transform-origin:left;transition:transform .32s cubic-bezier(.6,.05,.3,1);transition-delay:calc(var(--i) * 70ms + .3s)}
 .lm-ba.is-in .jar .w{color:#AAB5B2}
 .lm-ba.is-in .jar .w::after{transform:scaleX(1)}
 .lm-ba .aft{margin:0;max-width:1180px;font-weight:200;font-size:clamp(40px,6.4vw,112px);line-height:1;letter-spacing:-.05em}
 .lm-ba .aft .a{display:inline-block;opacity:0;transform:translateY(.3em);transition:opacity .6s ease,transform .9s cubic-bezier(.2,.7,.1,1);transition-delay:calc(var(--d) + var(--i) * 120ms)}
 .lm-ba.is-in .aft .a{opacity:1;transform:none}
 @media (prefers-reduced-motion: reduce){.lm-ba .jar .w{color:#AAB5B2;transition:none}.lm-ba .jar .w::after{transform:scaleX(1);transition:none}.lm-ba .aft .a{opacity:1;transform:none;transition:none}}
-.lm-dk .lm-accw{color:#0B7A57!important}.lm-dk .lm-mk path{stroke:#0B7A57}.lm-dk h2,.lm-dk h3{color:#EEF3F1}
+.lm-dk .lm-accw{color:#0A7A6E!important}.lm-dk .lm-mk path{stroke:#0A7A6E}.lm-dk h2,.lm-dk h3{color:#EEF3F1}
 .lm-skip{position:absolute;left:16px;top:-80px;z-index:50;padding:12px 18px;border-radius:30px;background:#EEF3F1;color:#05090B;text-decoration:none;font-size:16px;transition:top .2s ease}
 .lm-skip:focus{top:16px}
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #5BEA9A;outline-offset:3px;border-radius:30px}
 .lm-btn{transition:transform .35s cubic-bezier(.2,.7,.1,1),box-shadow .35s ease,background-color .35s ease}
-.lm-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(11,122,87,.28)}
+.lm-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(10,122,110,.28)}
 .lm-btn:active{transform:translateY(0) scale(.98)}
 .lm-btn .lm-arrow{display:inline-block;transition:transform .35s cubic-bezier(.2,.7,.1,1)}
 .lm-btn:hover .lm-arrow{transform:translateX(5px)}
@@ -111,7 +111,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <section id="start" ref="${v.refDSec}" style="position: relative; z-index: 3; height: 190vh; color: #0D1413">
 <div ref="${v.refDStage}" style="position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: #EEF3F1">
 <header style="position: relative; width: 100%; box-sizing: border-box; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
-<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: #0D1413; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #0B7A57; --b: #0B7A57">.</span></a>
+<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: #0D1413; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #0A7A6E; --b: #0A7A6E">.</span></a>
 <nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
 <a href="#services" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #0D1413; font-size: 16px">Services</a>
 <a href="#about" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: #0D1413; font-size: 16px">About</a>
@@ -140,7 +140,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <canvas ref="${v.refStory}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: ${v.fadeGrad}"></div>
 <header ref="${v.refLogo}" style="transition: opacity .35s ease; position: relative; max-width: 1360px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
-<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #0B7A57; --b: #0B7A57">.</span></a>
+<a href="#top" style="display: inline-flex; align-items: baseline; gap: 2px; text-decoration: none; color: ${v.fgCol}; font-size: 30px; font-weight: 500; letter-spacing: -0.035em">limen<span class="lm-acc" style="--a: #0A7A6E; --b: #0A7A6E">.</span></a>
 <nav aria-label="Main" class="lm-nav" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
 <a href="#services" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">Services</a>
 <a href="#about" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px; text-decoration: none; color: ${v.fgCol}; font-size: 16px">About</a>
@@ -172,7 +172,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <p class="bf">Before · what the investor heard</p>
 <p class="jar"><span class="w" style="--i: 0">A</span> <span class="w" style="--i: 1">dual-modal</span> <span class="w" style="--i: 2">biosensor</span> <span class="w" style="--i: 3">using</span> <span class="w" style="--i: 4">closed-loop</span> <span class="w" style="--i: 5">impedance</span> <span class="w" style="--i: 6">spectroscopy</span> <span class="w" style="--i: 7">with</span> <span class="w" style="--i: 8">adaptive</span> <span class="w" style="--i: 9">signal</span> <span class="w" style="--i: 10">deconvolution</span> <span class="w" style="--i: 11">and</span> <span class="w" style="--i: 12">multiplexed</span> <span class="w" style="--i: 13">electrochemical</span> <span class="w" style="--i: 14">transduction</span> <span class="w" style="--i: 15">for</span> <span class="w" style="--i: 16">continuous</span> <span class="w" style="--i: 17">biomarker</span> <span class="w" style="--i: 18">quantification</span></p>
 <p class="bf" style="margin-top: 72px">After · what they remember</p>
-<p class="aft" style="--d: 2230ms"><span class="a" style="--i: 0">A</span> <span class="a" style="--i: 1">skin</span> <span class="a" style="--i: 2">patch</span> <span class="a" style="--i: 3">that</span> <span class="a" style="--i: 4">warns</span> <span class="a" style="--i: 5">you</span> <span class="a" style="--i: 6">an</span> <span class="a" style="--i: 7">infection</span> <span class="a" style="--i: 8">is</span> <span class="a" style="--i: 9">coming,</span> <span class="a" style="--i: 10; color: #0B7A57">days</span> <span class="a" style="--i: 11; color: #0B7A57">before</span> <span class="a" style="--i: 12; color: #0B7A57">you</span> <span class="a" style="--i: 13; color: #0B7A57">feel</span> <span class="a" style="--i: 14; color: #0B7A57">ill</span></p>
+<p class="aft" style="--d: 2230ms"><span class="a" style="--i: 0">A</span> <span class="a" style="--i: 1">skin</span> <span class="a" style="--i: 2">patch</span> <span class="a" style="--i: 3">that</span> <span class="a" style="--i: 4">warns</span> <span class="a" style="--i: 5">you</span> <span class="a" style="--i: 6">an</span> <span class="a" style="--i: 7">infection</span> <span class="a" style="--i: 8">is</span> <span class="a" style="--i: 9">coming,</span> <span class="a" style="--i: 10; color: #0A7A6E">days</span> <span class="a" style="--i: 11; color: #0A7A6E">before</span> <span class="a" style="--i: 12; color: #0A7A6E">you</span> <span class="a" style="--i: 13; color: #0A7A6E">feel</span> <span class="a" style="--i: 14; color: #0A7A6E">ill</span></p>
 <p style="margin: 56px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #7F8A88">Illustrative example, from the founder in our opening story</p>
 </div>
 </section>
@@ -185,7 +185,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </div>
 <div style="max-width: 1360px; margin: 0 auto; padding: 120px 24px 160px; display: flex; flex-direction: column; gap: 72px">
 <div style="display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: flex-end; justify-content: space-between">
-<h2 ref="${v.refRevS}" class="lm-reveal ${v.revS}" style="margin: 0; flex: 1 1 520px; font-size: clamp(38px, 4.9vw, 70px); line-height: 1.04; letter-spacing: -0.04em">Then we turn it into story, image <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw lm-split" style="--a: #0B7A57; --b: #2FD0A0"><span class="lm-w"><span class="lm-ch" style="--i: 0">a</span><span class="lm-ch" style="--i: 1">n</span><span class="lm-ch" style="--i: 2">d</span></span> <span class="lm-w"><span class="lm-ch" style="--i: 3">c</span><span class="lm-ch" style="--i: 4">o</span><span class="lm-ch" style="--i: 5">d</span><span class="lm-ch" style="--i: 6">e</span></span></span><svg class="lm-mk u" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2.0 13.0 L6.9 12.8 L11.8 12.4 L16.7 11.6 L21.6 11.2 L26.5 11.1 L31.4 10.7 L36.3 10.8 L41.2 10.4 L46.1 10.0 L51.0 9.7 L55.9 9.5 L60.8 8.9 L65.7 8.9 L70.6 8.5 L75.5 8.9 L80.4 8.0 L85.3 8.5 L90.2 7.8 L95.1 8.2 L100.0 7.9 L104.9 7.9 L109.8 8.2 L114.7 7.6 L119.6 7.6 L124.5 8.4 L129.4 8.1 L134.3 7.9 L139.2 8.8 L144.1 8.9 L149.0 8.4 L153.9 8.8 L158.8 8.8 L163.7 9.1 L168.6 9.6 L173.5 9.5 L178.4 10.1 L183.3 9.9 L188.2 10.2 L193.1 11.0 L198.0 10.9 M190.0 16.9 L185.0 17.3 L180.0 17.4 L175.0 17.5 L170.0 17.4 L165.0 18.2 L160.0 18.5 L155.0 18.7 L150.0 18.6 L145.0 18.5 L140.0 18.6 L135.0 19.0 L130.0 19.0 L125.0 18.6 L120.0 18.8 L115.0 18.9 L110.0 19.0 L105.0 19.2 L100.0 18.9 L95.0 18.4 L90.0 19.0 L85.0 18.6 L80.0 18.5 L75.0 18.1 L70.0 18.1 L65.0 17.9 L60.0 18.0 L55.0 17.3 L50.0 17.5 L45.0 17.0 L40.0 17.2"></path></svg></span></h2>
+<h2 ref="${v.refRevS}" class="lm-reveal ${v.revS}" style="margin: 0; flex: 1 1 520px; font-size: clamp(38px, 4.9vw, 70px); line-height: 1.04; letter-spacing: -0.04em">Then we turn it into story, image <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw lm-split" style="--a: #0A7A6E; --b: #2FD0A0"><span class="lm-w"><span class="lm-ch" style="--i: 0">a</span><span class="lm-ch" style="--i: 1">n</span><span class="lm-ch" style="--i: 2">d</span></span> <span class="lm-w"><span class="lm-ch" style="--i: 3">c</span><span class="lm-ch" style="--i: 4">o</span><span class="lm-ch" style="--i: 5">d</span><span class="lm-ch" style="--i: 6">e</span></span></span><svg class="lm-mk u" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2.0 13.0 L6.9 12.8 L11.8 12.4 L16.7 11.6 L21.6 11.2 L26.5 11.1 L31.4 10.7 L36.3 10.8 L41.2 10.4 L46.1 10.0 L51.0 9.7 L55.9 9.5 L60.8 8.9 L65.7 8.9 L70.6 8.5 L75.5 8.9 L80.4 8.0 L85.3 8.5 L90.2 7.8 L95.1 8.2 L100.0 7.9 L104.9 7.9 L109.8 8.2 L114.7 7.6 L119.6 7.6 L124.5 8.4 L129.4 8.1 L134.3 7.9 L139.2 8.8 L144.1 8.9 L149.0 8.4 L153.9 8.8 L158.8 8.8 L163.7 9.1 L168.6 9.6 L173.5 9.5 L178.4 10.1 L183.3 9.9 L188.2 10.2 L193.1 11.0 L198.0 10.9 M190.0 16.9 L185.0 17.3 L180.0 17.4 L175.0 17.5 L170.0 17.4 L165.0 18.2 L160.0 18.5 L155.0 18.7 L150.0 18.6 L145.0 18.5 L140.0 18.6 L135.0 19.0 L130.0 19.0 L125.0 18.6 L120.0 18.8 L115.0 18.9 L110.0 19.0 L105.0 19.2 L100.0 18.9 L95.0 18.4 L90.0 19.0 L85.0 18.6 L80.0 18.5 L75.0 18.1 L70.0 18.1 L65.0 17.9 L60.0 18.0 L55.0 17.3 L50.0 17.5 L45.0 17.0 L40.0 17.2"></path></svg></span></h2>
 <p style="margin: 20px 0 0; max-width: 620px; font-weight: 300; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; color: #A8B3B0">Stories, images and experiences people understand in seconds so you can spend less time explaining, and more time discovering</p>
 </div>
 <div ref="${v.refRevG}" class="lm-stagger ${v.revG}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px">
@@ -233,7 +233,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </div>
 <div class="lm-split" style="max-width: 1360px; margin: 0 auto; padding: 110px 24px 150px">
 <p style="margin: 0 0 22px; font-weight: 300; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; color: #4D5856">That table was one room. Your science has to work in all of them.</p>
-<h2 style="margin: 0 0 56px; font-weight: 300; font-size: clamp(40px, 5.6vw, 84px); line-height: 1; letter-spacing: -0.045em">One story, every <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw" style="color: #0B7A57">room</span><svg class="lm-mk o" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18.9 29.2 L22.2 26.4 L26.0 23.3 L30.4 20.5 L35.3 17.2 L40.8 14.6 L46.9 12.2 L53.5 10.3 L60.5 9.0 L68.0 7.2 L75.6 6.6 L83.5 5.8 L91.4 5.8 L99.2 6.1 L106.9 7.1 L114.3 7.8 L121.5 8.6 L128.3 10.2 L134.9 11.7 L141.1 14.1 L147.1 16.0 L152.7 18.0 L158.2 20.1 L163.5 22.3 L168.5 24.7 L173.4 27.1 L178.1 29.2 L182.4 32.4 L186.5 35.0 L190.1 38.2 L193.2 41.3 L195.7 44.5 L197.5 48.0 L198.5 51.6 L198.7 55.1 L198.1 58.5 L196.6 62.6 L194.2 66.0 L191.0 69.5 L187.1 72.3 L182.6 75.1 L177.5 77.9 L172.0 79.8 L166.2 82.3 L160.1 84.1 L153.9 85.6 L147.5 87.1 L141.1 88.7 L134.6 89.7 L128.0 90.9 L121.4 92.0 L114.6 92.6 L107.8 93.1 L100.7 93.9 L93.6 94.0 L86.3 94.1 L79.0 93.9 L71.6 93.6 L64.3 92.6 L57.1 92.0 L50.2 90.8 L43.6 88.6 L37.5 86.7 L32.0 84.4 L27.1 81.0 L22.9 78.2 L19.4 75.6 L16.6 72.4 L14.5 68.9 L13.1 65.2 L12.2 62.1 L11.9 59.1 L12.0 55.9 L12.5 52.6 L13.3 48.9 L14.4 46.3 L15.8 42.9 L17.4 40.1 L19.3 36.6 L21.5 34.2 L24.1 30.9 L27.1 28.0 L30.6 24.7 L34.7 22.3 L39.2 19.6 L44.4 17.2 L50.1 14.8 L56.3 13.1 L62.9 11.2 L69.9 10.0 L77.1 9.0"></path></svg></span></h2>
+<h2 style="margin: 0 0 56px; font-weight: 300; font-size: clamp(40px, 5.6vw, 84px); line-height: 1; letter-spacing: -0.045em">One story, every <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw" style="color: #0A7A6E">room</span><svg class="lm-mk o" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18.9 29.2 L22.2 26.4 L26.0 23.3 L30.4 20.5 L35.3 17.2 L40.8 14.6 L46.9 12.2 L53.5 10.3 L60.5 9.0 L68.0 7.2 L75.6 6.6 L83.5 5.8 L91.4 5.8 L99.2 6.1 L106.9 7.1 L114.3 7.8 L121.5 8.6 L128.3 10.2 L134.9 11.7 L141.1 14.1 L147.1 16.0 L152.7 18.0 L158.2 20.1 L163.5 22.3 L168.5 24.7 L173.4 27.1 L178.1 29.2 L182.4 32.4 L186.5 35.0 L190.1 38.2 L193.2 41.3 L195.7 44.5 L197.5 48.0 L198.5 51.6 L198.7 55.1 L198.1 58.5 L196.6 62.6 L194.2 66.0 L191.0 69.5 L187.1 72.3 L182.6 75.1 L177.5 77.9 L172.0 79.8 L166.2 82.3 L160.1 84.1 L153.9 85.6 L147.5 87.1 L141.1 88.7 L134.6 89.7 L128.0 90.9 L121.4 92.0 L114.6 92.6 L107.8 93.1 L100.7 93.9 L93.6 94.0 L86.3 94.1 L79.0 93.9 L71.6 93.6 L64.3 92.6 L57.1 92.0 L50.2 90.8 L43.6 88.6 L37.5 86.7 L32.0 84.4 L27.1 81.0 L22.9 78.2 L19.4 75.6 L16.6 72.4 L14.5 68.9 L13.1 65.2 L12.2 62.1 L11.9 59.1 L12.0 55.9 L12.5 52.6 L13.3 48.9 L14.4 46.3 L15.8 42.9 L17.4 40.1 L19.3 36.6 L21.5 34.2 L24.1 30.9 L27.1 28.0 L30.6 24.7 L34.7 22.3 L39.2 19.6 L44.4 17.2 L50.1 14.8 L56.3 13.1 L62.9 11.2 L69.9 10.0 L77.1 9.0"></path></svg></span></h2>
 <div class="lm-aud lm-sv" style="--d: .1s"><canvas class="lm-face" data-face="sci" aria-hidden="true"></canvas><h3>Scientists</h3><p>trust the accuracy</p></div>
 <div class="lm-aud lm-sv" style="--d: .35s"><canvas class="lm-face" data-face="inv" aria-hidden="true"></canvas><h3>Investors</h3><p>get it in thirty seconds</p></div>
 <div class="lm-aud lm-sv" style="--d: .6s"><canvas class="lm-face" data-face="cli" aria-hidden="true"></canvas><h3>Clinicians</h3><p>remember it</p></div>
@@ -249,7 +249,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 </div>
 </div>
 <div id="about" ref="${v.refRevA}" class="lm-stagger ${v.revA}" style="max-width: 1360px; margin: 0 auto; padding: 120px 24px 160px; display: flex; flex-direction: column">
-<h2 style="margin: 0 0 64px; font-weight: 300; font-size: clamp(40px, 5.6vw, 84px); line-height: 1; letter-spacing: -0.045em">How we <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw lm-split" style="--a: #0B7A57; --b: #2FD0A0"><span class="lm-w"><span class="lm-ch" style="--i: 0">w</span><span class="lm-ch" style="--i: 1">o</span><span class="lm-ch" style="--i: 2">r</span><span class="lm-ch" style="--i: 3">k</span></span></span><svg class="lm-mk u" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2.0 12.7 L6.9 12.8 L11.8 12.4 L16.7 12.3 L21.6 11.4 L26.5 11.0 L31.4 11.1 L36.3 10.7 L41.2 10.1 L46.1 10.1 L51.0 9.6 L55.9 9.6 L60.8 8.9 L65.7 8.7 L70.6 9.1 L75.5 8.4 L80.4 8.2 L85.3 8.5 L90.2 8.3 L95.1 7.8 L100.0 8.0 L104.9 8.1 L109.8 7.7 L114.7 8.1 L119.6 7.7 L124.5 7.9 L129.4 7.8 L134.3 8.0 L139.2 8.7 L144.1 8.4 L149.0 9.1 L153.9 8.8 L158.8 9.1 L163.7 9.6 L168.6 9.6 L173.5 9.4 L178.4 10.0 L183.3 10.3 L188.2 10.2 L193.1 10.4 L198.0 11.3 M190.0 17.0 L185.0 17.0 L180.0 17.4 L175.0 17.4 L170.0 18.1 L165.0 18.0 L160.0 17.9 L155.0 18.6 L150.0 18.2 L145.0 18.4 L140.0 18.4 L135.0 19.0 L130.0 18.6 L125.0 19.0 L120.0 18.7 L115.0 19.0 L110.0 19.1 L105.0 19.0 L100.0 18.9 L95.0 18.8 L90.0 18.7 L85.0 18.7 L80.0 18.2 L75.0 18.3 L70.0 18.0 L65.0 18.3 L60.0 18.2 L55.0 17.3 L50.0 17.1 L45.0 17.4 L40.0 17.1"></path></svg></span></h2>
+<h2 style="margin: 0 0 64px; font-weight: 300; font-size: clamp(40px, 5.6vw, 84px); line-height: 1; letter-spacing: -0.045em">How we <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw lm-split" style="--a: #0A7A6E; --b: #2FD0A0"><span class="lm-w"><span class="lm-ch" style="--i: 0">w</span><span class="lm-ch" style="--i: 1">o</span><span class="lm-ch" style="--i: 2">r</span><span class="lm-ch" style="--i: 3">k</span></span></span><svg class="lm-mk u" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2.0 12.7 L6.9 12.8 L11.8 12.4 L16.7 12.3 L21.6 11.4 L26.5 11.0 L31.4 11.1 L36.3 10.7 L41.2 10.1 L46.1 10.1 L51.0 9.6 L55.9 9.6 L60.8 8.9 L65.7 8.7 L70.6 9.1 L75.5 8.4 L80.4 8.2 L85.3 8.5 L90.2 8.3 L95.1 7.8 L100.0 8.0 L104.9 8.1 L109.8 7.7 L114.7 8.1 L119.6 7.7 L124.5 7.9 L129.4 7.8 L134.3 8.0 L139.2 8.7 L144.1 8.4 L149.0 9.1 L153.9 8.8 L158.8 9.1 L163.7 9.6 L168.6 9.6 L173.5 9.4 L178.4 10.0 L183.3 10.3 L188.2 10.2 L193.1 10.4 L198.0 11.3 M190.0 17.0 L185.0 17.0 L180.0 17.4 L175.0 17.4 L170.0 18.1 L165.0 18.0 L160.0 17.9 L155.0 18.6 L150.0 18.2 L145.0 18.4 L140.0 18.4 L135.0 19.0 L130.0 18.6 L125.0 19.0 L120.0 18.7 L115.0 19.0 L110.0 19.1 L105.0 19.0 L100.0 18.9 L95.0 18.8 L90.0 18.7 L85.0 18.7 L80.0 18.2 L75.0 18.3 L70.0 18.0 L65.0 18.3 L60.0 18.2 L55.0 17.3 L50.0 17.1 L45.0 17.4 L40.0 17.1"></path></svg></span></h2>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; padding: 40px 0; border-top: 1px solid #2A302F">
 <canvas ref="${v.refP1}" aria-hidden="true" style="width: 150px; height: 150px; display: block; flex: 0 0 150px"></canvas>
 <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 48px">
@@ -283,7 +283,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 <div style="position: relative; flex: 1; max-width: 1360px; width: 100%; margin: 0 auto; padding: 72px 24px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 64px">
 <div class="lm-ct">
 <div style="display: flex; flex-direction: column; gap: 32px">
-<h2 ref="${v.refRevC}" class="lm-reveal ${v.revC}" style="margin: 0; max-width: 900px; font-size: clamp(44px, 5.6vw, 92px); line-height: 0.98; letter-spacing: -0.048em">Bring us <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw" style="color: #0B7A57">your tangle</span><svg class="lm-mk u" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2.0 13.4 L6.9 12.2 L11.8 12.5 L16.7 11.6 L21.6 12.0 L26.5 10.8 L31.4 11.2 L36.3 10.7 L41.2 10.5 L46.1 10.4 L51.0 9.5 L55.9 9.3 L60.8 9.3 L65.7 8.8 L70.6 8.5 L75.5 8.3 L80.4 8.7 L85.3 8.6 L90.2 8.4 L95.1 7.8 L100.0 8.3 L104.9 8.0 L109.8 7.7 L114.7 7.9 L119.6 7.9 L124.5 7.7 L129.4 8.2 L134.3 8.1 L139.2 8.4 L144.1 8.9 L149.0 8.8 L153.9 8.8 L158.8 9.3 L163.7 9.7 L168.6 9.5 L173.5 10.1 L178.4 9.6 L183.3 9.9 L188.2 10.2 L193.1 11.1 L198.0 11.2 M190.0 17.2 L185.0 17.0 L180.0 17.4 L175.0 17.9 L170.0 17.5 L165.0 17.7 L160.0 17.8 L155.0 18.3 L150.0 18.8 L145.0 18.7 L140.0 18.7 L135.0 18.8 L130.0 18.6 L125.0 19.3 L120.0 18.9 L115.0 18.8 L110.0 18.8 L105.0 19.2 L100.0 18.8 L95.0 19.2 L90.0 18.6 L85.0 18.6 L80.0 18.1 L75.0 18.7 L70.0 18.4 L65.0 18.0 L60.0 17.5 L55.0 17.6 L50.0 17.3 L45.0 17.5 L40.0 17.3"></path></svg></span></h2>
+<h2 ref="${v.refRevC}" class="lm-reveal ${v.revC}" style="margin: 0; max-width: 900px; font-size: clamp(44px, 5.6vw, 92px); line-height: 0.98; letter-spacing: -0.048em">Bring us <span class="lm-mark" style="position: relative; display: inline-block"><span class="lm-accw" style="color: #0A7A6E">your tangle</span><svg class="lm-mk u" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2.0 13.4 L6.9 12.2 L11.8 12.5 L16.7 11.6 L21.6 12.0 L26.5 10.8 L31.4 11.2 L36.3 10.7 L41.2 10.5 L46.1 10.4 L51.0 9.5 L55.9 9.3 L60.8 9.3 L65.7 8.8 L70.6 8.5 L75.5 8.3 L80.4 8.7 L85.3 8.6 L90.2 8.4 L95.1 7.8 L100.0 8.3 L104.9 8.0 L109.8 7.7 L114.7 7.9 L119.6 7.9 L124.5 7.7 L129.4 8.2 L134.3 8.1 L139.2 8.4 L144.1 8.9 L149.0 8.8 L153.9 8.8 L158.8 9.3 L163.7 9.7 L168.6 9.5 L173.5 10.1 L178.4 9.6 L183.3 9.9 L188.2 10.2 L193.1 11.1 L198.0 11.2 M190.0 17.2 L185.0 17.0 L180.0 17.4 L175.0 17.9 L170.0 17.5 L165.0 17.7 L160.0 17.8 L155.0 18.3 L150.0 18.8 L145.0 18.7 L140.0 18.7 L135.0 18.8 L130.0 18.6 L125.0 19.3 L120.0 18.9 L115.0 18.8 L110.0 18.8 L105.0 19.2 L100.0 18.8 L95.0 19.2 L90.0 18.6 L85.0 18.6 L80.0 18.1 L75.0 18.7 L70.0 18.4 L65.0 18.0 L60.0 17.5 L55.0 17.6 L50.0 17.3 L45.0 17.5 L40.0 17.3"></path></svg></span></h2>
 <p style="margin: 0; max-width: 560px; font-weight: 300; font-size: clamp(20px, 2.1vw, 28px); line-height: 1.4; color: #3E4846">Early idea or finished study, we’ll find the line that makes them lean in.</p>
 <div class="lm-bubw" style="position: relative; align-self: flex-start; margin-top: 8px"><a href="mailto:contact@limen.com" class="lm-btn" style="display: inline-flex; align-items: center; gap: 12px; min-height: 64px; padding: 0 34px; border-radius: 30px; background: #0D1413; color: #EEF3F1; text-decoration: none; font-size: clamp(18px, 1.6vw, 22px)">contact@limen.com <span aria-hidden="true" class="lm-arrow">→</span></a></div>
 </div>
@@ -2254,7 +2254,7 @@ class Component extends DCLogic {
   }
 
   doodleKit() {
-  var C = { paper: '#EEF3F1', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#0B7A57' };
+  var C = { paper: '#EEF3F1', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#0A7A6E' };
   var SANS = "'Outfit', system-ui, sans-serif", MONO = "'IBM Plex Mono', monospace";
   // the second half eases down to two-thirds speed: real seconds -> story seconds
   var SLOW0 = 15.5, SLOW1 = 17, RATE = 0.75, S1 = SLOW1 - (1 - RATE) * (SLOW1 - SLOW0) / 2;
@@ -2761,7 +2761,7 @@ class Component extends DCLogic {
               const at = 'circle at ' + px.toFixed(1) + 'px ' + py.toFixed(1) + 'px, ';
               const g = 'radial-gradient(' + at + 'transparent ' + R.toFixed(1) + 'px, #000 ' + (R + 1).toFixed(1) + 'px)';
               stg.style.webkitMaskImage = g; stg.style.maskImage = g; stg.style.visibility = '';
-              const ra = (1 - Math.max(0, (q - 0.7) / 0.3)).toFixed(3), c = 'rgba(11,122,87,' + ra + ')';
+              const ra = (1 - Math.max(0, (q - 0.7) / 0.3)).toFixed(3), c = 'rgba(10,122,110,' + ra + ')';
               iris.style.background = 'radial-gradient(' + at + 'transparent ' + (R + 0.5).toFixed(1) + 'px, ' + c + ' ' + (R + 1).toFixed(1) + 'px, ' + c + ' ' + (R + 5).toFixed(1) + 'px, transparent ' + (R + 5.8).toFixed(1) + 'px)';
             }
           }
@@ -2923,7 +2923,7 @@ class Component extends DCLogic {
       chCount: '0' + (ch + 1) + ' / 02',
       barWidth: String(this.bar || 0),
       scrollHint: ch < 1 ? 'Scroll ↓' : 'Continue ↓',
-      cursorCol: dk ? '#0B7A57' : '#0B7A57',
+      cursorCol: dk ? '#0A7A6E' : '#0A7A6E',
       bgCol: dk ? '#0F0D0E' : '#EEF3F1',
       fgCol: dk ? '#F2F2F0' : '#141210',
       mutedCol: dk ? '#A79C97' : '#6B635D',
