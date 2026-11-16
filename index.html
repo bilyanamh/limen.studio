@@ -109,6 +109,19 @@ h1,h2,h3{text-wrap:balance}.lm-logo,.lm-boxes{display:flex;align-items:stretch;t
 .lm-stagger.is-in>*:nth-child(3){transition-delay:.24s}
 .lm-stagger.is-in>*:nth-child(4){transition-delay:.36s}
 @media (prefers-reduced-motion: reduce){.lm-reveal,.lm-stagger>*{opacity:1!important;transform:none!important;transition:none!important;font-weight:400}.lm-btn,.lm-card{transition:none}}
+
+/* faster scroll reveals */
+.lm-reveal{transform:translateY(14px);transition:opacity .45s cubic-bezier(.2,.7,.1,1),transform .45s cubic-bezier(.2,.7,.1,1)!important}
+.lm-stagger>*{transform:translateY(12px);transition:opacity .4s ease,transform .4s cubic-bezier(.2,.7,.1,1)!important}
+.lm-stagger.is-in>*:nth-child(2){transition-delay:.05s}.lm-stagger.is-in>*:nth-child(3){transition-delay:.1s}.lm-stagger.is-in>*:nth-child(4){transition-delay:.15s}
+.lm-sv{transform:translateY(10px);transition:opacity .4s cubic-bezier(.2,.7,.1,1),transform .4s cubic-bezier(.2,.7,.1,1)!important;transition-delay:calc(var(--d,0s) * .35)!important}
+.lm-ch{animation-duration:.5s!important;animation-delay:calc(.03s + var(--i) * 14ms)!important}
+.lm-ba .aft .a{transition:opacity .35s ease,transform .45s cubic-bezier(.2,.7,.1,1)!important;transition-delay:calc(var(--d) * .45 + var(--i) * 50ms)!important}
+.lm-ba .jar .w{transition-delay:calc(var(--i) * 25ms + .1s)!important}
+.lm-mk path{transition-delay:.15s!important}.lm-mk path.sp{transition-delay:.7s!important}
+.lm-unt-p{transition:stroke-dashoffset 1.1s cubic-bezier(.5,0,.2,1) .1s!important}
+.lm-unt-d{transition:opacity .3s ease 1.1s,transform .4s cubic-bezier(.3,1.6,.5,1) 1.1s!important}
+@media (prefers-reduced-motion: reduce){.lm-reveal,.lm-stagger>*,.lm-sv,.lm-ba .aft .a,.lm-unt-p,.lm-unt-d{transition:none!important}}
 </style>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Limen, a creative studio at the threshold of science, technology and art">
@@ -2892,7 +2905,7 @@ class Component extends DCLogic {
         if (ch === 1 && u < 0.25) this.typeStart = now; // let the four squares open on their own first
         if (ch === 0 && -sr.top < lead * 0.3) this.typeStart = now; // type as the dot opens
         const total = CH[ch].segs.reduce((s, g) => s + g[0].length, 0);
-        let n = still ? total : Math.floor((now - this.typeStart - 0.15) / 0.032);
+        let n = still ? total : Math.floor((now - this.typeStart - 0.05) / 0.018);
         n = n < 0 ? 0 : n > total ? total : n;
         const bar = Math.round(prog * 100);
         if (n !== this.n || ch !== this.shownCh || bar !== this.bar) { this.n = n; this.shownCh = ch; this.bar = bar; this.forceUpdate(); }
@@ -2943,19 +2956,19 @@ class Component extends DCLogic {
       let ch = false;
       entries.forEach((en) => { const k = en.target.__rk; if (en.isIntersecting && k && !seen[k]) { seen[k] = true; ch = true; this.io.unobserve(en.target); } });
       if (ch) this.setState({ seen: seen });
-    }, { threshold: 0.18 });
+    }, { threshold: 0, rootMargin: '0px 0px -6% 0px' });
     keys.forEach((k) => { const el = this.revEls && this.revEls[k]; if (el) { el.__rk = k; this.io.observe(el); } });
   }
 
   setupRise() {
     if (typeof IntersectionObserver === 'undefined') document.querySelectorAll('.lm-ba').forEach((e) => e.classList.add('is-in'));
-    else { this.baIO = new IntersectionObserver((en) => { en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add('is-in'); this.baIO.unobserve(x.target); } }); }, { threshold: 0.3 }); document.querySelectorAll('.lm-ba').forEach((e) => this.baIO.observe(e)); }
+    else { this.baIO = new IntersectionObserver((en) => { en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add('is-in'); this.baIO.unobserve(x.target); } }); }, { threshold: 0.12 }); document.querySelectorAll('.lm-ba').forEach((e) => this.baIO.observe(e)); }
     const mks = document.querySelectorAll('.lm-mark,.lm-thread');
     if (typeof IntersectionObserver === 'undefined') mks.forEach((e) => e.classList.add('is-in'));
-    else { this.mkIO = new IntersectionObserver((en) => { en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add('is-in'); this.mkIO.unobserve(x.target); } }); }, { threshold: 0.7 }); mks.forEach((e) => this.mkIO.observe(e)); }
+    else { this.mkIO = new IntersectionObserver((en) => { en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add('is-in'); this.mkIO.unobserve(x.target); } }); }, { threshold: 0.35 }); mks.forEach((e) => this.mkIO.observe(e)); }
     const els = document.querySelectorAll('.lm-split');
     if (typeof IntersectionObserver === 'undefined') { els.forEach((e) => e.classList.add('is-in')); return; }
-    this.riseIO = new IntersectionObserver((en) => { en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add('is-in'); this.riseIO.unobserve(x.target); } }); }, { threshold: 0.4 });
+    this.riseIO = new IntersectionObserver((en) => { en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add('is-in'); this.riseIO.unobserve(x.target); } }); }, { threshold: 0.1 });
     els.forEach((e) => this.riseIO.observe(e));
     this.riseScroll = () => { els.forEach((e) => { if (!e.classList.contains('is-in') && e.getBoundingClientRect().top < (window.innerHeight || 800) * 0.98) e.classList.add('is-in'); }); };
     window.addEventListener('scroll', this.riseScroll, { passive: true, capture: true });
