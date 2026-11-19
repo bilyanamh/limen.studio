@@ -1421,6 +1421,36 @@ class Component extends DCLogic {
       ctx.fillStyle = '#0B0A0C'; ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1;
       for (var i = 0; i < pts.length; i++) { ctx.fillRect(pts[i][0] - hs / 2, pts[i][1] - hs / 2, hs, hs); ctx.strokeRect(pts[i][0] - hs / 2 + 0.5, pts[i][1] - hs / 2 + 0.5, hs - 1, hs - 1); }
     }
+    // ---- code card: an isometric noise field. Cubes rise and fall with the noise; any cube that crosses
+    // the threshold turns jade, the signal. The cursor lifts the cubes beneath it.
+    // Cube field after "Isometric Noise Field II", pattern from bookofshapes.com, redrawn and animated in code.
+    function isoField(ctx, w, h, t, ix) {
+      reset(ctx);
+      ix = ix || { mx: -1, my: -1 };
+      ctx.fillStyle = '#060608'; ctx.fillRect(0, 0, w, h);
+      var N = 12, s = Math.min(w * 0.94 / (2 * ((N - 1) * 25.98 + 17.32)), h * 0.6 / ((N - 1) * 2 * 15 + 40));
+      var ox = w / 2, oy = h * 0.52 - (N - 1) * 15 * s + 22 * s, A = 17.32 * s, B = 10 * s, H = 20 * s, TH = 0.8, sig = 0;
+      for (var k = 0; k <= 2 * (N - 1); k++) {
+        for (var i = Math.max(0, k - N + 1); i <= Math.min(k, N - 1); i++) {
+          var j = k - i, x = ox + (i - j) * 25.98 * s, y = oy + (i + j) * 15 * s;
+          var n = Math.sin(i * 0.52 + t * 0.85) * Math.cos(j * 0.46 - t * 0.63) * 0.62 + Math.sin((i + j) * 0.31 + t * 0.47) * 0.38;
+          var z = 0.5 + 0.5 * n;
+          if (ix.mx >= 0) { var dx = ix.mx - x, dy = (ix.my - y) * 1.6, d2 = (dx * dx + dy * dy) / (w * w * 0.012); z = Math.max(z, Math.exp(-d2) * 1.05); }
+          var lift = z * z * H * 2.6, hot = z > TH, e = hot ? Math.min(1, (z - TH) / 0.08) : 0; if (hot) sig++;
+          var yy = y - lift;
+          // left and right faces, then the top
+          ctx.fillStyle = hot ? 'rgb(' + Math.round(26 - 20 * e) + ',' + Math.round(31 + 43 * e) + ',' + Math.round(30 + 38 * e) + ')' : '#1A1F1E';
+          ctx.beginPath(); ctx.moveTo(x, yy); ctx.lineTo(x, yy - H); ctx.lineTo(x - A, yy - H - B); ctx.lineTo(x - A, yy - B); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = hot ? 'rgb(' + Math.round(42 - 34 * e) + ',' + Math.round(48 + 44 * e) + ',' + Math.round(47 + 37 * e) + ')' : '#2A302F';
+          ctx.beginPath(); ctx.moveTo(x, yy); ctx.lineTo(x + A, yy - B); ctx.lineTo(x + A, yy - H - B); ctx.lineTo(x, yy - H); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = hot ? 'rgb(' + Math.round(203 - 193 * e) + ',' + Math.round(211 - 89 * e) + ',' + Math.round(209 - 99 * e) + ')' : 'rgba(203,211,209,' + (0.55 + 0.45 * z).toFixed(3) + ')';
+          ctx.beginPath(); ctx.moveTo(x, yy - H); ctx.lineTo(x + A, yy - H - B); ctx.lineTo(x, yy - H - 2 * B); ctx.lineTo(x - A, yy - H - B); ctx.closePath(); ctx.fill();
+        }
+      }
+      ctx.font = "10px 'Geist Mono', ui-monospace, monospace"; ctx.fillStyle = 'rgba(168,179,176,0.75)'; ctx.textBaseline = 'alphabetic';
+      ctx.fillText('NOISE FIELD ' + N + '×' + N, 14, h - 14);
+      ctx.textAlign = 'right'; ctx.fillText('THRESHOLD ' + TH.toFixed(2) + '  SIGNAL ' + ('0' + sig).slice(-2), w - 14, h - 14); ctx.textAlign = 'left';
+    }
     function fibres(ctx, w, h, t, ix) {
       reset(ctx);
       ix = ix || { mx: -1, my: -1 };
@@ -2234,7 +2264,7 @@ class Component extends DCLogic {
         ctx.globalAlpha = 1;
       }
     }
-    return { story: story, contours: contours, gel: gel, petri: petri, dendrite: dendrite, plate: plate, scope: scope, membrane: membrane, fibres: fibres, thermo: thermo, sheet: sheet, scopes: scopes, colony: colony, marble: marble, dish: dish, principle: principle, storyTheme: storyTheme };
+    return { story: story, contours: contours, gel: gel, petri: petri, dendrite: dendrite, plate: plate, scope: scope, membrane: membrane, fibres: fibres, isoField: isoField, thermo: thermo, sheet: sheet, scopes: scopes, colony: colony, marble: marble, dish: dish, principle: principle, storyTheme: storyTheme };
   }
 
   ensureRefs() {
@@ -2830,7 +2860,7 @@ class Component extends DCLogic {
       p1: { fixed: true, fps: 30, dpr: 2, still: 4.2, draw: (c, w, h, t) => A.principle(c, w, h, t, 0) },
       p2: { fixed: true, fps: 30, dpr: 2, still: 2, draw: (c, w, h, t) => A.principle(c, w, h, t, 1) },
       p3: { fixed: true, fps: 30, dpr: 2, still: 1.3, draw: (c, w, h, t) => A.principle(c, w, h, t, 2) },
-      code: { fixed: true, fps: 24, dpr: 1.5, still: 6.3, draw: (c, w, h, t) => { const r = c.canvas.getBoundingClientRect(), m = this.mouse; const inside = m && !m.touch && m.x >= r.left && m.x <= r.right && m.y >= r.top && m.y <= r.bottom; A.fibres(c, w, h, t, { mx: inside ? m.x - r.left : -1, my: inside ? m.y - r.top : -1 }); } },
+      code: { fixed: true, fps: 24, dpr: 1.5, still: 6.3, draw: (c, w, h, t) => { const r = c.canvas.getBoundingClientRect(), m = this.mouse; const inside = m && !m.touch && m.x >= r.left && m.x <= r.right && m.y >= r.top && m.y <= r.bottom; A.isoField(c, w, h, t, { mx: inside ? m.x - r.left : -1, my: inside ? m.y - r.top : -1 }); } },
       culture: { fps: 20, dpr: 1.25, still: 9, draw: (c, w, h, t) => { const r = c.canvas.getBoundingClientRect(), m = this.mouse; const inside = m && !m.touch && m.y >= r.top && m.y <= r.bottom && m.x >= r.left && m.x <= r.right; this.mClicks = (this.mClicks || []).filter((q) => t - q.t0 < 8); A.dish(c, w, h, t, { mx: inside ? m.x - r.left : -1, my: inside ? m.y - r.top : -1, clicks: this.mClicks }); } }
     };
     const CH = this.chapters();
