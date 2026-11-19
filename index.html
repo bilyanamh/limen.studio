@@ -37,7 +37,7 @@ section>div[style*="padding: 72px 24px 48px"]{padding-top:48px!important;gap:40p
 .lm-aud p{margin:0;font-weight:400;font-size:clamp(20px,2.6vw,36px);line-height:1.08;letter-spacing:-.035em}
 @media (max-width:760px){.lm-aud{grid-template-columns:64px minmax(0,1fr);gap:2px 18px}.lm-aud .lm-face{grid-row:span 2;width:64px;height:64px}}
 @media (prefers-reduced-motion: reduce){.lm-sv{opacity:1;transform:none;transition:none}.lm-dots i{animation:none}}
-.lm-ct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center}.lm-figbox{position:relative;border-radius:22px;overflow:hidden;height:min(68vh,640px);min-height:440px;background:#E3E3E0}.lm-fig figcaption{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;margin-top:14px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5C6765}@media (max-width:860px){.lm-ct{grid-template-columns:1fr;gap:40px}.lm-figbox{height:auto;min-height:0;aspect-ratio:4/5}}
+.lm-ct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center}.lm-figbox{position:relative;border-radius:22px;overflow:hidden;height:min(68vh,640px);min-height:440px;background:transparent}.lm-fig figcaption{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;margin-top:14px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5C6765}@media (max-width:860px){.lm-ct{grid-template-columns:1fr;gap:40px}.lm-figbox{height:auto;min-height:0;aspect-ratio:4/5}}
 .lm-accw{color:var(--a)}.lm-split{white-space:nowrap}.lm-w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}.lm-ch{display:inline-block;transform:translateY(110%);animation:lmRise .9s cubic-bezier(.2,.85,.15,1) forwards;animation-delay:calc(.1s + var(--i) * 30ms)}@keyframes lmRise{to{transform:none}}.lm-split .lm-ch{animation-play-state:paused}.lm-split.is-in .lm-ch{animation-play-state:running}@media (prefers-reduced-motion: reduce){.lm-ch{transform:none;animation:none}}
 @keyframes lmShimmer{0%{background-position:100% 0}55%,100%{background-position:0% 0}}.lm-acc{background-image:linear-gradient(100deg,var(--a) 0%,var(--a) 38%,var(--b) 50%,var(--a) 62%,var(--a) 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;padding-right:.1em;margin-right:-.1em;animation:lmShimmer 6.5s cubic-bezier(.45,0,.2,1) infinite}@media (prefers-reduced-motion: reduce){.lm-acc{animation:none;background-position:0 0}}
 body{margin:0;background:#05090B}
@@ -1671,7 +1671,7 @@ class Component extends DCLogic {
       S.lx.setTransform(SC, 0, 0, SC, 0, 0);
       while (S.i < S.marks.length && S.marks[S.i].T <= lt) { drawMark(S.lx, S.marks[S.i], 1); S.i++; }
       // panel ground: cool grey, like a specimen poster
-      ctx.fillStyle = '#E3E3E0'; ctx.fillRect(0, 0, w, h);
+      ctx.clearRect(0, 0, w, h);
       // a soft, undefined field: agar fades into the grey, no glass rim
       var ag = ctx.createRadialGradient(cx, cy, DR * 0.55, cx, cy, DR * 1.12); ag.addColorStop(0, 'rgba(242,239,232,1)'); ag.addColorStop(0.7, 'rgba(242,239,232,0.75)'); ag.addColorStop(1, 'rgba(242,239,232,0)'); ctx.fillStyle = ag; ctx.fillRect(0, 0, w, h);
       var fade = 1 - sstep(PER - 4, PER - 0.5, lt);
