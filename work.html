@@ -6,6 +6,27 @@
 <title>Limen · Work</title>
 <meta name="description" content="Limen is a creative studio at the threshold of science, technology and art, for Medtech, biotech and the life sciences.">
 <style>
+.wk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,400px),1fr));gap:48px 24px}
+.wk-c{display:flex;flex-direction:column;gap:16px;min-width:0}
+.wk-cov{position:relative;display:grid;grid-template-columns:1fr 32%;aspect-ratio:4/5;border-radius:22px;overflow:hidden;color:#fff;isolation:isolate;text-decoration:none}
+.wk-cov .f{position:relative;overflow:hidden;padding:22px;display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+.wk-cov .f::before{content:"";position:absolute;inset:-20%;z-index:-1;background:var(--g);filter:blur(28px);transition:filter .6s ease}
+.wk-cov .f::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");mix-blend-mode:overlay;opacity:.5}
+a.wk-cov:hover .f::before{filter:blur(10px)}
+.wk-cov .s{background:#0A7A6E;color:#fff;padding:20px 14px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;font-family:'Geist Mono',monospace;font-size:11.5px;line-height:1.5;letter-spacing:.04em}
+.wk-cov .s .t{text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;opacity:.85}
+.wk-cov .n{margin:0;font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1.35}
+.wk-cov h2{margin:0;font-family:'Geist Mono',monospace;font-weight:500;font-size:clamp(26px,2.6vw,36px);line-height:1.04;letter-spacing:-.055em;word-spacing:-.18em;text-wrap:balance}
+.wk-cov .dot{width:12px;height:12px;border-radius:50%;background:#fff}
+.wk-cov.skin{--g:radial-gradient(60% 50% at 30% 30%,#F3C2B1 0%,transparent 70%),radial-gradient(70% 60% at 70% 80%,#E9765E 0%,transparent 70%),radial-gradient(50% 50% at 20% 85%,#B4ADA6 0%,transparent 70%),#C9A39A}
+.wk-cov.air{--g:radial-gradient(60% 50% at 30% 30%,#BFE3E6 0%,transparent 70%),radial-gradient(70% 60% at 70% 75%,#3E7F96 0%,transparent 70%),radial-gradient(50% 50% at 20% 85%,#E5E9EA 0%,transparent 70%),#7FAFBC;color:#0D1413}
+.wk-cov:focus-visible{outline:2px solid #0A7A6E;outline-offset:4px}
+.wk-tags{display:flex;flex-wrap:wrap;gap:6px}
+.wk-tag{display:inline-flex;align-items:center;height:24px;padding:0 9px;background:#0A7A6E;color:#fff;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.wk-tag.o{background:transparent;color:#0D1413;box-shadow:inset 0 0 0 1px #0D1413}
+.wk-d{margin:0;font-size:17px;line-height:1.55;max-width:52ch}
+.wk-c .wk-link{align-self:flex-start}
+
 .brk{position:relative;overflow:hidden;border-radius:30px;min-height:min(72vh,660px);display:flex;color:#fff;isolation:isolate;background:#9a8f8a}
 .brk-bg{position:absolute;inset:-8%;background:url(img/skin-infection.jpg) center/cover;filter:blur(var(--b,44px)) saturate(1.15);transform:scale(1.08);z-index:-2;will-change:filter}
 .brk-sh{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(15,13,14,0) 35%,rgba(15,13,14,.55) 100%)}
@@ -81,25 +102,23 @@ a{color:inherit}a:hover{color:#0A7A6E}
 <p style="margin: 0; max-width: 620px; font-weight: 400; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.5; color: #4E4A47">Work by Limen and the specialists we bring in per project.</p>
 </div>
 
-<div>
-<article class="wk-row">
-<span style="font-family: 'Geist Mono', monospace; font-size: 13px; letter-spacing: 0.1em; color: #0A7A6E">01</span>
-<div style="display: flex; flex-direction: column; gap: 10px">
-<h2 style="margin: 0; font-family: 'Geist Mono', monospace; word-spacing: -0.18em; font-weight: 500; font-size: clamp(26px, 2.8vw, 40px); line-height: 1.05; letter-spacing: -0.055em">A patch that sees an infection coming</h2>
-<p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #5C6765">Concept study · 3D mechanism of action</p>
-</div>
-<p style="margin: 0; font-weight: 400; font-size: 18px; line-height: 1.55">A 30-second 3D explainer, made in code: how a skin patch could read the fluid between cells and flag an infection before symptoms. Illustrative concept.</p>
+<div class="wk-grid">
+<article class="wk-c">
+<a class="wk-cov skin" href="moa.html" aria-label="A patch that sees an infection coming, view project">
+<div class="f"><p class="n">Limen<br/>N°01</p><h2>A patch that sees an infection coming</h2></div>
+<div class="s"><span class="t">Case study A</span><span>science<br/>· design<br/>· art<br/>· technology</span><span class="dot"></span></div>
+</a>
+<div class="wk-tags"><span class="wk-tag">Concept study</span><span class="wk-tag">3D mechanism of action</span><span class="wk-tag o">Skin · coral</span></div>
+<p class="wk-d">A 30-second 3D explainer, made in code: how a skin patch could read the fluid between cells and flag an infection before symptoms. Illustrative concept.</p>
 <a class="wk-link" href="moa.html">View project <span aria-hidden="true">↗</span></a>
 </article>
-
-<article class="wk-row">
-<span style="font-family: 'Geist Mono', monospace; font-size: 13px; letter-spacing: 0.1em; color: #0A7A6E">02</span>
-<div style="display: flex; flex-direction: column; gap: 10px">
-<h2 class="wk-ph" style="margin: 0; font-family: 'Geist Mono', monospace; word-spacing: -0.18em; font-weight: 500; font-size: clamp(26px, 2.8vw, 40px); line-height: 1.05; letter-spacing: -0.055em">[Project title]</h2>
-<p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6B635D">[Client] · [Your role]</p>
+<article class="wk-c">
+<div class="wk-cov air">
+<div class="f"><p class="n">Limen<br/>N°02</p><h2 class="wk-ph">[Project title]</h2></div>
+<div class="s"><span class="t">Case study B</span><span>science<br/>· design<br/>· art<br/>· technology</span><span class="dot"></span></div>
 </div>
-<p class="wk-ph" style="margin: 0; font-weight: 400; font-size: 18px; line-height: 1.55">[One or two sentences: what it was and what you did.]</p>
-<a class="wk-link" href="#work">View project <span aria-hidden="true">↗</span></a>
+<div class="wk-tags"><span class="wk-tag o">[Client]</span><span class="wk-tag o">[Your role]</span></div>
+<p class="wk-d wk-ph">[One or two sentences: what it was and what you did.]</p>
 </article>
 </div>
 </div>

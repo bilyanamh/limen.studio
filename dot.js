@@ -76,6 +76,62 @@
     var n = 0, iv2 = setInterval(function () { upd(); if (++n > 12) clearInterval(iv2); }, 500);
   })();
 
+  // the side tab: a jade tab on the left edge naming the section you are in, like the tab on a magazine page
+  (function () {
+    var st = document.createElement('style');
+    st.textContent = '.lm-stab{position:fixed;left:env(safe-area-inset-left,0px);top:50%;z-index:2147481000;pointer-events:none;transform:translate(-110%,-50%);transition:transform .45s cubic-bezier(.3,.8,.3,1)}' +
+      '.lm-stab.on{transform:translate(0,-50%)}' +
+      '.lm-stab span{display:block;writing-mode:vertical-rl;transform:rotate(180deg);background:#0A7A6E;color:#fff;font-family:"Geist Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 3px;white-space:nowrap}' +
+      '@media (max-width:900px){.lm-stab{display:none}}@media print{.lm-stab{display:none}}';
+    document.head.appendChild(st);
+    var tab = document.createElement('div'); tab.className = 'lm-stab'; tab.setAttribute('aria-hidden', 'true');
+    var tx = document.createElement('span'); tab.appendChild(tx); document.body.appendChild(tab);
+    var cur = '';
+    var upd = function () {
+      var labs = document.querySelectorAll('.lm-lab'), vh = window.innerHeight || 800, pick = '', uniq = [];
+      for (var i = 0; i < labs.length; i++) {
+        var nm = '', sp = labs[i].querySelectorAll('span');
+        for (var k = 0; k < sp.length; k++) if (!sp[k].className && sp[k].textContent.trim()) { nm = sp[k].textContent.trim(); break; }
+        if (!nm) continue;
+        if (uniq.indexOf(nm) < 0) uniq.push(nm);
+        if (labs[i].getBoundingClientRect().top < vh * 0.5) pick = nm;
+      }
+      if (pick) { var txt = 'N°' + ('0' + (uniq.indexOf(pick) + 1)).slice(-2) + ' · ' + pick; if (txt !== cur) { cur = txt; tx.textContent = txt; } }
+      tab.classList.toggle('on', !!pick);
+    };
+    window.addEventListener('scroll', upd, { passive: true, capture: true }); window.addEventListener('resize', upd);
+    var n = 0, iv3 = setInterval(function () { upd(); if (++n > 12) clearInterval(iv3); }, 500);
+  })();
+
+  // noise to dot: every discovery begins as noise; it settles into the Limen dot, then breaks up again
+  (function () {
+    var cvs = [], seen = new WeakSet(), N = 28, R = new Float32Array(N * N), sd = 7;
+    for (var i = 0; i < N * N; i++) { sd = (sd * 16807) % 2147483647; R[i] = sd / 2147483647; }
+    var find = function () { var cs = document.querySelectorAll('canvas.lm-nd'); for (var i = 0; i < cs.length; i++) if (!seen.has(cs[i])) { seen.add(cs[i]); cs[i].width = N; cs[i].height = N; cvs.push(cs[i]); } };
+    var t0 = performance.now();
+    var draw = function (now) {
+      find();
+      for (var c = 0; c < cvs.length; c++) {
+        var cv = cvs[c], r = cv.getBoundingClientRect(); if (r.bottom < 0 || r.top > (window.innerHeight || 800)) continue;
+        var x = cv.getContext('2d'), img = x.createImageData(N, N);
+        var t = ((now - t0) / 1000) % 6, k = t < 2.4 ? t / 2.4 : t < 4.2 ? 1 : 1 - (t - 4.2) / 1.8; if (reduce) k = 1;
+        var e = k * k * (3 - 2 * k), f = Math.floor(now / 80);
+        for (var y = 0; y < N; y++) for (var xx = 0; xx < N; xx++) {
+          var j = y * N + xx, d = Math.hypot(xx - N / 2 + 0.5, y - N / 2 + 0.5) / (N / 2), inside = d < 0.46;
+          var nn = (R[j] * 997 + f * 0.618) % 1, on = inside ? nn < 0.5 + 0.5 * e : nn < 0.5 * (1 - e), o = j * 4, g = 60 + (nn * 70 | 0);
+          if (on && inside) { img.data[o] = 10 * e + g * (1 - e); img.data[o + 1] = 122 * e + g * (1 - e); img.data[o + 2] = 110 * e + g * (1 - e); }
+          else if (on) { img.data[o] = g; img.data[o + 1] = g; img.data[o + 2] = g; }
+          else { img.data[o] = 238; img.data[o + 1] = 243; img.data[o + 2] = 241; }
+          img.data[o + 3] = 255;
+        }
+        x.putImageData(img, 0, 0);
+      }
+      if (!reduce) requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
+    if (reduce) setTimeout(function () { requestAnimationFrame(draw); }, 1500);
+  })();
+
   // the dot that follows the pointer
   var fine =window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!fine) return;
