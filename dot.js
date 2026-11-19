@@ -103,26 +103,34 @@
     var n = 0, iv3 = setInterval(function () { upd(); if (++n > 12) clearInterval(iv3); }, 500);
   })();
 
-  // noise to dot: every discovery begins as noise; it settles into the Limen dot, then breaks up again
+  // noise to dot: every discovery begins as noise; it settles into the Limen dot, then breaks up again.
+  // Used for the dot that ends each headline's crosshair line.
   (function () {
-    var cvs = [], seen = new WeakSet(), N = 28, R = new Float32Array(N * N), sd = 7;
+    var cvs = [], seen = new WeakSet(), N = 23, R = new Float32Array(N * N), sd = 7;
     for (var i = 0; i < N * N; i++) { sd = (sd * 16807) % 2147483647; R[i] = sd / 2147483647; }
-    var find = function () { var cs = document.querySelectorAll('canvas.lm-nd'); for (var i = 0; i < cs.length; i++) if (!seen.has(cs[i])) { seen.add(cs[i]); cs[i].width = N; cs[i].height = N; cvs.push(cs[i]); } };
+    var find = function () {
+      var cs = document.querySelectorAll('canvas.lm-nd');
+      for (var i = 0; i < cs.length; i++) if (!seen.has(cs[i])) {
+        seen.add(cs[i]); cs[i].width = N; cs[i].height = N;
+        var m = (getComputedStyle(cs[i].parentNode.parentNode).color || '').match(/\d+(\.\d+)?/g) || [13, 20, 19];
+        cvs.push({ el: cs[i], c: [+m[0], +m[1], +m[2]], off: cvs.length * 1.7 });
+      }
+    };
     var t0 = performance.now();
     var draw = function (now) {
       find();
       for (var c = 0; c < cvs.length; c++) {
-        var cv = cvs[c], r = cv.getBoundingClientRect(); if (r.bottom < 0 || r.top > (window.innerHeight || 800)) continue;
+        var o = cvs[c], cv = o.el, r = cv.getBoundingClientRect(); if (r.bottom < 0 || r.top > (window.innerHeight || 800) || !r.width) continue;
         var x = cv.getContext('2d'), img = x.createImageData(N, N);
-        var t = ((now - t0) / 1000) % 6, k = t < 2.4 ? t / 2.4 : t < 4.2 ? 1 : 1 - (t - 4.2) / 1.8; if (reduce) k = 1;
-        var e = k * k * (3 - 2 * k), f = Math.floor(now / 80);
+        var t = ((now - t0) / 1000 + o.off) % 7, k = t < 2.6 ? t / 2.6 : t < 5.2 ? 1 : 1 - (t - 5.2) / 1.8; if (reduce) k = 1;
+        var e = k * k * (3 - 2 * k), f = Math.floor(now / 90);
         for (var y = 0; y < N; y++) for (var xx = 0; xx < N; xx++) {
-          var j = y * N + xx, d = Math.hypot(xx - N / 2 + 0.5, y - N / 2 + 0.5) / (N / 2), inside = d < 0.46;
-          var nn = (R[j] * 997 + f * 0.618) % 1, on = inside ? nn < 0.5 + 0.5 * e : nn < 0.5 * (1 - e), o = j * 4, g = 60 + (nn * 70 | 0);
-          if (on && inside) { img.data[o] = 10 * e + g * (1 - e); img.data[o + 1] = 122 * e + g * (1 - e); img.data[o + 2] = 110 * e + g * (1 - e); }
-          else if (on) { img.data[o] = g; img.data[o + 1] = g; img.data[o + 2] = g; }
-          else { img.data[o] = 238; img.data[o + 1] = 243; img.data[o + 2] = 241; }
-          img.data[o + 3] = 255;
+          var j = y * N + xx, d = Math.hypot(xx - N / 2 + 0.5, y - N / 2 + 0.5) / (N / 2), q = j * 4;
+          var nn = (R[j] * 997 + f * 0.618) % 1, inside = d < 0.44;
+          var on = inside ? nn < 0.45 + 0.55 * e : d < 1 && nn < 0.42 * (1 - e) * (1 - d * 0.6);
+          if (!on) { img.data[q + 3] = 0; continue; }
+          if (inside) { img.data[q] = o.c[0] + (10 - o.c[0]) * e; img.data[q + 1] = o.c[1] + (122 - o.c[1]) * e; img.data[q + 2] = o.c[2] + (110 - o.c[2]) * e; img.data[q + 3] = 140 + 115 * e; }
+          else { img.data[q] = o.c[0]; img.data[q + 1] = o.c[1]; img.data[q + 2] = o.c[2]; img.data[q + 3] = 150 * (1 - e); }
         }
         x.putImageData(img, 0, 0);
       }
