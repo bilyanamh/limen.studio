@@ -44,6 +44,37 @@ a{color:inherit}
 .mo-body li{display:flex;justify-content:space-between;gap:24px;padding:18px 0;border-bottom:1px solid var(--line);font-size:18px}
 .mo-body li b{font-weight:400;font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .mo-note{font-family:'Geist Mono',monospace;font-size:12px!important;letter-spacing:.1em;text-transform:uppercase}
+.cs-wrap{max-width:1360px;margin:0 auto;padding:64px max(16px,env(safe-area-inset-left,0px)) 120px}
+.cs{position:relative;background:#fff;border-radius:30px;padding:clamp(22px,3.4vw,48px);padding-left:clamp(48px,5vw,80px);display:flex;flex-direction:column;gap:clamp(26px,3.4vw,44px)}
+.cs-side{position:absolute;left:0;top:clamp(22px,3.4vw,48px);width:clamp(32px,3vw,44px);display:flex;justify-content:center}
+.cs-side span{writing-mode:vertical-rl;transform:rotate(180deg);background:var(--green);color:#fff;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;padding:12px 5px}
+.cs-head{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 48px;align-items:end}
+.cs-head h1{margin:0;font-family:'Geist Mono',monospace;word-spacing:-.18em;font-weight:500;font-size:clamp(34px,4.4vw,64px);line-height:1.02;letter-spacing:-.055em;text-wrap:balance}
+.cs-head h1 span{color:var(--green)}
+.cs-by{display:flex;flex-direction:column;gap:12px}
+.cs-who{margin:0;font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:-.01em}
+.cs-tags{display:flex;flex-wrap:wrap;gap:6px}
+.cs-tag{display:inline-flex;align-items:center;height:24px;padding:0 9px;background:var(--green);color:#fff;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.cs-tag.o{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.cs-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 48px}
+.cs-cols p{margin:0;max-width:62ch;font-size:17px;line-height:1.6;color:#2B3332}
+.cs-cols p+p{margin-top:14px}
+.cs-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;border-top:1px solid var(--line)}
+.cs-facts div{padding:16px 16px 16px 0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.cs-facts div+div{padding-left:16px;border-left:1px solid var(--line)}
+.cs-facts dt{font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cs-facts dd{margin:0;font-size:15.5px;line-height:1.45}
+.cs-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.cs-fig{margin:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+.cs-vf{position:relative;border-radius:18px;overflow:hidden;background:#C9C3BD}
+.cs-vf img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.cs-vf .k{position:absolute;width:20px;height:20px;border:1.5px solid #fff}
+.cs-vf .k.a{left:12px;top:12px;border-right:0;border-bottom:0}.cs-vf .k.d{right:12px;bottom:12px;border-left:0;border-top:0}
+.cs-cap{display:flex;gap:14px;border-top:1px solid var(--ink);padding-top:9px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cs-cap b{color:var(--ink);font-weight:500}
+@media (max-width:980px){.cs-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-facts div:nth-child(3){padding-left:0;border-left:0}.cs-facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:760px){.cs-head,.cs-cols,.cs-strip{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.cs-facts{grid-template-columns:minmax(0,1fr)}.cs-facts div{padding-left:0!important;border-left:0!important}.cs-facts div+div{border-top:1px solid var(--line)}}
 footer{background:#0F0D0E;color:#A8B3B0}
 footer div{max-width:1360px;margin:0 auto;padding:30px 24px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;font-size:16px}
 footer a{color:#EEF3F1}
@@ -67,19 +98,32 @@ footer a{color:#EEF3F1}
 <div class="mo-steps" id="mo-steps"><span class="mo-prog" id="mo-prog"></span></div>
 </div>
 </section>
-<section class="mo-body">
-<div style="display:flex;flex-direction:column;gap:28px">
-<p class="mo-lab">Concept study · 3D mechanism of action</p>
+<section class="cs-wrap">
+<article class="cs">
+<div class="cs-side"><span>Case study A</span></div>
+<div class="cs-head">
 <h1>A patch that sees an infection <span>coming</span></h1>
-<p>A short 3D explainer for a wearable biosensor: the patch sits on the skin, reads the fluid between cells and flags the chemical signs of an infection before the wearer feels unwell. Built to show an investor or a clinician the mechanism in under thirty seconds, without a single line of jargon.</p>
-<p class="mo-note">Illustrative concept by Limen. Not a real product, device or clinical data.</p>
+<div class="cs-by">
+<p class="cs-who">Concept study by Limen · 2026</p>
+<div class="cs-tags"><span class="cs-tag">Concept study</span><span class="cs-tag">3D mechanism of action</span><span class="cs-tag o">Illustrative</span></div>
 </div>
-<ul>
-<li><b>Format</b><span>Real-time 3D in code, web and film</span></li>
-<li><b>Audience</b><span>Investors and clinicians</span></li>
-<li><b>Length</b><span>About 30 seconds</span></li>
-<li><b>Disciplines</b><span>Science, design, art, technology</span></li>
-</ul>
+</div>
+<div class="cs-cols">
+<div><p>A short 3D explainer for a wearable biosensor: the patch sits on the skin, reads the fluid between cells and flags the chemical signs of an infection before the wearer feels unwell.</p><p>Built to show an investor or a clinician the mechanism in under thirty seconds, without a single line of jargon.</p></div>
+<div><p>The tissue is drawn to anatomy rather than decoration: collagen bundles made of fibrils, thin elastic fibres, fibroblasts, dendritic cells, capillary loops and clusters of cocci where the infection starts.</p><p>Sizes are stylised so everything can be seen. Illustrative concept by Limen, not a real product, device or clinical data.</p></div>
+</div>
+<dl class="cs-facts">
+<div><dt>Science</dt><dd>Interstitial fluid sensing, dermal anatomy</dd></div>
+<div><dt>Audience</dt><dd>Investors and clinicians</dd></div>
+<div><dt>What we made</dt><dd>Real-time 3D in code, for web and film</dd></div>
+<div><dt>Length</dt><dd>About 30 seconds</dd></div>
+</dl>
+<div class="cs-strip">
+<figure class="cs-fig"><div class="cs-vf"><img src="img/skin-below.jpg" alt="Microneedles reaching below the skin past capillary loops" width="1400" height="875" loading="lazy"><span class="k a"></span><span class="k d"></span></div><figcaption class="cs-cap"><span><b>Fig. 02</b> · Below the surface</span></figcaption></figure>
+<figure class="cs-fig"><div class="cs-vf"><img src="img/skin-infection.jpg" alt="Clusters of round bacteria among collagen bundles and coral immune cells" width="1400" height="875" loading="lazy"><span class="k a"></span><span class="k d"></span></div><figcaption class="cs-cap"><span><b>Fig. 03</b> · An infection starts</span></figcaption></figure>
+<figure class="cs-fig"><div class="cs-vf"><img src="img/skin-markers.jpg" alt="Glowing orange markers drifting from the bacteria towards the needle tip" width="1400" height="875" loading="lazy"><span class="k a"></span><span class="k d"></span></div><figcaption class="cs-cap"><span><b>Fig. 04</b> · Markers reach the sensor</span></figcaption></figure>
+</div>
+</article>
 </section>
 </main>
 <footer><div><a href="index.html" aria-label="limen, home" style="line-height:0"><svg style="height:22px;width:auto;display:block" aria-hidden="true" viewBox="3.6 -77.4 286.4 79.8"><path fill="#EEF3F1" d="M26.4 -3.2V-55.88Q26.4 -59.02 24.67 -60.75Q22.94 -62.48 19.8 -62.48H7.6V-71H20.88Q28.62 -71 32.57 -67.05Q36.52 -63.1 36.52 -55.36V-3.2ZM5.6 0V-8.52H54.4V0Z M65.6 0V-8.52H86.44V-49.34L91.1 -44.68H66.6V-53.2H96.56V-8.52H114.4V0H96.56H86.44Z M119.6 0V-53.2H128.42L128.78 -41.22L127.72 -41.46Q128.74 -47.6 131.66 -51Q134.58 -54.4 139.08 -54.4Q143.86 -54.4 146.32 -51.01Q148.78 -47.62 149.44 -40.92H148.28Q149.24 -47.3 152.44 -50.85Q155.64 -54.4 160.44 -54.4Q166.68 -54.4 169.54 -50.05Q172.4 -45.7 172.4 -35.88V0H162.56V-34.16Q162.56 -40.64 161.25 -43.14Q159.94 -45.64 157.14 -45.64Q155.28 -45.64 153.86 -44.44Q152.44 -43.24 151.6 -40.65Q150.76 -38.06 150.76 -34V0H141.24V-34.16Q141.24 -40.36 139.97 -43Q138.7 -45.64 135.8 -45.64Q133.92 -45.64 132.5 -44.44Q131.08 -43.24 130.26 -40.65Q129.44 -38.06 129.44 -34V0Z M204.48 1.2Q196.98 1.2 191.43 -2.21Q185.88 -5.62 182.84 -11.89Q179.8 -18.16 179.8 -26.6Q179.8 -34.98 182.83 -41.21Q185.86 -47.44 191.32 -50.92Q196.78 -54.4 204.16 -54.4Q211.22 -54.4 216.64 -51.07Q222.06 -47.74 225.13 -41.49Q228.2 -35.24 228.2 -26.44V-23.64H190.32Q190.82 -15.98 194.57 -12.05Q198.32 -8.12 204.58 -8.12Q209.3 -8.12 212.4 -10.35Q215.5 -12.58 216.7 -16.24L227.24 -15.46Q224.94 -7.92 219.02 -3.36Q213.1 1.2 204.48 1.2ZM190.38 -31.66H217.22Q216.66 -38.54 213.1 -41.81Q209.54 -45.08 204.12 -45.08Q198.54 -45.08 194.95 -41.69Q191.36 -38.3 190.38 -31.66Z M240 0V-53.2H249.26L249.6 -39.32L248.48 -40.12Q249.46 -45 252.04 -48.16Q254.62 -51.32 258.29 -52.86Q261.96 -54.4 266.16 -54.4Q272.16 -54.4 276.08 -51.74Q280 -49.08 282 -44.54Q284 -40 284 -34.3V0H273.88V-31.68Q273.88 -38.62 271.26 -42.13Q268.64 -45.64 263.26 -45.64Q259.6 -45.64 256.63 -44.01Q253.66 -42.38 251.89 -39.24Q250.12 -36.1 250.12 -31.48V0Z"></path><circle cx="91.0" cy="-68.2" r="7.2" fill="#0A7A6E"></circle></svg></a><span>Working globally</span><a href="index.html#contact">LinkedIn</a><span>© 2026 Limen Studio</span></div></footer>
