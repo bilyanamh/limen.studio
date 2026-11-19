@@ -140,6 +140,42 @@
     if (reduce) setTimeout(function () { requestAnimationFrame(draw); }, 1500);
   })();
 
+  // a slow, quiet cube field behind a section title: the isometric noise field, large and faint,
+  // drifting gently; the odd cube that crosses the threshold catches the jade.
+  // Cube field after "Isometric Noise Field II", pattern from bookofshapes.com, redrawn in code.
+  (function () {
+    var list = [], seen = new WeakSet(), t0 = performance.now();
+    var find = function () { var cs = document.querySelectorAll('canvas.lm-isobg'); for (var i = 0; i < cs.length; i++) if (!seen.has(cs[i])) { seen.add(cs[i]); list.push({ el: cs[i], last: -1 }); } };
+    var draw = function (now) {
+      find();
+      for (var q = 0; q < list.length; q++) {
+        var o = list[q], cv = o.el, r = cv.getBoundingClientRect(), vh = window.innerHeight || 800;
+        if (r.bottom < 0 || r.top > vh || r.width < 2) continue;
+        if (!reduce && now - o.last < 40) continue; o.last = now;
+        var dpr = Math.min(window.devicePixelRatio || 1, 1.5), W = Math.round(r.width * dpr), Hh = Math.round(r.height * dpr);
+        if (cv.width !== W || cv.height !== Hh) { cv.width = W; cv.height = Hh; }
+        var x = cv.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, r.width, r.height);
+        var w = r.width, h = r.height, t = reduce ? 4 : (now - t0) / 1000 * 0.32, N = 26;
+        var s = Math.max(w / 1100, 0.7), A = 17.32 * s, B = 10 * s, H = 20 * s, ox = w * 0.72 + Math.sin(t * 0.3) * 18 * s, oy = h * 0.08 + Math.cos(t * 0.23) * 10 * s;
+        for (var k = 0; k <= 2 * (N - 1); k++) for (var i = Math.max(0, k - N + 1); i <= Math.min(k, N - 1); i++) {
+          var j = k - i, cx = ox + (i - j) * 25.98 * s, cy = oy + (i + j) * 15 * s;
+          if (cx < -40 || cx > w + 40 || cy > h + 60) continue;
+          var n = Math.sin(i * 0.33 + t * 0.9) * Math.cos(j * 0.29 - t * 0.7) * 0.6 + Math.sin((i + j) * 0.21 + t * 0.55) * 0.4, z = 0.5 + 0.5 * n;
+          var yy = cy - z * z * H * 2.2, hot = z > 0.86, a = 0.05 + 0.13 * z;
+          x.fillStyle = hot ? 'rgba(10,122,110,' + (a * 1.6).toFixed(3) + ')' : 'rgba(238,243,241,' + (a * 0.35).toFixed(3) + ')';
+          x.beginPath(); x.moveTo(cx, yy); x.lineTo(cx, yy - H); x.lineTo(cx - A, yy - H - B); x.lineTo(cx - A, yy - B); x.closePath(); x.fill();
+          x.fillStyle = hot ? 'rgba(10,122,110,' + (a * 1.2).toFixed(3) + ')' : 'rgba(238,243,241,' + (a * 0.55).toFixed(3) + ')';
+          x.beginPath(); x.moveTo(cx, yy); x.lineTo(cx + A, yy - B); x.lineTo(cx + A, yy - H - B); x.lineTo(cx, yy - H); x.closePath(); x.fill();
+          x.fillStyle = hot ? 'rgba(10,122,110,' + Math.min(0.85, a * 4).toFixed(3) + ')' : 'rgba(238,243,241,' + a.toFixed(3) + ')';
+          x.beginPath(); x.moveTo(cx, yy - H); x.lineTo(cx + A, yy - H - B); x.lineTo(cx, yy - H - 2 * B); x.lineTo(cx - A, yy - H - B); x.closePath(); x.fill();
+        }
+      }
+      if (!reduce) requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
+    if (reduce) setTimeout(function () { requestAnimationFrame(draw); }, 1500);
+  })();
+
   // the dot that follows the pointer
   var fine =window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!fine) return;
