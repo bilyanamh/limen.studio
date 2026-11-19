@@ -112,9 +112,11 @@ h2,h3,.lm-aud h3,.lm-in-t,.lm-ba .aft,.lm-hl{font-family:'Geist Mono',monospace!
 .lm-air::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");mix-blend-mode:overlay;opacity:.45}
 .lm-air .lm-lab,.lm-air p,.lm-air figcaption{color:#2B3332!important}
 .lm-xh{position:relative;width:fit-content;max-width:100%;padding:14px 30px 14px 0!important;flex:0 1 auto!important;box-sizing:border-box}
-.lm-xh::before{content:"";position:absolute;left:-100vw;right:-14px;top:50%;height:1px;background:currentColor;opacity:.28;pointer-events:none}
-.lm-xh::after{content:"";position:absolute;right:0;top:-8px;bottom:-8px;width:1px;background:currentColor;opacity:.28;pointer-events:none}
+.lm-xh::before{content:"";position:absolute;left:-100vw;right:calc(100% + 14px);top:50%;height:1px;background:linear-gradient(90deg,transparent 60%,currentColor);opacity:.16;pointer-events:none}
+.lm-xh::after{content:"";position:absolute;right:0;top:-8px;bottom:-8px;width:1px;background:linear-gradient(180deg,transparent,currentColor 30%,currentColor 70%,transparent);opacity:.18;pointer-events:none}
 .lm-xh .lm-xd{position:absolute;right:-5px;top:calc(50% - 5px);width:11px;height:11px;border-radius:50%;background:#0A7A6E;font-style:normal}
+.lm-xh .lm-xd::before{content:"";position:absolute;right:11px;top:5px;width:16px;height:1px;background:currentColor;opacity:.16}
+.lm-xh .lm-xd::after{content:"";position:absolute;left:11px;top:5px;width:10px;height:1px;background:currentColor;opacity:.16}
 .lm-tag{display:inline-flex;align-items:center;height:24px;padding:0 9px;background:#0A7A6E;color:#fff;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;line-height:1}
 .lm-ndr{display:flex;align-items:center;gap:14px;margin:40px 0 0;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#5C6765}
 .lm-nd{width:56px;height:56px;image-rendering:pixelated;border-radius:8px;display:block}
@@ -1672,8 +1674,14 @@ class Component extends DCLogic {
       while (S.i < S.marks.length && S.marks[S.i].T <= lt) { drawMark(S.lx, S.marks[S.i], 1); S.i++; }
       // panel ground: cool grey, like a specimen poster
       ctx.clearRect(0, 0, w, h);
-      // a soft, undefined field: agar fades into the grey, no glass rim
-      var ag = ctx.createRadialGradient(cx, cy, DR * 0.55, cx, cy, DR * 1.12); ag.addColorStop(0, 'rgba(242,239,232,1)'); ag.addColorStop(0.7, 'rgba(242,239,232,0.75)'); ag.addColorStop(1, 'rgba(242,239,232,0)'); ctx.fillStyle = ag; ctx.fillRect(0, 0, w, h);
+      // the dish itself, standing on the page: a soft shadow, the agar, a glass rim
+      var shd = ctx.createRadialGradient(cx, cy + DR * 0.05, DR * 0.9, cx, cy + DR * 0.05, DR * 1.06); shd.addColorStop(0, 'rgba(30,60,70,0.22)'); shd.addColorStop(1, 'rgba(30,60,70,0)');
+      ctx.fillStyle = shd; ctx.beginPath(); ctx.arc(cx, cy + DR * 0.05, DR * 1.06, 0, 6.2832); ctx.fill();
+      var ag = ctx.createRadialGradient(cx - DR * 0.2, cy - DR * 0.25, DR * 0.1, cx, cy, DR); ag.addColorStop(0, '#F7F4EE'); ag.addColorStop(0.75, '#EFEAE0'); ag.addColorStop(1, '#E2DBCD');
+      ctx.fillStyle = ag; ctx.beginPath(); ctx.arc(cx, cy, DR * 0.985, 0, 6.2832); ctx.fill();
+      ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(13,20,19,0.22)'; ctx.beginPath(); ctx.arc(cx, cy, DR, 0, 6.2832); ctx.stroke();
+      ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,255,255,0.85)'; ctx.beginPath(); ctx.arc(cx, cy, DR - 2.5, 0, 6.2832); ctx.stroke();
+      ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(255,255,255,0.95)'; ctx.lineCap = 'round'; ctx.beginPath(); ctx.arc(cx, cy, DR - 8, 3.6, 4.6); ctx.stroke();
       var fade = 1 - sstep(PER - 4, PER - 0.5, lt);
       if (!S.tmp) { S.tmp = mk(S.layer.width, S.layer.height); S.tx = S.tmp.getContext('2d'); }
       var tx2 = S.tx; tx2.setTransform(1, 0, 0, 1, 0, 0); tx2.globalCompositeOperation = 'source-over'; tx2.clearRect(0, 0, S.tmp.width, S.tmp.height); tx2.drawImage(S.layer, 0, 0);
