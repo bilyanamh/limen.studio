@@ -2905,14 +2905,20 @@ class Component extends DCLogic {
             const d = DK.dot(r.width, r.height), ip = stg.getBoundingClientRect(), px = r.left - ip.left + d[0], py = r.top - ip.top + d[1];
             const diag = Math.hypot(Math.max(px, ip.width - px), Math.max(py, ip.height - py));
             const R = d[2] + Math.pow(q, 1.35) * diag * 1.04;
-            if (q <= 0) { stg.style.webkitMaskImage = stg.style.maskImage = 'none'; stg.style.visibility = ''; iris.style.background = 'none'; }
-            else if (q >= 1) { stg.style.visibility = 'hidden'; }
+            // the opening is a true vector circle at every size (a clip path and a bordered ring),
+            // so it stays perfectly round even when it grows past the screen
+            if (!this.irisRing) { const rg = document.createElement('div'); rg.style.cssText = 'position:absolute;left:0;top:0;border-radius:50%;box-sizing:border-box;border:4.5px solid #0A7A6E;pointer-events:none;will-change:transform;display:none'; iris.appendChild(rg); this.irisRing = rg; }
+            const ring = this.irisRing;
+            if (q <= 0) { stg.style.clipPath = stg.style.webkitClipPath = 'none'; stg.style.visibility = ''; ring.style.display = 'none'; }
+            else if (q >= 1) { stg.style.visibility = 'hidden'; ring.style.display = 'none'; }
             else {
-              const at = 'circle at ' + px.toFixed(1) + 'px ' + py.toFixed(1) + 'px, ';
-              const g = 'radial-gradient(' + at + 'transparent ' + R.toFixed(1) + 'px, #000 ' + (R + 1).toFixed(1) + 'px)';
-              stg.style.webkitMaskImage = g; stg.style.maskImage = g; stg.style.visibility = '';
-              const ra = (1 - Math.max(0, (q - 0.7) / 0.3)).toFixed(3), c = 'rgba(10,122,110,' + ra + ')';
-              iris.style.background = 'radial-gradient(' + at + 'transparent ' + (R + 0.5).toFixed(1) + 'px, ' + c + ' ' + (R + 1).toFixed(1) + 'px, ' + c + ' ' + (R + 5).toFixed(1) + 'px, transparent ' + (R + 5.8).toFixed(1) + 'px)';
+              const W2 = ip.width, H2 = ip.height, f = (v) => v.toFixed(2);
+              const cp = 'path(evenodd, "M0 0H' + f(W2) + 'V' + f(H2) + 'H0Z M' + f(px - R) + ' ' + f(py) + 'a' + f(R) + ' ' + f(R) + ' 0 1 0 ' + f(2 * R) + ' 0a' + f(R) + ' ' + f(R) + ' 0 1 0 ' + f(-2 * R) + ' 0Z")';
+              stg.style.clipPath = cp; stg.style.webkitClipPath = cp; stg.style.visibility = '';
+              const D = 2 * (R + 4.5);
+              ring.style.display = 'block'; ring.style.width = ring.style.height = f(D) + 'px';
+              ring.style.transform = 'translate(' + f(px - D / 2) + 'px,' + f(py - D / 2) + 'px)';
+              ring.style.opacity = (1 - Math.max(0, (q - 0.7) / 0.3)).toFixed(3);
             }
           }
         }
