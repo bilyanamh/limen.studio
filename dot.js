@@ -176,6 +176,100 @@
     if (reduce) setTimeout(function () { requestAnimationFrame(draw); }, 1500);
   })();
 
+  // Scroll-driven pattern fields. Every one moves from noise to order as its section scrolls through,
+  // so the page tells one story: noise, threshold, signal, connection.
+  // Patterns after bookofshapes.com (Cell Shift, Deformed Grid Mesh II, Node Garden, Concentric Noise Rings), redrawn in code.
+  (function () {
+    var list = [], seen = new WeakSet(), t0 = performance.now();
+    var ss = function (a, b, v) { var q = Math.min(1, Math.max(0, (v - a) / (b - a))); return q * q * (3 - 2 * q); };
+    var rnd = function (s) { return function () { s = (s * 16807) % 2147483647; return s / 2147483647; }; };
+    var nz = function (x, y, t) { return Math.sin(x * 1.7 + t * 0.6 + Math.sin(y * 1.3 + t * 0.4)) * 0.55 + Math.sin(y * 2.1 - t * 0.5 + x * 0.7) * 0.45; };
+    var find = function () {
+      var cs = document.querySelectorAll('canvas.lm-pat');
+      for (var i = 0; i < cs.length; i++) if (!seen.has(cs[i])) { seen.add(cs[i]); list.push({ el: cs[i], k: cs[i].getAttribute('data-k'), last: -1, lp: -1, sec: cs[i].closest('section') || cs[i].parentNode }); }
+    };
+    var K = {
+      // Before and after: each dot sits half outside its window and slides fully in, a wave from the far corner
+      cells: function (x, w, h, p, t) {
+        var S = Math.max(46, Math.min(72, w / 18)), cols = Math.ceil(w / S) + 1, rows = Math.ceil(h / S) + 1, r = S * 0.395;
+        for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) {
+          var cx = i * S + S / 2, cy = j * S + S / 2, d = (cols - 1 - i + rows - 1 - j) / (cols + rows - 2);
+          var q = ss(d * 0.75, d * 0.75 + 0.25, p * 1.15), off = (1 - q) * S * 0.62, wob = Math.sin(t * 0.8 + i * 0.7 + j * 0.5) * (1 - q) * S * 0.04;
+          x.save(); x.beginPath(); x.rect(cx - S / 2, cy - S / 2, S, S); x.clip();
+          x.fillStyle = q > 0.98 && (i * 7 + j * 3) % 11 === 0 ? 'rgba(10,122,110,0.26)' : 'rgba(13,20,19,' + (0.028 + 0.022 * q).toFixed(3) + ')';
+          x.beginPath(); x.arc(cx - off + wob, cy - off, r, 0, 6.2832); x.fill(); x.restore();
+        }
+      },
+      // Practice: a warped field of dots that straightens into a perfect grid
+      grid: function (x, w, h, p, t) {
+        var G = Math.max(18, w / 64), amp = G * 2.6 * Math.pow(1 - ss(0, 1, p), 1.4) + G * 0.05;
+        x.fillStyle = 'rgba(238,243,241,0.3)';
+        for (var y = G / 2; y < h; y += G) for (var xx = G / 2; xx < w; xx += G) {
+          var u = xx / w * 3.2, v = y / h * 2.4, dx = nz(u, v, t * 0.5) * amp, dy = nz(v + 4, u, t * 0.5) * amp;
+          x.beginPath(); x.arc(xx + dx, y + dy, 1.45, 0, 6.2832); x.fill();
+        }
+      },
+      // How it lands: nodes on a loose grid, the links between them drawing in one by one
+      nodes: function (x, w, h, p, t, o) {
+        if (!o.g || o.gw !== w || o.gh !== h) {
+          var R = rnd(91), G = Math.max(44, w / 26), N = [], E = [], cols = Math.ceil(w / G), rows = Math.ceil(h / G);
+          for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) N.push({ x: i * G + G / 2 + (R() - 0.5) * G * 0.3, y: j * G + G / 2 + (R() - 0.5) * G * 0.3, ph: R() * 6.28 });
+          for (var j2 = 0; j2 < rows; j2++) for (var i2 = 0; i2 < cols; i2++) {
+            var a = j2 * cols + i2;
+            if (i2 < cols - 1 && R() < 0.42) E.push([a, a + 1, R()]);
+            if (j2 < rows - 1 && R() < 0.42) E.push([a, a + cols, R()]);
+            if (i2 < cols - 1 && j2 < rows - 1 && R() < 0.12) E.push([a, a + cols + 1, R()]);
+          }
+          o.g = { N: N, E: E }; o.gw = w; o.gh = h;
+        }
+        var lit = {};
+        x.lineWidth = 1; x.strokeStyle = 'rgba(13,20,19,0.16)';
+        for (var e = 0; e < o.g.E.length; e++) {
+          var E2 = o.g.E[e], q = ss(E2[2] * 0.85, E2[2] * 0.85 + 0.15, p); if (q <= 0) continue;
+          var A = o.g.N[E2[0]], B = o.g.N[E2[1]]; lit[E2[0]] = lit[E2[1]] = 1;
+          x.beginPath(); x.moveTo(A.x, A.y); x.lineTo(A.x + (B.x - A.x) * q, A.y + (B.y - A.y) * q); x.stroke();
+        }
+        for (var n = 0; n < o.g.N.length; n++) {
+          var P = o.g.N[n], on = lit[n], hub = on && n % 23 === 0;
+          x.fillStyle = hub ? 'rgba(10,122,110,0.7)' : on ? 'rgba(13,20,19,0.3)' : 'rgba(13,20,19,0.12)';
+          x.beginPath(); x.arc(P.x, P.y, hub ? 3.2 : on ? 2.2 : 1.6 + 0.4 * Math.sin(t + P.ph), 0, 6.2832); x.fill();
+        }
+      },
+      // Contact: noisy rings that settle into calm ripples around the dish
+      rings: function (x, w, h, p, t) {
+        var cx = w / 2, cy = h / 2, R0 = Math.min(w, h) * 0.3, amp = R0 * 0.14 * (1 - ss(0, 1, p)) + R0 * 0.006;
+        x.lineWidth = 1;
+        for (var k = 0; k < 26; k++) {
+          var rr = R0 * (1.02 + k * 0.045), a = 0.24 * (1 - k / 30);
+          x.strokeStyle = 'rgba(13,20,19,' + a.toFixed(3) + ')'; x.beginPath();
+          for (var s = 0; s <= 120; s++) {
+            var an = s / 120 * 6.2832, m = rr + amp * (Math.sin(an * 3 + k * 0.35 + t * 0.7) * 0.6 + Math.sin(an * 5 - k * 0.22 - t * 0.5) * 0.4);
+            var px = cx + Math.cos(an) * m, py = cy + Math.sin(an) * m;
+            if (s) x.lineTo(px, py); else x.moveTo(px, py);
+          }
+          x.stroke();
+        }
+      }
+    };
+    var draw = function (now) {
+      find();
+      var vh = window.innerHeight || 800;
+      for (var q = 0; q < list.length; q++) {
+        var o = list[q], cv = o.el, r = cv.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh || r.width < 2 || !K[o.k]) continue;
+        if (!reduce && now - o.last < 33) continue; o.last = now;
+        var sr = o.sec.getBoundingClientRect(), p = reduce ? 1 : Math.min(1, Math.max(0, (vh * 0.92 - sr.top) / (Math.min(sr.height, vh * 1.6) * 0.75)));
+        var dpr = Math.min(window.devicePixelRatio || 1, 1.5), W = Math.round(r.width * dpr), Hh = Math.round(r.height * dpr);
+        if (cv.width !== W || cv.height !== Hh) { cv.width = W; cv.height = Hh; }
+        var x = cv.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, r.width, r.height);
+        K[o.k](x, r.width, r.height, p, reduce ? 3 : (now - t0) / 1000, o);
+      }
+      if (!reduce) requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
+    if (reduce) setTimeout(function () { requestAnimationFrame(draw); }, 1500);
+  })();
+
   // the dot that follows the pointer
   var fine =window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!fine) return;
