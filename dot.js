@@ -116,6 +116,26 @@
           x.beginPath(); x.arc(px, py, 1.45 + f * 1.4, 0, 6.2832); x.fill();
         }
       },
+      // Second screen: a mesh twisted into a vortex that unwinds into a calm, flat grid. Science becomes clear.
+      spiral: function (x, w, h, p, t, o) {
+        var vh = window.innerHeight || 800, sy = window.scrollY || 0, top = o.sec.getBoundingClientRect().top + sy;
+        var u = Math.min(1, Math.max(0, (sy - top - 0.45 * vh) / (0.75 * vh))), out = Math.min(1, Math.max(0, (sy - top - 1.25 * vh) / (0.12 * vh)));
+        if (reduce) u = 1; if (out >= 1) return;
+        var e = 1 - u * u * (3 - 2 * u), tw = 3.4 * e + 0.12 * Math.sin(t * 0.3), cx = w / 2, cy = h / 2, S = Math.max(w, h) * 0.62, N = 30, M = 64;
+        var al = (0.15 + 0.08 * e) * (1 - out);
+        x.lineWidth = 1; x.strokeStyle = 'rgba(238,243,241,' + al.toFixed(3) + ')';
+        var pt = function (a, b) { var r = Math.hypot(a, b), th = Math.atan2(b, a) + tw * Math.pow(Math.max(0, 1 - r / 1.25), 2) + 0.04 * Math.sin(t * 0.4 + r * 3) * e, rr = r * (1 - 0.18 * e * Math.max(0, 1 - r)); return [cx + Math.cos(th) * rr * S, cy + Math.sin(th) * rr * S]; };
+        if (o.mi > 0.01) { var mx = (o.mx - cx) / S, my = (o.my - cy) / S; }
+        for (var dir = 0; dir < 2; dir++) for (var i = 0; i <= N; i++) {
+          x.beginPath();
+          for (var j = 0; j <= M; j++) {
+            var a = -1 + 2 * (dir ? j / M : i / N), b = -1 + 2 * (dir ? i / N : j / M);
+            if (o.mi > 0.01) { var dx = a - mx, dy = b - my, f = o.mi * 0.08 * Math.exp(-(dx * dx + dy * dy) / 0.02); a += dx * f * 4; b += dy * f * 4; }
+            var P = pt(a, b); if (j) x.lineTo(P[0], P[1]); else x.moveTo(P[0], P[1]);
+          }
+          x.stroke();
+        }
+      },
       // Contact: noisy rings that settle into calm ripples around the dish
       rings: function (x, w, h, p, t, o) {
         var cx = w / 2, cy = h / 2, R0 = Math.min(w, h) * 0.3, R1 = R0 * 228 / 106, NR = 50, amp = R0 * (9.3 / 106) * (1 + 1.8 * (1 - ss(0, 1, p)));
