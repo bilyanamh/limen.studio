@@ -7,6 +7,7 @@
 <meta name="description" content="Limen is a creative studio at the threshold of science, design, technology and art, for Medtech, Biotech and the Life Sciences.">
 <style>
 @font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/geist-variable.woff2) format('woff2')}
+@font-face{font-family:'Atkinson Hyperlegible Next';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/atkinson-hyperlegible-next-variable.woff2) format('woff2')}
 @font-face{font-family:'Geist Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/geist-mono-variable.woff2) format('woff2')}
 
 @media (max-width:640px){
@@ -178,7 +179,7 @@ html.lm-bwj .lm-bw.on{opacity:1;filter:none}
   var html = htmPreact.html, render = htmPreact.render;
   function TPL(v) { return html`
 
-<div style="font-family: 'Geist', system-ui, sans-serif; font-weight: 400; color: #0D1413; min-height: 100vh; position: relative">
+<div style="font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-weight: 400; color: #0D1413; min-height: 100vh; position: relative">
 <a href="#services" class="lm-skip">Skip to content</a>
 
 <section id="start" ref="${v.refDSec}" style="position: relative; z-index: 3; height: 190vh; color: #0D1413">
@@ -817,7 +818,7 @@ class Component extends DCLogic {
       var cross = sstep(0, 0.3, e);
       if (!noBg) { ctx.fillStyle = '#0F0D0E'; ctx.fillRect(0, 0, w, h); }
       var Q = [[0, 0], [1, 0], [0, 1], [1, 1]];
-      var sans = "400 " + Math.max(13, Math.round(qh * 0.05)) + "px 'Geist', system-ui, sans-serif";
+      var sans = "400 " + Math.max(13, Math.round(qh * 0.05)) + "px 'Atkinson Hyperlegible Next', system-ui, sans-serif";
       for (var q = 0; q < 4; q++) {
         var open = sstep(0.15 + q * 0.12, 0.6 + q * 0.12, e); if (open < 0.01) continue;
         var x0 = Q[q][0] * qw, y0 = Q[q][1] * qh;
@@ -914,7 +915,7 @@ class Component extends DCLogic {
         }
         // quadrant word, top left, lowercase
         var names = ['art', 'science', 'design', 'technology'], light = q === 0 || q === 1;
-        ctx.font = "400 " + Math.max(18, Math.round(qh * 0.075)) + "px 'Geist', system-ui, sans-serif"; ctx.fillStyle = light ? '#16151A' : '#F1EFEA';
+        ctx.font = "400 " + Math.max(18, Math.round(qh * 0.075)) + "px 'Atkinson Hyperlegible Next', system-ui, sans-serif"; ctx.fillStyle = light ? '#16151A' : '#F1EFEA';
         ctx.fillText(names[q], x0 + 22, y0 + Math.max(40, qh * 0.12) + (q > 1 ? 70 : 0) * (q > 1 && h > 0 ? 0 : 0));
         ctx.restore();
       }
@@ -2356,7 +2357,7 @@ class Component extends DCLogic {
       const bx = cx - Rr * 1.05, by = cy - Rr * 1.05, bw = Rr * 2.1;
       ctx.strokeStyle = 'rgba(57,229,140,0.7)'; ctx.lineWidth = 1; ctx.strokeRect(bx, by, bw, bw);
       [[bx, by], [bx + bw, by], [bx, by + bw], [bx + bw, by + bw], [bx + bw / 2, by], [bx + bw / 2, by + bw]].forEach(([x, y]) => handle(x, y));
-      const tx = w * 0.63; ctx.fillStyle = CR; ctx.font = "400 " + Math.round(h * 0.3) + "px 'Geist', system-ui, sans-serif"; ctx.fillText('Aa', tx, h * 0.52);
+      const tx = w * 0.63; ctx.fillStyle = CR; ctx.font = "400 " + Math.round(h * 0.3) + "px 'Atkinson Hyperlegible Next', system-ui, sans-serif"; ctx.fillText('Aa', tx, h * 0.52);
       label('OUTFIT · 300', tx, h * 0.62);
       const sw = Math.min(w * 0.065, h * 0.1), sy = h * 0.72;
       [G, TE, SA, CO].forEach((c, i) => { ctx.fillStyle = c; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(tx + i * (sw + 6), sy, sw, sw, 4); else ctx.rect(tx + i * (sw + 6), sy, sw, sw); ctx.fill(); });
@@ -2396,7 +2397,7 @@ class Component extends DCLogic {
 
   doodleKit() {
   var C = { paper: '#EEF3F1', card: '#FFFFFF', ink: '#141210', stone: '#5A534E', ash: '#A39C95', ox: '#0A7A6E' };
-  var SANS = "'Geist', system-ui, sans-serif", MONO = "'Geist Mono', monospace";
+  var SANS = "'Atkinson Hyperlegible Next', system-ui, sans-serif", MONO = "'Geist Mono', monospace";
   // the second half eases down to two-thirds speed: real seconds -> story seconds
   var SLOW0 = 15.5, SLOW1 = 17, RATE = 0.75, S1 = SLOW1 - (1 - RATE) * (SLOW1 - SLOW0) / 2;
   var SPEED = 1.1;
@@ -3016,7 +3017,7 @@ class Component extends DCLogic {
     window.addEventListener('pointermove', this.onMove, { passive: true });
     window.addEventListener('pointerdown', this.onDown, { passive: true });
     const go = () => { this.raf = window.requestAnimationFrame(tick); };
-    if (document.fonts && document.fonts.load) document.fonts.load("300 100px 'Geist'").then(go, go); else go();
+    if (document.fonts && document.fonts.load) document.fonts.load("300 100px 'Atkinson Hyperlegible Next'").then(go, go); else go();
   }
 
   plantHandler() {
