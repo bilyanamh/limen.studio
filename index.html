@@ -2909,7 +2909,8 @@ class Component extends DCLogic {
         }
         const iris = this.cvs.iris, stg = this.cvs.dstage;
         if (iris && stg) {
-          let q = -sr0.top / Math.max(1, sr0.height - vh); q = q < 0 ? 0 : q > 1 ? 1 : q;
+          // progress runs over the stage's own sticky range (its real height, not innerHeight: on phones and some desktop setups 100vh is taller than the window), and finishes just before the stage is released
+          const stH = stg.offsetHeight || vh; let q = -sr0.top / Math.max(1, (sr0.height - stH) * 0.97); q = q < 0 ? 0 : q > 1 ? 1 : q;
           const key = Math.round(q * 600) + ':' + Math.round(r.width) + ':' + Math.round(r.height);
           if (key !== this.irisKey) {
             this.irisKey = key;
